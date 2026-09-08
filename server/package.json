@@ -7,9 +7,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc && xcopy /E /I /Y src\\generated dist\\generated > nul",
     "start": "node dist/server.js",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev"
+    "seed": "tsx src/scripts/import-products.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,16 +17,20 @@
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",
     "axios": "^1.20.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "pg": "8.16.3",
     "prisma": "7.10.0",
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.4.1",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
