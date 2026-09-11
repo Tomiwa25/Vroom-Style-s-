@@ -2788,6 +2788,7 @@ export namespace Prisma {
     image: string | null
     category: string | null
     stock: number | null
+    isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2801,6 +2802,7 @@ export namespace Prisma {
     image: string | null
     category: string | null
     stock: number | null
+    isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2814,6 +2816,7 @@ export namespace Prisma {
     image: number
     category: number
     stock: number
+    isActive: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2841,6 +2844,7 @@ export namespace Prisma {
     image?: true
     category?: true
     stock?: true
+    isActive?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2854,6 +2858,7 @@ export namespace Prisma {
     image?: true
     category?: true
     stock?: true
+    isActive?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2867,6 +2872,7 @@ export namespace Prisma {
     image?: true
     category?: true
     stock?: true
+    isActive?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2967,6 +2973,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive: boolean
     createdAt: Date
     updatedAt: Date
     _count: ProductCountAggregateOutputType | null
@@ -2999,6 +3006,7 @@ export namespace Prisma {
     image?: boolean
     category?: boolean
     stock?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
@@ -3015,6 +3023,7 @@ export namespace Prisma {
     image?: boolean
     category?: boolean
     stock?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["product"]>
@@ -3028,6 +3037,7 @@ export namespace Prisma {
     image?: boolean
     category?: boolean
     stock?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["product"]>
@@ -3041,11 +3051,12 @@ export namespace Prisma {
     image?: boolean
     category?: boolean
     stock?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "externalId" | "name" | "description" | "price" | "image" | "category" | "stock" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "externalId" | "name" | "description" | "price" | "image" | "category" | "stock" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
@@ -3069,6 +3080,7 @@ export namespace Prisma {
       image: string
       category: string
       stock: number
+      isActive: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["product"]>
@@ -3504,6 +3516,7 @@ export namespace Prisma {
     readonly image: FieldRef<"Product", 'String'>
     readonly category: FieldRef<"Product", 'String'>
     readonly stock: FieldRef<"Product", 'Int'>
+    readonly isActive: FieldRef<"Product", 'Boolean'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
   }
@@ -9595,6 +9608,7 @@ export namespace Prisma {
     image: 'image',
     category: 'category',
     stock: 'stock',
+    isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9760,6 +9774,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'OrderStatus'
    */
   export type EnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus'>
@@ -9889,6 +9910,7 @@ export namespace Prisma {
     image?: StringFilter<"Product"> | string
     category?: StringFilter<"Product"> | string
     stock?: IntFilter<"Product"> | number
+    isActive?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     cartItems?: CartItemListRelationFilter
@@ -9904,6 +9926,7 @@ export namespace Prisma {
     image?: SortOrder
     category?: SortOrder
     stock?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     cartItems?: CartItemOrderByRelationAggregateInput
@@ -9922,6 +9945,7 @@ export namespace Prisma {
     image?: StringFilter<"Product"> | string
     category?: StringFilter<"Product"> | string
     stock?: IntFilter<"Product"> | number
+    isActive?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     cartItems?: CartItemListRelationFilter
@@ -9937,6 +9961,7 @@ export namespace Prisma {
     image?: SortOrder
     category?: SortOrder
     stock?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -9958,6 +9983,7 @@ export namespace Prisma {
     image?: StringWithAggregatesFilter<"Product"> | string
     category?: StringWithAggregatesFilter<"Product"> | string
     stock?: IntWithAggregatesFilter<"Product"> | number
+    isActive?: BoolWithAggregatesFilter<"Product"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
@@ -10370,6 +10396,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     cartItems?: CartItemCreateNestedManyWithoutProductInput
@@ -10385,6 +10412,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
@@ -10400,6 +10428,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cartItems?: CartItemUpdateManyWithoutProductNestedInput
@@ -10415,6 +10444,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
@@ -10430,6 +10460,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10443,6 +10474,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10456,6 +10488,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10922,6 +10955,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type CartItemListRelationFilter = {
     every?: CartItemWhereInput
     some?: CartItemWhereInput
@@ -10956,6 +10994,7 @@ export namespace Prisma {
     image?: SortOrder
     category?: SortOrder
     stock?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10975,6 +11014,7 @@ export namespace Prisma {
     image?: SortOrder
     category?: SortOrder
     stock?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10988,6 +11028,7 @@ export namespace Prisma {
     image?: SortOrder
     category?: SortOrder
     stock?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11044,6 +11085,14 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -11469,6 +11518,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type CartItemUpdateManyWithoutProductNestedInput = {
     create?: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput> | CartItemCreateWithoutProductInput[] | CartItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: CartItemCreateOrConnectWithoutProductInput | CartItemCreateOrConnectWithoutProductInput[]
@@ -11861,6 +11914,11 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -11929,6 +11987,14 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
@@ -12355,6 +12421,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
@@ -12369,6 +12436,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -12424,6 +12492,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
@@ -12438,6 +12507,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -12639,6 +12709,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     cartItems?: CartItemCreateNestedManyWithoutProductInput
@@ -12653,6 +12724,7 @@ export namespace Prisma {
     image: string
     category: string
     stock: number
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
@@ -12716,6 +12788,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cartItems?: CartItemUpdateManyWithoutProductNestedInput
@@ -12730,6 +12803,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput

@@ -80,7 +80,7 @@ export const verifyPayment = async (
 	if (transaction.amount !== expectedAmount) {
 		throw new Error("Payment amount does not match the order amount");
 	}
-    if (payment.status === "PAID") {
+    if (payment.status === "PENDING") {
 		await updatePaymentSuccess(reference);
 	    await markOrderAsPaid(payment.orderId);
 	}

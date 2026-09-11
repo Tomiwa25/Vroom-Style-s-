@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc && xcopy /E /I /Y src\\generated dist\\generated > nul",
+    "build": "tsc",
     "start": "node dist/server.js",
-    "seed": "tsx src/scripts/import-products.ts"
+    "seed": "tsx src/scripts/import-products.ts",
+    "test": "vitest",
+    "postinstall": "prisma generate",
+    "test:run": "vitest run",
+    "test:db:migrate": "dotenv -e .env.test -- prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +36,11 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.4.1",
+    "@types/supertest": "^7.2.1",
+    "dotenv-cli": "^11.0.0",
+    "supertest": "^7.2.2",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
   }
 }

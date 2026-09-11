@@ -5,6 +5,9 @@ export const findProducts = async (
     take: number
 ) => {
     return prisma.product.findMany({
+        where: {
+            isActive: true
+        },
         skip,
         take,
         orderBy: {
@@ -14,13 +17,18 @@ export const findProducts = async (
 };
 
 export const countProducts = async () => {
-    return prisma.product.count();
+    return prisma.product.count({
+         where: {
+            isActive: true
+        },
+    });
 };
 
 export const findProductById = async (id: string) => {
     return prisma.product.findUnique({
         where: {
-            id
+            id,
+            isActive: true
         },
     });
 };
@@ -42,6 +50,7 @@ export const searchProducts = async (
 ) => {
     return prisma.product.findMany({
         where: {
+            isActive: true,
             OR: [
                 {
                     name: {
@@ -70,6 +79,7 @@ export const countSearchProducts = async (
 ) => {
     return prisma.product.count({
         where: {
+            isActive: true,
             OR: [
                 {
                     name: {
