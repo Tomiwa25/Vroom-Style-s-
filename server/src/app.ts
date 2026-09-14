@@ -9,9 +9,25 @@ import adminRoutes from "./routes/admin.routes.js";
 
 const app = express();
 
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-}));
+const allowedOrigins = [
+    process.env.CLIENT_URL,
+    process.env.VITE_API_URL,
+].filter((origin): origin is string => Boolean(origin));
+
+app.use(
+    cors({
+        origin(origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+                return;
+            }
+
+            callback(new Error("Not allowed by CORS"));
+        },
+        credentials: true,
+    }),
+);
+
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 app.use(express.json());
 
