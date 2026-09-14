@@ -10,22 +10,21 @@ import adminRoutes from "./routes/admin.routes.js";
 const app = express();
 
 const allowedOrigins = [
-    process.env.CLIENT_URL,
-    process.env.VITE_API_URL,
-].filter((origin): origin is string => Boolean(origin));
+  "http://localhost:5173",
+  "https://vroom-style-s.vercel.app",
+];
 
 app.use(
-    cors({
-        origin(origin, callback) {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-                return;
-            }
-
-            callback(new Error("Not allowed by CORS"));
-        },
-        credentials: true,
-    }),
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
 );
 
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
