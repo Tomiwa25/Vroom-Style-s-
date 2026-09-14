@@ -1,5 +1,5 @@
 import prisma from "../config/database.js";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../generated/prisma/client.js";
 
 export const findProductsForAdmin = async (skip = 0, take = 50) => {
     return prisma.product.findMany({

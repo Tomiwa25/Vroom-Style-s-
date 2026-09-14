@@ -10,7 +10,7 @@ import {
 } from "../controllers/admin.controllers.js";
 import { authenticate } from "../middleware/auth.middleware.js";
 import { authorizeRoles } from "../middleware/role.middleware.js";
-import { Role } from "@prisma/client";
+import { Role } from "../generated/prisma/client.js";
 
 const router = Router();
 
