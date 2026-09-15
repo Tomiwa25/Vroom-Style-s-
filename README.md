@@ -98,7 +98,8 @@ PORT=5000
 DATABASE_URL="postgresql://postgres:password@localhost:5432/postgres?connect_timeout=10&sslmode=prefer"
 JWT_SECRET=
 PAYSTACK_SECRET_KEY=
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=https://vroom-style-s.vercel.app
+CORS_ORIGIN=https://vroom-style-s.vercel.app
 ```
 
 ## Development Commands
@@ -126,8 +127,8 @@ This project is currently separated into a backend Express/Prisma service and a 
 
 - Deploy the backend service from the `server` folder.
 - Deploy the frontend service from the `client` folder.
-- Set the frontend environment variable `VITE_API_URL` to the deployed backend route root.
-- Set backend environment variables for `DATABASE_URL`, `JWT_SECRET`, `PAYSTACK_SECRET_KEY`, and `CLIENT_URL`.
+- Set the frontend environment variable `VITE_API_URL` to `https://vroom-styles.onrender.com/api`.
+- Set backend environment variables for `DATABASE_URL`, `JWT_SECRET`, `PAYSTACK_SECRET_KEY`, `CLIENT_URL`, and `CORS_ORIGIN`.
 
 ## Status
 

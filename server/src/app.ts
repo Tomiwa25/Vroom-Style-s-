@@ -13,6 +13,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL,
   process.env.CORS_ORIGIN,
   process.env.VITE_API_URL,
+  "https://vroom-style-s.vercel.app",
   "http://localhost:5173",
   "http://127.0.0.1:5173",
 ].filter((origin): origin is string => Boolean(origin));
