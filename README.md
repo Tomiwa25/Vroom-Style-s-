@@ -121,6 +121,24 @@ npm install
 npm run dev
 ```
 
+### Docker (Full-Stack Containerization)
+
+Run the entire application stack (PostgreSQL 16, Express API, and Nginx-powered React Frontend) with a single command:
+
+```bash
+docker compose up --build
+```
+
+- **Frontend Storefront**: [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:5000/api](http://localhost:5000/api)
+- **API Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
+- **PostgreSQL Database**: `localhost:5432` (`vroom_db`)
+
+To stop all containers:
+```bash
+docker compose down
+```
+
 ## Deployment Notes
 
 This project is separated into a backend Express/Prisma service and a frontend Vite service:

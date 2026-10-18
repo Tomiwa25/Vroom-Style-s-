@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - 'fix/**'
+      - 'feat/**'
   pull_request:
     branches:
       - main
@@ -76,6 +78,14 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/vroom_test?sslmode=disable
+      JWT_SECRET: test-github-actions-ci-secret-jwt-key
+      PAYSTACK_SECRET_KEY: sk_test_mock_paystack_secret_key
+      CLIENT_URL: http://localhost:5173
+      CORS_ORIGIN: http://localhost:5173
+      NODE_ENV: test
 
     steps:
       - name: Checkout Code
