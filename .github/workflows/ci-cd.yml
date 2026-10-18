@@ -1,0 +1,193 @@
+name: Vroom Style(s) CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      run_deploy:
+        description: 'Trigger deployment after CI succeeds'
+        required: false
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # -------------------------------------------------------------
+  # Job 1: Client CI (Vite + React + TypeScript + ESLint)
+  # -------------------------------------------------------------
+  client-ci:
+    name: Client CI (Lint & Build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (v20)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install Client Dependencies
+        run: npm ci
+
+      - name: Lint Client Source
+        run: npm run lint
+
+      - name: Build Client Bundle
+        run: npm run build
+        env:
+          VITE_API_URL: https://vroom-styles.onrender.com/api
+
+  # -------------------------------------------------------------
+  # Job 2: Server CI (Node.js + Prisma + TypeScript + Vitest)
+  # -------------------------------------------------------------
+  server-ci:
+    name: Server CI (Build & Integration Tests)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgrespassword
+          POSTGRES_DB: vroom_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (v20)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install Server Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Build TypeScript Server
+        run: npm run build
+
+      - name: Push Schema to Test Database
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/vroom_test?sslmode=disable
+        run: npx prisma db push --schema prisma/schema.prisma
+
+      - name: Run Test Suite (Vitest)
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/vroom_test?sslmode=disable
+          JWT_SECRET: test-github-actions-ci-secret-jwt-key
+          PAYSTACK_SECRET_KEY: sk_test_mock_paystack_secret_key
+          CLIENT_URL: http://localhost:5173
+          CORS_ORIGIN: http://localhost:5173
+          NODE_ENV: test
+        run: npm run test:run
+
+  # -------------------------------------------------------------
+  # Job 3: Continuous Deployment (Render & Vercel)
+  # -------------------------------------------------------------
+  deploy:
+    name: Continuous Deployment (Render & Vercel)
+    needs: [client-ci, server-ci]
+    if: >-
+      (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
+      (github.event_name == 'workflow_dispatch' && (inputs.run_deploy == true || inputs.run_deploy == null))
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 1. Trigger Backend Deployment on Render
+      - name: Trigger Backend Deployment (Render)
+        id: deploy_backend
+        run: |
+          if [ -n "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "Triggering Render backend redeployment via Deploy Hook..."
+            response=$(curl -s -w "\n%{http_code}" -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}")
+            http_code=$(echo "$response" | tail -n1)
+            body=$(echo "$response" | sed '$d')
+            if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+              echo "Render Deploy Hook triggered successfully (HTTP $http_code)."
+              echo "backend_status=Triggered Successfully" >> $GITHUB_OUTPUT
+            else
+              echo "Error: Render Deploy Hook returned HTTP $http_code: $body"
+              exit 1
+            fi
+          else
+            echo "Notice: RENDER_DEPLOY_HOOK_URL secret is not set."
+            echo "backend_status=Skipped (Secret not set)" >> $GITHUB_OUTPUT
+          fi
+
+      # 2. Trigger Frontend Deployment on Vercel
+      - name: Trigger Frontend Deployment (Vercel)
+        id: deploy_frontend
+        run: |
+          if [ -n "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
+            echo "Triggering Vercel frontend redeployment via Deploy Hook..."
+            response=$(curl -s -w "\n%{http_code}" -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}")
+            http_code=$(echo "$response" | tail -n1)
+            body=$(echo "$response" | sed '$d')
+            if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+              echo "Vercel Deploy Hook triggered successfully (HTTP $http_code)."
+              echo "frontend_status=Triggered Successfully" >> $GITHUB_OUTPUT
+            else
+              echo "Error: Vercel Deploy Hook returned HTTP $http_code: $body"
+              exit 1
+            fi
+          else
+            echo "Notice: VERCEL_DEPLOY_HOOK_URL secret not set."
+            echo "Vercel automatically builds and deploys from GitHub repository commits on branch main."
+            echo "frontend_status=Managed by Vercel GitHub App" >> $GITHUB_OUTPUT
+          fi
+
+      # 3. Post Deployment Summary to GitHub Actions Log
+      - name: Generate Deployment Step Summary
+        run: |
+          cat << 'EOF' >> $GITHUB_STEP_SUMMARY
+          # 🚀 Vroom Style(s) Deployment Report
+
+          | Component | Status | Target URL |
+          | :--- | :--- | :--- |
+          | **Client Frontend** | ${{ steps.deploy_frontend.outputs.frontend_status }} | [https://vroom-style-s.vercel.app](https://vroom-style-s.vercel.app) |
+          | **Server Backend** | ${{ steps.deploy_backend.outputs.backend_status }} | [https://vroom-styles.onrender.com/api](https://vroom-styles.onrender.com/api) |
+
+          ### Commit Information
+          - **Commit SHA**: \`${{ github.sha }}\`
+          - **Triggered By**: \`${{ github.actor }}\`
+          - **Branch**: \`${{ github.ref_name }}\`
+          - **Workflow Run**: [#${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+          ### Verification Endpoints
+          - Frontend: \`https://vroom-style-s.vercel.app\`
+          - API Health Check: \`https://vroom-styles.onrender.com/api/health\`
+          EOF

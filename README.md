@@ -123,13 +123,43 @@ npm run dev
 
 ## Deployment Notes
 
-This project is currently separated into a backend Express/Prisma service and a frontend Vite service. For production hosting such as Render:
+This project is separated into a backend Express/Prisma service and a frontend Vite service:
 
-- Deploy the backend service from the `server` folder.
-- Deploy the frontend service from the `client` folder.
-- Set the frontend environment variable `VITE_API_URL` to `https://vroom-styles.onrender.com/api`.
-- Set backend environment variables for `DATABASE_URL`, `JWT_SECRET`, `PAYSTACK_SECRET_KEY`, `CLIENT_URL`, and `CORS_ORIGIN`.
+- **Frontend**: Hosted on [Vercel](https://vroom-style-s.vercel.app)
+- **Backend API**: Hosted on [Render](https://vroom-styles.onrender.com/api)
+- Frontend Environment Variables: `VITE_API_URL=https://vroom-styles.onrender.com/api`
+- Backend Environment Variables: `DATABASE_URL`, `JWT_SECRET`, `PAYSTACK_SECRET_KEY`, `CLIENT_URL`, `CORS_ORIGIN`
+
+## CI/CD Pipeline (GitHub Actions)
+
+An automated CI/CD pipeline is configured in [`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml) with three automated stages:
+
+1. **Client CI (`client-ci`)**:
+   - Node.js 20 with npm caching
+   - Automated ESLint code linting (`npm run lint`)
+   - Production Vite bundle build (`npm run build`)
+2. **Server CI (`server-ci`)**:
+   - Node.js 20 with npm caching
+   - Ephemeral PostgreSQL 16 test service container
+   - Prisma Client generation (`npx prisma generate`)
+   - TypeScript compilation (`npm run build`)
+   - Database migration push (`npx prisma db push`)
+   - Integration & unit test suite execution with Vitest (`npm run test:run`)
+3. **Continuous Deployment (`deploy`)**:
+   - Triggers automatically upon merges or pushes to `main` when CI passes, or manually via `workflow_dispatch`
+   - Invokes the Render Deploy Hook to immediately trigger backend redeployment
+   - Invokes the Vercel Deploy Hook (or leverages Vercel native GitHub integration)
+   - Emits a deployment report directly to GitHub Actions Summary
+
+### Configuring CI/CD Secrets in GitHub
+
+To enable automated CD redeployment hooks, add these repository secrets in GitHub (`Settings -> Secrets and variables -> Actions`):
+
+| Secret Name | Description | Where to find |
+| :--- | :--- | :--- |
+| `RENDER_DEPLOY_HOOK_URL` | Render Deploy Hook URL | Render Dashboard → Backend Service → Settings → Deploy Hook |
+| `VERCEL_DEPLOY_HOOK_URL` *(Optional)* | Vercel Deploy Hook URL | Vercel Dashboard → Project → Settings → Git → Deploy Hooks |
 
 ## Status
 
-The repository has a working route structure and full backend API design for a simple clothing/accessories e-commerce workflow. The frontend has a visual storefront and customer login/register mockup, but the UI is not fully connected to live API data yet.
+The repository has a working route structure and full backend API design for a clothing/accessories e-commerce workflow. The frontend has a visual storefront and customer login/register mockup, ready for live API integration.
