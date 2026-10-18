@@ -7,6 +7,23 @@ import {
 } from "../repositories/product.repositories.js";
 import type { Product } from "../types/product.js";
 
+const mapProduct = (p: any): Product => ({
+    id: p.id,
+    externalId: p.externalId ?? 0,
+    name: p.name,
+    description: p.description,
+    price: Number(p.price),
+    image: p.image,
+    images: p.images ?? [p.image],
+    category: p.category,
+    stock: p.stock,
+    tag: p.tag ?? null,
+    sizes: p.sizes ?? [],
+    colors: p.colors ?? null,
+    material: p.material ?? null,
+    fitGuide: p.fitGuide ?? null,
+});
+
 export const getProducts = async (
     limit = 12,
     skip = 0
@@ -22,16 +39,7 @@ export const getProducts = async (
     ]);
 
     return {
-        products: products.map((product) => ({
-            id: product.id,
-            externalId: product.externalId ?? 0,
-            name: product.name,
-            description: product.description,
-            price: Number(product.price),
-            image: product.image,
-            category: product.category,
-            stock: product.stock,
-        })),
+        products: products.map(mapProduct),
         total,
         skip,
         limit,
@@ -45,16 +53,7 @@ export const getProductById = async (id: number): Promise<Product> => {
         throw new Error("Product not found");
     }
 
-    return {
-        id: product.id,
-        externalId: product.externalId ?? 0,
-        name: product.name,
-        description: product.description,
-        price: Number(product.price),
-        image: product.image,
-        category: product.category,
-        stock: product.stock,
-    };
+    return mapProduct(product);
 };
 
 export const searchProductsService = async (
@@ -67,7 +66,7 @@ export const searchProductsService = async (
         countSearchProducts(query),
     ]);
     return {
-        products,
+        products: products.map(mapProduct),
         total,
         skip,
         limit,

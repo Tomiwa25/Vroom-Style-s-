@@ -6,6 +6,8 @@ export const cleanDatabase = async () => {
     await prisma.order.deleteMany();
     await prisma.cartItem.deleteMany();
     await prisma.cart.deleteMany();
-    await prisma.product.deleteMany();
+    await prisma.product.deleteMany({
+        where: { externalId: null }
+    });
     await prisma.user.deleteMany();
 }

@@ -5,6 +5,12 @@ export interface Product {
     description: string;
     price: number;
     image: string;
+    images?: string[];
     category: string;
     stock: number;
+    tag?: string | null;
+    sizes?: string[];
+    colors?: any;
+    material?: string | null;
+    fitGuide?: string | null;
 }

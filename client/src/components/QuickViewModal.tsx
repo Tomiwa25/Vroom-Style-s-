@@ -24,11 +24,14 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
+  const [activeImage, setActiveImage] = useState<string>("");
 
   if (!isOpen || !product) return null;
 
+  const currentImage = activeImage || product.image;
   const currentSize = selectedSize || product.sizes?.[0] || "One Size";
   const currentColor = selectedColor || product.colors?.[0]?.name || "Default";
+  const gallery = product.images && product.images.length > 0 ? product.images : [product.image];
 
   const handleAdd = () => {
     onAddToCart(product, currentSize, currentColor, quantity);
@@ -50,15 +53,30 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
         </button>
 
         <div className="quickview-layout">
-          {/* Product Media */}
+          {/* Product Media with Multi-Image Gallery */}
           <div className="quickview-media">
             <img
-              src={product.image}
+              src={currentImage}
               alt={product.name}
               className="quickview-img"
             />
             {product.tag && (
               <span className="quickview-badge">{product.tag}</span>
+            )}
+
+            {gallery.length > 1 && (
+              <div className="quickview-gallery-strip">
+                {gallery.map((img, idx) => (
+                  <button
+                    key={idx}
+                    className={`gallery-thumb-btn ${activeImage === img ? "active" : ""}`}
+                    onClick={() => setActiveImage(img)}
+                    title={`View angle ${idx + 1}`}
+                  >
+                    <img src={img} alt={`Angle ${idx + 1}`} />
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 
@@ -76,6 +94,18 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               </div>
             )}
 
+            {/* Stock counter indicator */}
+            <div className="quickview-stock-indicator">
+              <span className="stock-dot"></span>
+              <span>
+                {product.stock > 5 ? (
+                  `In Stock (${product.stock} items ready to dispatch)`
+                ) : (
+                  <strong>Only {product.stock} items left in stock — order soon</strong>
+                )}
+              </span>
+            </div>
+
             {/* Color Swatch Selection */}
             {product.colors && product.colors.length > 0 && (
               <div className="quickview-option-group">
@@ -83,7 +113,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                   <span>Color:</span> <strong>{currentColor}</strong>
                 </label>
                 <div className="swatch-pills-row">
-                  {product.colors.map((c) => (
+                  {product.colors.map((c: { name: string; hex: string }) => (
                     <button
                       key={c.name}
                       className={`swatch-pill ${
@@ -154,8 +184,8 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             </div>
 
             <div className="quickview-perks">
-              <span>✦ Free express dispatch over ₦100,000</span>
-              <span>✦ 7-day complimentary atelier return</span>
+              <span>✦ Free express dispatch on orders over ₦100,000</span>
+              <span>✦ 7-day complimentary return & size exchange</span>
             </div>
           </div>
         </div>

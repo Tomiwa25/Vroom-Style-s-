@@ -85,20 +85,25 @@ function App() {
           const liveList: Product[] = res.data.data.products.map(
             (p: Record<string, unknown>, idx: number) => {
               const fallback = initialProducts[idx % initialProducts.length];
-              const pImage = typeof p.image === "string" ? p.image : "";
+              const pImage = typeof p.image === "string" && p.image ? p.image : fallback.image;
+              const pImages = Array.isArray(p.images) && p.images.length > 0
+                ? (p.images as string[])
+                : [pImage];
               return {
                 id: (p.id as string) || `live-${idx}`,
+                externalId: typeof p.externalId === "number" ? p.externalId : fallback.externalId,
                 name: (p.name as string) || fallback.name,
                 description: (p.description as string) || fallback.description,
                 price: Number(p.price) || fallback.price,
-                image: pImage.startsWith("http") ? pImage : fallback.image,
+                image: pImage,
+                images: pImages,
                 category: (p.category as string) || fallback.category,
-                stock: (p.stock as number) ?? fallback.stock,
-                tag: fallback.tag,
-                colors: fallback.colors,
-                sizes: fallback.sizes,
-                fitGuide: fallback.fitGuide,
-                material: fallback.material,
+                stock: typeof p.stock === "number" ? p.stock : fallback.stock,
+                tag: (p.tag as string) || fallback.tag,
+                colors: (p.colors as { name: string; hex: string }[]) || fallback.colors,
+                sizes: (p.sizes as string[]) || fallback.sizes,
+                fitGuide: (p.fitGuide as "Runs Small" | "True to Size" | "Runs Large") || fallback.fitGuide,
+                material: (p.material as string) || fallback.material,
               };
             }
           );
@@ -570,7 +575,15 @@ function App() {
                         <span className="product-price">
                           {formatPrice(product.price)}
                         </span>
-                        <span className="stock in">In Stock</span>
+                        {product.stock <= 5 ? (
+                          <span className="stock low" title={`${product.stock} items left in stock`}>
+                            Only {product.stock} left
+                          </span>
+                        ) : (
+                          <span className="stock in" title={`${product.stock} items in stock`}>
+                            {product.stock} in stock
+                          </span>
+                        )}
                       </div>
 
                       <button
