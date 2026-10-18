@@ -82,7 +82,6 @@ function App() {
       try {
         const res = await api.get("/products?limit=12");
         if (res.data?.data?.products && res.data.data.products.length > 0) {
-          // Merge remote products while preserving rich images & attributes
           const liveList: Product[] = res.data.data.products.map(
             (p: Record<string, unknown>, idx: number) => {
               const fallback = initialProducts[idx % initialProducts.length];
@@ -106,7 +105,7 @@ function App() {
           setProducts(liveList);
         }
       } catch (err) {
-        console.log("Operating with curated atelier local cache", err);
+        console.log("Operating with curated store catalog", err);
       }
     };
 
@@ -130,7 +129,7 @@ function App() {
     quantity: number = 1
   ) => {
     const chosenSize = size || product.sizes?.[0] || "Standard";
-    const chosenColor = color || product.colors?.[0]?.name || "Atelier Tone";
+    const chosenColor = color || product.colors?.[0]?.name || "Default";
 
     setCartItems((prev) => {
       const existingIdx = prev.findIndex(
@@ -157,7 +156,7 @@ function App() {
       ];
     });
 
-    showToast(`Added ${product.name} (${chosenSize}) to your Bag`);
+    showToast(`Added ${product.name} (${chosenSize}) to your bag`);
     setIsCartOpen(true);
   };
 
@@ -179,7 +178,7 @@ function App() {
     const removedName = cartItems[index]?.product.name;
     setCartItems((prev) => prev.filter((_, idx) => idx !== index));
     if (removedName) {
-      showToast(`Removed ${removedName} from your Bag`);
+      showToast(`Removed ${removedName} from your bag`);
     }
   };
 
@@ -187,10 +186,10 @@ function App() {
   const handleToggleWishlist = (productId: string) => {
     setWishlist((prev) => {
       if (prev.includes(productId)) {
-        showToast("Removed from Wishlist");
+        showToast("Removed from wishlist");
         return prev.filter((id) => id !== productId);
       }
-      showToast("Saved to your Atelier Wishlist ♡");
+      showToast("Saved to your wishlist ♡");
       return [...prev, productId];
     });
   };
@@ -240,19 +239,19 @@ function App() {
 
   return (
     <div className="app">
-      {/* ---------------- Top Banner Bar ---------------- */}
+      {/* ---------------- 1. Top Announcement Bar ---------------- */}
       <div className="announcement-banner">
-        <span>✨ The Summer Atelier Drop is now live — Worldwide Express Shipping Available</span>
+        <span>⚡ FREE EXPRESS DELIVERY ON ORDERS OVER ₦100,000 • PAYSTACK VERIFIED CHECKOUT • 7-DAY EASY RETURNS</span>
       </div>
 
-      {/* ---------------- Sticky Header ---------------- */}
+      {/* ---------------- 2. Sticky Header ---------------- */}
       <header className="topbar">
         <div className="topbar-wrap">
           <a className="brand" href="#">
             <span className="brand-mark">V</span>
             <span className="brand-copy">
               <strong>Vroom Style(s)</strong>
-              <span>atelier collection</span>
+              <span>Modern Essentials</span>
             </span>
           </a>
 
@@ -277,7 +276,7 @@ function App() {
               <span className="search-icon">🔍</span>
               <input
                 className="search"
-                placeholder="Search pieces, fabrics..."
+                placeholder="Search styles, items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -303,7 +302,7 @@ function App() {
             <button
               className="icon-button wishlist-top-btn"
               aria-label="Wishlist"
-              onClick={() => showToast(`You have ${wishlist.length} item(s) in your Wishlist`)}
+              onClick={() => showToast(`You have ${wishlist.length} item(s) in your wishlist`)}
             >
               <span className={wishlist.length > 0 ? "heart-active" : ""}>♡</span>
               {wishlist.length > 0 && <span className="action-badge">{wishlist.length}</span>}
@@ -339,22 +338,22 @@ function App() {
               onClick={() => setIsAdminOpen(true)}
               title="Store Retail Intelligence"
             >
-              Intelligence
+              Analytics
             </button>
           </div>
         </div>
       </header>
 
-      {/* ---------------- Main Page Body ---------------- */}
+      {/* ---------------- 3. Main Page Body ---------------- */}
       <main className="page-wrap">
-        {/* Hero Section */}
+        {/* Hero Section with Confirmed Tagline */}
         <section className="hero">
           <section className="hero-copy">
-            <span className="kicker">The Summer Edit</span>
-            <h1>Quiet Luxury Objects</h1>
+            <span className="kicker">NEW ARRIVALS • 2026</span>
+            <h1>Style in Motion</h1>
             <p className="subtitle">
-              Thoughtful clothing, tailored outerwear, and wardrobe objects
-              crafted for the understated daily ritual.
+              Premium clothing and signature accessories designed for modern momentum,
+              refined comfort, and effortless everyday confidence.
             </p>
 
             <div className="hero-cta">
@@ -365,15 +364,17 @@ function App() {
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                Shop Atelier Drop
+                Shop New Arrivals
               </button>
               <button
                 className="secondary-button"
-                onClick={() =>
-                  showToast("Summer Lookbook: Photographed in Marseille by Vroom Studio")
-                }
+                onClick={() => {
+                  setSelectedCategory("Women");
+                  const el = document.getElementById("catalog-section");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
               >
-                View Lookbook
+                Explore Collection
               </button>
             </div>
 
@@ -381,17 +382,17 @@ function App() {
               <div>
                 <span className="metric-value">24h</span>
                 <br />
-                <span className="metric-label">Express Dispatch</span>
-              </div>
-              <div>
-                <span className="metric-value">07</span>
-                <br />
-                <span className="metric-label">Curated Drops</span>
+                <span className="metric-label">Fast Dispatch</span>
               </div>
               <div>
                 <span className="metric-value">100%</span>
                 <br />
-                <span className="metric-label">Artisanal Craft</span>
+                <span className="metric-label">Premium Fabrics</span>
+              </div>
+              <div>
+                <span className="metric-value">7 Days</span>
+                <br />
+                <span className="metric-label">Easy Returns</span>
               </div>
             </div>
           </section>
@@ -400,30 +401,62 @@ function App() {
             <div className="hero-photo-wrap">
               <img
                 src="/images/hero.jpg"
-                alt="Quiet Luxury Fashion Editorial"
+                alt="Vroom Style High Fashion Model"
                 className="hero-photo-img"
               />
               <div className="hero-floating-card">
-                <span className="floating-card-tag">Atelier Drop 01</span>
-                <strong>Washed Wool Belted Blazer</strong>
-                <p>Spun in Biella, Italy</p>
+                <span className="floating-card-tag">Trending Now</span>
+                <strong>Belted Tailored Blazer Set</strong>
+                <p>Designed for versatile day-to-night movement</p>
               </div>
             </div>
           </section>
         </section>
 
-        {/* Collections Strip */}
+        {/* ---------------- 4. Value Proposition Trust Bar ---------------- */}
+        <section className="trust-bar">
+          <div className="trust-item">
+            <div className="trust-icon">🚚</div>
+            <div className="trust-content">
+              <strong>Fast Express Delivery</strong>
+              <span>Nationwide 24-48h dispatch</span>
+            </div>
+          </div>
+          <div className="trust-item">
+            <div className="trust-icon">🔒</div>
+            <div className="trust-content">
+              <strong>Secure Payments</strong>
+              <span>Encrypted Paystack checkout</span>
+            </div>
+          </div>
+          <div className="trust-item">
+            <div className="trust-icon">↺</div>
+            <div className="trust-content">
+              <strong>7-Day Easy Returns</strong>
+              <span>Hassle-free size exchange</span>
+            </div>
+          </div>
+          <div className="trust-item">
+            <div className="trust-icon">✨</div>
+            <div className="trust-content">
+              <strong>Authentic Quality</strong>
+              <span>100% verified materials</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------- 5. Collections / Category Spotlight ---------------- */}
         <section className="section-label">
-          <h2>Collections</h2>
-          <span>Summer 2026 Season</span>
+          <h2>Shop by Category</h2>
+          <span>Curated Selections</span>
         </section>
 
         <section className="collection-strip">
           {[
-            { id: "01", title: "Soft Structure", cat: "Women" },
-            { id: "02", title: "Everyday Icons", cat: "Outerwear" },
-            { id: "03", title: "Weekend Layers", cat: "Knitwear" },
-            { id: "04", title: "Object Edit", cat: "Accessories" },
+            { id: "01", title: "Women's Collection", cat: "Women" },
+            { id: "02", title: "Men's Outerwear", cat: "Outerwear" },
+            { id: "03", title: "Luxury Knitwear", cat: "Knitwear" },
+            { id: "04", title: "Signature Accessories", cat: "Accessories" },
           ].map((col) => (
             <article
               key={col.id}
@@ -441,12 +474,12 @@ function App() {
           ))}
         </section>
 
-        {/* Product Catalog Grid Section */}
+        {/* ---------------- 6. Main Product Catalog Section ---------------- */}
         <section id="catalog-section" className="catalog-container">
           <div className="catalog-header-bar">
             <div>
-              <span className="kicker">Seasonal Catalog</span>
-              <h2>Featured Atelier Pieces</h2>
+              <span className="kicker">FEATURED COLLECTION</span>
+              <h2>Trending Styles</h2>
             </div>
             <div className="catalog-filter-tabs">
               {["All", "Women", "Outerwear", "Knitwear", "Accessories"].map((cat) => (
@@ -537,7 +570,7 @@ function App() {
                         <span className="product-price">
                           {formatPrice(product.price)}
                         </span>
-                        <span className="stock in">Available</span>
+                        <span className="stock in">In Stock</span>
                       </div>
 
                       <button
@@ -554,39 +587,36 @@ function App() {
           )}
         </section>
 
-        {/* Feature Brand Pillars */}
+        {/* ---------------- 7. Quality & Craftsmanship Pillars ---------------- */}
         <section className="feature-band">
           <article className="feature">
-            <span className="feature-title">01 / Material</span>
+            <span className="feature-title">01 / Premium Fabrics</span>
             <p className="feature-copy">
-              Mulberry silk, Grade-A cashmere, Italian calfskin, and slow-woven
-              organic cotton.
+              Mulberry silk, Grade-A cashmere, Italian calfskin leather, and heavy combed cotton.
             </p>
           </article>
           <article className="feature">
-            <span className="feature-title">02 / Fit</span>
+            <span className="feature-title">02 / Tailored Fit</span>
             <p className="feature-copy">
-              A balanced wardrobe designed with clean architectural lines and
-              confident fluid drape.
+              Architectural silhouettes designed for versatile movement, comfortable all-day wear, and effortless presence.
             </p>
           </article>
           <article className="feature">
-            <span className="feature-title">03 / Care</span>
+            <span className="feature-title">03 / Made to Endure</span>
             <p className="feature-copy">
-              Constructed for timeless longevity and an enduring, sustainable
-              conversation with style.
+              Reinforced construction and thoughtful finishing details built to look exceptional season after season.
             </p>
           </article>
         </section>
       </main>
 
-      {/* ---------------- Floating Concierge Button ---------------- */}
+      {/* ---------------- Floating Stylist Button ---------------- */}
       <a
-        href="https://wa.me/?text=Hello%20Vroom%20Style(s)%20Atelier,%20I%20have%20an%20inquiry%20about%20a%20piece"
+        href="https://wa.me/?text=Hello%20Vroom%20Style(s),%20I%20have%20an%20inquiry%20about%20a%20product"
         target="_blank"
         rel="noopener noreferrer"
         className="floating-stylist-btn"
-        title="Chat with a Stylist"
+        title="Chat with Customer Support"
       >
         <span className="stylist-icon">💬</span>
         <span className="stylist-text">Ask a Stylist</span>
@@ -629,10 +659,10 @@ function App() {
         formatPrice={formatPrice}
       />
 
-      {/* Toast Notification */}
+      {/* Floating Toast Notification */}
       {toastMessage && (
         <div className="floating-toast">
-          <span className="toast-icon">✦</span>
+          <span className="toast-icon">✓</span>
           <span>{toastMessage}</span>
         </div>
       )}
@@ -643,34 +673,34 @@ function App() {
           <div className="footer-top-col">
             <div className="footer-brand">
               <span className="brand-mark">V</span>
-              <strong>Vroom Style(s) Atelier</strong>
+              <strong>Vroom Style(s)</strong>
             </div>
             <p className="footer-bio">
-              Quiet luxury objects and tailored wardrobe staples shaped for everyday ritual.
+              Modern essentials and elevated fashion crafted for fast-paced, confident living.
             </p>
           </div>
 
           <div className="footer-newsletter">
-            <span className="newsletter-title">Subscribe to Atelier Notes</span>
+            <span className="newsletter-title">Join the Vroom Style Club</span>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                showToast("Subscribed to Vroom Style(s) Atelier Notes");
+                showToast("Welcome! Check your email for 10% off your first order.");
               }}
               className="newsletter-form"
             >
-              <input type="email" required placeholder="Enter your email" />
-              <button type="submit">Join</button>
+              <input type="email" required placeholder="Enter your email for 10% off" />
+              <button type="submit">Subscribe</button>
             </form>
           </div>
 
           <div className="footer-bottom-row">
             <span className="footer-copy">© 2026 Vroom Style(s). All rights reserved.</span>
             <nav className="footer-links">
-              <a href="#" onClick={(e) => { e.preventDefault(); showToast("Lookbook Marseille 2026"); }}>Lookbook</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); showToast("7-Day Complimentary Returns"); }}>Shipping & Returns</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); showToast("Organic dry clean only"); }}>Care Guide</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setIsAdminOpen(true); }}>Retail Portal</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); showToast("Delivery: 24-48 hours nationwide"); }}>Shipping Information</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); showToast("7-Day Hassle-Free Returns & Exchanges"); }}>Returns & Exchanges</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); showToast("All items dry clean or gentle hand wash"); }}>Care Guide</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setIsAdminOpen(true); }}>Store Intelligence</a>
             </nav>
           </div>
         </div>
