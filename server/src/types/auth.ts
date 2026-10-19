@@ -1,6 +1,7 @@
 import { Role } from "@prisma/client";
 
 export interface AuthenticatedUser {
-    userId: string,
+    userId: string;
     role: Role;
+    isVerified?: boolean;
 }

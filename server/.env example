@@ -1,6 +1,16 @@
 PORT=5000
 DATABASE_URL="postgresql://postgres:password@localhost:5432/postgres?connect_timeout=10&sslmode=prefer"
-JWT_SECRET=
+JWT_SECRET=your_jwt_secret_key_here
 PAYSTACK_SECRET_KEY=
 CLIENT_URL=https://vroom-style-s.vercel.app
 CORS_ORIGIN=https://vroom-style-s.vercel.app
+
+# Email & Mail Configuration
+MAIL=log
+EMAIL_FROM="Vroom Style(s) Atelier <security@vroomstyles.com>"
+# Optional SMTP configuration if MAIL=smtp
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
+SMTP_SECURE=false

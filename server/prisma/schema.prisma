@@ -7,14 +7,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  firstName String
-  lastName  String
-  role      Role     @default(CUSTOMER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String    @id @default(uuid())
+  email      String    @unique
+  password   String
+  firstName  String
+  lastName   String
+  role       Role      @default(CUSTOMER)
+  isVerified Boolean   @default(false)
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   cart      Cart?
   orders    Order[]
@@ -25,6 +27,26 @@ model User {
 enum Role {
     CUSTOMER
     ADMIN
+}
+
+enum OtpType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+
+model OtpVerification {
+  id        String   @id @default(uuid())
+  email     String
+  code      String
+  type      OtpType  @default(EMAIL_VERIFICATION)
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email, type])
+  @@map("otp_verifications")
 }
 
 model Product {

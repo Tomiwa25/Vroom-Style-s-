@@ -1,6 +1,7 @@
 import prisma from "../../src/config/database.js";
 
 export const cleanDatabase = async () => {
+    await prisma.otpVerification.deleteMany();
     await prisma.payment.deleteMany();
     await prisma.orderItem.deleteMany();
     await prisma.order.deleteMany();
@@ -10,4 +11,4 @@ export const cleanDatabase = async () => {
         where: { externalId: null }
     });
     await prisma.user.deleteMany();
-}
+};

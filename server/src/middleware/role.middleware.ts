@@ -22,3 +22,28 @@ export const authorizeRoles = (...roles: Role[]) => {
     next();
   };
 };
+
+export const requireVerified = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.user) {
+    res.status(401).json({
+      success: false,
+      message: "Authentication required",
+    });
+    return;
+  }
+
+  if (req.user.isVerified === false) {
+    res.status(403).json({
+      success: false,
+      message: "Email verification required. Please verify your account with the 6-digit OTP code.",
+      requiresVerification: true,
+    });
+    return;
+  }
+
+  next();
+};
