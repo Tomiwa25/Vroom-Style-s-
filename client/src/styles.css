@@ -1729,6 +1729,196 @@ body {
   margin: 0;
 }
 
+/* ---------------- OTP Verification & Security Styles ---------------- */
+.otp-header-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #09090b;
+  color: #d4af37;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  margin: 0 auto 16px;
+  border: 1px solid #d4af37;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.2);
+}
+
+.otp-title-wrap {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.otp-title-wrap h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.otp-title-wrap p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.otp-email-highlight {
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.otp-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 24px;
+}
+
+.otp-digit-input {
+  width: 48px;
+  height: 56px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  font-family: 'Courier New', Courier, monospace;
+  background: var(--soft);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+.otp-digit-input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #09090b;
+  box-shadow: 0 0 0 3px rgba(9, 9, 11, 0.1);
+  transform: translateY(-2px);
+}
+
+.otp-digit-input.filled {
+  border-color: #09090b;
+  background: #ffffff;
+}
+
+.otp-footer-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.resend-btn:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.change-email-btn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.change-email-btn:hover {
+  color: var(--text);
+}
+
+.otp-security-note {
+  background: #09090b;
+  color: #a1a1aa;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 20px;
+  text-align: center;
+  border: 1px solid #27272a;
+}
+
+.otp-security-note strong {
+  color: #d4af37;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.unverified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.unverified-badge:hover {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrap input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.pwd-toggle-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px;
+}
+
+.pwd-toggle-btn:hover {
+  color: var(--text);
+}
+
 /* ---------------- Admin Modal ---------------- */
 .admin-modal-card {
   max-width: 640px;
