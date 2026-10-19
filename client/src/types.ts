@@ -28,4 +28,5 @@ export interface User {
   firstName: string;
   lastName: string;
   role: "CUSTOMER" | "ADMIN";
+  isVerified?: boolean;
 }
