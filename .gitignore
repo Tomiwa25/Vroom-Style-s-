@@ -140,4 +140,7 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+# VibeWise learning state directory
+.vibe-wise/
+
 # End of https://www.toptal.com/developers/gitignore/api/node
