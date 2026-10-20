@@ -94,4 +94,116 @@ describe("Order API", () => {
         expect(order?.items[0]?.price.toString()).toBe("25");
         expect(order?.items[0]?.quantity).toBe(2);
     });
+
+    it("should retrieve real-time fulfillment milestones for an authenticated user's order", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const user = await prisma.user.create({
+            data: {
+                email: "trackowner@example.com",
+                password: passwordHash,
+                firstName: "Track",
+                lastName: "Owner",
+                role: "CUSTOMER",
+            },
+        });
+
+        const product = await prisma.product.create({
+            data: {
+                name: "Silk Blazer",
+                description: "Luxury blazer",
+                price: "120.00",
+                image: "https://example.com/blazer.jpg",
+                category: "Clothing",
+                stock: 5,
+            },
+        });
+
+        const order = await prisma.order.create({
+            data: {
+                userId: user.id,
+                total: "120.00",
+                status: "SHIPPED",
+                paymentStatus: "PAID",
+                items: {
+                    create: {
+                        productId: product.id,
+                        quantity: 1,
+                        price: "120.00",
+                    },
+                },
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "trackowner@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const trackRes = await request(app)
+            .get(`/api/orders/${order.id}/track`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(trackRes.status).toBe(200);
+        expect(trackRes.body.success).toBe(true);
+        expect(trackRes.body.data.id).toBe(order.id);
+        expect(trackRes.body.data.status).toBe("SHIPPED");
+        expect(trackRes.body.data.milestones).toHaveLength(5);
+        expect(trackRes.body.data.milestones[0].completed).toBe(true);
+        expect(trackRes.body.data.milestones[1].completed).toBe(true);
+        expect(trackRes.body.data.milestones[2].completed).toBe(true);
+        expect(trackRes.body.data.items[0].productName).toBe("Silk Blazer");
+    });
+
+    it("should reject order tracking if user does not own the order", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const owner = await prisma.user.create({
+            data: {
+                email: "realowner@example.com",
+                password: passwordHash,
+                firstName: "Real",
+                lastName: "Owner",
+            },
+        });
+
+        const otherUser = await prisma.user.create({
+            data: {
+                email: "intruder@example.com",
+                password: passwordHash,
+                firstName: "Intruder",
+                lastName: "User",
+            },
+        });
+
+        const order = await prisma.order.create({
+            data: {
+                userId: owner.id,
+                total: "90.00",
+                status: "PENDING",
+            },
+        });
+
+        const otherLogin = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "intruder@example.com",
+                password: "secret123",
+            });
+
+        const otherToken = otherLogin.body.data.token;
+
+        const trackRes = await request(app)
+            .get(`/api/orders/${order.id}/track`)
+            .set("Authorization", `Bearer ${otherToken}`);
+
+        expect(trackRes.status).toBe(400);
+        expect(trackRes.body.success).toBe(false);
+        expect(trackRes.body.message).toContain("not authorized");
+    });
 });
+

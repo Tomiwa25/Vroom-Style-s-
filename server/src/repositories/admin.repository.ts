@@ -112,6 +112,15 @@ export const updateOrderStatusForAdmin = async (
         data: {
             status,
         },
+        include: {
+            user: {
+                select: {
+                    email: true,
+                    firstName: true,
+                    lastName: true,
+                },
+            },
+        },
     });
 };
 

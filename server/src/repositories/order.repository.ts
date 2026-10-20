@@ -83,3 +83,26 @@ export const findOrdersByUserId = async (
         },
     });
 };
+
+export const findOrderById = async (orderId: string) => {
+    return prisma.order.findUnique({
+        where: { id: orderId },
+        include: {
+            items: {
+                include: {
+                    product: true,
+                },
+            },
+            payment: true,
+            user: {
+                select: {
+                    id: true,
+                    email: true,
+                    firstName: true,
+                    lastName: true,
+                },
+            },
+        },
+    });
+};
+

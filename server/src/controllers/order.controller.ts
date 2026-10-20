@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { checkout, getUserOrders } from "../services/order.service.js";
+import { checkout, getOrderTracking, getUserOrders } from "../services/order.service.js";
+
 
 export const checkoutController = async (req: Request, res: Response) => {
 	try {
@@ -48,3 +49,40 @@ export const checkoutController = async (req: Request, res: Response) => {
         });
     }
  };
+
+export const trackOrderController = async (req: Request, res: Response) => {
+    try {
+        if (!req.user) {
+            res.status(401).json({
+                success: false,
+                message: "Authentication required",
+            });
+            return;
+        }
+
+        const rawOrderId = req.params.orderId;
+        const orderId = Array.isArray(rawOrderId) ? rawOrderId[0] : rawOrderId;
+
+        if (!orderId) {
+            res.status(400).json({
+                success: false,
+                message: "Order ID is required",
+            });
+            return;
+        }
+
+        const isAdmin = req.user.role === "ADMIN";
+        const tracking = await getOrderTracking(orderId, req.user.userId, isAdmin);
+
+        res.status(200).json({
+            success: true,
+            message: "Order tracking details retrieved",
+            data: tracking,
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error instanceof Error ? error.message : "Unable to retrieve tracking",
+        });
+    }
+};

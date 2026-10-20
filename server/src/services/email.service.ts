@@ -283,3 +283,151 @@ export const sendOtpVerificationEmail = async ({
 
   return true;
 };
+
+export interface SendDeliveryEmailOptions {
+  to: string;
+  firstName: string;
+  orderId: string;
+  carrier?: string;
+  trackingNumber?: string;
+  deliveryDate?: string;
+}
+
+/**
+ * Generates an email template notifying the client that their order is out for delivery.
+ */
+export const generateOrderDeliveryEmailHtml = ({
+  firstName,
+  orderId,
+  carrier = "Vroom Express Courier",
+  trackingNumber,
+  deliveryDate = "Today between 2:00 PM - 6:00 PM",
+}: Omit<SendDeliveryEmailOptions, "to">): string => {
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vroom Style(s) - Order Out for Delivery</title>
+  <style>
+    body {
+      margin: 0; padding: 0; background-color: #0c0c0e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5;
+    }
+    .wrapper { width: 100%; background-color: #0c0c0e; padding: 40px 16px; }
+    .container { max-width: 580px; margin: 0 auto; background-color: #141417; border-radius: 12px; border: 1px solid #27272a; overflow: hidden; }
+    .header { background: linear-gradient(135deg, #18181b 0%, #09090b 100%); padding: 36px 32px; text-align: center; border-bottom: 1px solid #27272a; }
+    .brand-mark { display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 50%; background: #d4af37; color: #000; font-size: 20px; font-weight: 800; }
+    .brand-title { margin-top: 12px; font-size: 19px; letter-spacing: 0.15em; font-weight: 700; color: #ffffff; text-transform: uppercase; }
+    .content { padding: 36px 32px; }
+    .greeting { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 12px; }
+    .lead { font-size: 14px; line-height: 1.6; color: #a1a1aa; margin-bottom: 24px; }
+    .delivery-card { background: #1c1c21; border-radius: 8px; border: 1px solid #3f3f46; padding: 20px; margin-bottom: 24px; }
+    .detail-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
+    .detail-label { color: #71717a; }
+    .detail-val { color: #f4f4f5; font-weight: 600; }
+    .status-pill { display: inline-block; background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.3); padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer { padding: 24px 32px; text-align: center; font-size: 11px; color: #71717a; border-top: 1px solid #27272a; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header">
+        <div class="brand-mark">V</div>
+        <div class="brand-title">Vroom Style(s) Atelier</div>
+      </div>
+      <div class="content">
+        <div class="greeting">Dear ${firstName || "Valued Patron"},</div>
+        <p class="lead">
+          Your bespoke order has been released from our atelier distribution hub and is <strong>out for delivery</strong> today.
+        </p>
+
+        <div class="delivery-card">
+          <div class="detail-row">
+            <span class="detail-label">Order Reference:</span>
+            <span class="detail-val">#${orderId}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Fulfillment Status:</span>
+            <span class="status-pill">Out for Delivery</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Courier Service:</span>
+            <span class="detail-val">${carrier}</span>
+          </div>
+          ${trackingNumber ? `
+          <div class="detail-row">
+            <span class="detail-label">Tracking Number:</span>
+            <span class="detail-val" style="color: #d4af37;">${trackingNumber}</span>
+          </div>` : ""}
+          <div class="detail-row" style="margin-bottom: 0;">
+            <span class="detail-label">Estimated Delivery:</span>
+            <span class="detail-val" style="color: #2ecc71;">${deliveryDate}</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: #a1a1aa; line-height: 1.5;">
+          Please ensure someone is available at the delivery destination to inspect and sign for your luxury shipment.
+        </p>
+      </div>
+      <div class="footer">
+        © 2026 Vroom Style(s) Atelier. Luxury essentials & modern momentum.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+};
+
+/**
+ * Sends a real-time out-for-delivery notification email to the customer.
+ */
+export const sendOrderOutForDeliveryEmail = async (
+  options: SendDeliveryEmailOptions
+): Promise<boolean> => {
+  const { to, firstName, orderId, carrier, trackingNumber, deliveryDate } = options;
+  const from = process.env.EMAIL_FROM || '"Vroom Style(s) Atelier Concierge" <concierge@vroomstyles.com>';
+  const subject = `Your Vroom Style(s) Order #${orderId.slice(0, 8)} is Out for Delivery!`;
+  const html = generateOrderDeliveryEmailHtml({
+    firstName,
+    orderId,
+    carrier,
+    trackingNumber,
+    deliveryDate,
+  });
+  const text = `Hello ${firstName || "Valued Patron"},\n\nYour Vroom Style(s) Order #${orderId} is out for delivery!\nCourier: ${carrier || "Vroom Express"}\nEstimated Arrival: ${deliveryDate || "Today"}\n\nWarm regards,\nVroom Style(s) Concierge`;
+
+  const transporter = getTransporter();
+
+  if (transporter) {
+    try {
+      await transporter.sendMail({
+        from,
+        to,
+        subject,
+        text,
+        html,
+      });
+      console.log(`[EmailService] Out-for-delivery email dispatched to ${to}`);
+      return true;
+    } catch (err) {
+      console.error(`[EmailService] Failed to send delivery email via SMTP to ${to}:`, err);
+    }
+  }
+
+  // Console log driver output for local development & test runs
+  const mailDriver = (process.env.MAIL || process.env.MAIL_DRIVER || "log").toUpperCase();
+  console.log("==================================================================");
+  console.log(`[VROOM STYLE(S) DELIVERY DISPATCH NOTIFICATION - DRIVER: ${mailDriver}]`);
+  console.log(`To: ${to} (${firstName})`);
+  console.log(`Subject: ${subject}`);
+  console.log(`Order ID: #${orderId}`);
+  console.log(`Courier: ${carrier || "Vroom Express"}`);
+  console.log(`Delivery Window: ${deliveryDate || "Today"}`);
+  console.log("==================================================================");
+
+  return true;
+};
+

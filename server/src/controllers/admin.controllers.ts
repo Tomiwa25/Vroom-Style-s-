@@ -14,6 +14,7 @@ import {
     updateProductSchema,
     updateStockSchema,
 } from "../validators/admin.validator.js";
+import { sendOrderOutForDeliveryEmail } from "../services/email.service.js";
 
 export const listAdminProductsController = async (req: Request, res: Response) => {
     try {
@@ -171,6 +172,17 @@ export const updateAdminOrderStatusController = async (req: Request, res: Respon
         const payload = updateOrderStatusSchema.parse(req.body);
 
         const order = await updateAdminOrderStatus(orderId, payload.status);
+
+        // If status transitioned to SHIPPED, activate out-for-delivery notification email
+        if (payload.status === "SHIPPED" && (order as any).user?.email) {
+            sendOrderOutForDeliveryEmail({
+                to: (order as any).user.email,
+                firstName: (order as any).user.firstName,
+                orderId: order.id,
+                carrier: "Vroom Express Courier",
+                deliveryDate: "Today between 2:00 PM - 6:00 PM",
+            }).catch((err) => console.error("[Admin] Failed to send out-for-delivery email:", err));
+        }
 
         res.status(200).json({
             success: true,

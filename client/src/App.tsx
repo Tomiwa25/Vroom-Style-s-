@@ -1,16 +1,17 @@
 import { useEffect, useState, useMemo } from "react";
-import api from "./services/api";
-import { initialProducts } from "./data/products";
 import type { Product, CartItem, User } from "./types";
+import { useProducts } from "./hooks/useProducts";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
 import { AdminModal } from "./components/AdminModal";
+import { CartFeedbackModal } from "./components/CartFeedbackModal";
+import { OrderTrackingModal } from "./components/OrderTrackingModal";
 import "./styles.css";
 
 function App() {
-  // Store Catalog
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  // Store Catalog managed via TanStack Query
+  const { products, isLoading, isError, error, refetch, isLive } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
@@ -19,7 +20,19 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
+  const [isTrackingOpen, setIsTrackingOpen] = useState<boolean>(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [feedbackModal, setFeedbackModal] = useState<{
+    isOpen: boolean;
+    status: "SUCCESS" | "OUT_OF_STOCK";
+    product: Product | null;
+    selectedSize?: string;
+    selectedColor?: string;
+  }>({
+    isOpen: false,
+    status: "SUCCESS",
+    product: null,
+  });
 
   // Cart & Wishlist with localStorage hydration
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
@@ -76,47 +89,6 @@ function App() {
     }
   }, [wishlist]);
 
-  // Fetch live products from backend (with graceful fallback to curated collection)
-  useEffect(() => {
-    const fetchLiveProducts = async () => {
-      try {
-        const res = await api.get("/products?limit=12");
-        if (res.data?.data?.products && res.data.data.products.length > 0) {
-          const liveList: Product[] = res.data.data.products.map(
-            (p: Record<string, unknown>, idx: number) => {
-              const fallback = initialProducts[idx % initialProducts.length];
-              const pImage = typeof p.image === "string" && p.image ? p.image : fallback.image;
-              const pImages = Array.isArray(p.images) && p.images.length > 0
-                ? (p.images as string[])
-                : [pImage];
-              return {
-                id: (p.id as string) || `live-${idx}`,
-                externalId: typeof p.externalId === "number" ? p.externalId : fallback.externalId,
-                name: (p.name as string) || fallback.name,
-                description: (p.description as string) || fallback.description,
-                price: Number(p.price) || fallback.price,
-                image: pImage,
-                images: pImages,
-                category: (p.category as string) || fallback.category,
-                stock: typeof p.stock === "number" ? p.stock : fallback.stock,
-                tag: (p.tag as string) || fallback.tag,
-                colors: (p.colors as { name: string; hex: string }[]) || fallback.colors,
-                sizes: (p.sizes as string[]) || fallback.sizes,
-                fitGuide: (p.fitGuide as "Runs Small" | "True to Size" | "Runs Large") || fallback.fitGuide,
-                material: (p.material as string) || fallback.material,
-              };
-            }
-          );
-          setProducts(liveList);
-        }
-      } catch (err) {
-        console.log("Operating with curated store catalog", err);
-      }
-    };
-
-    fetchLiveProducts();
-  }, []);
-
   // Currency Converter Formatter (1 USD ≈ 1,500 NGN)
   const formatPrice = (amountInNGN: number): string => {
     if (currency === "USD") {
@@ -126,7 +98,7 @@ function App() {
     return `₦${amountInNGN.toLocaleString()}`;
   };
 
-  // Add to Cart
+  // Add to Cart with real-time stock availability check & feedback popup
   const handleAddToCart = (
     product: Product,
     size?: string,
@@ -136,6 +108,19 @@ function App() {
     const chosenSize = size || product.sizes?.[0] || "Standard";
     const chosenColor = color || product.colors?.[0]?.name || "Default";
 
+    // 1. Stock check: If product is out of stock (stock <= 0)
+    if (product.stock <= 0) {
+      setFeedbackModal({
+        isOpen: true,
+        status: "OUT_OF_STOCK",
+        product,
+        selectedSize: chosenSize,
+        selectedColor: chosenColor,
+      });
+      return;
+    }
+
+    // 2. Product is present & confirmed in stock: add to bag
     setCartItems((prev) => {
       const existingIdx = prev.findIndex(
         (i) =>
@@ -161,8 +146,14 @@ function App() {
       ];
     });
 
-    showToast(`Added ${product.name} (${chosenSize}) to your bag`);
-    setIsCartOpen(true);
+    // 3. Display confirmation modal popup
+    setFeedbackModal({
+      isOpen: true,
+      status: "SUCCESS",
+      product,
+      selectedSize: chosenSize,
+      selectedColor: chosenColor,
+    });
   };
 
   // Update Cart Quantity
@@ -302,6 +293,22 @@ function App() {
               title="Toggle Currency"
             >
               {currency}
+            </button>
+
+            <button
+              className="track-order-top-btn"
+              onClick={() => {
+                if (!currentUser) {
+                  showToast("Please sign in to track your orders");
+                  setIsAuthOpen(true);
+                } else {
+                  setIsTrackingOpen(true);
+                }
+              }}
+              title="Track Order Fulfillment"
+            >
+              <span>🚚</span>
+              <span className="track-btn-label">Track</span>
             </button>
 
             <button
@@ -484,7 +491,26 @@ function App() {
           <div className="catalog-header-bar">
             <div>
               <span className="kicker">FEATURED COLLECTION</span>
-              <h2>Trending Styles</h2>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                <h2>Trending Styles</h2>
+                {isLoading && (
+                  <span className="catalog-status-badge loading">Syncing Catalog...</span>
+                )}
+                {isError && (
+                  <button
+                    onClick={() => refetch()}
+                    className="catalog-retry-btn"
+                    title={`Failed: ${error?.message || "Server unreachable"}. Click to retry.`}
+                  >
+                    ⚠ Offline Mode (Click to Retry)
+                  </button>
+                )}
+                {!isLoading && !isError && isLive && (
+                  <span className="catalog-status-badge live" title="Connected to live database">
+                    ● Live Sync
+                  </span>
+                )}
+              </div>
             </div>
             <div className="catalog-filter-tabs">
               {["All", "Women", "Outerwear", "Knitwear", "Accessories"].map((cat) => (
@@ -672,6 +698,23 @@ function App() {
         formatPrice={formatPrice}
       />
 
+      <CartFeedbackModal
+        isOpen={feedbackModal.isOpen}
+        onClose={() => setFeedbackModal((prev) => ({ ...prev, isOpen: false }))}
+        status={feedbackModal.status}
+        product={feedbackModal.product}
+        selectedSize={feedbackModal.selectedSize}
+        selectedColor={feedbackModal.selectedColor}
+        onOpenCart={() => setIsCartOpen(true)}
+        formatPrice={formatPrice}
+      />
+
+      <OrderTrackingModal
+        isOpen={isTrackingOpen}
+        onClose={() => setIsTrackingOpen(false)}
+        formatPrice={formatPrice}
+      />
+
       {/* Floating Toast Notification */}
       {toastMessage && (
         <div className="floating-toast">
@@ -712,6 +755,15 @@ function App() {
             <nav className="footer-links">
               <a href="#" onClick={(e) => { e.preventDefault(); showToast("Delivery: 24-48 hours nationwide"); }}>Shipping Information</a>
               <a href="#" onClick={(e) => { e.preventDefault(); showToast("7-Day Hassle-Free Returns & Exchanges"); }}>Returns & Exchanges</a>
+              <a href="#" onClick={(e) => {
+                e.preventDefault();
+                if (!currentUser) {
+                  showToast("Please sign in to track your orders");
+                  setIsAuthOpen(true);
+                } else {
+                  setIsTrackingOpen(true);
+                }
+              }}>Track Order</a>
               <a href="#" onClick={(e) => { e.preventDefault(); showToast("All items dry clean or gentle hand wash"); }}>Care Guide</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setIsAdminOpen(true); }}>Store Intelligence</a>
             </nav>

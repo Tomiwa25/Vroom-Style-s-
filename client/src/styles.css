@@ -2207,3 +2207,675 @@ body {
     padding: 10px 16px;
   }
 }
+
+/* TanStack Query Catalog Status Badges */
+.catalog-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.catalog-status-badge.loading {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  animation: pulse 1.5s infinite;
+}
+
+.catalog-status-badge.live {
+  background: rgba(46, 204, 113, 0.12);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.25);
+}
+
+.catalog-retry-btn {
+  background: rgba(231, 76, 60, 0.12);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.catalog-retry-btn:hover {
+  background: rgba(231, 76, 60, 0.25);
+}
+
+/* ---------------- Cart Feedback Modal ---------------- */
+.feedback-modal-backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.feedback-modal-card {
+  max-width: 460px;
+  width: 90%;
+  padding: 32px 28px;
+  text-align: center;
+  background: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feedback-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.feedback-icon-wrap.success {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 2px solid rgba(46, 204, 113, 0.35);
+}
+
+.feedback-icon-wrap.unavailable {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  border: 2px solid rgba(231, 76, 60, 0.35);
+}
+
+.feedback-kicker {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted, #999);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.feedback-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.feedback-subtext {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.feedback-product-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 24px;
+}
+
+.feedback-product-img {
+  width: 64px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.feedback-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.feedback-product-info strong {
+  font-size: 14px;
+  color: #fff;
+}
+
+.feedback-product-category {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.feedback-specs-row {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  color: #d4af37;
+}
+
+.feedback-product-price {
+  font-size: 14px;
+  color: #fff;
+  margin-top: 2px;
+}
+
+.feedback-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feedback-actions button {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+}
+
+/* ---------------- Admin Stock Management ---------------- */
+.admin-stock-manager {
+  margin-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.stock-manager-header {
+  margin-bottom: 14px;
+}
+
+.stock-manager-header h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.stock-manager-hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.admin-stock-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.admin-stock-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.admin-stock-thumb {
+  width: 40px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.admin-stock-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-stock-info strong {
+  font-size: 13px;
+  color: #fff;
+}
+
+.admin-stock-cat {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.admin-stock-stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-stock-counter {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.admin-stock-counter strong {
+  color: #d4af37;
+  font-size: 13px;
+}
+
+.stepper-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.stepper-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stepper-btn:hover:not(:disabled) {
+  background: #d4af37;
+  color: #000;
+  border-color: #d4af37;
+}
+
+.stepper-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ---------------- Topbar Track Order Button ---------------- */
+.track-order-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.track-order-top-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: #d4af37;
+  color: #d4af37;
+}
+
+/* ---------------- Order Tracking Modal ---------------- */
+.tracking-modal-card {
+  max-width: 620px;
+  width: 92%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 30px;
+  background: #121214;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+}
+
+.tracking-quick-orders {
+  margin-bottom: 18px;
+}
+
+.tracking-section-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.tracking-orders-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.order-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.order-pill:hover,
+.order-pill.active {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: #d4af37;
+}
+
+.order-pill .pill-id {
+  font-weight: 700;
+  color: #fff;
+}
+
+.order-pill .pill-total {
+  color: #d4af37;
+}
+
+.pill-status {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+.pill-status.status-shipped,
+.pill-status.status-delivered {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+.pill-status.status-processing,
+.pill-status.status-pending {
+  background: rgba(212, 175, 55, 0.2);
+  color: #d4af37;
+}
+
+.tracking-search-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tracking-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.tracking-input:focus {
+  outline: none;
+  border-color: #d4af37;
+}
+
+.tracking-search-btn {
+  padding: 10px 18px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.delivery-alert-banner {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(46, 204, 113, 0.12) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.delivery-alert-banner .alert-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #d4af37;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.delivery-alert-banner strong {
+  font-size: 15px;
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.delivery-alert-banner p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.tracking-meta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}
+
+.tracking-id-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+}
+
+.tracking-id-value {
+  font-size: 14px;
+  color: #fff;
+}
+
+.tracking-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tracking-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.tracking-status-badge.status-shipped,
+.tracking-status-badge.status-delivered {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border-color: rgba(46, 204, 113, 0.3);
+}
+
+.tracking-carrier {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------------- Timeline Stepper ---------------- */
+.milestones-timeline {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.milestone-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+
+.milestone-indicator-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.milestone-node {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1c1c1f;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.25s ease;
+}
+
+.milestone-step.completed .milestone-node {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #000;
+}
+
+.milestone-step.current .milestone-node {
+  background: #2ecc71;
+  border-color: #2ecc71;
+  color: #000;
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+  animation: pulse 1.5s infinite;
+}
+
+.milestone-connector {
+  width: 2px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+}
+
+.milestone-connector.filled {
+  background: #d4af37;
+}
+
+.milestone-content {
+  padding-bottom: 18px;
+  flex: 1;
+}
+
+.milestone-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.milestone-title-row strong {
+  font-size: 14px;
+  color: #fff;
+}
+
+.milestone-live-pill {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.milestone-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Items Preview Grid */
+.tracking-items-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 18px;
+  margin-bottom: 18px;
+}
+
+.tracking-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.tracking-item-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.tracking-item-thumb {
+  width: 36px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.tracking-item-info strong {
+  font-size: 12px;
+  color: #fff;
+  display: block;
+}
+
+.tracking-item-info span {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.tracking-footer-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 16px;
+}
+
+.summary-col span {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+}
+
+.summary-col strong {
+  font-size: 14px;
+  color: #fff;
+}
+
+.tracking-total-amount {
+  color: #d4af37 !important;
+  font-size: 16px !important;
+}
+
+.tracking-loading-state,
+.tracking-empty-state,
+.tracking-error-notice {
+  text-align: center;
+  padding: 36px 20px;
+}
+
+.tracking-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(212, 175, 55, 0.2);
+  border-top-color: #d4af37;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+
+
