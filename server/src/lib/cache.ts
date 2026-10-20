@@ -105,7 +105,7 @@ export class RedisCacheDriver implements ICacheDriver {
         ? new Redis(redisUrl, {
             maxRetriesPerRequest: 1,
             enableOfflineQueue: false,
-            retryStrategy: (times) => {
+            retryStrategy: (times: number) => {
               if (times > 2) return null;
               return Math.min(times * 100, 1000);
             },
@@ -116,7 +116,7 @@ export class RedisCacheDriver implements ICacheDriver {
             password: redisPassword,
             maxRetriesPerRequest: 1,
             enableOfflineQueue: false,
-            retryStrategy: (times) => {
+            retryStrategy: (times: number) => {
               if (times > 2) return null;
               return Math.min(times * 100, 1000);
             },
@@ -127,7 +127,7 @@ export class RedisCacheDriver implements ICacheDriver {
         console.log("[Cache] Redis cache driver connected successfully");
       });
 
-      client.on("error", (err) => {
+      client.on("error", (err: Error) => {
         this.isAvailable = false;
         if (!this.hasLoggedWarning) {
           this.hasLoggedWarning = true;
