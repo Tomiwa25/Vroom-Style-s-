@@ -6,6 +6,7 @@ import cartRoutes from "./routes/cart.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
+import { apiLimiter } from "./middleware/rate-limit.middleware.js";
 
 const app = express();
 
@@ -40,6 +41,9 @@ app.get("/api/health", (_req, res) => {
         message: "VROOM STYLE(s) API is running",
     });
 });
+
+// Protect all API routes with global rate limiting
+app.use("/api", apiLimiter);
 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
