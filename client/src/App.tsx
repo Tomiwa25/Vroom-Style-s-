@@ -7,6 +7,9 @@ import { QuickViewModal } from "./components/QuickViewModal";
 import { AdminModal } from "./components/AdminModal";
 import { CartFeedbackModal } from "./components/CartFeedbackModal";
 import { OrderTrackingModal } from "./components/OrderTrackingModal";
+import { PaymentSuccessModal } from "./components/PaymentSuccessModal";
+import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
+import api from "./services/api";
 import "./styles.css";
 
 function App() {
@@ -21,6 +24,14 @@ function App() {
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
   const [isTrackingOpen, setIsTrackingOpen] = useState<boolean>(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
+  const [isCheckingOut, setIsCheckingOut] = useState<boolean>(false);
+  const [trackingOrderId, setTrackingOrderId] = useState<string>("");
+  const [confirmedOrderDetails, setConfirmedOrderDetails] = useState<{
+    orderId: string;
+    reference: string;
+    total: number;
+  } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [feedbackModal, setFeedbackModal] = useState<{
     isOpen: boolean;
@@ -175,6 +186,151 @@ function App() {
     setCartItems((prev) => prev.filter((_, idx) => idx !== index));
     if (removedName) {
       showToast(`Removed ${removedName} from your bag`);
+    }
+  };
+
+  // Payment Verification Handler
+  const handleVerifyPayment = async (
+    reference: string,
+    fallbackOrderId?: string,
+    fallbackAmount?: number
+  ) => {
+    try {
+      showToast("Verifying payment with Paystack...");
+      const verifyRes = await api.post("/payments/verify", { reference });
+
+      if (verifyRes.data?.success) {
+        setCartItems([]);
+        localStorage.removeItem("vroom_cart");
+        setIsCartOpen(false);
+
+        const orderId =
+          fallbackOrderId ||
+          sessionStorage.getItem("vroom_pending_order") ||
+          reference.split("-")[1] ||
+          "ORD-ATELIER";
+        const total =
+          fallbackAmount ||
+          Number(sessionStorage.getItem("vroom_pending_amount")) ||
+          0;
+
+        sessionStorage.removeItem("vroom_pending_order");
+        sessionStorage.removeItem("vroom_pending_amount");
+
+        setConfirmedOrderDetails({
+          orderId,
+          reference,
+          total,
+        });
+        setIsSuccessModalOpen(true);
+        showToast("Payment verified! Order confirmed.");
+      }
+    } catch (err: unknown) {
+      console.error("Payment verification failed:", err);
+      const msg =
+        (err as { response?: { data?: { message?: string } } })?.response?.data
+          ?.message ||
+        "Payment verification was unsuccessful. Please check with concierge.";
+      showToast(msg);
+    }
+  };
+
+  // Check URL parameters on mount for Paystack Redirect Return (Option A)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const reference = urlParams.get("reference") || urlParams.get("trxref");
+    if (reference) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+      handleVerifyPayment(reference);
+    }
+  }, []);
+
+  // Connect Frontend Checkout (Option A and Option B)
+  const handleCheckout = async (method: "inline" | "redirect" = "inline") => {
+    if (cartItems.length === 0) {
+      showToast("Your bag is currently empty.");
+      return;
+    }
+
+    if (!currentUser) {
+      setIsCartOpen(false);
+      setIsAuthOpen(true);
+      showToast("Please sign in or create an account to complete your atelier order.");
+      return;
+    }
+
+    setIsCheckingOut(true);
+
+    try {
+      // 1. Lock in order items on backend
+      const orderPayload = {
+        items: cartItems.map((item) => ({
+          productId: item.product.id,
+          externalId: item.product.externalId,
+          quantity: item.quantity,
+        })),
+      };
+
+      const orderRes = await api.post("/orders", orderPayload);
+      const createdOrder = orderRes.data?.data;
+
+      if (!createdOrder?.id) {
+        throw new Error("Unable to create order. Please review your cart.");
+      }
+
+      // 2. Initialize Paystack payment session
+      const initRes = await api.post("/payments/initialize", {
+        orderId: createdOrder.id,
+      });
+
+      const paymentData = initRes.data?.data;
+      if (!paymentData?.reference) {
+        throw new Error("Unable to initialize Paystack transaction.");
+      }
+
+      const totalAmount = Number(createdOrder.total);
+
+      // Option A: Hosted Redirect
+      if (method === "redirect") {
+        sessionStorage.setItem("vroom_pending_order", createdOrder.id);
+        sessionStorage.setItem("vroom_pending_amount", String(totalAmount));
+        showToast("Redirecting to Paystack Secure Checkout...");
+        redirectToPaystackCheckout(paymentData.authorizationUrl);
+        return;
+      }
+
+      // Option B: Paystack Pop Inline Modal
+      const opened = await openPaystackPopup({
+        accessCode: paymentData.accessCode,
+        reference: paymentData.reference,
+        email: currentUser.email,
+        amountInKobo: Math.round(totalAmount * 100),
+        onSuccess: async (ref) => {
+          await handleVerifyPayment(ref, createdOrder.id, totalAmount);
+        },
+        onClose: () => {
+          showToast("Checkout closed. Your cart remains safely saved.");
+          setIsCheckingOut(false);
+        },
+      });
+
+      if (!opened) {
+        // Fall back gracefully to Option A if popup is blocked or script fails
+        showToast("Opening Paystack hosted checkout...");
+        sessionStorage.setItem("vroom_pending_order", createdOrder.id);
+        sessionStorage.setItem("vroom_pending_amount", String(totalAmount));
+        redirectToPaystackCheckout(paymentData.authorizationUrl);
+      }
+    } catch (err: unknown) {
+      console.error("Checkout failed:", err);
+      const msg =
+        (err as { response?: { data?: { message?: string }; message?: string } })
+          ?.response?.data?.message ||
+        (err as Error)?.message ||
+        "Checkout failed. Please try again.";
+      showToast(msg);
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -670,9 +826,8 @@ function App() {
         onRemoveItem={handleRemoveItem}
         currency={currency}
         formatPrice={formatPrice}
-        onCheckout={() => {
-          showToast("Redirecting to Paystack Secure Checkout...");
-        }}
+        onCheckout={handleCheckout}
+        isCheckingOut={isCheckingOut}
       />
 
       <AuthModal
@@ -713,6 +868,21 @@ function App() {
         isOpen={isTrackingOpen}
         onClose={() => setIsTrackingOpen(false)}
         formatPrice={formatPrice}
+        initialOrderId={trackingOrderId}
+      />
+
+      <PaymentSuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        orderId={confirmedOrderDetails?.orderId || ""}
+        reference={confirmedOrderDetails?.reference || ""}
+        total={confirmedOrderDetails?.total || 0}
+        formatPrice={formatPrice}
+        onTrackOrder={(orderId) => {
+          setIsSuccessModalOpen(false);
+          setTrackingOrderId(orderId);
+          setIsTrackingOpen(true);
+        }}
       />
 
       {/* Floating Toast Notification */}

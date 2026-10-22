@@ -205,5 +205,63 @@ describe("Order API", () => {
         expect(trackRes.body.success).toBe(false);
         expect(trackRes.body.message).toContain("not authorized");
     });
+
+    it("should create an order directly with explicit client items payload", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const user = await prisma.user.create({
+            data: {
+                email: "direct_checkout@example.com",
+                password: passwordHash,
+                firstName: "Direct",
+                lastName: "Shopper",
+                role: "CUSTOMER",
+            },
+        });
+
+        const product = await prisma.product.create({
+            data: {
+                name: "Direct Silk Robe",
+                description: "Luxury piece for direct checkout",
+                price: "75000.00",
+                image: "https://example.com/robe.jpg",
+                category: "Women",
+                stock: 5,
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "direct_checkout@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const res = await request(app)
+            .post("/api/orders")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                items: [
+                    {
+                        productId: product.id,
+                        quantity: 2,
+                    },
+                ],
+            });
+
+        expect(res.status).toBe(201);
+        expect(res.body.success).toBe(true);
+        expect(Number(res.body.data.total)).toBe(150000);
+        expect(res.body.data.items).toHaveLength(1);
+
+        // Verify stock decremented
+        const updatedProduct = await prisma.product.findUnique({
+            where: { id: product.id },
+        });
+        expect(updatedProduct?.stock).toBe(3);
+    });
 });
+
 

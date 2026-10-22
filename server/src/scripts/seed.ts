@@ -9,8 +9,11 @@ export const catalogSeedData = [
     name: "Contour Silk Midi Dress",
     description: "Sculpted sleeveless silhouette draped in fluid mulberry silk and organic linen. Minimalist jewel neckline with an understated rear vent.",
     price: 56000,
-    image: "/images/contour-dress.jpg",
-    images: ["/images/contour-dress.jpg", "/images/hero.jpg"],
+    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Women",
     stock: 15,
     tag: "Atelier Drop",
@@ -28,8 +31,11 @@ export const catalogSeedData = [
     name: "Signature Structured Tote",
     description: "Architectural tote handcrafted from Italian vegetable-tanned calfskin. Features reinforced dual handles, protective brass feet, and interior laptop divider.",
     price: 72000,
-    image: "/images/signature-tote.jpg",
-    images: ["/images/signature-tote.jpg"],
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Accessories",
     stock: 8,
     tag: "Bestseller",
@@ -47,8 +53,11 @@ export const catalogSeedData = [
     name: "Arc Ribbed Cashmere Knit",
     description: "Oversized chunky rib crewneck spun from Grade-A Mongolian cashmere and soft merino wool. Generous sleeves with subtle drop-shoulder tailoring.",
     price: 48000,
-    image: "/images/arc-knit.jpg",
-    images: ["/images/arc-knit.jpg"],
+    image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Knitwear",
     stock: 6,
     tag: "Only 3 Left",
@@ -66,8 +75,11 @@ export const catalogSeedData = [
     name: "Field Utility Canvas Overshirt",
     description: "Boxy workwear overshirt tailored in heavy Japanese cotton canvas with garment-washed softness. Dual chest flap pockets and horn button closures.",
     price: 64000,
-    image: "/images/field-overshirt.jpg",
-    images: ["/images/field-overshirt.jpg"],
+    image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Outerwear",
     stock: 12,
     tag: "New Edition",
@@ -85,8 +97,11 @@ export const catalogSeedData = [
     name: "Pleated High-Waisted Trousers",
     description: "High-waisted relaxed trousers featuring sharp double front pleats, clean side slash pockets, and an elongated fluid drape in lightweight wool blend.",
     price: 52000,
-    image: "/images/pleated-trousers.jpg",
-    images: ["/images/pleated-trousers.jpg"],
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Women",
     stock: 9,
     tag: "Trending",
@@ -104,8 +119,11 @@ export const catalogSeedData = [
     name: "Atelier Box Calf Penny Loafers",
     description: "Timeless penny loafers meticulously constructed with Goodyear welted leather soles and hand-burnished full-grain box calf leather uppers.",
     price: 85000,
-    image: "/images/atelier-loafers.jpg",
-    images: ["/images/atelier-loafers.jpg"],
+    image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Accessories",
     stock: 4,
     tag: "Low Stock",
@@ -122,8 +140,11 @@ export const catalogSeedData = [
     name: "Washed Wool Belted Blazer",
     description: "Double-breasted architectural tailored blazer featuring structured shoulders, clean notch lapels, and a removable self-tie belt.",
     price: 92000,
-    image: "/images/hero.jpg",
-    images: ["/images/hero.jpg", "/images/contour-dress.jpg"],
+    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Outerwear",
     stock: 5,
     tag: "Limited Drop",
@@ -140,8 +161,11 @@ export const catalogSeedData = [
     name: "Minimalist Calfskin Leather Belt",
     description: "Sleek 30mm dress belt crafted from smooth Italian bridle calfskin with a solid brushed brass square buckle.",
     price: 28000,
-    image: "/images/signature-tote.jpg",
-    images: ["/images/signature-tote.jpg"],
+    image: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Accessories",
     stock: 20,
     tag: "Essential",
@@ -158,8 +182,11 @@ export const catalogSeedData = [
     name: "Double-Faced Wool Overcoat",
     description: "Clean unlined winter coat tailored in premium heavyweight wool with hand-stitched split seam construction.",
     price: 115000,
-    image: "/images/field-overshirt.jpg",
-    images: ["/images/field-overshirt.jpg"],
+    image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Outerwear",
     stock: 6,
     tag: "Winter Drop",
@@ -176,8 +203,11 @@ export const catalogSeedData = [
     name: "Fine Gauge Mock-Neck Sweater",
     description: "Seamless knitted mock-neck pullover woven from ultra-fine Australian merino wool with ribbed neck, cuffs, and hem.",
     price: 42000,
-    image: "/images/arc-knit.jpg",
-    images: ["/images/arc-knit.jpg"],
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Knitwear",
     stock: 14,
     tag: "Bestseller",
@@ -194,8 +224,11 @@ export const catalogSeedData = [
     name: "Tailored French Linen Shirt",
     description: "Breathable relaxed-fit button-down cut from pure Normandy flax linen with mother-of-pearl buttons.",
     price: 38000,
-    image: "/images/contour-dress.jpg",
-    images: ["/images/contour-dress.jpg"],
+    image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Women",
     stock: 11,
     tag: "Summer Edit",
@@ -212,8 +245,11 @@ export const catalogSeedData = [
     name: "Monochrome Silk Twill Scarf",
     description: "Square 70cm neck scarf with hand-rolled hems, printed in an abstract architectural pattern on fluid silk twill.",
     price: 24000,
-    image: "/images/signature-tote.jpg",
-    images: ["/images/signature-tote.jpg"],
+    image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=1200&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584030373081-f37b7bb4fa8e?auto=format&fit=crop&w=1200&q=85",
+    ],
     category: "Accessories",
     stock: 18,
     tag: "New Drop",
@@ -227,21 +263,9 @@ export const catalogSeedData = [
 ];
 
 export const seedDatabase = async () => {
-  console.log("🌱 Seeding Vroom Style(s) Luxury Catalog to PostgreSQL...");
+  console.log("🌱 Seeding Vroom Style(s) Luxury Catalog with High-Res Unsplash CDN Imagery to PostgreSQL...");
 
   try {
-    // Clean up test products that have no externalId
-    const orphanProducts = await prisma.product.findMany({
-      where: { externalId: null },
-      select: { id: true },
-    });
-    if (orphanProducts.length > 0) {
-      const ids = orphanProducts.map((p) => p.id);
-      await prisma.cartItem.deleteMany({ where: { productId: { in: ids } } });
-      await prisma.orderItem.deleteMany({ where: { productId: { in: ids } } });
-      await prisma.product.deleteMany({ where: { id: { in: ids } } });
-    }
-
     let seededCount = 0;
 
     for (const item of catalogSeedData) {
@@ -284,7 +308,7 @@ export const seedDatabase = async () => {
       seededCount++;
     }
 
-    console.log(`✅ Successfully seeded ${seededCount} curated fashion & accessory products into PostgreSQL!`);
+    console.log(`✅ Successfully seeded ${seededCount} signature atelier pieces into PostgreSQL!`);
   } catch (error) {
     console.error("❌ Database seeding failed:", error);
     process.exitCode = 1;
@@ -293,7 +317,7 @@ export const seedDatabase = async () => {
   }
 };
 
-// Execute only if executed directly
+// Execute if run directly
 if (process.argv[1] && process.argv[1].endsWith("seed.ts")) {
   seedDatabase();
 }

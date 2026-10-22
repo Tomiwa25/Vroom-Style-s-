@@ -20,29 +20,40 @@ export const initializePayment = async (
 	if (order.paymentStatus !== "PENDING") {
 		throw new Error("Order payment has already been processed");
 	}
-    if (order.payment) {
-        return {
-            reference: order.payment.reference
-        }
-    }
+	if (order.payment && order.payment.status === "PAID") {
+		throw new Error("Order payment has already been processed");
+	}
 
 	const reference = `VROOM-${order.id}-${crypto.randomBytes(8).toString("hex")}`;
+	const callbackUrl = process.env.CLIENT_URL || "http://localhost:5173";
 	const response = await paystackApi.post("/transaction/initialize", {
 		email: order.user.email,
 		amount: Math.round(Number(order.total) * 100),
 		reference,
-        currency: "NGN",
-        metadata: {
-            orderId: order.id,
-            userId: order.userId
-        }
+		currency: "NGN",
+		callback_url: callbackUrl,
+		metadata: {
+			orderId: order.id,
+			userId: order.userId,
+		},
 	});
 
-	await createPayment({
-		orderId: order.id,
-		reference,
-		amount: Number(order.total),
-	});
+	if (order.payment) {
+		await prisma.payment.update({
+			where: { id: order.payment.id },
+			data: {
+				reference,
+				amount: Number(order.total),
+				status: "PENDING",
+			},
+		});
+	} else {
+		await createPayment({
+			orderId: order.id,
+			reference,
+			amount: Number(order.total),
+		});
+	}
 
 	return {
 		authorizationUrl: response.data.data.authorization_url,

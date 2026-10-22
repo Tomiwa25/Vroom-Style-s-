@@ -2,29 +2,70 @@ import prisma from "../config/database.js";
 import { createOrder, findOrdersByUserId } from "../repositories/order.repository.js";
 import { findCartForCheckout } from "../repositories/cart.repositories.js";
 
-export const checkout = async (userId: string) => {
-    const cart = await findCartForCheckout(userId);
+export const checkout = async (
+    userId: string,
+    clientItems?: { productId?: string; externalId?: number; quantity: number }[]
+) => {
+    let orderItems: { productId: string; quantity: number; price: number }[];
 
-    if(!cart) {
-        throw new Error("Cart not found");
-    }
-    if (cart.items.length === 0) {
-        throw new Error("Cart is empty")
-    }
-    const orderItems = cart.items.map((item) => {
-        if(item.quantity <= 0) {
-            throw new Error(`Invalid quantity for ${item.product.name}`);
-        }
-        if (item.quantity > item.product.stock) {
-            throw new Error(`Insufficient stock for ${item.product.stock}`);
-        }
+    if (Array.isArray(clientItems) && clientItems.length > 0) {
+        orderItems = await Promise.all(
+            clientItems.map(async (item) => {
+                if (typeof item.quantity !== "number" || item.quantity <= 0) {
+                    throw new Error("Invalid quantity in order items");
+                }
 
-        return {
-            productId: item.product.id,
-            quantity: item.quantity,
-            price: Number(item.product.price),
-        };
-    });
+                let product = null;
+                if (item.productId && typeof item.productId === "string") {
+                    product = await prisma.product.findUnique({
+                        where: { id: item.productId },
+                    });
+                }
+                if (!product && typeof item.externalId === "number") {
+                    product = await prisma.product.findUnique({
+                        where: { externalId: item.externalId },
+                    });
+                }
+
+                if (!product) {
+                    throw new Error("One or more selected products could not be found");
+                }
+
+                if (item.quantity > product.stock) {
+                    throw new Error(`Insufficient stock for ${product.name} (only ${product.stock} available)`);
+                }
+
+                return {
+                    productId: product.id,
+                    quantity: item.quantity,
+                    price: Number(product.price),
+                };
+            })
+        );
+    } else {
+        const cart = await findCartForCheckout(userId);
+
+        if (!cart) {
+            throw new Error("Cart not found");
+        }
+        if (cart.items.length === 0) {
+            throw new Error("Cart is empty");
+        }
+        orderItems = cart.items.map((item) => {
+            if (item.quantity <= 0) {
+                throw new Error(`Invalid quantity for ${item.product.name}`);
+            }
+            if (item.quantity > item.product.stock) {
+                throw new Error(`Insufficient stock for ${item.product.stock}`);
+            }
+
+            return {
+                productId: item.product.id,
+                quantity: item.quantity,
+                price: Number(item.product.price),
+            };
+        });
+    }
 
     const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -33,7 +74,6 @@ export const checkout = async (userId: string) => {
         total,
         items: orderItems,
     });
-
 };
 
 export const getUserOrders = async (
@@ -135,6 +175,6 @@ export const getOrderTracking = async (
         })),
         customerName: `${order.user.firstName} ${order.user.lastName}`,
         carrier: "Vroom Express Courier",
-        estimatedDelivery: "24-48 hours nationwide",
+        estimatedDelivery: "3-7 days nationwide",
     };
-};
+};

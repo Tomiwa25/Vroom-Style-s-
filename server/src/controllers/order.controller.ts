@@ -12,7 +12,7 @@ export const checkoutController = async (req: Request, res: Response) => {
 			return;
 		}
 
-		const order = await checkout(req.user.userId);
+		const order = await checkout(req.user.userId, req.body?.items);
 
 		res.status(201).json({
 			success: true,
