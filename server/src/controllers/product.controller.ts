@@ -4,13 +4,20 @@ import {
     getProductById,
     searchProductsService,
 } from "../services/product.service.js";
+import { getActiveCacheDriverName } from "../lib/cache.js";
 
 export const getProductsController = async (req: Request, res: Response) => {
     try {
-        const limit = Number(req.query.limit) || 12;
-        const skip = Number(req.query.skip) || 0;
+        const rawLimit = Number(req.query.limit);
+        const rawSkip = Number(req.query.skip);
+
+        // Security: Restrict pagination bounds to prevent memory denial-of-service
+        const limit = Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(rawLimit, 100) : 12;
+        const skip = Number.isInteger(rawSkip) && rawSkip >= 0 ? rawSkip : 0;
 
         const result = await getProducts(limit, skip);
+
+        res.setHeader("X-Cache-Driver", getActiveCacheDriverName());
         res.status(200).json({
             success: true,
             message: "All Product retrieve successfully",
@@ -31,7 +38,7 @@ export const getProductByIdController = async (req: Request, res: Response) => {
         const id = Array.isArray(rawId) ? rawId[0] : rawId;
         const productId = Number(id);
 
-        if (Number.isNaN(productId)) {
+        if (!Number.isInteger(productId) || productId <= 0) {
             res.status(400).json({
                 success: false,
                 message: "Invalid Product ID",
@@ -40,6 +47,8 @@ export const getProductByIdController = async (req: Request, res: Response) => {
         }
 
         const product = await getProductById(productId);
+
+        res.setHeader("X-Cache-Driver", getActiveCacheDriverName());
         res.status(200).json({
             success: true,
             data: product,
@@ -63,12 +72,16 @@ export const searchProductsController = async (req: Request, res: Response) => {
             });
             return;
         }
-        const limit = Number(req.query.limit) || 12;
-        const skip = Number(req.query.skip) || 0;
 
-        
+        const rawLimit = Number(req.query.limit);
+        const rawSkip = Number(req.query.skip);
+
+        const limit = Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(rawLimit, 100) : 12;
+        const skip = Number.isInteger(rawSkip) && rawSkip >= 0 ? rawSkip : 0;
+
         const result = await searchProductsService(query, limit, skip);
 
+        res.setHeader("X-Cache-Driver", getActiveCacheDriverName());
         res.status(200).json({
             success: true,
             message: "Products search completed successfully",
@@ -82,4 +95,3 @@ export const searchProductsController = async (req: Request, res: Response) => {
         });
     }
 };
-

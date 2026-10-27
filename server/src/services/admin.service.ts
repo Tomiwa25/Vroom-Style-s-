@@ -8,6 +8,7 @@ import {
     updateProductStockForAdmin,
     countProductsForAdmin,
 } from "../repositories/admin.repository.js";
+import { deleteCachePattern } from "../lib/cache.js";
 
 export const listAdminProducts = async (skip = 0, take = 50) => {
     const [products, total] = await Promise.all([
@@ -41,7 +42,9 @@ export const createAdminProduct = async (data: {
     category: string;
     stock: number;
 }) => {
-    return createProductForAdmin(data);
+    const product = await createProductForAdmin(data);
+    await deleteCachePattern("products:*");
+    return product;
 };
 
 export const updateAdminProduct = async (
@@ -56,14 +59,18 @@ export const updateAdminProduct = async (
         stock?: number;
     }
 ) => {
-    return updateProductForAdmin(productId, data);
+    const product = await updateProductForAdmin(productId, data);
+    await deleteCachePattern("products:*");
+    return product;
 };
 
 export const updateAdminProductStock = async (
     productId: string,
     stock: number
 ) => {
-    return updateProductStockForAdmin(productId, stock);
+    const product = await updateProductStockForAdmin(productId, stock);
+    await deleteCachePattern("products:*");
+    return product;
 };
 
 export const getAllOrdersForAdmin = async () => {

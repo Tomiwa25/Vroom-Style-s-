@@ -5,6 +5,10 @@ PAYSTACK_SECRET_KEY=
 CLIENT_URL=https://vroom-style-s.vercel.app
 CORS_ORIGIN=https://vroom-style-s.vercel.app
 
+# Cache Configuration ('memory' for zero-config Node memory cache or 'redis' for Redis instance)
+CACHE_DRIVER=memory
+REDIS_URL=redis://localhost:6379
+
 # Email & Mail Configuration
 MAIL=log
 EMAIL_FROM="Vroom Style(s) Atelier <security@vroomstyles.com>"

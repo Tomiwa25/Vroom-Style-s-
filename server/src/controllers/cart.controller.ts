@@ -5,6 +5,10 @@ import {
     updateCartQuantity,
     removeCartItem,
 } from "../services/cart.service.js";
+import {
+    addCartItemSchema,
+    updateCartQuantitySchema,
+} from "../validators/cart.validator.js";
 
 export const getCartController = async (req: Request, res: Response) => {
     try {
@@ -41,16 +45,16 @@ export const addCartItemController = async (req: Request, res: Response) => {
             return;
         }
 
-        const { productId, quantity } = req.body;
-
-        if (typeof productId !== "string" || typeof quantity !== "number") {
+        const parsed = addCartItemSchema.safeParse(req.body);
+        if (!parsed.success) {
             res.status(400).json({
                 success: false,
-                message: "Product ID and quantity are required",
+                message: parsed.error.issues[0]?.message || "Invalid cart item parameters",
             });
             return;
         }
 
+        const { productId, quantity } = parsed.data;
         const item = await addProductToCart(req.user.userId, productId, quantity);
 
         res.status(201).json({
@@ -86,16 +90,17 @@ export const updateCartQuantityController = async (req: Request, res: Response) 
             });
             return;
         }
-        const { quantity } = req.body;
 
-        if (typeof quantity !== "number") {
+        const parsed = updateCartQuantitySchema.safeParse(req.body);
+        if (!parsed.success) {
             res.status(400).json({
                 success: false,
-                message: "Quantity is required",
+                message: parsed.error.issues[0]?.message || "Invalid quantity specified",
             });
             return;
         }
 
+        const { quantity } = parsed.data;
         const item = await updateCartQuantity(req.user.userId, id, quantity);
 
         res.status(200).json({

@@ -214,9 +214,22 @@ function App() {
     setIsAuthOpen(false);
   };
 
-  // Filtered Products
+  // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
-    return products.filter((prod) => {
+    // 1. Deduplicate by primary image so duplicate sweatshirts/cards don't appear
+    const seenImages = new Set<string>();
+    const uniqueProducts = products.filter((prod) => {
+      const imgKey = prod.image?.trim().toLowerCase();
+      if (!imgKey) return true;
+      if (seenImages.has(imgKey)) {
+        return false;
+      }
+      seenImages.add(imgKey);
+      return true;
+    });
+
+    // 2. Apply category and search filters on distinct products
+    return uniqueProducts.filter((prod) => {
       const matchesCategory =
         selectedCategory === "All" ||
         prod.category.toLowerCase() === selectedCategory.toLowerCase();

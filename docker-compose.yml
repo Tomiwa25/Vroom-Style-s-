@@ -23,7 +23,27 @@ services:
       - vroom-network
 
   # =============================================================
-  # Backend API (Express + Prisma + TypeScript)
+  # Redis 7 In-Memory Cache
+  # =============================================================
+  redis:
+    image: redis:7-alpine
+    container_name: vroom-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vroom-network
+
+  # =============================================================
+  # Backend API (Express + Prisma + TypeScript + Redis Caching)
   # =============================================================
   server:
     build:
@@ -40,8 +60,12 @@ services:
       PAYSTACK_SECRET_KEY: ${PAYSTACK_SECRET_KEY:-sk_test_mock_paystack_key}
       CLIENT_URL: ${CLIENT_URL:-http://localhost:3000}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      CACHE_DRIVER: redis
+      REDIS_URL: redis://redis:6379
     depends_on:
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - vroom-network
@@ -66,6 +90,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  redis_data:
     driver: local
 
 networks:
