@@ -9,7 +9,8 @@ interface CartDrawerProps {
   onRemoveItem: (index: number) => void;
   currency: "NGN" | "USD";
   formatPrice: (amountInNGN: number) => string;
-  onCheckout: () => void;
+  onCheckout: (method: "inline" | "redirect") => void;
+  isCheckingOut?: boolean;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -20,6 +21,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onRemoveItem,
   formatPrice,
   onCheckout,
+  isCheckingOut = false,
 }) => {
   const [promoCode, setPromoCode] = useState("");
   const [discountPercent, setDiscountPercent] = useState(0);
@@ -217,9 +219,31 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
             </div>
 
-            <button className="primary-button checkout-btn" onClick={onCheckout}>
-              Proceed to Secure Checkout →
-            </button>
+            <div className="checkout-action-group">
+              <button
+                className="primary-button checkout-btn"
+                onClick={() => onCheckout("inline")}
+                disabled={isCheckingOut}
+              >
+                {isCheckingOut ? (
+                  <span className="checkout-spinner-label">
+                    <span className="btn-spinner"></span> Connecting Paystack...
+                  </span>
+                ) : (
+                  "Proceed to Paystack Checkout →"
+                )}
+              </button>
+
+              <button
+                type="button"
+                className="checkout-alt-link"
+                onClick={() => onCheckout("redirect")}
+                disabled={isCheckingOut}
+                title="Open Paystack in full hosted browser tab"
+              >
+                Option A: Pay on Paystack Hosted Page ↗
+              </button>
+            </div>
 
             <div className="checkout-trust-row">
               <span>🔒 256-Bit Encrypted</span>
