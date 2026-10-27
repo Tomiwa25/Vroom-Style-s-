@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import type { Product, CartItem, User } from "./types";
 import { useProducts } from "./hooks/useProducts";
 import { CartDrawer } from "./components/CartDrawer";
@@ -77,10 +77,10 @@ function App() {
   // Toast notification
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const showToast = (msg: string) => {
+  const showToast = useCallback((msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
-  };
+  }, []);
 
   // Persist cart
   useEffect(() => {
@@ -190,50 +190,53 @@ function App() {
   };
 
   // Payment Verification Handler
-  const handleVerifyPayment = async (
-    reference: string,
-    fallbackOrderId?: string,
-    fallbackAmount?: number
-  ) => {
-    try {
-      showToast("Verifying payment with Paystack...");
-      const verifyRes = await api.post("/payments/verify", { reference });
+  const handleVerifyPayment = useCallback(
+    async (
+      reference: string,
+      fallbackOrderId?: string,
+      fallbackAmount?: number
+    ) => {
+      try {
+        showToast("Verifying payment with Paystack...");
+        const verifyRes = await api.post("/payments/verify", { reference });
 
-      if (verifyRes.data?.success) {
-        setCartItems([]);
-        localStorage.removeItem("vroom_cart");
-        setIsCartOpen(false);
+        if (verifyRes.data?.success) {
+          setCartItems([]);
+          localStorage.removeItem("vroom_cart");
+          setIsCartOpen(false);
 
-        const orderId =
-          fallbackOrderId ||
-          sessionStorage.getItem("vroom_pending_order") ||
-          reference.split("-")[1] ||
-          "ORD-ATELIER";
-        const total =
-          fallbackAmount ||
-          Number(sessionStorage.getItem("vroom_pending_amount")) ||
-          0;
+          const orderId =
+            fallbackOrderId ||
+            sessionStorage.getItem("vroom_pending_order") ||
+            reference.split("-")[1] ||
+            "ORD-ATELIER";
+          const total =
+            fallbackAmount ||
+            Number(sessionStorage.getItem("vroom_pending_amount")) ||
+            0;
 
-        sessionStorage.removeItem("vroom_pending_order");
-        sessionStorage.removeItem("vroom_pending_amount");
+          sessionStorage.removeItem("vroom_pending_order");
+          sessionStorage.removeItem("vroom_pending_amount");
 
-        setConfirmedOrderDetails({
-          orderId,
-          reference,
-          total,
-        });
-        setIsSuccessModalOpen(true);
-        showToast("Payment verified! Order confirmed.");
+          setConfirmedOrderDetails({
+            orderId,
+            reference,
+            total,
+          });
+          setIsSuccessModalOpen(true);
+          showToast("Payment verified! Order confirmed.");
+        }
+      } catch (err: unknown) {
+        console.error("Payment verification failed:", err);
+        const msg =
+          (err as { response?: { data?: { message?: string } } })?.response?.data
+            ?.message ||
+          "Payment verification was unsuccessful. Please check with concierge.";
+        showToast(msg);
       }
-    } catch (err: unknown) {
-      console.error("Payment verification failed:", err);
-      const msg =
-        (err as { response?: { data?: { message?: string } } })?.response?.data
-          ?.message ||
-        "Payment verification was unsuccessful. Please check with concierge.";
-      showToast(msg);
-    }
-  };
+    },
+    [showToast]
+  );
 
   // Check URL parameters on mount for Paystack Redirect Return (Option A)
   useEffect(() => {
@@ -241,9 +244,12 @@ function App() {
     const reference = urlParams.get("reference") || urlParams.get("trxref");
     if (reference) {
       window.history.replaceState({}, document.title, window.location.pathname);
-      handleVerifyPayment(reference);
+      const timer = setTimeout(() => {
+        void handleVerifyPayment(reference);
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [handleVerifyPayment]);
 
   // Connect Frontend Checkout (Option A and Option B)
   const handleCheckout = async (method: "inline" | "redirect" = "inline") => {

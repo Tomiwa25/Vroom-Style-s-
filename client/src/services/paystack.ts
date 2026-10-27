@@ -3,11 +3,33 @@
  * Supports Option B (Paystack Pop Inline iframe) and Option A (Hosted Redirect fallback)
  */
 
+interface PaystackHandler {
+  openIframe: () => void;
+}
+
+interface PaystackSetupConfig {
+  key: string;
+  access_code: string;
+  reference: string;
+  callback: (response: { reference: string }) => void;
+  onClose: () => void;
+}
+
+interface PaystackPopGlobal {
+  setup: (config: PaystackSetupConfig) => PaystackHandler;
+}
+
+declare global {
+  interface Window {
+    PaystackPop?: PaystackPopGlobal;
+  }
+}
+
 let scriptPromise: Promise<boolean> | null = null;
 
 export const loadPaystackScript = (): Promise<boolean> => {
   if (typeof window === "undefined") return Promise.resolve(false);
-  if ((window as any).PaystackPop) return Promise.resolve(true);
+  if (window.PaystackPop) return Promise.resolve(true);
 
   if (!scriptPromise) {
     scriptPromise = new Promise((resolve) => {
@@ -50,7 +72,7 @@ export const openPaystackPopup = async (
   options: PaystackInlineOptions
 ): Promise<boolean> => {
   const loaded = await loadPaystackScript();
-  const PaystackPop = (window as any).PaystackPop;
+  const PaystackPop = window.PaystackPop;
 
   if (!loaded || !PaystackPop) {
     return false;

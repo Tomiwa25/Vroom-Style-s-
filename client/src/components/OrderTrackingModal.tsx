@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useCustomerOrders, useOrderTracking } from "../hooks/useOrderTracking";
 
 interface OrderTrackingModalProps {
@@ -14,14 +14,14 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
   formatPrice,
   initialOrderId,
 }) => {
+  const [prevInitialId, setPrevInitialId] = useState(initialOrderId);
   const [selectedOrderId, setSelectedOrderId] = useState<string>(initialOrderId || "");
   const [searchInput, setSearchInput] = useState<string>("");
 
-  useEffect(() => {
-    if (initialOrderId) {
-      setSelectedOrderId(initialOrderId);
-    }
-  }, [initialOrderId]);
+  if (initialOrderId !== prevInitialId) {
+    setPrevInitialId(initialOrderId);
+    setSelectedOrderId(initialOrderId || "");
+  }
 
   const { orders } = useCustomerOrders(isOpen);
   const activeId = selectedOrderId || (orders.length > 0 ? orders[0].id : "");
