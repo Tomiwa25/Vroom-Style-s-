@@ -1,4 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
+import { z } from "zod";
+import { AppError } from "../core/errors/app-error.js";
 
 /**
  * In-place sanitization that strips dangerous prototype pollution keys
@@ -81,8 +83,9 @@ export const requestSanitizerMiddleware = (
 };
 
 /**
- * Centralized, secure error handler ensuring internal details or DB errors
- * are never leaked to external clients.
+ * Centralized Gateway Error Boundary ensuring proper architectural isolation.
+ * Translates domain exceptions and perimeter errors into standardized HTTP responses,
+ * while preventing sensitive database schemas and internal stack traces from leaking.
  */
 export const errorHandlerMiddleware = (
   err: any,
@@ -90,13 +93,49 @@ export const errorHandlerMiddleware = (
   res: Response,
   _next: NextFunction
 ): void => {
-  const statusCode = err.status || err.statusCode || 500;
-
   if (process.env.NODE_ENV !== "test") {
-    console.error("[Backend Error]", err);
+    console.error("[Gateway Error Boundary]", err);
   }
 
-  // Sanitize message in production to prevent leaking sensitive database schemas
+  // 1. Zod Validation Errors caught at Gateway boundary
+  if (err instanceof z.ZodError) {
+    res.status(400).json({
+      success: false,
+      message: err.issues[0]?.message || "Invalid input data",
+      errors: err.issues,
+    });
+    return;
+  }
+
+  // 2. Explicit Domain / Application Errors
+  if (err instanceof AppError) {
+    res.status(err.statusCode).json({
+      success: false,
+      message: err.message,
+      ...(err.errors ? { errors: err.errors } : {}),
+    });
+    return;
+  }
+
+  // 3. JWT Authentication Errors
+  if (err.name === "JsonWebTokenError" || err.name === "TokenExpiredError") {
+    res.status(401).json({
+      success: false,
+      message: "Unauthorized: invalid or expired token",
+    });
+    return;
+  }
+
+  // 4. Domain errors thrown as standard Error with explicit messages
+  const statusCode =
+    typeof err.statusCode === "number"
+      ? err.statusCode
+      : typeof err.status === "number"
+      ? err.status
+      : err instanceof Error && err.name === "Error"
+      ? 400
+      : 500;
+
   const isProduction = process.env.NODE_ENV === "production";
   const clientMessage =
     statusCode === 500 && isProduction

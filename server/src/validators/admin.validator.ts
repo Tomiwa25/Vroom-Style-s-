@@ -27,3 +27,7 @@ export const updateStockSchema = z.object({
 export const updateOrderStatusSchema = z.object({
     status: z.enum(["PENDING", "PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"]),
 });
+
+export const adminEntityIdParamSchema = z.object({
+    id: z.string().min(1, "ID is required"),
+});

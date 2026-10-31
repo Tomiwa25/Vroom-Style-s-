@@ -16,6 +16,7 @@ import {
   markOtpUsed,
 } from "../repositories/otp.repository.js";
 import { sendOtpVerificationEmail } from "./email.service.js";
+import { UnauthorizedError, NotFoundError } from "../core/errors/app-error.js";
 
 const getJwtSecret = (): string => {
   const secret = process.env.JWT_SECRET;
@@ -183,12 +184,12 @@ export const loginUser = async (email: string, password: string) => {
   const user = await findUserByEmail(normalizedEmail);
 
   if (!user) {
-    throw new Error("Invalid Credentials");
+    throw new UnauthorizedError("Invalid Credentials");
   }
 
   const passwordMatches = await bcrypt.compare(password, user.password);
   if (!passwordMatches) {
-    throw new Error("Either Username or password is incorrect");
+    throw new UnauthorizedError("Either Username or password is incorrect");
   }
 
   const token = jwt.sign(
@@ -221,7 +222,7 @@ export const getCurrentUser = async (userId: string) => {
   const user = await findUserById(userId);
 
   if (!user) {
-    throw new Error("User not found");
+    throw new NotFoundError("User not found");
   }
 
   return {

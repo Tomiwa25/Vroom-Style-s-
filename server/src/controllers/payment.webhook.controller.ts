@@ -1,13 +1,14 @@
 import crypto from "crypto";
 import { Request, Response } from "express";
-import {
-	findPaymentByReference,
-	updatePaymentSuccess,
-} from "../repositories/payment.repository.js";
-import { markOrderAsPaid } from "../services/order.service.js";
+import { processPaystackWebhookEvent } from "../services/payment.service.js";
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
+/**
+ * Gateway Webhook Controller for Paystack.
+ * Intercepts HMAC signature at perimeter, verifies authenticity,
+ * and passes the event payload down to the payment service.
+ */
 export const paystackWebhookController = async (
 	req: Request,
 	res: Response,
@@ -50,35 +51,15 @@ export const paystackWebhookController = async (
 			? JSON.parse(req.body.toString("utf8"))
 			: req.body;
 
-		if (event.event === "charge.success") {
-			const transaction = event.data;
-			const reference = transaction?.reference;
-			const payment = reference
-				? await findPaymentByReference(reference)
-				: null;
-
-			if (payment && payment.status !== "PAID") {
-				const expectedAmount = Math.round(Number(payment.amount) * 100);
-
-				if (Number(transaction.amount) !== expectedAmount) {
-					res.status(400).json({
-						success: false,
-						message: "Payment amount does not match the order amount",
-					});
-					return;
-				}
-
-				await updatePaymentSuccess(reference);
-				await markOrderAsPaid(payment.orderId);
-			}
-		}
+		await processPaystackWebhookEvent(event);
 
 		res.status(200).json({ success: true });
 	} catch (error) {
 		console.error("Paystack webhook error:", error);
 		res.status(400).json({
 			success: false,
-			message: "Unable to process webhook",
+			message: error instanceof Error ? error.message : "Unable to process webhook",
 		});
 	}
 };
+

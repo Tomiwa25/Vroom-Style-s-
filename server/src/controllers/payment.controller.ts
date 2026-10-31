@@ -3,79 +3,34 @@ import {
 	initializePayment,
 	verifyPayment,
 } from "../services/payment.service.js";
+import { getAuthUser } from "../middleware/auth.middleware.js";
+import { ApiResponse } from "../core/http/api-response.js";
+import { asyncHandler } from "../core/http/async-handler.js";
 
-export const initializePaymentController = async (
+/**
+ * HTTP Adapter Controller for Payments.
+ * Forwards user credentials and validated payment payloads to PaymentService.
+ */
+export const initializePaymentController = asyncHandler(async (
 	req: Request,
 	res: Response,
 ) => {
-	try {
-		if (!req.user) {
-			res.status(401).json({
-				success: false,
-				message: "Authentication required",
-			});
-			return;
-		}
+	const user = getAuthUser(req);
+	const { orderId } = req.body;
 
-		const { orderId } = req.body;
+	const payment = await initializePayment(orderId, user.userId);
 
-		if (typeof orderId !== "string" || !orderId.trim()) {
-			res.status(400).json({
-				success: false,
-				message: "Order ID is required",
-			});
-			return;
-		}
+	return ApiResponse.success(res, payment, "Payment initialized successfully");
+});
 
-		const payment = await initializePayment(orderId, req.user.userId);
-
-		res.status(200).json({
-			success: true,
-			message: "Payment initialized successfully",
-			data: payment,
-		});
-	} catch (error) {
-		res.status(400).json({
-			success: false,
-			message: error instanceof Error ? error.message : "Unable to initialize payment",
-		});
-	}
-};
-
-export const verifyPaymentController = async (
+export const verifyPaymentController = asyncHandler(async (
 	req: Request,
 	res: Response,
 ) => {
-	try {
-		if (!req.user) {
-			res.status(401).json({
-				success: false,
-				message: "Authentication required",
-			});
-			return;
-		}
+	const user = getAuthUser(req);
+	const { reference } = req.body;
 
-		const { reference } = req.body;
+	const payment = await verifyPayment(reference, user.userId);
 
-		if (typeof reference !== "string" || !reference.trim()) {
-			res.status(400).json({
-				success: false,
-				message: "Payment reference is required",
-			});
-			return;
-		}
-
-		const payment = await verifyPayment(reference, req.user.userId);
-
-		res.status(200).json({
-			success: true,
-			message: "Payment verified successfully",
-			data: payment,
-		});
-	} catch (error) {
-		res.status(400).json({
-			success: false,
-			message: error instanceof Error ? error.message : "Unable to verify payment",
-		});
-	}
-};
+	return ApiResponse.success(res, payment, "Payment verified successfully");
+});

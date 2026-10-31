@@ -5,149 +5,46 @@ import {
     updateCartQuantity,
     removeCartItem,
 } from "../services/cart.service.js";
-import {
-    addCartItemSchema,
-    updateCartQuantitySchema,
-} from "../validators/cart.validator.js";
+import { getAuthUser } from "../middleware/auth.middleware.js";
+import { ApiResponse } from "../core/http/api-response.js";
+import { asyncHandler } from "../core/http/async-handler.js";
 
-export const getCartController = async (req: Request, res: Response) => {
-    try {
-        if (!req.user) {
-            res.status(401).json({
-                success: false,
-                message: "Authentication required",
-            });
-            return;
-        }
+/**
+ * HTTP Adapter Controller for Cart.
+ * Unpacks validated request data from Gateway perimeter and invokes CartService.
+ */
+export const getCartController = asyncHandler(async (req: Request, res: Response) => {
+    const user = getAuthUser(req);
+    const cart = await getCart(user.userId);
 
-        const cart = await getCart(req.user.userId);
+    return ApiResponse.success(res, cart, "Cart retrieved successfully");
+});
 
-        res.status(200).json({
-            success: true,
-            message: "Cart retrieved successfully",
-            data: cart,
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error ? error.message : "Unable to retrieve cart",
-        });
-    }
-};
+export const addCartItemController = asyncHandler(async (req: Request, res: Response) => {
+    const user = getAuthUser(req);
+    const { productId, quantity } = req.body;
+    const item = await addProductToCart(user.userId, productId, quantity);
 
-export const addCartItemController = async (req: Request, res: Response) => {
-    try {
-        if (!req.user) {
-            res.status(401).json({
-                success: false,
-                message: "Authentication required",
-            });
-            return;
-        }
+    return ApiResponse.created(res, item, "Item added to cart successfully");
+});
 
-        const parsed = addCartItemSchema.safeParse(req.body);
-        if (!parsed.success) {
-            res.status(400).json({
-                success: false,
-                message: parsed.error.issues[0]?.message || "Invalid cart item parameters",
-            });
-            return;
-        }
+export const updateCartQuantityController = asyncHandler(async (req: Request, res: Response) => {
+    const user = getAuthUser(req);
+    const rawId = req.params.id;
+    const cartItemId = Array.isArray(rawId) ? rawId[0] : rawId;
+    const { quantity } = req.body;
 
-        const { productId, quantity } = parsed.data;
-        const item = await addProductToCart(req.user.userId, productId, quantity);
+    const item = await updateCartQuantity(user.userId, cartItemId, quantity);
 
-        res.status(201).json({
-            success: true,
-            message: "Item added to cart successfully",
-            data: item,
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error ? error.message : "Unable to add item to cart",
-        });
-    }
-};
+    return ApiResponse.success(res, item, "Cart item quantity updated successfully");
+});
 
-export const updateCartQuantityController = async (req: Request, res: Response) => {
-    try {
-        if (!req.user) {
-            res.status(401).json({
-                success: false,
-                message: "Authentication required",
-            });
-            return;
-        }
+export const removeCartItemController = asyncHandler(async (req: Request, res: Response) => {
+    const user = getAuthUser(req);
+    const rawId = req.params.id;
+    const cartItemId = Array.isArray(rawId) ? rawId[0] : rawId;
 
-        const rawId = req.params.id;
-        const id = Array.isArray(rawId) ? rawId[0] : rawId;
+    const result = await removeCartItem(user.userId, cartItemId);
 
-        if (!id) {
-            res.status(400).json({
-                success: false,
-                message: "Cart item ID is required",
-            });
-            return;
-        }
-
-        const parsed = updateCartQuantitySchema.safeParse(req.body);
-        if (!parsed.success) {
-            res.status(400).json({
-                success: false,
-                message: parsed.error.issues[0]?.message || "Invalid quantity specified",
-            });
-            return;
-        }
-
-        const { quantity } = parsed.data;
-        const item = await updateCartQuantity(req.user.userId, id, quantity);
-
-        res.status(200).json({
-            success: true,
-            message: "Cart item quantity updated successfully",
-            data: item,
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error ? error.message : "Unable to update cart item",
-        });
-    }
-};
-
-export const removeCartItemController = async (req: Request, res: Response) => {
-    try {
-        if (!req.user) {
-            res.status(401).json({
-                success: false,
-                message: "Authentication required",
-            });
-            return;
-        }
-
-        const rawId = req.params.id;
-        const cartItemId = Array.isArray(rawId) ? rawId[0] : rawId;
-
-        if (!cartItemId) {
-            res.status(400).json({
-                success: false,
-                message: "Cart item ID is required",
-            });
-            return;
-        }
-
-        const result = await removeCartItem(req.user.userId, cartItemId);
-
-        res.status(200).json({
-            success: true,
-            message: "Cart item removed successfully",
-            data: result,
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error ? error.message : "Unable to remove cart item",
-        });
-    }
-};
+    return ApiResponse.success(res, result, "Cart item removed successfully");
+});

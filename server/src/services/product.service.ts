@@ -7,6 +7,7 @@ import {
 } from "../repositories/product.repositories.js";
 import { getCache, setCache, deleteCachePattern } from "../lib/cache.js";
 import type { Product } from "../types/product.js";
+import { NotFoundError } from "../core/errors/app-error.js";
 
 const mapProduct = (p: any): Product => ({
     id: p.id,
@@ -83,7 +84,7 @@ export const getProductById = async (id: number): Promise<Product> => {
 
     const product = await findProductByExternalId(id);
     if (!product) {
-        throw new Error("Product not found");
+        throw new NotFoundError("Product not found");
     }
 
     const result = mapProduct(product);
