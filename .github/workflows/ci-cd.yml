@@ -23,10 +23,10 @@ concurrency:
 
 jobs:
   # -------------------------------------------------------------
-  # Job 1: Client CI (Vite + React + TypeScript + ESLint)
+  # Job 1: Client CI (Vite + React + TypeScript + ESLint + Docker)
   # -------------------------------------------------------------
   client-ci:
-    name: Client CI (Lint & Build)
+    name: Client CI (Lint, Build & Docker)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -46,6 +46,9 @@ jobs:
       - name: Install Client Dependencies
         run: npm ci
 
+      - name: Audit Client Dependencies
+        run: npm audit --audit-level=high --omit=dev || echo "::warning::Client dependencies have security advisories"
+
       - name: Lint Client Source
         run: npm run lint
 
@@ -54,11 +57,14 @@ jobs:
         env:
           VITE_API_URL: https://vroom-styles.onrender.com/api
 
+      - name: Validate Client Dockerfile Build
+        run: docker build -t vroom-client-ci .
+
   # -------------------------------------------------------------
-  # Job 2: Server CI (Node.js + Prisma + TypeScript + Vitest)
+  # Job 2: Server CI (Node.js + Prisma + TypeScript + Vitest + Docker)
   # -------------------------------------------------------------
   server-ci:
-    name: Server CI (Build & Integration Tests)
+    name: Server CI (Build, Migrations & Integration Tests)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -101,16 +107,22 @@ jobs:
       - name: Install Server Dependencies
         run: npm ci
 
+      - name: Audit Server Dependencies
+        run: npm audit --audit-level=high --omit=dev || echo "::warning::Server dependencies have security advisories"
+
+      - name: Validate Prisma Schema
+        run: npx prisma validate
+
       - name: Generate Prisma Client
         run: npx prisma generate
 
       - name: Build TypeScript Server
         run: npm run build
 
-      - name: Push Schema to Test Database
+      - name: Apply Sequential Migrations to Test Database
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/vroom_test?sslmode=disable
-        run: npx prisma db push --schema prisma/schema.prisma
+        run: npx prisma migrate deploy
 
       - name: Run Test Suite (Vitest)
         env:
@@ -121,6 +133,9 @@ jobs:
           CORS_ORIGIN: http://localhost:5173
           NODE_ENV: test
         run: npm run test:run
+
+      - name: Validate Server Dockerfile Build
+        run: docker build -t vroom-server-ci .
 
   # -------------------------------------------------------------
   # Job 3: Continuous Deployment (Render & Vercel)
@@ -180,7 +195,26 @@ jobs:
             echo "frontend_status=Managed by Vercel GitHub App" >> $GITHUB_OUTPUT
           fi
 
-      # 3. Post Deployment Summary to GitHub Actions Log
+      # 3. Post-Deployment Smoke Check (Health Probe)
+      - name: Probe Production Backend Health
+        if: steps.deploy_backend.outputs.backend_status == 'Triggered Successfully'
+        run: |
+          echo "Waiting 30 seconds for initial container spin-up..."
+          sleep 30
+          HEALTH_URL="https://vroom-styles.onrender.com/api/health"
+          for i in {1..6}; do
+            echo "Attempt $i: Probing $HEALTH_URL ..."
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$HEALTH_URL" || true)
+            if [ "$HTTP_STATUS" -eq 200 ]; then
+              echo "✅ Production API is online and healthy (HTTP 200)!"
+              exit 0
+            fi
+            echo "Probe returned HTTP $HTTP_STATUS. Retrying in 15s..."
+            sleep 15
+          done
+          echo "::warning::Health check probe timed out or service is still provisioning. Verify deployment status in Render dashboard."
+
+      # 4. Post Deployment Summary to GitHub Actions Log
       - name: Generate Deployment Step Summary
         run: |
           cat << 'EOF' >> $GITHUB_STEP_SUMMARY
