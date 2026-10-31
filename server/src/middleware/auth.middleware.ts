@@ -47,3 +47,14 @@ export const authenticate = (
     });
   }
 };
+
+/**
+ * Type-safe extractor for authenticated user context in controllers.
+ * Throws UnauthorizedError if authentication guard was bypassed.
+ */
+export const getAuthUser = (req: Request): AuthenticatedUser => {
+  if (!req.user) {
+    throw new Error("Authentication required");
+  }
+  return req.user;
+};

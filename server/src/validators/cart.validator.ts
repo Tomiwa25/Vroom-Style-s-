@@ -16,3 +16,7 @@ export const updateCartQuantitySchema = z.object({
     .min(1, "Quantity must be at least 1")
     .max(50, "Quantity cannot exceed 50 items per line"),
 });
+
+export const cartItemIdParamSchema = z.object({
+  id: z.string().min(1, "Cart item ID is required"),
+});

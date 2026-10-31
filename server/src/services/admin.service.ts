@@ -9,6 +9,7 @@ import {
     countProductsForAdmin,
 } from "../repositories/admin.repository.js";
 import { deleteCachePattern } from "../lib/cache.js";
+import { sendOrderOutForDeliveryEmail } from "./email.service.js";
 
 export const listAdminProducts = async (skip = 0, take = 50) => {
     const [products, total] = await Promise.all([
@@ -81,9 +82,26 @@ export const updateAdminOrderStatus = async (
     orderId: string,
     status: "PENDING" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED"
 ) => {
-    return updateOrderStatusForAdmin(orderId, status);
+    const order = await updateOrderStatusForAdmin(orderId, status);
+
+    // Domain Event: If order transitioned to SHIPPED, dispatch out-for-delivery notification email
+    if (status === "SHIPPED" && (order as any).user?.email) {
+        sendOrderOutForDeliveryEmail({
+            to: (order as any).user.email,
+            firstName: (order as any).user.firstName,
+            orderId: order.id,
+            carrier: "Vroom Express Courier",
+            trackingNumber: `VRM-${order.id.slice(0, 8).toUpperCase()}`,
+            deliveryDate: "3-7 business days",
+        }).catch((err) =>
+            console.error("Failed to send out for delivery notification email:", err)
+        );
+    }
+
+    return order;
 };
 
 export const getAdminStoreStats = async () => {
     return getAdminStatsFromRepository();
 };
+

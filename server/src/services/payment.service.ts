@@ -102,3 +102,30 @@ export const verifyPayment = async (
         reference,
     };
 };
+
+/**
+ * Domain business logic for processing verified Paystack webhook events.
+ * Updates payment status and marks orders as paid when payment amounts match.
+ */
+export const processPaystackWebhookEvent = async (event: any) => {
+	if (event?.event === "charge.success") {
+		const transaction = event.data;
+		const reference = transaction?.reference;
+		const payment = reference
+			? await findPaymentByReference(reference)
+			: null;
+
+		if (payment && payment.status !== "PAID") {
+			const expectedAmount = Math.round(Number(payment.amount) * 100);
+
+			if (Number(transaction.amount) !== expectedAmount) {
+				throw new Error("Payment amount does not match the order amount");
+			}
+
+			await updatePaymentSuccess(reference);
+			await markOrderAsPaid(payment.orderId);
+		}
+	}
+
+	return { success: true };
+};

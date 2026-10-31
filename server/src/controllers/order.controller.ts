@@ -1,88 +1,35 @@
 import { Request, Response } from "express";
 import { checkout, getOrderTracking, getUserOrders } from "../services/order.service.js";
+import { getAuthUser } from "../middleware/auth.middleware.js";
+import { ApiResponse } from "../core/http/api-response.js";
+import { asyncHandler } from "../core/http/async-handler.js";
 
+/**
+ * HTTP Adapter Controller for Orders.
+ * Extracts user context and validated payloads from the Gateway perimeter,
+ * delegating domain operations to OrderService.
+ */
+export const checkoutController = asyncHandler(async (req: Request, res: Response) => {
+	const user = getAuthUser(req);
+	const order = await checkout(user.userId, req.body?.items);
 
-export const checkoutController = async (req: Request, res: Response) => {
-	try {
-		if (!req.user) {
-			res.status(401).json({
-				success: false,
-				message: "Authentication required",
-			});
-			return;
-		}
+	return ApiResponse.created(res, order, "Order created successfully");
+});
 
-		const order = await checkout(req.user.userId, req.body?.items);
+export const getOrderController = asyncHandler(async (req: Request, res: Response) => {
+	const user = getAuthUser(req);
+	const orders = await getUserOrders(user.userId);
 
-		res.status(201).json({
-			success: true,
-			message: "Order created successfully",
-			data: order,
-		});
-	} catch (error) {
-		res.status(400).json({
-			success: false,
-			message: error instanceof Error ? error.message : "Unable to create order",
-		});
-	}
-};
- export const getOrderController = async (req: Request, res: Response) => {
-    try {
-        if (!req.user) {
-			res.status(401).json({
-				success: false,
-				message: "Authentication required",
-			});
-			return;
-		}
-        const orders = await getUserOrders(req.user.userId);
+	return ApiResponse.success(res, orders);
+});
 
-        res.status(200).json({
-            success: true,
-            data: orders
-        });
-    } catch (error) {
-        console.error("Failed to get orders:", error);
-        res.status(500).json({
-            success: false,
-            message: "Unable to get orders"
-        });
-    }
- };
+export const trackOrderController = asyncHandler(async (req: Request, res: Response) => {
+	const user = getAuthUser(req);
+	const rawOrderId = req.params.orderId;
+	const orderId = Array.isArray(rawOrderId) ? rawOrderId[0] : rawOrderId;
 
-export const trackOrderController = async (req: Request, res: Response) => {
-    try {
-        if (!req.user) {
-            res.status(401).json({
-                success: false,
-                message: "Authentication required",
-            });
-            return;
-        }
+	const isAdmin = user.role === "ADMIN";
+	const tracking = await getOrderTracking(orderId, user.userId, isAdmin);
 
-        const rawOrderId = req.params.orderId;
-        const orderId = Array.isArray(rawOrderId) ? rawOrderId[0] : rawOrderId;
-
-        if (!orderId) {
-            res.status(400).json({
-                success: false,
-                message: "Order ID is required",
-            });
-            return;
-        }
-
-        const isAdmin = req.user.role === "ADMIN";
-        const tracking = await getOrderTracking(orderId, req.user.userId, isAdmin);
-
-        res.status(200).json({
-            success: true,
-            message: "Order tracking details retrieved",
-            data: tracking,
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error ? error.message : "Unable to retrieve tracking",
-        });
-    }
-};
+	return ApiResponse.success(res, tracking, "Order tracking details retrieved");
+});
