@@ -8,6 +8,8 @@ import { AdminModal } from "./components/AdminModal";
 import { CartFeedbackModal } from "./components/CartFeedbackModal";
 import { OrderTrackingModal } from "./components/OrderTrackingModal";
 import { PaymentSuccessModal } from "./components/PaymentSuccessModal";
+import { AccountDropdown } from "./components/AccountDropdown";
+import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api from "./services/api";
 import "./styles.css";
@@ -415,7 +417,7 @@ function App() {
         <span>⚡ FREE EXPRESS DELIVERY ON ORDERS OVER ₦100,000 • PAYSTACK VERIFIED CHECKOUT • 7-DAY EASY RETURNS</span>
       </div>
 
-      {/* ---------------- 2. Sticky Header ---------------- */}
+      {/* ---------------- 2. Sticky Header with E-Commerce Portal ---------------- */}
       <header className="topbar">
         <div className="topbar-wrap">
           <a className="brand" href="#">
@@ -426,43 +428,48 @@ function App() {
             </span>
           </a>
 
-          <nav className="main-nav">
-            {["All", "Women", "Outerwear", "Knitwear", "Accessories"].map((cat) => (
-              <button
-                key={cat}
-                className={`nav-tab-btn ${selectedCategory === cat ? "active" : ""}`}
-                onClick={() => {
-                  setSelectedCategory(cat);
+          {/* Center Search Portal with High-Contrast Action Button */}
+          <div className="search-box">
+            <span className="search-icon">🔍</span>
+            <input
+              className="search"
+              placeholder="Search products, brands and luxury apparel..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
                   const el = document.getElementById("catalog-section");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
+                }
+              }}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                className="search-clear"
+                onClick={() => setSearchQuery("")}
+                title="Clear search"
               >
-                {cat}
+                ×
               </button>
-            ))}
-          </nav>
+            )}
+            <button
+              type="button"
+              className="search-submit-btn"
+              onClick={() => {
+                const el = document.getElementById("catalog-section");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              title="Search collection"
+            >
+              SEARCH
+            </button>
+          </div>
 
           <div className="topbar-actions">
-            <div className="search-box">
-              <span className="search-icon">🔍</span>
-              <input
-                className="search"
-                placeholder="Search styles, items..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              {searchQuery && (
-                <button
-                  className="search-clear"
-                  onClick={() => setSearchQuery("")}
-                  title="Clear search"
-                >
-                  ×
-                </button>
-              )}
-            </div>
-
+            {/* Currency Switcher */}
             <button
+              type="button"
               className="currency-toggle-btn"
               onClick={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
               title="Toggle Currency"
@@ -470,9 +477,12 @@ function App() {
               {currency}
             </button>
 
-            <button
-              className="track-order-top-btn"
-              onClick={() => {
+            {/* Reusable High-Contrast Account Dropdown */}
+            <AccountDropdown
+              currentUser={currentUser}
+              wishlistCount={wishlist.length}
+              onOpenAuth={() => setIsAuthOpen(true)}
+              onOpenTracking={() => {
                 if (!currentUser) {
                   showToast("Please sign in to track your orders");
                   setIsAuthOpen(true);
@@ -480,55 +490,49 @@ function App() {
                   setIsTrackingOpen(true);
                 }
               }}
-              title="Track Order Fulfillment"
-            >
-              <span>🚚</span>
-              <span className="track-btn-label">Track</span>
-            </button>
+              onOpenWishlist={() => {
+                showToast(`You have ${wishlist.length} item(s) in your saved wishlist`);
+                const el = document.getElementById("catalog-section");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              onOpenAdmin={() => setIsAdminOpen(true)}
+              onSignOut={handleLogout}
+            />
 
+            {/* Shopping Bag Drawer Button */}
             <button
-              className="icon-button wishlist-top-btn"
-              aria-label="Wishlist"
-              onClick={() => showToast(`You have ${wishlist.length} item(s) in your wishlist`)}
-            >
-              <span className={wishlist.length > 0 ? "heart-active" : ""}>♡</span>
-              {wishlist.length > 0 && <span className="action-badge">{wishlist.length}</span>}
-            </button>
-
-            <button
-              className="icon-button user-btn"
-              aria-label="Account"
-              onClick={() => setIsAuthOpen(true)}
-            >
-              {currentUser ? (
-                <span className="user-avatar-small">
-                  {currentUser.firstName.charAt(0).toUpperCase()}
-                </span>
-              ) : (
-                <span>👤</span>
-              )}
-            </button>
-
-            <button
+              type="button"
               className="icon-button cart-btn"
-              aria-label="Cart"
+              aria-label="Shopping Bag"
               onClick={() => setIsCartOpen(true)}
             >
+              <span className="cart-icon-graphic">🛒</span>
               <span className="bag-label">Bag</span>
               {totalCartCount > 0 && (
                 <span className="cart-badge">{totalCartCount}</span>
               )}
             </button>
 
-            <button
-              className="admin-badge-btn"
-              onClick={() => setIsAdminOpen(true)}
-              title="Store Retail Intelligence"
-            >
-              Analytics
-            </button>
+            {/* Admin Quick Portal if Admin */}
+            {currentUser?.role === "ADMIN" && (
+              <button
+                type="button"
+                className="admin-badge-btn"
+                onClick={() => setIsAdminOpen(true)}
+                title="Store Retail Intelligence"
+              >
+                Analytics
+              </button>
+            )}
           </div>
         </div>
+
+        {/* Secondary Category Navigation & Mega-Menu Explorer */}
+        <CategoryMegaMenu
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          onSearchQuery={(q) => setSearchQuery(q)}
+        />
       </header>
 
       {/* ---------------- 3. Main Page Body ---------------- */}
