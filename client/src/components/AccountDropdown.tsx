@@ -9,6 +9,8 @@ interface AccountDropdownProps {
   onOpenTracking: () => void;
   onOpenWishlist: () => void;
   onOpenAdmin: () => void;
+  onOpenVendorHub?: () => void;
+  onOpenJForce?: () => void;
   onSignOut: () => void;
 }
 
@@ -24,6 +26,8 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
   onOpenTracking,
   onOpenWishlist,
   onOpenAdmin,
+  onOpenVendorHub,
+  onOpenJForce,
   onSignOut,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -151,6 +155,36 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
                 )}
               </button>
             </li>
+
+            {/* Vendor Hub & Seller Portal Link */}
+            {onOpenVendorHub && (
+              <li>
+                <button
+                  type="button"
+                  className="account-menu-item"
+                  onClick={() => handleAction(onOpenVendorHub)}
+                >
+                  <span className="menu-item-icon">🏪</span>
+                  <span className="menu-item-label">Vendor Hub & Drops</span>
+                  <span className="item-pill">Seller</span>
+                </button>
+              </li>
+            )}
+
+            {/* JForce Consultant / Reseller Hub Link */}
+            {onOpenJForce && (
+              <li>
+                <button
+                  type="button"
+                  className="account-menu-item"
+                  onClick={() => handleAction(onOpenJForce)}
+                >
+                  <span className="menu-item-icon">💼</span>
+                  <span className="menu-item-label">JForce Reseller Network</span>
+                  <span className="item-pill commission">12% Earn</span>
+                </button>
+              </li>
+            )}
 
             {/* Admin Portal Shortcut */}
             {currentUser?.role === "ADMIN" && (

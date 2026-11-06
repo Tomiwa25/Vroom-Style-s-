@@ -82,9 +82,48 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
           {/* Product Details */}
           <div className="quickview-details">
+            {/* Multi-Tenant Seller Attribution Tag */}
+            <div className="quickview-seller-row">
+              {product.sellerType === "1P" ? (
+                <span className="quickview-seller-pill seller-1p">
+                  👑 Vroom Direct • Official Retail
+                </span>
+              ) : (
+                <span className="quickview-seller-pill seller-3p">
+                  🏪 Sold by {product.sellerName || "Marketplace Vendor"}
+                  {product.sellerRating ? ` • ${product.sellerRating}% Rating` : ""}
+                </span>
+              )}
+              {product.isFulfilledByVroom && (
+                <span className="quickview-express-pill">⚡ Vroom Express</span>
+              )}
+            </div>
+
             <span className="quickview-category">{product.category}</span>
             <h2 className="quickview-title">{product.name}</h2>
             <div className="quickview-price">{formatPrice(product.price)}</div>
+
+            {/* Bundled Incentive Banner */}
+            {product.bundledIncentive && (
+              <div className="quickview-incentive-banner">
+                <span className="incentive-icon">🎁</span>
+                <div>
+                  <strong>Special Bundled Incentive:</strong>
+                  <p>{product.bundledIncentive}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Warranty & Assurance Badge */}
+            {product.warranty && (
+              <div className="quickview-warranty-banner">
+                <span className="warranty-icon">🛡️</span>
+                <div>
+                  <strong>Warranty & Assurance:</strong>
+                  <p>{product.warranty} (Complimentary with your purchase)</p>
+                </div>
+              </div>
+            )}
 
             <p className="quickview-desc">{product.description}</p>
 

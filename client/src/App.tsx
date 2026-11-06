@@ -12,7 +12,8 @@ import { PaymentSuccessModal } from "./components/PaymentSuccessModal";
 import { AccountDropdown } from "./components/AccountDropdown";
 import { HelpDropdown } from "./components/HelpDropdown";
 import { HelpCenterModal } from "./components/HelpCenterModal";
-import { VendorOnboardingModal } from "./components/VendorOnboardingModal";
+import { VendorPortalModal } from "./components/VendorPortalModal";
+import { JForcePortalModal } from "./components/JForcePortalModal";
 import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
 import { TaxonomyBar } from "./components/TaxonomyBar";
 import { Breadcrumbs } from "./components/Breadcrumbs";
@@ -41,7 +42,11 @@ function App() {
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
   const [isTrackingOpen, setIsTrackingOpen] = useState<boolean>(false);
-  const [isVendorModalOpen, setIsVendorModalOpen] = useState<boolean>(false);
+  const [isVendorPortalOpen, setIsVendorPortalOpen] = useState<boolean>(false);
+  const [vendorPortalInitialTab, setVendorPortalInitialTab] = useState<"onboarding" | "hub">("onboarding");
+  const [isJForcePortalOpen, setIsJForcePortalOpen] = useState<boolean>(false);
+  const [sellerTypeFilter, setSellerTypeFilter] = useState<"ALL" | "1P" | "3P">("ALL");
+  const [vendorDrops, setVendorDrops] = useState<Product[]>([]);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
   const [isScavengerModalOpen, setIsScavengerModalOpen] = useState<boolean>(false);
@@ -451,11 +456,16 @@ function App() {
     [handleScrollToCatalog, setCampaign, showToast]
   );
 
+  // Aggregate all products (live backend / initial + vendor-created 3P drops)
+  const allProducts = useMemo(() => {
+    return vendorDrops.length > 0 ? [...vendorDrops, ...products] : products;
+  }, [products, vendorDrops]);
+
   // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
     // 1. Deduplicate by primary image so duplicate sweatshirts/cards don't appear
     const seenImages = new Set<string>();
-    const uniqueProducts = products.filter((prod) => {
+    const uniqueProducts = allProducts.filter((prod) => {
       const imgKey = prod.image?.trim().toLowerCase();
       if (!imgKey) return true;
       if (seenImages.has(imgKey)) {
@@ -465,8 +475,12 @@ function App() {
       return true;
     });
 
-    // 2. Apply campaign, multi-taxonomy, and search filters
+    // 2. Apply campaign, multi-taxonomy, search, and multi-tenant seller model filters
     return uniqueProducts.filter((prod) => {
+      // Multi-tenant Seller Model Separation (1P Retail vs 3P Marketplace)
+      if (sellerTypeFilter === "1P" && prod.sellerType !== "1P") return false;
+      if (sellerTypeFilter === "3P" && prod.sellerType !== "3P") return false;
+
       const pCat = (prod.category || "").toLowerCase();
       const sCat = selectedCategory.toLowerCase();
 
@@ -485,6 +499,7 @@ function App() {
         } else if (activeCampaign === "flash_sale" || activeCampaign === "official_store_day") {
           const isFlash =
             prod.campaignTag === "FLASH_SALE" ||
+            prod.sellerType === "1P" ||
             pCat === "official store" ||
             Boolean(prod.tag && prod.tag.toLowerCase().includes("official"));
           if (!isFlash) return false;
@@ -504,6 +519,7 @@ function App() {
         matchesTaxonomy = true;
       } else if (selectedCategory === "Official Store") {
         matchesTaxonomy =
+          prod.sellerType === "1P" ||
           pCat === "official store" ||
           Boolean(prod.tag && (prod.tag.toLowerCase().includes("official") || prod.tag.toLowerCase().includes("atelier"))) ||
           Boolean(prod.brand && prod.brand.toLowerCase().includes("official"));
@@ -522,7 +538,7 @@ function App() {
           Boolean(prod.brand && prod.brand.toLowerCase().includes(sCat));
       }
 
-      // Free-text query dispatching across multiple taxonomies: products, brands, categories, tags, materials
+      // Free-text query dispatching across multiple taxonomies: products, brands, categories, tags, materials, sellers
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch =
         !q ||
@@ -530,40 +546,44 @@ function App() {
         prod.description.toLowerCase().includes(q) ||
         pCat.includes(q) ||
         Boolean(prod.brand && prod.brand.toLowerCase().includes(q)) ||
+        Boolean(prod.sellerName && prod.sellerName.toLowerCase().includes(q)) ||
         Boolean(prod.tag && prod.tag.toLowerCase().includes(q)) ||
-        Boolean(prod.material && prod.material.toLowerCase().includes(q));
+        Boolean(prod.material && prod.material.toLowerCase().includes(q)) ||
+        Boolean(prod.warranty && prod.warranty.toLowerCase().includes(q)) ||
+        Boolean(prod.bundledIncentive && prod.bundledIncentive.toLowerCase().includes(q));
 
       return matchesTaxonomy && matchesSearch;
     });
-  }, [products, selectedCategory, searchQuery, activeCampaign]);
+  }, [allProducts, selectedCategory, searchQuery, activeCampaign, sellerTypeFilter]);
 
   // Curated Recommendation Feeds
   const topSellingProducts = useMemo(() => {
-    return [...products]
+    return [...allProducts]
       .filter((p) => (p.reviewCount && p.reviewCount >= 500) || (p.rating && p.rating >= 4.8))
       .sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
-  }, [products]);
+  }, [allProducts]);
 
   const searchBasedProducts = useMemo(() => {
     if (!searchQuery.trim()) return [];
     const q = searchQuery.toLowerCase().trim();
-    return products.filter(
+    return allProducts.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q) ||
         Boolean(p.brand && p.brand.toLowerCase().includes(q)) ||
+        Boolean(p.sellerName && p.sellerName.toLowerCase().includes(q)) ||
         Boolean(p.tag && p.tag.toLowerCase().includes(q))
     );
-  }, [products, searchQuery]);
+  }, [allProducts, searchQuery]);
 
   const techDealsProducts = useMemo(() => {
-    return products.filter(
+    return allProducts.filter(
       (p) =>
         p.category === "Phones & Tablets" ||
         p.category === "Appliances" ||
         Boolean(p.brand && (p.brand === "Courant" || p.brand === "SteamOne"))
     );
-  }, [products]);
+  }, [allProducts]);
 
   const totalCartCount = cartItems.reduce((acc, i) => acc + i.quantity, 0);
 
@@ -576,12 +596,43 @@ function App() {
             <button
               type="button"
               className="utility-link vendor-entry-btn"
-              onClick={() => setIsVendorModalOpen(true)}
+              onClick={() => {
+                setVendorPortalInitialTab("onboarding");
+                setIsVendorPortalOpen(true);
+              }}
               title="Sell on Vroom Style(s) Marketplace"
             >
               <span className="utility-icon">🏪</span>
               <strong>Sell on Vroom</strong>
               <span className="utility-tag">0% Fee</span>
+            </button>
+
+            <span className="utility-sep">•</span>
+
+            <button
+              type="button"
+              className="utility-link vendor-hub-btn"
+              onClick={() => {
+                setVendorPortalInitialTab("hub");
+                setIsVendorPortalOpen(true);
+              }}
+              title="3P Merchant Portal & Drops Manager"
+            >
+              <span className="utility-icon">🏢</span>
+              <span>Vendor Hub</span>
+            </button>
+
+            <span className="utility-sep">•</span>
+
+            <button
+              type="button"
+              className="utility-link jforce-entry-btn"
+              onClick={() => setIsJForcePortalOpen(true)}
+              title="Earn 12% Commission on Client Orders"
+            >
+              <span className="utility-icon">💼</span>
+              <strong>JForce Network</strong>
+              <span className="utility-tag" style={{ background: "#fef08a", color: "#854d0e" }}>12% Earn</span>
             </button>
 
             <span className="utility-sep">•</span>
@@ -685,6 +736,11 @@ function App() {
                 handleScrollToCatalog();
               }}
               onOpenAdmin={() => setIsAdminOpen(true)}
+              onOpenVendorHub={() => {
+                setVendorPortalInitialTab("hub");
+                setIsVendorPortalOpen(true);
+              }}
+              onOpenJForce={() => setIsJForcePortalOpen(true)}
               onSignOut={handleLogout}
             />
 
@@ -1035,6 +1091,38 @@ function App() {
                 </button>
               ))}
             </div>
+
+            {/* Multi-Tenant Vendor Model Separation Routing (1P vs 3P) */}
+            <div className="catalog-seller-filter-row">
+              <div className="seller-filter-label">
+                <span>Vendor Model:</span>
+              </div>
+              <div className="seller-filter-pills">
+                <button
+                  type="button"
+                  className={`seller-pill ${sellerTypeFilter === "ALL" ? "active" : ""}`}
+                  onClick={() => setSellerTypeFilter("ALL")}
+                >
+                  All Vendors ({allProducts.length})
+                </button>
+                <button
+                  type="button"
+                  className={`seller-pill seller-1p ${sellerTypeFilter === "1P" ? "active" : ""}`}
+                  onClick={() => setSellerTypeFilter("1P")}
+                  title="Official First-Party Retail directly from Vroom Atelier"
+                >
+                  👑 1P Vroom Direct
+                </button>
+                <button
+                  type="button"
+                  className={`seller-pill seller-3p ${sellerTypeFilter === "3P" ? "active" : ""}`}
+                  onClick={() => setSellerTypeFilter("3P")}
+                  title="Verified Third-Party Marketplace Partners"
+                >
+                  🏪 3P Verified Marketplace
+                </button>
+              </div>
+            </div>
           </div>
 
           {filteredProducts.length === 0 ? (
@@ -1189,11 +1277,24 @@ function App() {
         }}
       />
 
-      {/* Marketplace Vendor Partner Onboarding Modal ("Sell on Vroom") */}
-      <VendorOnboardingModal
-        isOpen={isVendorModalOpen}
-        onClose={() => setIsVendorModalOpen(false)}
+      {/* Multi-Tenant Marketplace Vendor Portal ("Become a Seller" & "Vendor Hub") */}
+      <VendorPortalModal
+        isOpen={isVendorPortalOpen}
+        onClose={() => setIsVendorPortalOpen(false)}
+        initialTab={vendorPortalInitialTab}
         onSuccessToast={showToast}
+        onAddNewProduct={(newProd) => {
+          setVendorDrops((prev) => [newProd, ...prev]);
+        }}
+        formatPrice={formatPrice}
+      />
+
+      {/* JForce Affiliate / Reseller Consultant Network Modal */}
+      <JForcePortalModal
+        isOpen={isJForcePortalOpen}
+        onClose={() => setIsJForcePortalOpen(false)}
+        onSuccessToast={showToast}
+        formatPrice={formatPrice}
       />
 
       {/* Customer Help & Concierge Center Modal */}
@@ -1270,6 +1371,9 @@ function App() {
                   setIsTrackingOpen(true);
                 }
               }}>Track Order</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setVendorPortalInitialTab("onboarding"); setIsVendorPortalOpen(true); }}>Become a Seller</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setVendorPortalInitialTab("hub"); setIsVendorPortalOpen(true); }}>Vendor Hub</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setIsJForcePortalOpen(true); }}>JForce Reseller Network</a>
               <a href="#" onClick={(e) => { e.preventDefault(); showToast("All items dry clean or gentle hand wash"); }}>Care Guide</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setIsAdminOpen(true); }}>Store Intelligence</a>
             </nav>

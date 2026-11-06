@@ -78,6 +78,12 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsResult
           sizes: (p.sizes as string[]) || fallback.sizes,
           fitGuide: (p.fitGuide as "Runs Small" | "True to Size" | "Runs Large") || fallback.fitGuide,
           material: (p.material as string) || fallback.material,
+          sellerType: (p.sellerType as "1P" | "3P") || fallback.sellerType,
+          sellerName: (p.sellerName as string) || fallback.sellerName,
+          sellerRating: typeof p.sellerRating === "number" ? p.sellerRating : fallback.sellerRating,
+          isFulfilledByVroom: typeof p.isFulfilledByVroom === "boolean" ? p.isFulfilledByVroom : fallback.isFulfilledByVroom,
+          warranty: (p.warranty as string) || fallback.warranty,
+          bundledIncentive: (p.bundledIncentive as string) || fallback.bundledIncentive,
         };
       });
     },
