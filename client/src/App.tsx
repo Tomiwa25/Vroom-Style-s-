@@ -9,6 +9,12 @@ import { CartFeedbackModal } from "./components/CartFeedbackModal";
 import { OrderTrackingModal } from "./components/OrderTrackingModal";
 import { PaymentSuccessModal } from "./components/PaymentSuccessModal";
 import { AccountDropdown } from "./components/AccountDropdown";
+import { HelpDropdown } from "./components/HelpDropdown";
+import { HelpCenterModal } from "./components/HelpCenterModal";
+import { VendorOnboardingModal } from "./components/VendorOnboardingModal";
+import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
+import { TaxonomyBar } from "./components/TaxonomyBar";
+import { Breadcrumbs } from "./components/Breadcrumbs";
 import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api from "./services/api";
@@ -26,6 +32,9 @@ function App() {
   const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
   const [isTrackingOpen, setIsTrackingOpen] = useState<boolean>(false);
+  const [isVendorModalOpen, setIsVendorModalOpen] = useState<boolean>(false);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
   const [isCheckingOut, setIsCheckingOut] = useState<boolean>(false);
   const [trackingOrderId, setTrackingOrderId] = useState<string>("");
@@ -378,6 +387,20 @@ function App() {
     setIsAuthOpen(false);
   };
 
+  const handleScrollToCatalog = useCallback(() => {
+    const el = document.getElementById("catalog-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
+  const handleResetToHome = useCallback(() => {
+    setSelectedCategory("All");
+    setSearchQuery("");
+    setQuickViewProduct(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
     // 1. Deduplicate by primary image so duplicate sweatshirts/cards don't appear
@@ -392,19 +415,47 @@ function App() {
       return true;
     });
 
-    // 2. Apply category and search filters on distinct products
+    // 2. Apply multi-taxonomy and search filters
     return uniqueProducts.filter((prod) => {
-      const matchesCategory =
-        selectedCategory === "All" ||
-        prod.category.toLowerCase() === selectedCategory.toLowerCase();
+      const pCat = (prod.category || "").toLowerCase();
+      const sCat = selectedCategory.toLowerCase();
 
+      // Multi-tiered taxonomy routing
+      let matchesTaxonomy: boolean;
+      if (selectedCategory === "All") {
+        matchesTaxonomy = true;
+      } else if (selectedCategory === "Official Store") {
+        matchesTaxonomy =
+          pCat === "official store" ||
+          Boolean(prod.tag && (prod.tag.toLowerCase().includes("official") || prod.tag.toLowerCase().includes("atelier"))) ||
+          Boolean(prod.brand && prod.brand.toLowerCase().includes("official"));
+      } else if (selectedCategory === "Fashion & Atelier") {
+        matchesTaxonomy =
+          pCat === "fashion & atelier" ||
+          pCat === "women" ||
+          pCat === "men" ||
+          pCat === "outerwear" ||
+          pCat === "knitwear" ||
+          Boolean(prod.tag && prod.tag.toLowerCase().includes("atelier"));
+      } else {
+        matchesTaxonomy =
+          pCat === sCat ||
+          Boolean(prod.tag && prod.tag.toLowerCase().includes(sCat)) ||
+          Boolean(prod.brand && prod.brand.toLowerCase().includes(sCat));
+      }
+
+      // Free-text query dispatching across multiple taxonomies: products, brands, categories, tags, materials
+      const q = searchQuery.trim().toLowerCase();
       const matchesSearch =
-        !searchQuery.trim() ||
-        prod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        prod.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        prod.category.toLowerCase().includes(searchQuery.toLowerCase());
+        !q ||
+        prod.name.toLowerCase().includes(q) ||
+        prod.description.toLowerCase().includes(q) ||
+        pCat.includes(q) ||
+        Boolean(prod.brand && prod.brand.toLowerCase().includes(q)) ||
+        Boolean(prod.tag && prod.tag.toLowerCase().includes(q)) ||
+        Boolean(prod.material && prod.material.toLowerCase().includes(q));
 
-      return matchesCategory && matchesSearch;
+      return matchesTaxonomy && matchesSearch;
     });
   }, [products, selectedCategory, searchQuery]);
 
@@ -412,15 +463,80 @@ function App() {
 
   return (
     <div className="app">
-      {/* ---------------- 1. Top Announcement Bar ---------------- */}
-      <div className="announcement-banner">
-        <span>⚡ FREE EXPRESS DELIVERY ON ORDERS OVER ₦100,000 • PAYSTACK VERIFIED CHECKOUT • 7-DAY EASY RETURNS</span>
+      {/* ---------------- 1. Top Quick Action Utility Bar & Announcements ---------------- */}
+      <div className="quick-action-utility-bar">
+        <div className="utility-bar-wrap">
+          <div className="utility-left-links">
+            <button
+              type="button"
+              className="utility-link vendor-entry-btn"
+              onClick={() => setIsVendorModalOpen(true)}
+              title="Sell on Vroom Style(s) Marketplace"
+            >
+              <span className="utility-icon">🏪</span>
+              <strong>Sell on Vroom</strong>
+              <span className="utility-tag">0% Fee</span>
+            </button>
+
+            <span className="utility-sep">•</span>
+
+            <button
+              type="button"
+              className="utility-link logistics-entry-btn"
+              onClick={() => {
+                if (!currentUser) {
+                  showToast("Please sign in or enter your Order ID to track");
+                  setIsAuthOpen(true);
+                } else {
+                  setIsTrackingOpen(true);
+                }
+              }}
+              title="Track nationwide shipment"
+            >
+              <span className="utility-icon">🚚</span>
+              <span>Logistics & Order Tracking</span>
+            </button>
+
+            <span className="utility-sep">•</span>
+
+            <span className="utility-notice">
+              ⚡ Free Express Delivery on orders over ₦100,000 • 7-Day Doorstep Returns
+            </span>
+          </div>
+
+          <div className="utility-right-links">
+            <button
+              type="button"
+              className="utility-link"
+              onClick={() => setIsHelpModalOpen(true)}
+            >
+              <span>24/7 Concierge: +234 800-VROOM</span>
+            </button>
+            <span className="utility-sep">•</span>
+            <button
+              type="button"
+              className="utility-currency-toggle"
+              onClick={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
+              title="Toggle Currency"
+            >
+              <span>{currency === "NGN" ? "🇳🇬 NGN (₦)" : "🇺🇸 USD ($)"}</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* ---------------- 2. Sticky Header with E-Commerce Portal ---------------- */}
+      {/* ---------------- 2. Sticky Header with Persistent Global Search Portal ---------------- */}
       <header className="topbar">
         <div className="topbar-wrap">
-          <a className="brand" href="#">
+          {/* Brand Logo & Home Reset */}
+          <a
+            className="brand"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleResetToHome();
+            }}
+          >
             <span className="brand-mark">V</span>
             <span className="brand-copy">
               <strong>Vroom Style(s)</strong>
@@ -428,56 +544,26 @@ function App() {
             </span>
           </a>
 
-          {/* Center Search Portal with High-Contrast Action Button */}
-          <div className="search-box">
-            <span className="search-icon">🔍</span>
-            <input
-              className="search"
-              placeholder="Search products, brands and luxury apparel..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  const el = document.getElementById("catalog-section");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                className="search-clear"
-                onClick={() => setSearchQuery("")}
-                title="Clear search"
-              >
-                ×
-              </button>
-            )}
-            <button
-              type="button"
-              className="search-submit-btn"
-              onClick={() => {
-                const el = document.getElementById("catalog-section");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              title="Search collection"
-            >
-              SEARCH
-            </button>
-          </div>
+          {/* Center Persistent Search Portal with Auto-Focus & Multi-Taxonomy Routing */}
+          <GlobalSearchPortal
+            searchQuery={searchQuery}
+            selectedTaxonomy={selectedCategory}
+            products={products}
+            onSearchChange={setSearchQuery}
+            onTaxonomyChange={(tax) => {
+              setSelectedCategory(tax);
+              handleScrollToCatalog();
+            }}
+            onSelectProduct={(prod) => {
+              setQuickViewProduct(prod);
+            }}
+            onExecuteSearch={handleScrollToCatalog}
+            formatPrice={formatPrice}
+          />
 
+          {/* Right Session Identity & Cart State */}
           <div className="topbar-actions">
-            {/* Currency Switcher */}
-            <button
-              type="button"
-              className="currency-toggle-btn"
-              onClick={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
-              title="Toggle Currency"
-            >
-              {currency}
-            </button>
-
-            {/* Reusable High-Contrast Account Dropdown */}
+            {/* User Session & Identity State: Account Dropdown */}
             <AccountDropdown
               currentUser={currentUser}
               wishlistCount={wishlist.length}
@@ -492,25 +578,43 @@ function App() {
               }}
               onOpenWishlist={() => {
                 showToast(`You have ${wishlist.length} item(s) in your saved wishlist`);
-                const el = document.getElementById("catalog-section");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
+                handleScrollToCatalog();
               }}
               onOpenAdmin={() => setIsAdminOpen(true)}
               onSignOut={handleLogout}
             />
 
-            {/* Shopping Bag Drawer Button */}
+            {/* User Session & Identity State: Help Dropdown */}
+            <HelpDropdown
+              onOpenHelpCenter={() => setIsHelpModalOpen(true)}
+              onOpenTracking={() => {
+                if (!currentUser) {
+                  showToast("Please sign in to track your orders");
+                  setIsAuthOpen(true);
+                } else {
+                  setIsTrackingOpen(true);
+                }
+              }}
+              onOpenReturns={() => setIsHelpModalOpen(true)}
+              onOpenContact={() => setIsHelpModalOpen(true)}
+            />
+
+            {/* Stateful Cart Counter (Cart) */}
             <button
               type="button"
-              className="icon-button cart-btn"
-              aria-label="Shopping Bag"
+              className={`icon-button cart-btn ${totalCartCount > 0 ? "has-items" : ""}`}
+              aria-label={`Shopping Bag with ${totalCartCount} items`}
               onClick={() => setIsCartOpen(true)}
             >
               <span className="cart-icon-graphic">🛒</span>
-              <span className="bag-label">Bag</span>
-              {totalCartCount > 0 && (
-                <span className="cart-badge">{totalCartCount}</span>
-              )}
+              <span className="bag-label">Cart</span>
+              <span
+                className={`cart-counter-badge ${
+                  totalCartCount > 0 ? "badge-active" : "badge-empty"
+                }`}
+              >
+                {totalCartCount}
+              </span>
             </button>
 
             {/* Admin Quick Portal if Admin */}
@@ -527,11 +631,28 @@ function App() {
           </div>
         </div>
 
-        {/* Secondary Category Navigation & Mega-Menu Explorer */}
+        {/* Multi-Tiered Taxonomy Navigation: Horizontal quick links bar */}
+        <TaxonomyBar
+          selectedTaxonomy={selectedCategory}
+          onSelectTaxonomy={(tax) => {
+            setSelectedCategory(tax);
+            handleScrollToCatalog();
+          }}
+          onOpenMegaMenu={() => setIsMegaMenuOpen((prev) => !prev)}
+          isMegaMenuOpen={isMegaMenuOpen}
+        />
+
+        {/* Multi-Column Mega Menu Drawer */}
         <CategoryMegaMenu
           selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
+          onSelectCategory={(cat) => {
+            setSelectedCategory(cat);
+            setIsMegaMenuOpen(false);
+            handleScrollToCatalog();
+          }}
           onSearchQuery={(q) => setSearchQuery(q)}
+          isOpen={isMegaMenuOpen}
+          onToggle={setIsMegaMenuOpen}
         />
       </header>
 
@@ -666,6 +787,18 @@ function App() {
         </section>
 
         {/* ---------------- 6. Main Product Catalog Section ---------------- */}
+        <Breadcrumbs
+          selectedTaxonomy={selectedCategory}
+          searchQuery={searchQuery}
+          activeProduct={quickViewProduct}
+          onResetToHome={handleResetToHome}
+          onSelectTaxonomy={(tax) => {
+            setSelectedCategory(tax);
+            handleScrollToCatalog();
+          }}
+          onClearSearch={() => setSearchQuery("")}
+        />
+
         <section id="catalog-section" className="catalog-container">
           <div className="catalog-header-bar">
             <div>
@@ -692,7 +825,17 @@ function App() {
               </div>
             </div>
             <div className="catalog-filter-tabs">
-              {["All", "Women", "Outerwear", "Knitwear", "Accessories"].map((cat) => (
+              {[
+                "All",
+                "Official Store",
+                "Fashion & Atelier",
+                "Appliances",
+                "Phones & Tablets",
+                "Health & Beauty",
+                "Outerwear",
+                "Knitwear",
+                "Accessories",
+              ].map((cat) => (
                 <button
                   key={cat}
                   className={`filter-pill ${selectedCategory === cat ? "active" : ""}`}
@@ -750,7 +893,9 @@ function App() {
 
                     <div className="meta">
                       <div className="meta-category-row">
-                        <span className="product-category">{product.category}</span>
+                        <span className="product-category">
+                          {product.brand ? `${product.brand} • ${product.category}` : product.category}
+                        </span>
                         {product.stock <= 3 && (
                           <span className="stock low">Only {product.stock} left</span>
                         )}
@@ -905,6 +1050,27 @@ function App() {
           setIsSuccessModalOpen(false);
           setTrackingOrderId(orderId);
           setIsTrackingOpen(true);
+        }}
+      />
+
+      {/* Marketplace Vendor Partner Onboarding Modal ("Sell on Vroom") */}
+      <VendorOnboardingModal
+        isOpen={isVendorModalOpen}
+        onClose={() => setIsVendorModalOpen(false)}
+        onSuccessToast={showToast}
+      />
+
+      {/* Customer Help & Concierge Center Modal */}
+      <HelpCenterModal
+        isOpen={isHelpModalOpen}
+        onClose={() => setIsHelpModalOpen(false)}
+        onOpenTracking={() => {
+          if (!currentUser) {
+            showToast("Please sign in to track your orders");
+            setIsAuthOpen(true);
+          } else {
+            setIsTrackingOpen(true);
+          }
         }}
       />
 

@@ -7,6 +7,7 @@ export interface Product {
   image: string;
   images?: string[];
   category: string;
+  brand?: string;
   stock: number;
   colors?: { name: string; hex: string }[];
   sizes?: string[];

@@ -64,6 +64,7 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsResult
           image: pImage,
           images: pImages,
           category: (p.category as string) || fallback.category,
+          brand: (p.brand as string) || fallback.brand,
           stock: typeof p.stock === "number" ? p.stock : fallback.stock,
           tag: (p.tag as string) || fallback.tag,
           colors: (p.colors as { name: string; hex: string }[]) || fallback.colors,
