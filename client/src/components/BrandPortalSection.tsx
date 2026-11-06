@@ -194,3 +194,4 @@ export const BrandPortalSection: React.FC<BrandPortalSectionProps> = ({
     </section>
   );
 };
+

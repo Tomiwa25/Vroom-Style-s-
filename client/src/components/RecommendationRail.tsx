@@ -124,3 +124,4 @@ export const RecommendationRail: React.FC<RecommendationRailProps> = ({
     </section>
   );
 };
+
