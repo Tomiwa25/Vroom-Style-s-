@@ -5,6 +5,8 @@ interface CategoryMegaMenuProps {
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
   onSearchQuery?: (query: string) => void;
+  isOpen?: boolean;
+  onToggle?: (open: boolean) => void;
 }
 
 interface MegaColumn {
@@ -15,52 +17,66 @@ interface MegaColumn {
 
 const MEGA_DEPARTMENTS: MegaColumn[] = [
   {
-    title: "Women's Atelier",
-    categoryKey: "Women",
+    title: "Official Store Drops",
+    categoryKey: "Official Store",
     items: [
-      { label: "Silk Midi Dresses", query: "Silk Midi Dress" },
-      { label: "Evening Silhouettes", query: "Dress" },
-      { label: "Minimalist Blouses", query: "Blouse" },
-      { label: "Tailored Trousers", query: "Pants" },
-      { label: "View All Women's Collection" },
+      { label: "Atelier Signature Suiting", query: "Blazer" },
+      { label: "Limited Edition Overcoats", query: "Overcoat" },
+      { label: "Monogrammed Accessories", query: "Tote" },
+      { label: "View All Official Drops" },
     ],
   },
   {
-    title: "Outerwear & Tailoring",
+    title: "Fashion & Atelier",
+    categoryKey: "Fashion & Atelier",
+    items: [
+      { label: "Silk Midi Dresses", query: "Silk Midi Dress" },
+      { label: "Pleated Trousers", query: "Pants" },
+      { label: "French Linen Shirts", query: "Linen" },
+      { label: "View All Fashion" },
+    ],
+  },
+  {
+    title: "Appliances & Care",
+    categoryKey: "Appliances",
+    items: [
+      { label: "Precision Garment Steamers", query: "Steamer" },
+      { label: "Sonic Fabric Debobblers", query: "Care" },
+      { label: "Artisan Coffee Makers", query: "Coffee" },
+      { label: "View All Appliances" },
+    ],
+  },
+  {
+    title: "Phones & Tablets",
+    categoryKey: "Phones & Tablets",
+    items: [
+      { label: "MagSafe Calfskin Folios", query: "MagSafe" },
+      { label: "Wireless Valet Stations", query: "Charging" },
+      { label: "Designer Tech Sleeves", query: "Tech" },
+      { label: "View All Tech Essentials" },
+    ],
+  },
+  {
+    title: "Health & Beauty",
+    categoryKey: "Health & Beauty",
+    items: [
+      { label: "Santal Extrait de Parfum", query: "Santal" },
+      { label: "Botanical Squalane Elixir", query: "Elixir" },
+      { label: "Rose Quartz Face Sculptors", query: "Beauty" },
+      { label: "View All Clean Beauty" },
+    ],
+  },
+  {
+    title: "Outerwear & Knitwear",
     categoryKey: "Outerwear",
     items: [
-      { label: "Architectural Trenches", query: "Trench" },
       { label: "Cashmere Overcoats", query: "Coat" },
-      { label: "Leather Jackets", query: "Leather" },
-      { label: "Structured Blazers", query: "Blazer" },
+      { label: "Ribbed Crewnecks", query: "Knit" },
+      { label: "Architectural Trenches", query: "Trench" },
       { label: "View All Outerwear" },
     ],
   },
-  {
-    title: "Knitwear & Essentials",
-    categoryKey: "Knitwear",
-    items: [
-      { label: "Chunky Rib Crewnecks", query: "Knit" },
-      { label: "Merino Wool Sweaters", query: "Sweater" },
-      { label: "Cashmere Cardigans", query: "Cardigan" },
-      { label: "Fine Gauge Turtlenecks", query: "Turtleneck" },
-      { label: "View All Knitwear" },
-    ],
-  },
-  {
-    title: "Leather & Accessories",
-    categoryKey: "Accessories",
-    items: [
-      { label: "Calfskin Structured Totes", query: "Tote" },
-      { label: "Italian Leather Belts", query: "Belt" },
-      { label: "Mulberry Silk Scarves", query: "Scarf" },
-      { label: "Minimalist Crossbody Bags", query: "Bag" },
-      { label: "View All Accessories" },
-    ],
-  },
 ];
-
-const QUICK_TABS = ["All", "Women", "Outerwear", "Knitwear", "Accessories"];
 
 /**
  * High-contrast Category Navigation Bar & Multi-Column Mega Menu.
@@ -71,15 +87,27 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
   selectedCategory,
   onSelectCategory,
   onSearchQuery,
+  isOpen: controlledIsOpen,
+  onToggle: controlledOnToggle,
 }) => {
-  const [isMegaOpen, setIsMegaOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isMegaOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+
+  const setMegaOpen = (open: boolean) => {
+    if (controlledOnToggle) {
+      controlledOnToggle(open);
+    } else {
+      setInternalIsOpen(open);
+    }
+  };
+
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(containerRef, () => setIsMegaOpen(false), isMegaOpen);
+  useClickOutside(containerRef, () => setMegaOpen(false), isMegaOpen);
 
   const handleCategoryClick = (cat: string) => {
     onSelectCategory(cat);
-    setIsMegaOpen(false);
+    setMegaOpen(false);
     scrollToCatalog();
   };
 
@@ -88,7 +116,7 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
     if (query && onSearchQuery) {
       onSearchQuery(query);
     }
-    setIsMegaOpen(false);
+    setMegaOpen(false);
     scrollToCatalog();
   };
 
@@ -100,108 +128,71 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
   };
 
   return (
-    <nav className="category-megamenu-nav" ref={containerRef} aria-label="Category Navigation">
-      <div className="category-nav-container">
-        {/* All Departments Button (Triggers the Mega-Menu) */}
-        <button
-          type="button"
-          id="mega-menu-trigger"
-          className={`mega-trigger-btn ${isMegaOpen ? "active" : ""}`}
-          onClick={() => setIsMegaOpen((prev) => !prev)}
-          aria-expanded={isMegaOpen}
-          aria-haspopup="true"
-        >
-          <span className="hamburger-icon">☰</span>
-          <span className="mega-trigger-text">All Departments</span>
-          <span className={`chevron-indicator ${isMegaOpen ? "rotate" : ""}`}>▾</span>
-        </button>
-
-        {/* Quick Horizontal Category Links */}
-        <div className="quick-category-tabs">
-          {QUICK_TABS.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              className={`category-tab-link ${selectedCategory === cat ? "selected" : ""}`}
-              onClick={() => handleCategoryClick(cat)}
-            >
-              {cat === "All" ? "Full Catalog" : cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Right-side Badge / Store Feature */}
-        <div className="nav-feature-pill">
-          <span className="pulse-dot" />
-          <span>Atelier Direct • Verified Luxury</span>
-        </div>
-      </div>
-
-      {/* Expanded Multi-Column Mega-Menu Drawer */}
+    <div className="mega-menu-drawer-wrapper" ref={containerRef}>
+      {/* Floating Mega-Menu Popover Panel */}
       {isMegaOpen && (
         <div
-          className="mega-menu-dropdown-panel"
+          id="mega-menu-panel"
+          className="mega-menu-panel"
           role="region"
-          aria-labelledby="mega-menu-trigger"
+          aria-label="Atelier Departments Mega Menu"
         >
-          <div className="mega-menu-content-grid">
-            {/* 4 Categorized Department Columns */}
-            {MEGA_DEPARTMENTS.map((dept) => (
-              <div key={dept.title} className="mega-column">
-                <button
-                  type="button"
-                  className="mega-column-header-btn"
-                  onClick={() => handleCategoryClick(dept.categoryKey)}
-                >
-                  <span className="column-title">{dept.title}</span>
-                  <span className="column-arrow">→</span>
-                </button>
-                <ul className="mega-items-list">
-                  {dept.items.map((item) => (
-                    <li key={item.label}>
-                      <button
-                        type="button"
-                        className="mega-item-link"
-                        onClick={() => handleSubItemClick(dept.categoryKey, item.query)}
-                      >
-                        {item.label}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="mega-menu-inner">
+            {/* Multi-Column Grid */}
+            <div className="mega-columns-grid">
+              {MEGA_DEPARTMENTS.map((dept) => {
+                const isCurrent = selectedCategory.toLowerCase() === dept.categoryKey.toLowerCase();
+                return (
+                  <div
+                    key={dept.title}
+                    className={`mega-column ${isCurrent ? "active-department" : ""}`}
+                  >
+                    <h3
+                      className="mega-column-title"
+                      onClick={() => handleCategoryClick(dept.categoryKey)}
+                      tabIndex={0}
+                      role="button"
+                    >
+                      <span>{dept.title}</span>
+                      <span className="column-title-arrow">→</span>
+                    </h3>
+                    <ul className="mega-column-list">
+                      {dept.items.map((item) => (
+                        <li key={item.label}>
+                          <button
+                            type="button"
+                            className="mega-item-link"
+                            onClick={() => handleSubItemClick(dept.categoryKey, item.query)}
+                          >
+                            {item.label}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
 
-            {/* Column 5: Atelier Featured Spotlight */}
+            {/* Atelier Spotlight Card */}
             <div className="mega-spotlight-card">
-              <div className="spotlight-tag">CURATED ATELIER</div>
-              <div className="spotlight-image-wrap">
-                <img
-                  src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80"
-                  alt="Featured Luxury Atelier Drop"
-                  className="spotlight-img"
-                  loading="lazy"
-                />
-                <div className="spotlight-gradient-overlay" />
-              </div>
-              <div className="spotlight-body">
-                <h4 className="spotlight-heading">Mulberry Silk Series</h4>
-                <p className="spotlight-desc">
-                  Tailored minimalist elegance for effortless day-to-evening transitions.
-                </p>
-                <button
-                  type="button"
-                  className="spotlight-cta-btn"
-                  onClick={() => handleCategoryClick("Women")}
-                >
-                  <span>Explore Series</span>
-                  <span>→</span>
-                </button>
-              </div>
+              <div className="spotlight-badge">👑 OFFICIAL ATELIER</div>
+              <h4>Vroom Style(s) Master Lookbook</h4>
+              <p>
+                Handcrafted garments, Italian bridle leathers, and curated lifestyle essentials
+                shipped across Nigeria within 24–48 hours.
+              </p>
+              <button
+                type="button"
+                className="spotlight-cta-btn"
+                onClick={() => handleCategoryClick("Official Store")}
+              >
+                Explore Official Store →
+              </button>
             </div>
           </div>
         </div>
       )}
-    </nav>
+    </div>
   );
 };
