@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
-import type { Product, CartItem, User } from "./types";
+import type { Product, CartItem, User, CampaignEvent } from "./types";
 import { useProducts } from "./hooks/useProducts";
+import { useAttribution } from "./hooks/useAttribution";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
@@ -16,6 +17,10 @@ import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
 import { TaxonomyBar } from "./components/TaxonomyBar";
 import { Breadcrumbs } from "./components/Breadcrumbs";
 import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
+import { FlashSaleSection } from "./components/FlashSaleSection";
+import { CampaignBannerGrid } from "./components/CampaignBannerGrid";
+import { ScavengerHuntModal } from "./components/ScavengerHuntModal";
+import { calculateDiscount } from "./utils/discount";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api from "./services/api";
 import "./styles.css";
@@ -23,6 +28,7 @@ import "./styles.css";
 function App() {
   // Store Catalog managed via TanStack Query
   const { products, isLoading, isError, error, refetch, isLive } = useProducts();
+  const { activeCampaign, setCampaign, clearCampaign } = useAttribution();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
@@ -35,6 +41,7 @@ function App() {
   const [isVendorModalOpen, setIsVendorModalOpen] = useState<boolean>(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
+  const [isScavengerModalOpen, setIsScavengerModalOpen] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
   const [isCheckingOut, setIsCheckingOut] = useState<boolean>(false);
   const [trackingOrderId, setTrackingOrderId] = useState<string>("");
@@ -398,8 +405,36 @@ function App() {
     setSelectedCategory("All");
     setSearchQuery("");
     setQuickViewProduct(null);
+    clearCampaign();
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [clearCampaign]);
+
+  const handleSelectCampaign = useCallback(
+    (event: CampaignEvent) => {
+      setCampaign(event.campaignKey, event.affiliateParams);
+
+      if (event.campaignKey === "scavenger_hunt") {
+        setIsScavengerModalOpen(true);
+        return;
+      }
+
+      if (event.targetCategory) {
+        setSelectedCategory(event.targetCategory);
+      } else if (event.campaignKey === "black_friday") {
+        setSelectedCategory("All");
+        showToast("🔥 Black Friday Event Activated! Special discounts up to -56% applied.");
+      } else if (event.campaignKey === "bogof") {
+        setSelectedCategory("All");
+        showToast("🎁 BOGOF Event Activated! Buy One Get One 50% Off.");
+      } else if (event.campaignKey === "flash_sale") {
+        setSelectedCategory("All");
+        showToast("⚡ Flash Deals Activated!");
+      }
+
+      handleScrollToCatalog();
+    },
+    [handleScrollToCatalog, setCampaign, showToast]
+  );
 
   // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
@@ -415,10 +450,38 @@ function App() {
       return true;
     });
 
-    // 2. Apply multi-taxonomy and search filters
+    // 2. Apply campaign, multi-taxonomy, and search filters
     return uniqueProducts.filter((prod) => {
       const pCat = (prod.category || "").toLowerCase();
       const sCat = selectedCategory.toLowerCase();
+
+      // Promotional campaign filter if active
+      if (activeCampaign) {
+        if (activeCampaign === "black_friday" || activeCampaign === "black_friday_deals") {
+          const isBF =
+            prod.campaignTag === "BLACK_FRIDAY" ||
+            Boolean(prod.originalPrice && prod.originalPrice > prod.price * 1.35);
+          if (!isBF) return false;
+        } else if (activeCampaign === "bogof" || activeCampaign === "bogof_pairs") {
+          const isBOGOF =
+            prod.campaignTag === "BOGOF" ||
+            Boolean(prod.originalPrice && prod.originalPrice > prod.price * 1.25);
+          if (!isBOGOF) return false;
+        } else if (activeCampaign === "flash_sale" || activeCampaign === "official_store_day") {
+          const isFlash =
+            prod.campaignTag === "FLASH_SALE" ||
+            pCat === "official store" ||
+            Boolean(prod.tag && prod.tag.toLowerCase().includes("official"));
+          if (!isFlash) return false;
+        } else if (
+          activeCampaign === "scavenger_hunt" ||
+          activeCampaign === "scavenger_hunt_event"
+        ) {
+          const isScavenger =
+            prod.campaignTag === "SCAVENGER_HUNT" || pCat === "accessories";
+          if (!isScavenger) return false;
+        }
+      }
 
       // Multi-tiered taxonomy routing
       let matchesTaxonomy: boolean;
@@ -457,7 +520,7 @@ function App() {
 
       return matchesTaxonomy && matchesSearch;
     });
-  }, [products, selectedCategory, searchQuery]);
+  }, [products, selectedCategory, searchQuery, activeCampaign]);
 
   const totalCartCount = cartItems.reduce((acc, i) => acc + i.quantity, 0);
 
@@ -757,7 +820,26 @@ function App() {
           </div>
         </section>
 
-        {/* ---------------- 5. Collections / Category Spotlight ---------------- */}
+        {/* ---------------- 5. Real-Time Flash Sale Countdown Engine ---------------- */}
+        <FlashSaleSection
+          products={products}
+          onSelectProduct={setQuickViewProduct}
+          onAddToCart={handleAddToCart}
+          formatPrice={formatPrice}
+          onViewAllFlashSales={() => {
+            setCampaign("flash_sale");
+            handleScrollToCatalog();
+          }}
+        />
+
+        {/* ---------------- 6. Marketing & Campaign Banner Grids (Affiliate Attribution) ---------------- */}
+        <CampaignBannerGrid
+          onSelectCampaign={handleSelectCampaign}
+          activeCampaignKey={activeCampaign}
+          onClearCampaign={clearCampaign}
+        />
+
+        {/* ---------------- 7. Collections / Category Spotlight ---------------- */}
         <section className="section-label">
           <h2>Shop by Category</h2>
           <span>Curated Selections</span>
@@ -873,6 +955,15 @@ function App() {
                         className="product-card-img"
                         onClick={() => setQuickViewProduct(product)}
                       />
+                      {/* Dynamic Discount Calculation & Badge */}
+                      {(() => {
+                        const discount = calculateDiscount(product.price, product.originalPrice);
+                        return discount.hasDiscount ? (
+                          <span className="product-discount-pill">
+                            {discount.formattedBadge}
+                          </span>
+                        ) : null;
+                      })()}
                       {product.tag && (
                         <span className="product-badge">{product.tag}</span>
                       )}
@@ -925,6 +1016,11 @@ function App() {
                         <span className="product-price">
                           {formatPrice(product.price)}
                         </span>
+                        {product.originalPrice && product.originalPrice > product.price && (
+                          <span className="product-original-price">
+                            {formatPrice(product.originalPrice)}
+                          </span>
+                        )}
                         {product.stock <= 5 ? (
                           <span className="stock low" title={`${product.stock} items left in stock`}>
                             Only {product.stock} left
@@ -935,6 +1031,27 @@ function App() {
                           </span>
                         )}
                       </div>
+
+                      {/* Inventory Scarcity Progress Meter */}
+                      {product.stock <= 10 && (
+                        <div className="inventory-scarcity-meter card-scarcity-meter">
+                          <div className="scarcity-progress-track">
+                            <div
+                              className={`scarcity-progress-bar ${product.stock <= 5 ? "urgency-high" : ""}`}
+                              style={{
+                                width: `${Math.min(
+                                  100,
+                                  Math.round(
+                                    ((Math.max(product.initialStock || 30, product.stock * 2) - product.stock) /
+                                      Math.max(product.initialStock || 30, product.stock * 2)) *
+                                      100
+                                  )
+                                )}%`,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )}
 
                       <button
                         className="product-add"
@@ -1071,6 +1188,17 @@ function App() {
           } else {
             setIsTrackingOpen(true);
           }
+        }}
+      />
+
+      {/* Seasonal Mystery Scavenger Hunt Modal */}
+      <ScavengerHuntModal
+        isOpen={isScavengerModalOpen}
+        onClose={() => setIsScavengerModalOpen(false)}
+        onClaimVoucher={(code) => {
+          showToast(`Voucher ${code} applied! ₦15,000 seasonal savings unlocked.`);
+          setCampaign("scavenger_hunt");
+          handleScrollToCatalog();
         }}
       />
 
