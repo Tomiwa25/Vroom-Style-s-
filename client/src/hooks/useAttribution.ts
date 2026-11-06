@@ -12,15 +12,17 @@ const parseInitialAttribution = (): AttributionData | null => {
   const utm_medium = params.get("utm_medium") || undefined;
   const utm_campaign = params.get("utm_campaign") || undefined;
   const gad_campaignid = params.get("gad_campaignid") || params.get("gclid") || undefined;
-  const affiliate_id = params.get("affiliate_id") || params.get("ref") || undefined;
+  const affiliate_id = params.get("affiliate_id") || params.get("ref") || params.get("jforce") || undefined;
+  const jforce_agent_id = params.get("jforce") || (affiliate_id && affiliate_id.startsWith("JF-") ? affiliate_id : undefined);
 
-  if (utm_source || utm_campaign || gad_campaignid || affiliate_id) {
+  if (utm_source || utm_campaign || gad_campaignid || affiliate_id || jforce_agent_id) {
     const freshAttribution: AttributionData = {
       utm_source,
       utm_medium,
       utm_campaign,
       gad_campaignid,
       affiliate_id,
+      jforce_agent_id,
       capturedAt: new Date().toISOString(),
     };
 
@@ -55,32 +57,36 @@ export function useAttribution() {
 
   const setCampaign = useCallback(
     (campaignKey: string, extraParams?: Partial<AttributionData>) => {
-      const updated: AttributionData = {
-        utm_source: extraParams?.utm_source || "vroom_promotions",
-        utm_medium: extraParams?.utm_medium || "banner_grid",
-        utm_campaign: campaignKey,
-        gad_campaignid: extraParams?.gad_campaignid,
-        affiliate_id: extraParams?.affiliate_id,
-        capturedAt: new Date().toISOString(),
-      };
+      setAttribution((prev) => {
+        const updated: AttributionData = {
+          utm_source: extraParams?.utm_source || "vroom_promotions",
+          utm_medium: extraParams?.utm_medium || "banner_grid",
+          utm_campaign: campaignKey,
+          gad_campaignid: extraParams?.gad_campaignid,
+          affiliate_id: extraParams?.affiliate_id || prev?.affiliate_id,
+          jforce_agent_id: extraParams?.jforce_agent_id || prev?.jforce_agent_id,
+          capturedAt: new Date().toISOString(),
+        };
 
-      try {
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      } catch (err) {
-        console.warn("Could not persist campaign attribution", err);
-      }
+        try {
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        } catch (err) {
+          console.warn("Could not persist campaign attribution", err);
+        }
 
-      setAttribution(updated);
+        // Reflect in URL query string without reloading
+        if (typeof window !== "undefined") {
+          const url = new URL(window.location.href);
+          url.searchParams.set("utm_campaign", campaignKey);
+          if (updated.utm_source) url.searchParams.set("utm_source", updated.utm_source);
+          if (updated.utm_medium) url.searchParams.set("utm_medium", updated.utm_medium);
+          window.history.replaceState({}, "", url.toString());
+        }
+
+        return updated;
+      });
+
       setActiveCampaign(campaignKey);
-
-      // Reflect in URL query string without reloading
-      if (typeof window !== "undefined") {
-        const url = new URL(window.location.href);
-        url.searchParams.set("utm_campaign", campaignKey);
-        if (updated.utm_source) url.searchParams.set("utm_source", updated.utm_source);
-        if (updated.utm_medium) url.searchParams.set("utm_medium", updated.utm_medium);
-        window.history.replaceState({}, "", url.toString());
-      }
     },
     []
   );

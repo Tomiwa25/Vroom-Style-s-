@@ -19,7 +19,8 @@ const FALLBACK_IMAGE =
  * Reusable Product Card Component.
  * Encapsulates lazy-loaded image with CDN fallback, multi-line title/description clamping,
  * star-rating engine with customer review counts, localized ₦ dual-pricing,
- * "From ₦..." variant selector logic, and inventory scarcity meters.
+ * "From ₦..." variant selector logic, inventory scarcity meters,
+ * multi-tenant seller separation (1P vs 3P), warranty indicators, and bundled incentives.
  */
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
@@ -30,17 +31,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
   compact = false,
 }) => {
-  const [imgSrc, setImgSrc] = useState(product.image || FALLBACK_IMAGE);
+  const [errorImageId, setErrorImageId] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedSize, setSelectedSize] = useState<string>(
-    product.sizes?.[0] || "Standard"
-  );
-  const [selectedColor, setSelectedColor] = useState<string>(
-    product.colors?.[0]?.name || "Default"
-  );
+  const [userSelectedSize, setUserSelectedSize] = useState<string | null>(null);
+  const [userSelectedColor, setUserSelectedColor] = useState<string | null>(null);
+
+  const selectedSize = userSelectedSize ?? product.sizes?.[0] ?? "Standard";
+  const selectedColor = userSelectedColor ?? product.colors?.[0]?.name ?? "Default";
+  const hasImgError = errorImageId === product.id;
 
   const discount = calculateDiscount(product.price, product.originalPrice);
   const secondaryImage = product.images && product.images.length > 1 ? product.images[1] : null;
+  const activeImage = hasImgError
+    ? FALLBACK_IMAGE
+    : isHovered && secondaryImage
+    ? secondaryImage
+    : product.image || FALLBACK_IMAGE;
 
   // Star Rating Engine
   const ratingValue = product.rating || 4.8;
@@ -90,11 +96,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         aria-label={`View details for ${product.name}`}
       >
         <img
-          src={isHovered && secondaryImage ? secondaryImage : imgSrc}
+          src={activeImage}
           alt={product.name}
           className="card-product-img"
           loading="lazy"
-          onError={() => setImgSrc(FALLBACK_IMAGE)}
+          onError={() => setErrorImageId(product.id)}
         />
 
         {/* Dynamic Discount Badge (-49%, -56%) */}
@@ -107,6 +113,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Atelier / Collection Tag Badge */}
         {product.tag && (
           <span className="card-marketing-tag">{product.tag}</span>
+        )}
+
+        {/* Bundled Incentive Ribbon Tag (e.g. + FREE 43" SMART TV, + FREE Qi2 FAST CHARGE CABLE) */}
+        {product.bundledIncentive && (
+          <div className="card-bundled-incentive-pill" title={product.bundledIncentive}>
+            <span className="incentive-icon">🎁</span>
+            <span className="incentive-text">{product.bundledIncentive}</span>
+          </div>
         )}
 
         {/* Wishlist Heart Toggle */}
@@ -141,6 +155,26 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Card Content & Metadata */}
       <div className="card-content-body">
+        {/* Multi-Tenant Seller Attribution & Logistics Tag */}
+        <div className="card-seller-attribution-row">
+          {product.sellerType === "1P" ? (
+            <span className="seller-tag seller-1p" title="Official Vroom Direct Retail">
+              <span className="seller-icon">👑</span> Vroom Direct
+            </span>
+          ) : (
+            <span className="seller-tag seller-3p" title={`Verified Marketplace Vendor: ${product.sellerName || "Partner"}`}>
+              <span className="seller-icon">🏪</span> {product.sellerName || "Marketplace"}
+              {product.sellerRating ? ` (${product.sellerRating}%)` : ""}
+            </span>
+          )}
+
+          {product.isFulfilledByVroom && (
+            <span className="express-logistics-pill" title="Fulfilled by Vroom Express Logistics">
+              ⚡ Express
+            </span>
+          )}
+        </div>
+
         {/* Brand & Category taxonomy string */}
         <div className="card-taxonomy-row">
           <span className="card-brand-name">
@@ -157,6 +191,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         >
           {product.name}
         </h4>
+
+        {/* Warranty & Assurance Attribute Tag (e.g. + 12 Month Warranty, 2-Year Warranty) */}
+        {product.warranty && (
+          <div className="card-warranty-assurance-row" title={`Warranty: ${product.warranty}`}>
+            <span className="warranty-shield-icon">🛡️</span>
+            <span className="warranty-text">{product.warranty}</span>
+          </div>
+        )}
 
         {/* Multi-line clamped description string (hidden on compact mode) */}
         {!compact && product.description && (
@@ -196,7 +238,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   className={`size-mini-pill ${selectedSize === sz ? "selected" : ""}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedSize(sz);
+                    setUserSelectedSize(sz);
                   }}
                 >
                   {sz}
@@ -217,7 +259,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 style={{ backgroundColor: c.hex }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedColor(c.name);
+                  setUserSelectedColor(c.name);
                 }}
                 title={c.name}
                 aria-label={`Select ${c.name} color`}

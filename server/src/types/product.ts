@@ -13,4 +13,10 @@ export interface Product {
     colors?: any;
     material?: string | null;
     fitGuide?: string | null;
+    sellerType?: "1P" | "3P";
+    sellerName?: string;
+    sellerRating?: number;
+    isFulfilledByVroom?: boolean;
+    warranty?: string;
+    bundledIncentive?: string;
 }
