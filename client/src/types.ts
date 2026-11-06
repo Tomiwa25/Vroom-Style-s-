@@ -11,6 +11,10 @@ export interface Product {
   brand?: string;
   stock: number;
   initialStock?: number;
+  rating?: number;
+  reviewCount?: number;
+  hasVariants?: boolean;
+  minPrice?: number;
   campaignTag?: "BLACK_FRIDAY" | "FLASH_SALE" | "BOGOF" | "SCAVENGER_HUNT";
   colors?: { name: string; hex: string }[];
   sizes?: string[];

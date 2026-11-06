@@ -20,7 +20,10 @@ import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
 import { FlashSaleSection } from "./components/FlashSaleSection";
 import { CampaignBannerGrid } from "./components/CampaignBannerGrid";
 import { ScavengerHuntModal } from "./components/ScavengerHuntModal";
-import { calculateDiscount } from "./utils/discount";
+import { ProductCard } from "./components/ProductCard";
+import { RecommendationRail } from "./components/RecommendationRail";
+import { BrandPortalSection } from "./components/BrandPortalSection";
+import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api from "./services/api";
 import "./styles.css";
@@ -51,6 +54,17 @@ function App() {
     total: number;
   } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+
+  // Recently Viewed history (client-side localStorage tracking)
+  const { recentlyViewed, recordView, clearHistory } = useRecentlyViewed();
+
+  const handleOpenQuickView = useCallback(
+    (product: Product) => {
+      recordView(product);
+      setQuickViewProduct(product);
+    },
+    [recordView]
+  );
   const [feedbackModal, setFeedbackModal] = useState<{
     isOpen: boolean;
     status: "SUCCESS" | "OUT_OF_STOCK";
@@ -134,6 +148,7 @@ function App() {
     color?: string,
     quantity: number = 1
   ) => {
+    recordView(product);
     const chosenSize = size || product.sizes?.[0] || "Standard";
     const chosenColor = color || product.colors?.[0]?.name || "Default";
 
@@ -522,6 +537,34 @@ function App() {
     });
   }, [products, selectedCategory, searchQuery, activeCampaign]);
 
+  // Curated Recommendation Feeds
+  const topSellingProducts = useMemo(() => {
+    return [...products]
+      .filter((p) => (p.reviewCount && p.reviewCount >= 500) || (p.rating && p.rating >= 4.8))
+      .sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
+  }, [products]);
+
+  const searchBasedProducts = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase().trim();
+    return products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        Boolean(p.brand && p.brand.toLowerCase().includes(q)) ||
+        Boolean(p.tag && p.tag.toLowerCase().includes(q))
+    );
+  }, [products, searchQuery]);
+
+  const techDealsProducts = useMemo(() => {
+    return products.filter(
+      (p) =>
+        p.category === "Phones & Tablets" ||
+        p.category === "Appliances" ||
+        Boolean(p.brand && (p.brand === "Courant" || p.brand === "SteamOne"))
+    );
+  }, [products]);
+
   const totalCartCount = cartItems.reduce((acc, i) => acc + i.quantity, 0);
 
   return (
@@ -617,9 +660,7 @@ function App() {
               setSelectedCategory(tax);
               handleScrollToCatalog();
             }}
-            onSelectProduct={(prod) => {
-              setQuickViewProduct(prod);
-            }}
+            onSelectProduct={handleOpenQuickView}
             onExecuteSearch={handleScrollToCatalog}
             formatPrice={formatPrice}
           />
@@ -823,7 +864,7 @@ function App() {
         {/* ---------------- 5. Real-Time Flash Sale Countdown Engine ---------------- */}
         <FlashSaleSection
           products={products}
-          onSelectProduct={setQuickViewProduct}
+          onSelectProduct={handleOpenQuickView}
           onAddToCart={handleAddToCart}
           formatPrice={formatPrice}
           onViewAllFlashSales={() => {
@@ -868,7 +909,74 @@ function App() {
           ))}
         </section>
 
-        {/* ---------------- 6. Main Product Catalog Section ---------------- */}
+        {/* ---------------- 8. Curated Recommendation Rails: Recently Viewed ---------------- */}
+        {recentlyViewed.length > 0 && (
+          <RecommendationRail
+            title="Recently Viewed Pieces"
+            subtitle="Pick up right where you left off"
+            kicker="BROWSING HISTORY"
+            badge={`${recentlyViewed.length} Saved`}
+            products={recentlyViewed}
+            formatPrice={formatPrice}
+            wishlist={wishlist}
+            onToggleWishlist={handleToggleWishlist}
+            onQuickView={handleOpenQuickView}
+            onAddToCart={handleAddToCart}
+            onClearRail={clearHistory}
+          />
+        )}
+
+        {/* ---------------- 9. Curated Recommendation Rails: Based on Your Search ---------------- */}
+        {searchQuery.trim().length > 0 && searchBasedProducts.length > 0 && (
+          <RecommendationRail
+            title={`Based on your search for "${searchQuery}"`}
+            subtitle="Curated matching styles and compatible accessories"
+            kicker="SEARCH RECOMMENDATIONS"
+            badge={`${searchBasedProducts.length} Matches`}
+            products={searchBasedProducts}
+            formatPrice={formatPrice}
+            wishlist={wishlist}
+            onToggleWishlist={handleToggleWishlist}
+            onQuickView={handleOpenQuickView}
+            onAddToCart={handleAddToCart}
+            onViewAll={() => handleScrollToCatalog()}
+          />
+        )}
+
+        {/* ---------------- 10. Curated Recommendation Rails: Top Selling & Customer Faves ---------------- */}
+        <RecommendationRail
+          title="Top Selling Items & Customer Faves"
+          subtitle="High-velocity verified patron favorites with 4.8★+ aggregate ratings"
+          kicker="BESTSELLERS"
+          badge="TRENDING"
+          products={topSellingProducts}
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          onViewAll={(cat) => {
+            setSelectedCategory(cat || "All");
+            handleScrollToCatalog();
+          }}
+        />
+
+        {/* ---------------- 11. Dedicated Brand Portal Section (Authorized Flagships) ---------------- */}
+        <BrandPortalSection
+          products={products}
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          onExploreBrandCatalog={(brandName) => {
+            setSearchQuery(brandName);
+            setSelectedCategory("All");
+            handleScrollToCatalog();
+          }}
+        />
+
+        {/* ---------------- 12. Main Product Catalog Section ---------------- */}
         <Breadcrumbs
           selectedTaxonomy={selectedCategory}
           searchQuery={searchQuery}
@@ -944,128 +1052,39 @@ function App() {
             </div>
           ) : (
             <section className="product-grid">
-              {filteredProducts.map((product) => {
-                const isFavorited = wishlist.includes(product.id);
-                return (
-                  <article key={product.id} className="product-card">
-                    <div className="product-media-container">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="product-card-img"
-                        onClick={() => setQuickViewProduct(product)}
-                      />
-                      {/* Dynamic Discount Calculation & Badge */}
-                      {(() => {
-                        const discount = calculateDiscount(product.price, product.originalPrice);
-                        return discount.hasDiscount ? (
-                          <span className="product-discount-pill">
-                            {discount.formattedBadge}
-                          </span>
-                        ) : null;
-                      })()}
-                      {product.tag && (
-                        <span className="product-badge">{product.tag}</span>
-                      )}
-                      <button
-                        className={`card-wishlist-btn ${isFavorited ? "active" : ""}`}
-                        onClick={() => handleToggleWishlist(product.id)}
-                        aria-label="Save to wishlist"
-                      >
-                        {isFavorited ? "♥" : "♡"}
-                      </button>
-                      <button
-                        className="quick-view-trigger-btn"
-                        onClick={() => setQuickViewProduct(product)}
-                      >
-                        Quick Look
-                      </button>
-                    </div>
-
-                    <div className="meta">
-                      <div className="meta-category-row">
-                        <span className="product-category">
-                          {product.brand ? `${product.brand} • ${product.category}` : product.category}
-                        </span>
-                        {product.stock <= 3 && (
-                          <span className="stock low">Only {product.stock} left</span>
-                        )}
-                      </div>
-
-                      <h3
-                        className="product-name"
-                        onClick={() => setQuickViewProduct(product)}
-                      >
-                        {product.name}
-                      </h3>
-
-                      {product.colors && product.colors.length > 0 && (
-                        <div className="card-color-swatches">
-                          {product.colors.map((c) => (
-                            <span
-                              key={c.name}
-                              className="color-dot"
-                              style={{ backgroundColor: c.hex }}
-                              title={c.name}
-                            />
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="product-details">
-                        <span className="product-price">
-                          {formatPrice(product.price)}
-                        </span>
-                        {product.originalPrice && product.originalPrice > product.price && (
-                          <span className="product-original-price">
-                            {formatPrice(product.originalPrice)}
-                          </span>
-                        )}
-                        {product.stock <= 5 ? (
-                          <span className="stock low" title={`${product.stock} items left in stock`}>
-                            Only {product.stock} left
-                          </span>
-                        ) : (
-                          <span className="stock in" title={`${product.stock} items in stock`}>
-                            {product.stock} in stock
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Inventory Scarcity Progress Meter */}
-                      {product.stock <= 10 && (
-                        <div className="inventory-scarcity-meter card-scarcity-meter">
-                          <div className="scarcity-progress-track">
-                            <div
-                              className={`scarcity-progress-bar ${product.stock <= 5 ? "urgency-high" : ""}`}
-                              style={{
-                                width: `${Math.min(
-                                  100,
-                                  Math.round(
-                                    ((Math.max(product.initialStock || 30, product.stock * 2) - product.stock) /
-                                      Math.max(product.initialStock || 30, product.stock * 2)) *
-                                      100
-                                  )
-                                )}%`,
-                              }}
-                            />
-                          </div>
-                        </div>
-                      )}
-
-                      <button
-                        className="product-add"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Add to Bag +
-                      </button>
-                    </div>
-                  </article>
-                );
-              })}
+              {filteredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  formatPrice={formatPrice}
+                  isFavorited={wishlist.includes(product.id)}
+                  onToggleWishlist={handleToggleWishlist}
+                  onQuickView={handleOpenQuickView}
+                  onAddToCart={handleAddToCart}
+                />
+              ))}
             </section>
           )}
         </section>
+
+        {/* ---------------- 13. Category Specific Feed: Smart Living & Tech Deals ---------------- */}
+        <RecommendationRail
+          title="Smart Devices & Signature Living"
+          subtitle="Engineered for high-efficiency living, garment care, and modern workspaces"
+          kicker="TECH & LIVING"
+          badge="IN DEMAND"
+          products={techDealsProducts}
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          viewAllCategory="Phones & Tablets"
+          onViewAll={(cat) => {
+            setSelectedCategory(cat || "Phones & Tablets");
+            handleScrollToCatalog();
+          }}
+        />
 
         {/* ---------------- 7. Quality & Craftsmanship Pillars ---------------- */}
         <section className="feature-band">

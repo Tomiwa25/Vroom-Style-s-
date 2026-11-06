@@ -1,0 +1,281 @@
+import React, { useState } from "react";
+import type { Product } from "../types";
+import { calculateDiscount } from "../utils/discount";
+
+interface ProductCardProps {
+  product: Product;
+  formatPrice: (amount: number) => string;
+  isFavorited?: boolean;
+  onToggleWishlist?: (productId: string) => void;
+  onQuickView?: (product: Product) => void;
+  onAddToCart?: (product: Product, size?: string, color?: string) => void;
+  compact?: boolean;
+}
+
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85";
+
+/**
+ * Reusable Product Card Component.
+ * Encapsulates lazy-loaded image with CDN fallback, multi-line title/description clamping,
+ * star-rating engine with customer review counts, localized ₦ dual-pricing,
+ * "From ₦..." variant selector logic, and inventory scarcity meters.
+ */
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  formatPrice,
+  isFavorited = false,
+  onToggleWishlist,
+  onQuickView,
+  onAddToCart,
+  compact = false,
+}) => {
+  const [imgSrc, setImgSrc] = useState(product.image || FALLBACK_IMAGE);
+  const [isHovered, setIsHovered] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>(
+    product.sizes?.[0] || "Standard"
+  );
+  const [selectedColor, setSelectedColor] = useState<string>(
+    product.colors?.[0]?.name || "Default"
+  );
+
+  const discount = calculateDiscount(product.price, product.originalPrice);
+  const secondaryImage = product.images && product.images.length > 1 ? product.images[1] : null;
+
+  // Star Rating Engine
+  const ratingValue = product.rating || 4.8;
+  const reviewCount = product.reviewCount || 120;
+  const fullStars = Math.floor(ratingValue);
+  const hasHalfStar = ratingValue - fullStars >= 0.5;
+
+  // Variant & "From ₦..." logic
+  const hasMultipleVariants =
+    Boolean(product.hasVariants) ||
+    Boolean(product.sizes && product.sizes.length > 1) ||
+    Boolean(product.colors && product.colors.length > 1);
+
+  // Scarcity threshold
+  const isScarce = product.stock > 0 && product.stock <= 10;
+  const initialStock = product.initialStock || Math.max(product.stock * 2, 30);
+  const percentClaimed = Math.min(
+    100,
+    Math.round(((initialStock - product.stock) / initialStock) * 100)
+  );
+
+  const handleCardClick = () => {
+    if (onQuickView) onQuickView(product);
+  };
+
+  const handleAddClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onAddToCart) {
+      onAddToCart(product, selectedSize, selectedColor);
+    }
+  };
+
+  return (
+    <article
+      className={`reusable-product-card ${compact ? "compact" : ""} ${
+        product.stock <= 0 ? "out-of-stock" : ""
+      }`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Media & Badges */}
+      <div
+        className="card-media-wrapper"
+        onClick={handleCardClick}
+        role="button"
+        tabIndex={0}
+        aria-label={`View details for ${product.name}`}
+      >
+        <img
+          src={isHovered && secondaryImage ? secondaryImage : imgSrc}
+          alt={product.name}
+          className="card-product-img"
+          loading="lazy"
+          onError={() => setImgSrc(FALLBACK_IMAGE)}
+        />
+
+        {/* Dynamic Discount Badge (-49%, -56%) */}
+        {discount.hasDiscount && (
+          <span className="card-dynamic-discount-badge">
+            {discount.formattedBadge}
+          </span>
+        )}
+
+        {/* Atelier / Collection Tag Badge */}
+        {product.tag && (
+          <span className="card-marketing-tag">{product.tag}</span>
+        )}
+
+        {/* Wishlist Heart Toggle */}
+        {onToggleWishlist && (
+          <button
+            type="button"
+            className={`card-wishlist-action ${isFavorited ? "favorited" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleWishlist(product.id);
+            }}
+            aria-label={isFavorited ? "Remove from saved items" : "Save to wishlist"}
+          >
+            {isFavorited ? "♥" : "♡"}
+          </button>
+        )}
+
+        {/* Quick View Overlay Trigger */}
+        {onQuickView && (
+          <button
+            type="button"
+            className="card-quick-look-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              onQuickView(product);
+            }}
+          >
+            Quick Look
+          </button>
+        )}
+      </div>
+
+      {/* Card Content & Metadata */}
+      <div className="card-content-body">
+        {/* Brand & Category taxonomy string */}
+        <div className="card-taxonomy-row">
+          <span className="card-brand-name">
+            {product.brand ? product.brand : product.category}
+          </span>
+          <span className="card-category-sub">• {product.category}</span>
+        </div>
+
+        {/* Multi-line clamped product title */}
+        <h4
+          className="card-clamped-title"
+          onClick={handleCardClick}
+          title={product.name}
+        >
+          {product.name}
+        </h4>
+
+        {/* Multi-line clamped description string (hidden on compact mode) */}
+        {!compact && product.description && (
+          <p className="card-clamped-description" title={product.description}>
+            {product.description}
+          </p>
+        )}
+
+        {/* Star Rating Engine with Aggregate Customer Review Counter */}
+        <div className="card-star-rating-row" title={`Rated ${ratingValue} out of 5 stars by ${reviewCount} patrons`}>
+          <div className="stars-cluster" aria-hidden="true">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span
+                key={i}
+                className={`star-char ${
+                  i < fullStars ? "star-filled" : i === fullStars && hasHalfStar ? "star-half" : "star-empty"
+                }`}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+          <span className="star-aggregate-text">
+            <strong>{ratingValue.toFixed(1)}</strong> ({reviewCount.toLocaleString()})
+          </span>
+        </div>
+
+        {/* Variant Size Selector Pills (From ₦... logic) */}
+        {product.sizes && product.sizes.length > 1 && (
+          <div className="card-variant-sizes-strip">
+            <span className="sizes-label">Sizes:</span>
+            <div className="sizes-pill-list">
+              {product.sizes.map((sz) => (
+                <button
+                  key={sz}
+                  type="button"
+                  className={`size-mini-pill ${selectedSize === sz ? "selected" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSize(sz);
+                  }}
+                >
+                  {sz}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Color Swatches */}
+        {product.colors && product.colors.length > 1 && (
+          <div className="card-color-swatches-row">
+            {product.colors.map((c) => (
+              <button
+                key={c.name}
+                type="button"
+                className={`color-swatch-ring ${selectedColor === c.name ? "selected" : ""}`}
+                style={{ backgroundColor: c.hex }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedColor(c.name);
+                }}
+                title={c.name}
+                aria-label={`Select ${c.name} color`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Dual-Price Localized Display with "From ₦..." variant prefix */}
+        <div className="card-pricing-block">
+          <div className="pricing-primary-row">
+            {hasMultipleVariants && (
+              <span className="from-price-prefix">From</span>
+            )}
+            <span className="current-price-val">
+              {formatPrice(product.price)}
+            </span>
+            {product.originalPrice && product.originalPrice > product.price && (
+              <span className="strikethrough-original-price">
+                {formatPrice(product.originalPrice)}
+              </span>
+            )}
+          </div>
+          <span className={`stock-status-pill ${product.stock <= 5 ? "low" : "in"}`}>
+            {product.stock <= 0
+              ? "Sold Out"
+              : product.stock <= 5
+              ? `Only ${product.stock} left`
+              : `${product.stock} in stock`}
+          </span>
+        </div>
+
+        {/* Inventory Scarcity Progress Meter */}
+        {isScarce && (
+          <div className="card-scarcity-container">
+            <div className="card-scarcity-meter">
+              <div className="scarcity-progress-track">
+                <div
+                  className={`scarcity-progress-bar ${product.stock <= 4 ? "urgency-high" : ""}`}
+                  style={{ width: `${percentClaimed}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Add to Bag Action Button */}
+        {onAddToCart && (
+          <button
+            type="button"
+            className="card-add-to-cart-btn"
+            onClick={handleAddClick}
+            disabled={product.stock <= 0}
+          >
+            {product.stock <= 0 ? "Out of Stock" : "Add to Bag +"}
+          </button>
+        )}
+      </div>
+    </article>
+  );
+};
