@@ -338,3 +338,4 @@ export const JForcePortalModal: React.FC<JForcePortalModalProps> = ({
     </div>
   );
 };
+
