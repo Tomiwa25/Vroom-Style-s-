@@ -102,3 +102,4 @@ export const ScavengerHuntModal: React.FC<ScavengerHuntModalProps> = ({
     </div>
   );
 };
+

@@ -212,3 +212,4 @@ export const FlashSaleSection: React.FC<FlashSaleSectionProps> = ({
     </section>
   );
 };
+

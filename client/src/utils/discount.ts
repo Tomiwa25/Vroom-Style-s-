@@ -28,3 +28,4 @@ export function calculateDiscount(price: number, originalPrice?: number): Discou
     formattedBadge: `-${percentage}%`,
   };
 }
+
