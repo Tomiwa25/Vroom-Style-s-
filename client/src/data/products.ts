@@ -7,6 +7,7 @@ export const initialProducts: Product[] = [
     name: "Contour Silk Midi Dress",
     description: "Sculpted sleeveless silhouette draped in fluid mulberry silk and organic linen. Minimalist jewel neckline with an understated rear vent.",
     price: 56000,
+    originalPrice: 110000,
     image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
@@ -15,7 +16,9 @@ export const initialProducts: Product[] = [
     category: "Women",
     brand: "Vroom Atelier",
     stock: 15,
+    initialStock: 35,
     tag: "Atelier Drop",
+    campaignTag: "FLASH_SALE",
     colors: [
       { name: "Oat Sand", hex: "#D9CDBF" },
       { name: "Noir", hex: "#1A1A1A" },
@@ -31,6 +34,7 @@ export const initialProducts: Product[] = [
     name: "Signature Structured Tote",
     description: "Architectural tote handcrafted from Italian vegetable-tanned calfskin. Features reinforced dual handles, protective brass feet, and interior laptop divider.",
     price: 72000,
+    originalPrice: 145000,
     image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85",
@@ -39,7 +43,9 @@ export const initialProducts: Product[] = [
     category: "Accessories",
     brand: "Vroom Leather Goods",
     stock: 8,
+    initialStock: 40,
     tag: "Official Store",
+    campaignTag: "BLACK_FRIDAY",
     colors: [
       { name: "Cognac Tan", hex: "#C68642" },
       { name: "Ebony", hex: "#222222" },
@@ -55,6 +61,7 @@ export const initialProducts: Product[] = [
     name: "Arc Ribbed Cashmere Knit",
     description: "Oversized chunky rib crewneck spun from Grade-A Mongolian cashmere and soft merino wool. Generous sleeves with subtle drop-shoulder tailoring.",
     price: 48000,
+    originalPrice: 108000,
     image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=85",
@@ -63,7 +70,9 @@ export const initialProducts: Product[] = [
     category: "Knitwear",
     brand: "Vroom Atelier",
     stock: 6,
+    initialStock: 50,
     tag: "Official Store",
+    campaignTag: "FLASH_SALE",
     colors: [
       { name: "Raw Oatmeal", hex: "#E3DDD2" },
       { name: "Sage Heather", hex: "#7E8E78" },
@@ -79,6 +88,7 @@ export const initialProducts: Product[] = [
     name: "Field Utility Canvas Overshirt",
     description: "Boxy workwear overshirt tailored in heavy Japanese cotton canvas with garment-washed softness. Dual chest flap pockets and horn button closures.",
     price: 64000,
+    originalPrice: 120000,
     image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1200&q=85",
@@ -87,7 +97,9 @@ export const initialProducts: Product[] = [
     category: "Outerwear",
     brand: "Vroom Tailoring",
     stock: 12,
+    initialStock: 30,
     tag: "New Edition",
+    campaignTag: "BOGOF",
     colors: [
       { name: "Terracotta Clay", hex: "#B85D43" },
       { name: "Washed Olive", hex: "#4A5844" },
@@ -103,6 +115,7 @@ export const initialProducts: Product[] = [
     name: "Pleated High-Waisted Trousers",
     description: "High-waisted relaxed trousers featuring sharp double front pleats, clean side slash pockets, and an elongated fluid drape in lightweight wool blend.",
     price: 52000,
+    originalPrice: 95000,
     image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
@@ -111,7 +124,9 @@ export const initialProducts: Product[] = [
     category: "Women",
     brand: "Vroom Atelier",
     stock: 9,
+    initialStock: 25,
     tag: "Trending",
+    campaignTag: "BLACK_FRIDAY",
     colors: [
       { name: "Olive Heather", hex: "#636F57" },
       { name: "Ecru", hex: "#EBE5D8" },
@@ -127,6 +142,7 @@ export const initialProducts: Product[] = [
     name: "Atelier Box Calf Penny Loafers",
     description: "Timeless penny loafers meticulously constructed with Goodyear welted leather soles and hand-burnished full-grain box calf leather uppers.",
     price: 85000,
+    originalPrice: 150000,
     image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=1200&q=85",
@@ -135,7 +151,9 @@ export const initialProducts: Product[] = [
     category: "Accessories",
     brand: "Vroom Footwear",
     stock: 4,
+    initialStock: 20,
     tag: "Official Store",
+    campaignTag: "FLASH_SALE",
     colors: [
       { name: "Nero Black", hex: "#151515" },
       { name: "Deep Burgundy", hex: "#581825" },
@@ -150,6 +168,7 @@ export const initialProducts: Product[] = [
     name: "Washed Wool Belted Blazer",
     description: "Double-breasted architectural tailored blazer featuring structured shoulders, clean notch lapels, and a removable self-tie belt.",
     price: 92000,
+    originalPrice: 180000,
     image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85",
@@ -158,7 +177,9 @@ export const initialProducts: Product[] = [
     category: "Outerwear",
     brand: "Vroom Tailoring",
     stock: 5,
+    initialStock: 25,
     tag: "Official Store",
+    campaignTag: "BLACK_FRIDAY",
     colors: [
       { name: "Camel Sand", hex: "#C2B29D" },
       { name: "Noir Black", hex: "#111111" },
@@ -173,6 +194,7 @@ export const initialProducts: Product[] = [
     name: "Minimalist Calfskin Leather Belt",
     description: "Sleek 30mm dress belt crafted from smooth Italian bridle calfskin with a solid brushed brass square buckle.",
     price: 28000,
+    originalPrice: 55000,
     image: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85",
@@ -181,7 +203,9 @@ export const initialProducts: Product[] = [
     category: "Accessories",
     brand: "Vroom Leather Goods",
     stock: 20,
+    initialStock: 60,
     tag: "Essential",
+    campaignTag: "BOGOF",
     colors: [
       { name: "Brushed Brass & Black", hex: "#111111" },
       { name: "Caramel Tan", hex: "#C68642" },
@@ -196,6 +220,7 @@ export const initialProducts: Product[] = [
     name: "Double-Faced Wool Overcoat",
     description: "Clean unlined winter coat tailored in premium heavyweight wool with hand-stitched split seam construction.",
     price: 115000,
+    originalPrice: 220000,
     image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85",
@@ -204,7 +229,9 @@ export const initialProducts: Product[] = [
     category: "Outerwear",
     brand: "Vroom Atelier",
     stock: 6,
+    initialStock: 30,
     tag: "Official Store",
+    campaignTag: "BLACK_FRIDAY",
     colors: [
       { name: "Charcoal Grey", hex: "#374151" },
       { name: "Classic Camel", hex: "#B49774" },
@@ -219,6 +246,7 @@ export const initialProducts: Product[] = [
     name: "Fine Gauge Mock-Neck Sweater",
     description: "Seamless knitted mock-neck pullover woven from ultra-fine Australian merino wool with ribbed neck, cuffs, and hem.",
     price: 42000,
+    originalPrice: 88000,
     image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1200&q=85",
@@ -227,7 +255,9 @@ export const initialProducts: Product[] = [
     category: "Knitwear",
     brand: "Vroom Atelier",
     stock: 14,
+    initialStock: 50,
     tag: "Bestseller",
+    campaignTag: "FLASH_SALE",
     colors: [
       { name: "Onyx Black", hex: "#09090B" },
       { name: "Ivory Cream", hex: "#FAF9F6" },
@@ -242,6 +272,7 @@ export const initialProducts: Product[] = [
     name: "Tailored French Linen Shirt",
     description: "Breathable relaxed-fit button-down cut from pure Normandy flax linen with mother-of-pearl buttons.",
     price: 38000,
+    originalPrice: 75000,
     image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1200&q=85",
@@ -250,7 +281,9 @@ export const initialProducts: Product[] = [
     category: "Women",
     brand: "Vroom Atelier",
     stock: 11,
+    initialStock: 40,
     tag: "Official Store",
+    campaignTag: "BOGOF",
     colors: [
       { name: "Pure White", hex: "#FFFFFF" },
       { name: "Soft Slate", hex: "#9CA3AF" },
@@ -265,6 +298,7 @@ export const initialProducts: Product[] = [
     name: "Monochrome Silk Twill Scarf",
     description: "Square 70cm neck scarf with hand-rolled hems, printed in an abstract architectural pattern on fluid silk twill.",
     price: 24000,
+    originalPrice: 48000,
     image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=1200&q=85",
@@ -273,7 +307,9 @@ export const initialProducts: Product[] = [
     category: "Accessories",
     brand: "Vroom Silk Studio",
     stock: 18,
+    initialStock: 50,
     tag: "New Drop",
+    campaignTag: "SCAVENGER_HUNT",
     colors: [
       { name: "Geometric Noir", hex: "#18181B" },
     ],
@@ -288,6 +324,7 @@ export const initialProducts: Product[] = [
     name: "SteamOne Precision Garment Steamer",
     description: "Compact dual-voltage 1800W garment handheld steamer for cashmere, silks, and delicate suits. Rapid 25-second heat-up with continuous ceramic steam plate.",
     price: 45000,
+    originalPrice: 90000,
     image: "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
@@ -296,7 +333,9 @@ export const initialProducts: Product[] = [
     category: "Appliances",
     brand: "SteamOne Paris",
     stock: 15,
+    initialStock: 45,
     tag: "Official Store",
+    campaignTag: "FLASH_SALE",
     colors: [
       { name: "Matte Black", hex: "#1F1F1F" },
       { name: "Brushed Champagne", hex: "#D6C7A1" },
@@ -311,6 +350,7 @@ export const initialProducts: Product[] = [
     name: "Sonic Fabric Debobbler & Knitwear Care",
     description: "Precision 6-blade motorized fabric shaver with suction mesh designed to effortlessly renew wool overcoats, cashmere knits, and delicate linens.",
     price: 28000,
+    originalPrice: 60000,
     image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
@@ -318,7 +358,9 @@ export const initialProducts: Product[] = [
     category: "Appliances",
     brand: "Atelier Care",
     stock: 22,
+    initialStock: 60,
     tag: "Care Essential",
+    campaignTag: "BLACK_FRIDAY",
     colors: [
       { name: "Nordic Slate", hex: "#4B5563" },
       { name: "Chalk White", hex: "#F3F4F6" },
@@ -333,6 +375,7 @@ export const initialProducts: Product[] = [
     name: "Italian Calfskin MagSafe iPhone Folio",
     description: "Sleek full-grain Tuscan leather folio case with integrated neodymium magnets for MagSafe accessories, dual card slots, and microfiber interior lining.",
     price: 36000,
+    originalPrice: 70000,
     image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=1200&q=85",
@@ -341,7 +384,9 @@ export const initialProducts: Product[] = [
     category: "Phones & Tablets",
     brand: "Vroom Tech Leather",
     stock: 28,
+    initialStock: 80,
     tag: "Official Store",
+    campaignTag: "BOGOF",
     colors: [
       { name: "Saddle Tan", hex: "#A05A2C" },
       { name: "Obsidian", hex: "#0F172A" },
@@ -357,6 +402,7 @@ export const initialProducts: Product[] = [
     name: "Architectural Valet Wireless Charging Station",
     description: "Weighted dual-device wireless charger cast in anodized aircraft-grade aluminum and wrapped in Belgian linen. Fast 15W Qi2 certified charging.",
     price: 74000,
+    originalPrice: 135000,
     image: "https://images.unsplash.com/photo-1622445262464-84b14e0745b1?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1622445262464-84b14e0745b1?auto=format&fit=crop&w=1200&q=85",
@@ -364,7 +410,9 @@ export const initialProducts: Product[] = [
     category: "Phones & Tablets",
     brand: "Courant Studio",
     stock: 10,
+    initialStock: 30,
     tag: "Official Store",
+    campaignTag: "BLACK_FRIDAY",
     colors: [
       { name: "Space Grey & Natural Linen", hex: "#374151" },
       { name: "Bone White", hex: "#E5E7EB" },
@@ -379,6 +427,7 @@ export const initialProducts: Product[] = [
     name: "Santal 28 Atelier Extrait de Parfum",
     description: "Intoxicating unisex niche fragrance blending Australian sandalwood, smoked cardamom, iris, and cedarwood with a 30% pure perfume oil concentration.",
     price: 88000,
+    originalPrice: 160000,
     image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=85",
@@ -387,7 +436,9 @@ export const initialProducts: Product[] = [
     category: "Health & Beauty",
     brand: "Vroom Parfums",
     stock: 14,
+    initialStock: 40,
     tag: "Official Store",
+    campaignTag: "SCAVENGER_HUNT",
     colors: [
       { name: "Amber Glass", hex: "#B45309" },
     ],
@@ -401,6 +452,7 @@ export const initialProducts: Product[] = [
     name: "Botanical Squalane & Rosehip Facial Elixir",
     description: "Cold-pressed bio-compatible facial oil infused with Damascus rose, Chilean rosehip seed, and plant-derived olive squalane for intense skin barrier restoration.",
     price: 38000,
+    originalPrice: 80000,
     image: "https://images.unsplash.com/photo-1608248597359-54817a3a9217?auto=format&fit=crop&w=1200&q=85",
     images: [
       "https://images.unsplash.com/photo-1608248597359-54817a3a9217?auto=format&fit=crop&w=1200&q=85",
@@ -408,7 +460,9 @@ export const initialProducts: Product[] = [
     category: "Health & Beauty",
     brand: "Vroom Botanicals",
     stock: 25,
+    initialStock: 70,
     tag: "Clean Beauty",
+    campaignTag: "FLASH_SALE",
     colors: [
       { name: "Golden Amber", hex: "#D97706" },
     ],

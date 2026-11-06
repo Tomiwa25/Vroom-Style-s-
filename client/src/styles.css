@@ -4796,3 +4796,691 @@ body {
   font-size: 10px;
   color: var(--muted);
 }
+
+/* ==========================================================================
+   MARKETING & PROMOTIONAL ENGINES (Flash Sale, Countdown, Scarcity, Campaigns)
+   ========================================================================== */
+
+/* ---------------- 1. Flash Sale Countdown Engine ---------------- */
+.flash-sale-section {
+  background: linear-gradient(180deg, #ffffff 0%, #fdf7f2 100%);
+  border-top: 1px solid #fed7aa;
+  border-bottom: 1px solid #fed7aa;
+  padding: 32px 0 36px;
+  margin: 20px 0;
+}
+
+.flash-sale-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.flash-sale-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.flash-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flash-icon-pulse {
+  font-size: 28px;
+  animation: pulseFlash 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseFlash {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.flash-headings {
+  display: flex;
+  flex-direction: column;
+}
+
+.flash-main-title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ea580c;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.flash-sub-title {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.flash-countdown-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1.5px solid #fed7aa;
+  padding: 6px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
+}
+
+.countdown-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #9a3412;
+  letter-spacing: 0.06em;
+}
+
+.countdown-clock-boxes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.clock-box {
+  background: #09090b;
+  color: #ffffff;
+  padding: 4px 7px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  min-width: 38px;
+  justify-content: center;
+}
+
+.clock-box strong {
+  font-size: 15px;
+  font-family: monospace, -apple-system, sans-serif;
+  font-weight: 800;
+}
+
+.clock-box small {
+  font-size: 10px;
+  color: #fb923c;
+  font-weight: 700;
+}
+
+.clock-box.highlight-sec {
+  background: #ea580c;
+}
+
+.clock-box.highlight-sec small {
+  color: #ffffff;
+}
+
+.clock-sep {
+  font-weight: 900;
+  color: #ea580c;
+  font-size: 14px;
+}
+
+.flash-see-all-btn {
+  background: transparent;
+  border: 1.5px solid #ea580c;
+  color: #ea580c;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.flash-see-all-btn:hover {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* Flash Deals Grid */
+.flash-deals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.flash-deal-card {
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flash-deal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.12);
+}
+
+.flash-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: #f4f4f5;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.flash-prod-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.flash-deal-card:hover .flash-prod-img {
+  transform: scale(1.05);
+}
+
+.dynamic-discount-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+}
+
+.flash-flame-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(9, 9, 11, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffedd5;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.flash-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.flash-card-meta {
+  margin-bottom: 4px;
+}
+
+.flash-brand {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.flash-prod-title {
+  margin: 0 0 8px 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 38px;
+}
+
+.flash-prod-title:hover {
+  color: #ea580c;
+}
+
+.flash-pricing-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.flash-sale-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ea580c;
+}
+
+.flash-original-price {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* Inventory Scarcity Meter */
+.inventory-scarcity-meter {
+  margin-bottom: 14px;
+}
+
+.scarcity-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 10.5px;
+}
+
+.scarcity-text {
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.scarcity-text.critical {
+  color: #dc2626;
+  font-weight: 800;
+}
+
+.scarcity-percent {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.scarcity-progress-track {
+  width: 100%;
+  height: 6px;
+  background: #f1f1f4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.scarcity-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.scarcity-progress-bar.urgency-high {
+  background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+}
+
+.flash-claim-btn {
+  width: 100%;
+  background: #ea580c;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.15s ease;
+}
+
+.flash-claim-btn:hover {
+  background: #c2410c;
+}
+
+.flash-claim-btn:disabled {
+  background: #d4d4d8;
+  cursor: not-allowed;
+}
+
+/* ---------------- 2. Campaign Banner Grids & Attribution ---------------- */
+.campaign-banner-grid-section {
+  max-width: var(--max-width);
+  margin: 28px auto;
+  padding: 0 28px;
+}
+
+.active-campaign-banner-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  gap: 12px;
+  animation: popoverFadeIn 0.2s ease;
+}
+
+.campaign-strip-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #1e40af;
+}
+
+.campaign-pulse-icon {
+  font-size: 16px;
+}
+
+.campaign-key-label {
+  color: #1d4ed8;
+  font-weight: 800;
+}
+
+.clear-campaign-btn {
+  background: none;
+  border: 1px solid #93c5fd;
+  color: #1d4ed8;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.clear-campaign-btn:hover {
+  background: #dbeafe;
+}
+
+.campaign-grid-header {
+  margin-bottom: 18px;
+}
+
+.campaign-grid-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 4px 0 0 0;
+}
+
+.campaign-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 980px) {
+  .campaign-tiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .campaign-tiles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.campaign-tile-card {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.campaign-tile-card:hover {
+  transform: translateY(-4px);
+  border-color: #09090b;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.campaign-tile-card.active-event {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.campaign-tile-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #09090b;
+}
+
+.campaign-tile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.campaign-tile-card:hover .campaign-tile-img {
+  transform: scale(1.06);
+}
+
+.campaign-tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.campaign-tile-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #09090b;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.campaign-discount-pill {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #f68b1e;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.campaign-tile-content {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.campaign-tile-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.campaign-tile-sub {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.campaign-tile-cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #09090b;
+  margin-top: auto;
+}
+
+.campaign-tile-card:hover .campaign-tile-cta {
+  color: #ea580c;
+}
+
+/* ---------------- 3. Scavenger Hunt Modal ---------------- */
+.scavenger-modal {
+  max-width: 560px;
+  width: 90%;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.scavenger-modal-body {
+  padding: 24px;
+}
+
+.scavenger-hero-banner {
+  background: linear-gradient(135deg, #09090b 0%, #1f2937 100%);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.mystery-badge {
+  display: inline-block;
+  background: #d97706;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.scavenger-hero-banner h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.scavenger-hero-banner p {
+  margin: 0;
+  font-size: 13px;
+  color: #d1d5db;
+  line-height: 1.5;
+}
+
+.voucher-code-card {
+  background: #fbfbfe;
+  border: 1.5px dashed #f59e0b;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.voucher-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #92400e;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.voucher-display-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.voucher-code {
+  font-size: 24px;
+  font-family: monospace, sans-serif;
+  font-weight: 900;
+  color: #b45309;
+  letter-spacing: 0.1em;
+}
+
+.voucher-copy-btn {
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.voucher-copy-btn:hover {
+  background: #fde68a;
+}
+
+.voucher-terms {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.scavenger-perks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scavenger-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.perk-bullet {
+  font-size: 14px;
+}
+
+.scavenger-explore-btn {
+  width: 100%;
+}
+
+/* ---------------- 4. Product Card Enhancements for Main Grid ---------------- */
+.product-original-price {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+.product-discount-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+  z-index: 2;
+}
+
+.card-scarcity-meter {
+  margin-top: 8px;
+}
