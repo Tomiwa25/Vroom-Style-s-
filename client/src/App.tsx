@@ -15,6 +15,9 @@ import { HelpCenterModal } from "./components/HelpCenterModal";
 import { VendorPortalModal } from "./components/VendorPortalModal";
 import { JForcePortalModal } from "./components/JForcePortalModal";
 import { VroomDeliveryModal } from "./components/VroomDeliveryModal";
+import { NewsletterSubscription } from "./components/NewsletterSubscription";
+import { AppSmartBanner } from "./components/AppSmartBanner";
+import { LiveChatConcierge } from "./components/LiveChatConcierge";
 import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
 import { TaxonomyBar } from "./components/TaxonomyBar";
 import { Breadcrumbs } from "./components/Breadcrumbs";
@@ -646,6 +649,9 @@ function App() {
 
   return (
     <div className="app">
+      {/* ---------------- 0. App Store Deep-Linking / Smart Banner (iOS, Android & Desktop) ---------------- */}
+      <AppSmartBanner />
+
       {/* ---------------- 1. Top Quick Action Utility Bar & Announcements ---------------- */}
       <div className="quick-action-utility-bar">
         <div className="utility-bar-wrap">
@@ -739,8 +745,9 @@ function App() {
               type="button"
               className="utility-link"
               onClick={() => setIsHelpModalOpen(true)}
+              title="Official Concierge & WhatsApp Support (+234 913 083 1439)"
             >
-              <span>24/7 Concierge: +234 800-VROOM</span>
+              <span>24/7 Concierge: +234 913 083 1439</span>
             </button>
             <span className="utility-sep">•</span>
             <button
@@ -1397,19 +1404,28 @@ function App() {
             </p>
           </article>
         </section>
+
+        {/* ---------------- 6. User Retention & Growth: VIP Newsletter Acquisition ---------------- */}
+        <section className="newsletter-retention-section">
+          <NewsletterSubscription onSuccessToast={showToast} variant="banner" />
+        </section>
       </main>
 
-      {/* ---------------- Floating Stylist Button ---------------- */}
-      <a
-        href="https://wa.me/?text=Hello%20Vroom%20Style(s),%20I%20have%20an%20inquiry%20about%20a%20product"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="floating-stylist-btn"
-        title="Chat with Customer Support"
-      >
-        <span className="stylist-icon">💬</span>
-        <span className="stylist-text">Ask a Stylist</span>
-      </a>
+      {/* ---------------- 6. Direct Messaging Integration: WhatsApp (+234 913 083 1439) & Live Concierge Chat ---------------- */}
+      <LiveChatConcierge
+        onOpenTracking={() => {
+          if (!currentUser) {
+            showToast("Please sign in or enter your Order ID to track");
+            setIsAuthOpen(true);
+          } else {
+            setIsTrackingOpen(true);
+          }
+        }}
+        onOpenVroomDelivery={() => {
+          setVroomDeliveryInitialTab("calculator");
+          setIsVroomDeliveryOpen(true);
+        }}
+      />
 
       {/* ---------------- Modals & Drawers ---------------- */}
       <CartDrawer
@@ -1559,17 +1575,7 @@ function App() {
           </div>
 
           <div className="footer-newsletter">
-            <span className="newsletter-title">Join the Vroom Style Club</span>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                showToast("Welcome! Check your email for 10% off your first order.");
-              }}
-              className="newsletter-form"
-            >
-              <input type="email" required placeholder="Enter your email for 10% off" />
-              <button type="submit">Subscribe</button>
-            </form>
+            <NewsletterSubscription onSuccessToast={showToast} variant="footer" />
           </div>
 
           <div className="footer-bottom-row">

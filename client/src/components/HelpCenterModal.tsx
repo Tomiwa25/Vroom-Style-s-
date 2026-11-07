@@ -172,12 +172,18 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                   <span>+234 800-VROOM (800-87666)</span>
                   <small>Instant priority connection</small>
                 </div>
-                <div className="contact-card">
+                <a
+                  href="https://wa.me/2349130831439"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-card contact-card-link"
+                  title="Chat directly on WhatsApp"
+                >
                   <span className="card-icon">💬</span>
                   <strong>WhatsApp Concierge</strong>
-                  <span>+234 901 888 7666</span>
-                  <small>Response within 5 minutes</small>
-                </div>
+                  <span>+234 913 083 1439</span>
+                  <small>Instant response on WhatsApp ↗</small>
+                </a>
                 <div className="contact-card">
                   <span className="card-icon">✉️</span>
                   <strong>Email Support</strong>
