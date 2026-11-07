@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
-import type { Product, CartItem, User, CampaignEvent } from "./types";
+import type { Product, CartItem, User, CampaignEvent, PodCheckoutDetails } from "./types";
 import { useProducts } from "./hooks/useProducts";
 import { useAttribution } from "./hooks/useAttribution";
 import { CartDrawer } from "./components/CartDrawer";
@@ -14,6 +14,7 @@ import { HelpDropdown } from "./components/HelpDropdown";
 import { HelpCenterModal } from "./components/HelpCenterModal";
 import { VendorPortalModal } from "./components/VendorPortalModal";
 import { JForcePortalModal } from "./components/JForcePortalModal";
+import { VroomDeliveryModal } from "./components/VroomDeliveryModal";
 import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
 import { TaxonomyBar } from "./components/TaxonomyBar";
 import { Breadcrumbs } from "./components/Breadcrumbs";
@@ -46,17 +47,24 @@ function App() {
   const [vendorPortalInitialTab, setVendorPortalInitialTab] = useState<"onboarding" | "hub">("onboarding");
   const [isJForcePortalOpen, setIsJForcePortalOpen] = useState<boolean>(false);
   const [sellerTypeFilter, setSellerTypeFilter] = useState<"ALL" | "1P" | "3P">("ALL");
+  const [isPodFilterActive, setIsPodFilterActive] = useState<boolean>(false);
   const [vendorDrops, setVendorDrops] = useState<Product[]>([]);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
   const [isScavengerModalOpen, setIsScavengerModalOpen] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
+  const [isVroomDeliveryOpen, setIsVroomDeliveryOpen] = useState<boolean>(false);
+  const [vroomDeliveryInitialTab, setVroomDeliveryInitialTab] = useState<"calculator" | "book" | "track" | "api">("calculator");
   const [isCheckingOut, setIsCheckingOut] = useState<boolean>(false);
   const [trackingOrderId, setTrackingOrderId] = useState<string>("");
   const [confirmedOrderDetails, setConfirmedOrderDetails] = useState<{
     orderId: string;
     reference: string;
     total: number;
+    isPod?: boolean;
+    podAddress?: string;
+    podCity?: string;
+    podPhone?: string;
   } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
@@ -289,8 +297,11 @@ function App() {
     }
   }, [handleVerifyPayment]);
 
-  // Connect Frontend Checkout (Option A and Option B)
-  const handleCheckout = async (method: "inline" | "redirect" = "inline") => {
+  // Connect Frontend Checkout (Option A Paystack Redirect, Option B Paystack Pop, and Option C Payment on Delivery)
+  const handleCheckout = async (
+    method: "inline" | "redirect" | "pod" = "inline",
+    podDetails?: PodCheckoutDetails
+  ) => {
     if (cartItems.length === 0) {
       showToast("Your bag is currently empty.");
       return;
@@ -304,6 +315,44 @@ function App() {
     }
 
     setIsCheckingOut(true);
+
+    // Option C: Payment on Delivery (PoD) Doorstep Settlement
+    if (method === "pod") {
+      const ineligible = cartItems.filter((i) => !i.product.isPodEligible);
+      if (ineligible.length > 0) {
+        showToast("Some items require prepayment. Please remove them or choose Pay Online.");
+        setIsCheckingOut(false);
+        return;
+      }
+
+      setTimeout(() => {
+        const rawSubtotal = cartItems.reduce(
+          (sum, item) => sum + item.product.price * item.quantity,
+          0
+        );
+        const shippingFee = rawSubtotal >= 100000 ? 0 : 5000;
+        const total = rawSubtotal + shippingFee;
+        const podOrderId = `VRM-POD-${Math.floor(100000 + Math.random() * 900000)}`;
+
+        setCartItems([]);
+        localStorage.removeItem("vroom_cart");
+        setIsCartOpen(false);
+        setIsCheckingOut(false);
+
+        setConfirmedOrderDetails({
+          orderId: podOrderId,
+          reference: `POD-DOORSTEP-${podDetails?.phone?.slice(-4) || "CASH"}`,
+          total,
+          isPod: true,
+          podAddress: podDetails?.address,
+          podCity: podDetails?.city,
+          podPhone: podDetails?.phone,
+        });
+        setIsSuccessModalOpen(true);
+        showToast("Payment on Delivery order confirmed! Dispatch courier assigned.");
+      }, 600);
+      return;
+    }
 
     try {
       // 1. Lock in order items on backend
@@ -552,9 +601,17 @@ function App() {
         Boolean(prod.warranty && prod.warranty.toLowerCase().includes(q)) ||
         Boolean(prod.bundledIncentive && prod.bundledIncentive.toLowerCase().includes(q));
 
+      // Step 5: Payment on Delivery (PoD) Filter Rail
+      if (isPodFilterActive && !prod.isPodEligible) return false;
+
       return matchesTaxonomy && matchesSearch;
     });
-  }, [allProducts, selectedCategory, searchQuery, activeCampaign, sellerTypeFilter]);
+  }, [allProducts, selectedCategory, searchQuery, activeCampaign, sellerTypeFilter, isPodFilterActive]);
+
+  // Step 5: Curated Recommendation Feed - Payment on Delivery (PoD) Essentials
+  const podEligibleProducts = useMemo(() => {
+    return allProducts.filter((p) => p.isPodEligible);
+  }, [allProducts]);
 
   // Curated Recommendation Feeds
   const topSellingProducts = useMemo(() => {
@@ -656,6 +713,22 @@ function App() {
 
             <span className="utility-sep">•</span>
 
+            <button
+              type="button"
+              className="utility-link vroom-delivery-entry-btn"
+              onClick={() => {
+                setVroomDeliveryInitialTab("calculator");
+                setIsVroomDeliveryOpen(true);
+              }}
+              title="Vroom Delivery — Parcel Shipping & Rate Calculator"
+            >
+              <span className="utility-icon">📦</span>
+              <strong>Vroom Delivery</strong>
+              <span className="utility-tag delivery-tag">Parcel Hub</span>
+            </button>
+
+            <span className="utility-sep">•</span>
+
             <span className="utility-notice">
               ⚡ Free Express Delivery on orders over ₦100,000 • 7-Day Doorstep Returns
             </span>
@@ -741,6 +814,10 @@ function App() {
                 setIsVendorPortalOpen(true);
               }}
               onOpenJForce={() => setIsJForcePortalOpen(true)}
+              onOpenVroomDelivery={() => {
+                setVroomDeliveryInitialTab("calculator");
+                setIsVroomDeliveryOpen(true);
+              }}
               onSignOut={handleLogout}
             />
 
@@ -800,6 +877,10 @@ function App() {
           }}
           onOpenMegaMenu={() => setIsMegaMenuOpen((prev) => !prev)}
           isMegaMenuOpen={isMegaMenuOpen}
+          onOpenVroomDelivery={() => {
+            setVroomDeliveryInitialTab("calculator");
+            setIsVroomDeliveryOpen(true);
+          }}
         />
 
         {/* Multi-Column Mega Menu Drawer */}
@@ -1123,6 +1204,36 @@ function App() {
                 </button>
               </div>
             </div>
+
+            {/* Step 5: Conversion & Checkout Enabler - Payment on Delivery (PoD) Filter Rail */}
+            <div className="catalog-pod-filter-row">
+              <div className="pod-filter-label">
+                <span>Settlement Rail:</span>
+              </div>
+              <div className="pod-filter-pills">
+                <button
+                  type="button"
+                  className={`pod-filter-pill ${isPodFilterActive ? "active" : ""}`}
+                  onClick={() => setIsPodFilterActive((prev) => !prev)}
+                  title="Filter to items eligible for post-delivery settlement (doorstep POS/cash inspection)"
+                >
+                  <span className="pod-pill-icon">💵</span>
+                  <span>Payment on Delivery (PoD)</span>
+                  <span className="pod-count-badge">{podEligibleProducts.length} items</span>
+                </button>
+
+                {isPodFilterActive && (
+                  <button
+                    type="button"
+                    className="pod-reset-btn"
+                    onClick={() => setIsPodFilterActive(false)}
+                    title="Remove Payment on Delivery filter"
+                  >
+                    Showing PoD Eligible Only ✕
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
           {filteredProducts.length === 0 ? (
@@ -1173,6 +1284,97 @@ function App() {
             handleScrollToCatalog();
           }}
         />
+
+        {/* ---------------- 13b. Conversion Enabler: Payment on Delivery (PoD) Essentials Rail ---------------- */}
+        <RecommendationRail
+          title="Payment on Delivery (PoD) Essentials"
+          subtitle="Inspect your items upon arrival before paying via card POS or cash in Lagos, Abuja & Port Harcourt"
+          kicker="DOORSTEP SETTLEMENT"
+          badge="💵 PoD VERIFIED"
+          products={podEligibleProducts}
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          onViewAll={() => {
+            setIsPodFilterActive(true);
+            handleScrollToCatalog();
+          }}
+        />
+
+        {/* ---------------- Integrated Delivery Services (Vroom Delivery) Showcase Banner ---------------- */}
+        <section className="vroom-delivery-showcase-banner">
+          <div className="delivery-banner-content">
+            <div className="banner-brand-pill">
+              <span className="pill-icon">🚚</span>
+              <span>INTEGRATED PARCEL-SHIPPING MICRO-SERVICES</span>
+            </div>
+            <h2 className="banner-title">
+              Vroom Delivery: On-Demand Dispatch & Doorstep PoD Settlement
+            </h2>
+            <p className="banner-description">
+              Powering rapid intra-city flash delivery across Lagos and Abuja, verified interstate line-haul freight, and secure Payment on Delivery (Cash / POS) collections for retail merchants and shoppers across Nigeria.
+            </p>
+            <div className="banner-actions">
+              <button
+                type="button"
+                className="primary-button delivery-action-btn"
+                onClick={() => {
+                  setVroomDeliveryInitialTab("calculator");
+                  setIsVroomDeliveryOpen(true);
+                }}
+              >
+                <span>Calculate Shipping Rate</span>
+                <span className="btn-arrow">→</span>
+              </button>
+              <button
+                type="button"
+                className="secondary-button delivery-action-btn alt"
+                onClick={() => {
+                  setVroomDeliveryInitialTab("track");
+                  setIsVroomDeliveryOpen(true);
+                }}
+              >
+                <span>Track Live Waybill</span>
+                <span className="btn-arrow">📍</span>
+              </button>
+              <button
+                type="button"
+                className="link-button delivery-api-link"
+                onClick={() => {
+                  setVroomDeliveryInitialTab("api");
+                  setIsVroomDeliveryOpen(true);
+                }}
+              >
+                <span>Explore Merchant API ⚡</span>
+              </button>
+            </div>
+          </div>
+          <div className="delivery-banner-graphic">
+            <div className="graphic-stats-card top">
+              <span className="stat-icon">⚡</span>
+              <div>
+                <strong>3 - 5 Hours</strong>
+                <span>Intra-City Flash Dispatch</span>
+              </div>
+            </div>
+            <div className="graphic-stats-card middle">
+              <span className="stat-icon">💵</span>
+              <div>
+                <strong>PoD Collection</strong>
+                <span>Mobile POS & Cash Remittance</span>
+              </div>
+            </div>
+            <div className="graphic-stats-card bottom">
+              <span className="stat-icon">🛡️</span>
+              <div>
+                <strong>100% Insured</strong>
+                <span>Goods In-Transit Protection</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ---------------- 7. Quality & Craftsmanship Pillars ---------------- */}
         <section className="feature-band">
@@ -1275,6 +1477,10 @@ function App() {
           setTrackingOrderId(orderId);
           setIsTrackingOpen(true);
         }}
+        isPod={confirmedOrderDetails?.isPod}
+        podAddress={confirmedOrderDetails?.podAddress}
+        podCity={confirmedOrderDetails?.podCity}
+        podPhone={confirmedOrderDetails?.podPhone}
       />
 
       {/* Multi-Tenant Marketplace Vendor Portal ("Become a Seller" & "Vendor Hub") */}
@@ -1295,6 +1501,15 @@ function App() {
         onClose={() => setIsJForcePortalOpen(false)}
         onSuccessToast={showToast}
         formatPrice={formatPrice}
+      />
+
+      {/* Integrated Delivery Services (Vroom Delivery Micro-Services) Modal */}
+      <VroomDeliveryModal
+        isOpen={isVroomDeliveryOpen}
+        onClose={() => setIsVroomDeliveryOpen(false)}
+        formatPrice={formatPrice}
+        onSuccessToast={showToast}
+        initialTab={vroomDeliveryInitialTab}
       />
 
       {/* Customer Help & Concierge Center Modal */}
@@ -1374,6 +1589,8 @@ function App() {
               <a href="#" onClick={(e) => { e.preventDefault(); setVendorPortalInitialTab("onboarding"); setIsVendorPortalOpen(true); }}>Become a Seller</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setVendorPortalInitialTab("hub"); setIsVendorPortalOpen(true); }}>Vendor Hub</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setIsJForcePortalOpen(true); }}>JForce Reseller Network</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setVroomDeliveryInitialTab("calculator"); setIsVroomDeliveryOpen(true); }}>Vroom Delivery Hub</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setIsPodFilterActive(true); handleScrollToCatalog(); }}>Pay on Delivery (PoD)</a>
               <a href="#" onClick={(e) => { e.preventDefault(); showToast("All items dry clean or gentle hand wash"); }}>Care Guide</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setIsAdminOpen(true); }}>Store Intelligence</a>
             </nav>

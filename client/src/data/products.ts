@@ -37,6 +37,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "Lifetime Craftsmanship Guarantee",
     bundledIncentive: "+ FREE SILK SCRUNCHIE & CARE GUIDE",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-102",
@@ -74,6 +76,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month Leather Warranty",
     bundledIncentive: "+ FREE EMBOSSED LEATHER KEY FOB",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-103",
@@ -111,6 +115,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "2-Year Craftsmanship Guarantee",
     bundledIncentive: "+ FREE CASHMERE COMB & DUSTBAG",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-104",
@@ -148,6 +154,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month Seam Warranty",
     bundledIncentive: "+ FREE REPLACEMENT HORN BUTTONS",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-105",
@@ -185,6 +193,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "Lifetime Craftsmanship Guarantee",
     bundledIncentive: "+ FREE TAILORING ALTERATION VOUCHER",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-106",
@@ -221,6 +231,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month Welt & Sole Warranty",
     bundledIncentive: "+ FREE CEDAR SHOE TREES & WAX",
+    isPodEligible: false,
+    podTerms: "Prepayment required via Paystack. Handcrafted bespoke footwear with custom sizing.",
   },
   {
     id: "prod-107",
@@ -257,6 +269,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "Lifetime Craftsmanship Guarantee",
     bundledIncentive: "+ FREE CEDAR TRAVEL SUIT BAG",
+    isPodEligible: false,
+    podTerms: "Prepayment required via Paystack. High-value tailored piece requiring verified transit clearance.",
   },
   {
     id: "prod-108",
@@ -293,6 +307,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month Hardware Warranty",
     bundledIncentive: "+ FREE BRASS KEYCHAIN",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-109",
@@ -329,6 +345,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "Lifetime Tailoring Warranty",
     bundledIncentive: "+ FREE WATERPROOF TRAVEL GARMENT BAG",
+    isPodEligible: false,
+    podTerms: "Prepayment required via Paystack. High-value outerwear requiring verified advance clearance.",
   },
   {
     id: "prod-110",
@@ -365,6 +383,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "2-Year Craftsmanship Guarantee",
     bundledIncentive: "+ FREE MERINO WOOL CARE KIT",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-111",
@@ -401,6 +421,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month Seam Warranty",
     bundledIncentive: "+ FREE NATURAL LINEN LAUNDRY BAG",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-112",
@@ -436,6 +458,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "100% Pure Silk Twill Guarantee",
     bundledIncentive: "+ FREE PRESENTATION GIFT BOX",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   // ---------------- Multi-Taxonomy Expanded Products ----------------
   {
@@ -473,6 +497,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "2-Year Manufacturer Warranty",
     bundledIncentive: "+ FREE HEAT-RESISTANT GLOVE & MAT",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-114",
@@ -508,6 +534,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month Motor Warranty",
     bundledIncentive: "+ FREE 3X SPARE BLADES PACK",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-115",
@@ -545,6 +573,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 12 Month MagSafe Warranty",
     bundledIncentive: "+ FREE ULTRA-THIN TEMPERED GLASS",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-116",
@@ -580,6 +610,8 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "+ 24 Month Qi2 Warranty",
     bundledIncentive: "+ FREE 65W GaN FAST ADAPTER & CABLE",
+    isPodEligible: false,
+    podTerms: "Prepayment required via Paystack. Certified electronic flagship hardware.",
   },
   {
     id: "prod-117",
@@ -608,13 +640,15 @@ export const initialProducts: Product[] = [
     ],
     sizes: ["50ml", "100ml"],
     fitGuide: "True to Size",
-    material: "Pure Extrait de Parfum, French Glass Flacon",
+    material: "Pure Extrait de Parfum, French practical flacon",
     sellerType: "3P",
     sellerName: "Lagos Niche Perfumery",
     sellerRating: 98,
     isFulfilledByVroom: true,
     warranty: "100% Authenticity Guaranteed",
     bundledIncentive: "+ FREE 5ml TRAVEL ATOMIZER",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
   {
     id: "prod-118",
@@ -649,5 +683,7 @@ export const initialProducts: Product[] = [
     isFulfilledByVroom: true,
     warranty: "Clean Formula Safety Guarantee",
     bundledIncentive: "+ FREE JADE ROLLER APPLICATOR",
+    isPodEligible: true,
+    podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
 ];

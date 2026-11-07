@@ -19,4 +19,6 @@ export interface Product {
     isFulfilledByVroom?: boolean;
     warranty?: string;
     bundledIncentive?: string;
+    isPodEligible?: boolean;
+    podTerms?: string;
 }

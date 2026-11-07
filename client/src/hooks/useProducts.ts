@@ -84,6 +84,8 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsResult
           isFulfilledByVroom: typeof p.isFulfilledByVroom === "boolean" ? p.isFulfilledByVroom : fallback.isFulfilledByVroom,
           warranty: (p.warranty as string) || fallback.warranty,
           bundledIncentive: (p.bundledIncentive as string) || fallback.bundledIncentive,
+          isPodEligible: typeof p.isPodEligible === "boolean" ? p.isPodEligible : fallback.isPodEligible,
+          podTerms: (p.podTerms as string) || fallback.podTerms,
         };
       });
     },

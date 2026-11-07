@@ -24,6 +24,14 @@ const mapProduct = (p: any): Product => ({
     colors: p.colors ?? null,
     material: p.material ?? null,
     fitGuide: p.fitGuide ?? null,
+    sellerType: p.sellerType ?? "1P",
+    sellerName: p.sellerName ?? "Vroom Direct",
+    sellerRating: p.sellerRating ?? 100,
+    isFulfilledByVroom: p.isFulfilledByVroom ?? true,
+    warranty: p.warranty,
+    bundledIncentive: p.bundledIncentive,
+    isPodEligible: p.isPodEligible ?? true,
+    podTerms: p.podTerms ?? "Pay upon doorstep delivery via POS or cash in Lagos, Abuja & PH.",
 });
 
 /**
