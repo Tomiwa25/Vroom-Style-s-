@@ -28,6 +28,9 @@ export interface Product {
   isFulfilledByVroom?: boolean; // Express fulfillment badge
   warranty?: string; // e.g. "+ 12 Month Warranty", "2-Year Manufacturer Warranty", "Lifetime Craftsmanship Guarantee"
   bundledIncentive?: string; // e.g. "+ FREE 43\" SMART TV", "+ FREE Qi2 FAST CHARGE CABLE", "+ FREE SILK CARE KIT"
+  // Step 5: Conversion & Checkout Enablers
+  isPodEligible?: boolean; // Payment on Delivery (PoD) post-delivery settlement eligibility
+  podTerms?: string; // PoD settlement terms e.g. "Pay with POS/Cash upon doorstep inspection"
 }
 
 export interface AttributionData {
@@ -152,4 +155,60 @@ export interface JForcePayoutRequest {
   reference: string;
   status: "PROCESSING" | "COMPLETED";
   requestedAt: string;
+}
+
+// ---------------- Step 5: Vroom Delivery Parcel-Shipping Micro-Services ----------------
+export type DeliverySpeed = "EXPRESS_SAME_DAY" | "NEXT_DAY" | "STANDARD" | "INTERSTATE";
+export type ParcelCategory = "APPAREL_FASHION" | "ELECTRONICS" | "FRAGILE_LUXURY" | "DOCUMENTS" | "BULK_CARGO";
+
+export interface PodCheckoutDetails {
+  address: string;
+  phone: string;
+  city: string;
+  deliveryNotes?: string;
+}
+
+export interface DeliveryRateQuote {
+  originCity: string;
+  destinationCity: string;
+  weightKg: number;
+  speed: DeliverySpeed;
+  speedLabel: string;
+  baseRateNGN: number;
+  insuranceNGN: number;
+  fuelSurchargeNGN: number;
+  totalRateNGN: number;
+  estimatedTransit: string;
+}
+
+export interface DeliveryTrackingMilestone {
+  stage: "CREATED" | "PICKED_UP" | "IN_TRANSIT" | "OUT_FOR_DELIVERY" | "DELIVERED";
+  title: string;
+  timestamp: string;
+  location: string;
+  note: string;
+  completed: boolean;
+}
+
+export interface VroomDeliveryShipment {
+  waybillNumber: string;
+  senderName: string;
+  senderPhone: string;
+  senderAddress: string;
+  senderCity: string;
+  recipientName: string;
+  recipientPhone: string;
+  recipientAddress: string;
+  recipientCity: string;
+  parcelCategory: ParcelCategory;
+  weightKg: number;
+  speed: DeliverySpeed;
+  declaredValueNGN: number;
+  requiresPodSettlement: boolean;
+  podCollectionAmountNGN?: number;
+  totalCostNGN: number;
+  paymentMode: "PREPAID" | "POD_COLLECTION";
+  status: "CREATED" | "PICKED_UP" | "IN_TRANSIT" | "OUT_FOR_DELIVERY" | "DELIVERED";
+  createdAt: string;
+  timeline: DeliveryTrackingMilestone[];
 }

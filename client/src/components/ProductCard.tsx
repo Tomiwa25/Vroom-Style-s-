@@ -173,6 +173,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               ⚡ Express
             </span>
           )}
+
+          {product.isPodEligible && (
+            <span className="pod-logistics-pill" title={product.podTerms || "Eligible for Payment on Delivery"}>
+              💵 Pay on Delivery
+            </span>
+          )}
         </div>
 
         {/* Brand & Category taxonomy string */}

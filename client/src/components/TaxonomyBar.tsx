@@ -13,6 +13,7 @@ interface TaxonomyBarProps {
   onSelectTaxonomy: (taxonomy: string) => void;
   onOpenMegaMenu: () => void;
   isMegaMenuOpen?: boolean;
+  onOpenVroomDelivery?: () => void;
 }
 
 const TAXONOMY_LINKS: TaxonomyItem[] = [
@@ -31,6 +32,7 @@ export const TaxonomyBar: React.FC<TaxonomyBarProps> = ({
   onSelectTaxonomy,
   onOpenMegaMenu,
   isMegaMenuOpen = false,
+  onOpenVroomDelivery,
 }) => {
   const handleItemClick = (taxonomyId: string) => {
     onSelectTaxonomy(taxonomyId);
@@ -86,6 +88,19 @@ export const TaxonomyBar: React.FC<TaxonomyBarProps> = ({
               </button>
             );
           })}
+
+          {onOpenVroomDelivery && (
+            <button
+              type="button"
+              className="taxonomy-delivery-shortcut-btn"
+              onClick={onOpenVroomDelivery}
+              title="Vroom Delivery Parcel Shipping & Tracking Hub"
+            >
+              <span className="shortcut-icon">🚚</span>
+              <span className="shortcut-label">Vroom Delivery</span>
+              <span className="shortcut-badge">Micro-Service</span>
+            </button>
+          )}
         </div>
       </div>
     </nav>

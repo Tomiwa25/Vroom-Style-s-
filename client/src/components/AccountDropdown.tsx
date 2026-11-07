@@ -11,6 +11,7 @@ interface AccountDropdownProps {
   onOpenAdmin: () => void;
   onOpenVendorHub?: () => void;
   onOpenJForce?: () => void;
+  onOpenVroomDelivery?: () => void;
   onSignOut: () => void;
 }
 
@@ -28,6 +29,7 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
   onOpenAdmin,
   onOpenVendorHub,
   onOpenJForce,
+  onOpenVroomDelivery,
   onSignOut,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -182,6 +184,21 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
                   <span className="menu-item-icon">💼</span>
                   <span className="menu-item-label">JForce Reseller Network</span>
                   <span className="item-pill commission">12% Earn</span>
+                </button>
+              </li>
+            )}
+
+            {/* Vroom Delivery Parcel Shipping Link */}
+            {onOpenVroomDelivery && (
+              <li>
+                <button
+                  type="button"
+                  className="account-menu-item"
+                  onClick={() => handleAction(onOpenVroomDelivery)}
+                >
+                  <span className="menu-item-icon">🚚</span>
+                  <span className="menu-item-label">Vroom Delivery Hub</span>
+                  <span className="item-pill logistics">Parcel</span>
                 </button>
               </li>
             )}

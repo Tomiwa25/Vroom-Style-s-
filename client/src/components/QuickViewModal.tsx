@@ -125,6 +125,25 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               </div>
             )}
 
+            {/* Payment on Delivery (PoD) Terms Banner */}
+            {product.isPodEligible ? (
+              <div className="quickview-pod-banner pod-eligible">
+                <span className="pod-banner-icon">💵</span>
+                <div>
+                  <strong>Payment on Delivery (PoD) Available:</strong>
+                  <p>{product.podTerms || "Inspect upon arrival in Lagos, Abuja & PH. Settle securely via mobile POS card terminal or cash."}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="quickview-pod-banner pod-prepaid-only">
+                <span className="pod-banner-icon">🔒</span>
+                <div>
+                  <strong>Prepayment Required:</strong>
+                  <p>{product.podTerms || "This bespoke item requires advance payment clearance via Paystack."}</p>
+                </div>
+              </div>
+            )}
+
             <p className="quickview-desc">{product.description}</p>
 
             {product.material && (
