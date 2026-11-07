@@ -212,3 +212,39 @@ export interface VroomDeliveryShipment {
   createdAt: string;
   timeline: DeliveryTrackingMilestone[];
 }
+
+// ---------------- Step 7: Footer Architecture & Internationalization (i18n) ----------------
+export interface CountryRegion {
+  code: string;
+  name: string;
+  flag: string;
+  currency: string;
+  currencySymbol: string;
+  domain: string;
+  subdomain: string;
+  path: string;
+  language: string;
+  exchangeRateToNGN: number;
+  deliveryTimeDays: string;
+  customsCovered: boolean;
+  isActiveFlagship?: boolean;
+}
+
+export interface CookieConsentSettings {
+  necessary: boolean;
+  analytics: boolean;
+  marketing: boolean;
+  preferences: boolean;
+  updatedAt: string;
+}
+
+export interface DisputeTicket {
+  ticketId: string;
+  orderId: string;
+  customerName: string;
+  customerEmail: string;
+  disputeType: "DAMAGED_GOODS" | "DELAYED_DELIVERY" | "WRONG_SIZE_COLOR" | "REFUND_DELAY" | "POD_OVERCHARGE";
+  description: string;
+  status: "SUBMITTED" | "UNDER_REVIEW" | "RESOLVED";
+  submittedAt: string;
+}
