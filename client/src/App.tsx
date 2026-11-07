@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
-import type { Product, CartItem, User, CampaignEvent, PodCheckoutDetails } from "./types";
+import type { Product, CartItem, User, CampaignEvent, PodCheckoutDetails, CountryRegion } from "./types";
 import { useProducts } from "./hooks/useProducts";
 import { useAttribution } from "./hooks/useAttribution";
+import { DEFAULT_REGION } from "./data/regions";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
@@ -18,6 +19,10 @@ import { VroomDeliveryModal } from "./components/VroomDeliveryModal";
 import { NewsletterSubscription } from "./components/NewsletterSubscription";
 import { AppSmartBanner } from "./components/AppSmartBanner";
 import { LiveChatConcierge } from "./components/LiveChatConcierge";
+import { CountrySwitcherModal } from "./components/CountrySwitcherModal";
+import { ComplianceModal } from "./components/ComplianceModal";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
+import { Footer } from "./components/Footer";
 import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
 import { TaxonomyBar } from "./components/TaxonomyBar";
 import { Breadcrumbs } from "./components/Breadcrumbs";
@@ -70,6 +75,19 @@ function App() {
     podPhone?: string;
   } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+
+  // Regional Storefront & Internationalization (i18n)
+  const [currentRegion, setCurrentRegion] = useState<CountryRegion>(() => {
+    try {
+      const stored = localStorage.getItem("vroom_selected_region");
+      return stored ? JSON.parse(stored) : DEFAULT_REGION;
+    } catch {
+      return DEFAULT_REGION;
+    }
+  });
+  const [isCountrySwitcherOpen, setIsCountrySwitcherOpen] = useState<boolean>(false);
+  const [isComplianceModalOpen, setIsComplianceModalOpen] = useState<boolean>(false);
+  const [complianceInitialTab, setComplianceInitialTab] = useState<"dispute" | "returns" | "cookies" | "gateways">("dispute");
 
   // Recently Viewed history (client-side localStorage tracking)
   const { recentlyViewed, recordView, clearHistory } = useRecentlyViewed();
@@ -741,6 +759,17 @@ function App() {
           </div>
 
           <div className="utility-right-links">
+            <button
+              type="button"
+              className="utility-region-btn"
+              onClick={() => setIsCountrySwitcherOpen(true)}
+              title={`Switch Country / Regional Storefront (Current: ${currentRegion.name})`}
+            >
+              <span className="utility-flag">{currentRegion.flag}</span>
+              <span className="utility-region-name">{currentRegion.name}</span>
+              <span className="utility-region-tld">.{currentRegion.code.toLowerCase()}</span>
+            </button>
+            <span className="utility-sep">•</span>
             <button
               type="button"
               className="utility-link"
@@ -1561,48 +1590,68 @@ function App() {
         </div>
       )}
 
-      {/* ---------------- Footer ---------------- */}
-      <footer className="footer">
-        <div className="footer-wrap">
-          <div className="footer-top-col">
-            <div className="footer-brand">
-              <span className="brand-mark">V</span>
-              <strong>Vroom Style(s)</strong>
-            </div>
-            <p className="footer-bio">
-              Modern essentials and elevated fashion crafted for fast-paced, confident living.
-            </p>
-          </div>
+      {/* ---------------- 7. Footer Architecture: 5-Column Grid, Regional Routing & Trust Verification ---------------- */}
+      <Footer
+        currentRegion={currentRegion}
+        onOpenCountrySwitcher={() => setIsCountrySwitcherOpen(true)}
+        onOpenCompliance={(tab = "dispute") => {
+          setComplianceInitialTab(tab);
+          setIsComplianceModalOpen(true);
+        }}
+        onOpenVendorHub={() => {
+          setVendorPortalInitialTab("hub");
+          setIsVendorPortalOpen(true);
+        }}
+        onOpenBecomeSeller={() => {
+          setVendorPortalInitialTab("onboarding");
+          setIsVendorPortalOpen(true);
+        }}
+        onOpenJForce={() => setIsJForcePortalOpen(true)}
+        onOpenVroomDelivery={() => {
+          setVroomDeliveryInitialTab("calculator");
+          setIsVroomDeliveryOpen(true);
+        }}
+        onOpenTracking={() => {
+          if (!currentUser) {
+            showToast("Please sign in or enter your Order ID to track");
+            setIsAuthOpen(true);
+          } else {
+            setIsTrackingOpen(true);
+          }
+        }}
+        onOpenPoDFilter={() => {
+          setIsPodFilterActive(true);
+          handleScrollToCatalog();
+        }}
+        onOpenAdmin={() => setIsAdminOpen(true)}
+        onShowToast={showToast}
+      />
 
-          <div className="footer-newsletter">
-            <NewsletterSubscription onSuccessToast={showToast} variant="footer" />
-          </div>
+      {/* ---------------- NDPR & GDPR Cookie Consent Banner ---------------- */}
+      <CookieConsentBanner
+        onOpenCookieSettings={() => {
+          setComplianceInitialTab("cookies");
+          setIsComplianceModalOpen(true);
+        }}
+        onSuccessToast={showToast}
+      />
 
-          <div className="footer-bottom-row">
-            <span className="footer-copy">© 2026 Vroom Style(s). All rights reserved.</span>
-            <nav className="footer-links">
-              <a href="#" onClick={(e) => { e.preventDefault(); showToast("Delivery: 24-48 hours nationwide"); }}>Shipping Information</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); showToast("7-Day Hassle-Free Returns & Exchanges"); }}>Returns & Exchanges</a>
-              <a href="#" onClick={(e) => {
-                e.preventDefault();
-                if (!currentUser) {
-                  showToast("Please sign in to track your orders");
-                  setIsAuthOpen(true);
-                } else {
-                  setIsTrackingOpen(true);
-                }
-              }}>Track Order</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setVendorPortalInitialTab("onboarding"); setIsVendorPortalOpen(true); }}>Become a Seller</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setVendorPortalInitialTab("hub"); setIsVendorPortalOpen(true); }}>Vendor Hub</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setIsJForcePortalOpen(true); }}>JForce Reseller Network</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setVroomDeliveryInitialTab("calculator"); setIsVroomDeliveryOpen(true); }}>Vroom Delivery Hub</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setIsPodFilterActive(true); handleScrollToCatalog(); }}>Pay on Delivery (PoD)</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); showToast("All items dry clean or gentle hand wash"); }}>Care Guide</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setIsAdminOpen(true); }}>Store Intelligence</a>
-            </nav>
-          </div>
-        </div>
-      </footer>
+      {/* ---------------- Pan-African Regional Storefront Switcher Modal ---------------- */}
+      <CountrySwitcherModal
+        isOpen={isCountrySwitcherOpen}
+        onClose={() => setIsCountrySwitcherOpen(false)}
+        currentRegion={currentRegion}
+        onSelectRegion={setCurrentRegion}
+        onSuccessToast={showToast}
+      />
+
+      {/* ---------------- Dispute Protocols, Return Timelines, Cookies & Trust Verification Modal ---------------- */}
+      <ComplianceModal
+        isOpen={isComplianceModalOpen}
+        onClose={() => setIsComplianceModalOpen(false)}
+        initialTab={complianceInitialTab}
+        onSuccessToast={showToast}
+      />
     </div>
   );
 }
