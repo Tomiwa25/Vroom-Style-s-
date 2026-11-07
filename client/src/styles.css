@@ -8710,3 +8710,1079 @@ body {
   }
 }
 
+/* ==========================================================================
+   Step 6: User Retention & Growth Tools
+   ========================================================================== */
+
+/* ---------------- 1. App Store Deep-Linking & Smart Banners ---------------- */
+.smart-app-banner {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 8px 16px;
+  position: relative;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.smart-banner-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.smart-banner-close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.smart-banner-close-btn:hover {
+  color: #ffffff;
+}
+
+.smart-banner-app-icon {
+  width: 36px;
+  height: 36px;
+  background: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.app-icon-letter {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0f172a;
+  font-family: serif;
+}
+
+.app-icon-spark {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: 10px;
+  color: #d97706;
+}
+
+.smart-banner-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.smart-banner-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.smart-app-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smart-os-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+  color: #38bdf8;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.smart-app-meta {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.smart-banner-actions {
+  flex-shrink: 0;
+}
+
+.smart-banner-action-btn {
+  display: inline-block;
+  background: #38bdf8;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.smart-banner-action-btn:hover {
+  background: #7dd3fc;
+  transform: translateY(-1px);
+}
+
+/* App Download Modal for Desktop QR Scan */
+.app-download-modal-card {
+  max-width: 620px;
+  width: 92vw;
+  padding: 32px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.app-modal-header {
+  margin-bottom: 24px;
+}
+
+.app-modal-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #2563eb;
+  background: #eff6ff;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.app-modal-header h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.app-modal-header p {
+  font-size: 13.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.app-qr-display-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 24px;
+  align-items: center;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.qr-code-box {
+  text-align: center;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.qr-svg-graphic {
+  width: 140px;
+  height: 140px;
+  display: block;
+}
+
+.qr-scan-hint {
+  display: block;
+  font-size: 10.5px;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.app-perks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.app-perk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.app-perk-item .perk-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.app-perk-item strong {
+  display: block;
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.app-perk-item p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 2px 0 0;
+  line-height: 1.4;
+}
+
+.store-buttons-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.store-download-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.store-download-btn:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+}
+
+.store-btn-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.store-btn-text small {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+}
+
+.store-btn-text strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ---------------- 2. Newsletter Subscription Module & GDPR/NDPR Opt-In ---------------- */
+.newsletter-module {
+  box-sizing: border-box;
+}
+
+.newsletter-module.banner {
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin: 36px auto;
+  max-width: 1400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.newsletter-retention-section {
+  padding: 0 20px;
+}
+
+.newsletter-intro {
+  margin-bottom: 16px;
+}
+
+.newsletter-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.newsletter-spark-icon {
+  font-size: 20px;
+}
+
+.newsletter-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.newsletter-sub {
+  font-size: 13.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.newsletter-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newsletter-input-group {
+  display: flex;
+  gap: 8px;
+  max-width: 600px;
+}
+
+.newsletter-email-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-family: inherit;
+  background: #ffffff;
+  color: var(--text);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.newsletter-email-input:focus {
+  outline: none;
+  border-color: var(--text);
+}
+
+.newsletter-email-input.has-error {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.newsletter-submit-btn {
+  padding: 12px 22px;
+  font-weight: 700;
+  font-size: 13.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.newsletter-inline-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 600;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  padding: 6px 10px;
+  max-width: 600px;
+}
+
+.newsletter-interests-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.interests-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.interests-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.interest-chip {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.interest-chip:hover {
+  border-color: #94a3b8;
+}
+
+.interest-chip.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.newsletter-gdpr-optin {
+  max-width: 640px;
+  margin-top: 4px;
+}
+
+.gdpr-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.gdpr-checkbox {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: #0f172a;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.gdpr-text {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.gdpr-text strong {
+  color: #334155;
+}
+
+/* Subscriber Confirmed Card */
+.subscriber-confirmed {
+  background: #f0fdf4;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.subscriber-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.subscriber-seal {
+  font-size: 22px;
+}
+
+.subscriber-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #166534;
+  margin: 0;
+}
+
+.subscriber-email-tag {
+  font-size: 12px;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.subscriber-benefit-text {
+  font-size: 13px;
+  color: #166534;
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+
+.promo-voucher-pill-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.voucher-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #166534;
+}
+
+.voucher-display {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px dashed #16a34a;
+  border-radius: 8px;
+  padding: 4px 6px 4px 12px;
+  gap: 10px;
+}
+
+.voucher-code {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #15803d;
+  font-family: monospace;
+}
+
+.voucher-copy-btn {
+  background: #15803d;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: inherit;
+}
+
+.voucher-copy-btn:hover {
+  background: #166534;
+}
+
+.subscriber-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #dcfce7;
+  padding-top: 10px;
+  font-size: 11px;
+}
+
+.gdpr-verified-badge {
+  color: #166534;
+  font-weight: 600;
+}
+
+.subscriber-switch-btn {
+  background: transparent;
+  border: none;
+  color: #047857;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 11px;
+}
+
+/* Footer variant adaptations */
+.newsletter-module.footer .newsletter-title {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.newsletter-module.footer .newsletter-sub {
+  color: #94a3b8;
+  font-size: 12.5px;
+}
+
+.newsletter-module.footer .gdpr-text {
+  color: #94a3b8;
+}
+
+.newsletter-module.footer .gdpr-text strong {
+  color: #cbd5e1;
+}
+
+.newsletter-module.footer .interests-label {
+  color: #94a3b8;
+}
+
+.newsletter-module.footer .interest-chip {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+}
+
+.newsletter-module.footer .interest-chip.active {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+/* ---------------- 3. Direct Messaging Integration: WhatsApp & Embedded Live Chat ---------------- */
+.live-chat-floating-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9990;
+}
+
+.live-chat-bubble-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 8px 16px 8px 10px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  font-family: inherit;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.live-chat-bubble-trigger:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: #1e293b;
+  box-shadow: 0 14px 28px -5px rgba(0, 0, 0, 0.35);
+}
+
+.bubble-avatar-wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: #334155;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.online-pulse-beacon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border: 2px solid #0f172a;
+  border-radius: 50%;
+}
+
+.bubble-text-group {
+  text-align: left;
+}
+
+.bubble-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.bubble-status {
+  display: block;
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.unread-dot-badge {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2px;
+}
+
+/* Embedded Live Chat Drawer */
+.live-chat-embedded-drawer {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  height: 540px;
+  max-height: calc(100vh - 48px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 9995;
+  overflow: hidden;
+  font-family: inherit;
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-drawer-header {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-agent-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-avatar-box {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  background: #1e293b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.agent-status-dot.online {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border: 2px solid #0f172a;
+  border-radius: 50%;
+}
+
+.agent-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.agent-sub {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.whatsapp-quick-header-btn {
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: inherit;
+}
+
+.whatsapp-quick-header-btn:hover {
+  background: #1eb857;
+}
+
+.chat-close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.chat-close-btn:hover {
+  color: #ffffff;
+}
+
+.chat-whatsapp-banner {
+  background: #f0fdf4;
+  border-bottom: 1px solid #bbf7d0;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.chat-whatsapp-banner:hover {
+  background: #dcfce7;
+}
+
+.wa-brand-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.wa-banner-text {
+  flex: 1;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.wa-banner-text strong {
+  display: block;
+  color: #166534;
+}
+
+.wa-banner-text span {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.wa-open-arrow {
+  color: #166534;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.chat-messages-scroll-area {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fafafa;
+}
+
+.chat-message-row {
+  display: flex;
+  gap: 8px;
+  max-width: 88%;
+}
+
+.chat-message-row.agent {
+  align-self: flex-start;
+}
+
+.chat-message-row.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.msg-avatar-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.msg-bubble-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message-row.agent .msg-bubble-text {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px 12px 12px 2px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  margin: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.chat-message-row.user .msg-bubble-text {
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 12px 12px 2px 12px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.msg-time {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 3px;
+}
+
+.chat-message-row.user .msg-time {
+  text-align: right;
+}
+
+.msg-action-chip-btn {
+  margin-top: 8px;
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  align-self: flex-start;
+}
+
+.msg-action-chip-btn:hover {
+  background: #1eb857;
+  transform: translateY(-1px);
+}
+
+.chat-quick-chips-wrapper {
+  padding: 8px 12px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+}
+
+.quick-chips-hint {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.quick-chips-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.quick-chip-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.quick-chip-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.chat-input-dock {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  gap: 8px;
+}
+
+.chat-text-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-family: inherit;
+  background: #f8fafc;
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.chat-text-input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--text);
+}
+
+.chat-send-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.chat-send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.chat-footer-protocol-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.chat-wa-direct-link {
+  background: transparent;
+  border: none;
+  color: #16a34a;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0;
+  text-decoration: underline;
+  font-family: inherit;
+}
+
+.contact-card.contact-card-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-card.contact-card-link:hover {
+  transform: translateY(-2px);
+  border-color: #22c55e;
+}
+
+
