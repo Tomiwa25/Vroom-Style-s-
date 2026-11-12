@@ -14,7 +14,9 @@ export const laptopsProducts: Product[] = [
     "reviewCount": 814,
     "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Apple",
@@ -55,14 +57,15 @@ export const laptopsProducts: Product[] = [
     "name": "Apple MacBook Air 15\" (M3 Chip, 16GB RAM, 512GB SSD, Midnight)",
     "description": "Impossibly thin 11.5mm fanless design with M3 speed, 15.3-inch Liquid Retina display, MagSafe 3 charging, and 18-hour battery.",
     "price": 2150000,
-    "originalPrice": 2795000,
     "minPrice": 2150000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 353,
     "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Apple",
@@ -102,14 +105,15 @@ export const laptopsProducts: Product[] = [
     "name": "Dell XPS 15 9530 (13th Gen i9-13900H, 32GB RAM, 1TB, RTX 4070, 3.5K OLED)",
     "description": "CNC machined aluminum with carbon fiber palm rest, 15.6-inch 3.5K OLED InfinityEdge touch display, and NVIDIA RTX 4070 graphics.",
     "price": 3100000,
-    "originalPrice": 4030000,
     "minPrice": 3100000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 392,
     "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Dell",
@@ -149,14 +153,15 @@ export const laptopsProducts: Product[] = [
     "name": "Lenovo ThinkPad X1 Carbon Gen 12 (Core Ultra 7 155H, 32GB, 1TB, 2.8K OLED)",
     "description": "Legendary military-grade carbon fiber chassis weighing just 1.09 kg with Intel AI Boost NPU and iconic red TrackPoint.",
     "price": 2850000,
-    "originalPrice": 3705000,
     "minPrice": 2850000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 898,
     "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Lenovo",
@@ -196,14 +201,15 @@ export const laptopsProducts: Product[] = [
     "name": "ASUS ROG Zephyrus G16 (Core Ultra 9, RTX 4080, 32GB, 240Hz ROG Nebula OLED)",
     "description": "CNC aluminum chassis with Slash Lighting LED lid array, 240Hz 0.2ms ROG Nebula OLED panel, and NVIDIA RTX 4080 GPU.",
     "price": 3450000,
-    "originalPrice": 4485000,
     "minPrice": 3450000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 616,
     "image": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "ASUS ROG",
@@ -243,14 +249,15 @@ export const laptopsProducts: Product[] = [
     "name": "Razer Blade 16 (i9-14900HX, RTX 4090, 32GB RAM, 2TB SSD, Dual-Mode Mini-LED)",
     "description": "CNC anodized aluminum unibody with world's first Dual-Mode Mini-LED display switching between 4K 120Hz and FHD+ 240Hz.",
     "price": 4600000,
-    "originalPrice": 5980000,
     "minPrice": 4600000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 966,
     "image": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Razer",
@@ -289,14 +296,15 @@ export const laptopsProducts: Product[] = [
     "name": "HP Spectre x360 16\" 2-in-1 (Intel Core Ultra 7, 32GB, 2TB, 2.8K OLED Touch)",
     "description": "Gem-cut 360-degree convertible laptop with 9MP AI camera, Poly Studio quad speakers, and rechargeable MPP 2.0 stylus pen.",
     "price": 2350000,
-    "originalPrice": 3055000,
     "minPrice": 2350000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1016,
     "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "HP",
@@ -335,14 +343,15 @@ export const laptopsProducts: Product[] = [
     "name": "Microsoft Surface Laptop 6 for Business (15\" PixelSense, Core Ultra 7, 32GB)",
     "description": "Clean anodized platinum unibody with 3:2 aspect ratio touchscreen, anti-reflective coating, and dedicated Copilot AI key.",
     "price": 2550000,
-    "originalPrice": 3315000,
     "minPrice": 2550000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 641,
     "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Microsoft",
@@ -388,7 +397,9 @@ export const laptopsProducts: Product[] = [
     "reviewCount": 224,
     "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "ASUS",
@@ -427,14 +438,15 @@ export const laptopsProducts: Product[] = [
     "name": "Lenovo Legion Pro 7i Gen 9 (i9-14900HX, RTX 4090 175W, 32GB, 2TB SSD)",
     "description": "Coldfront Vapor chamber cooling with Legion AI Engine+ pushing maximum 175W TGP for competitive eSports dominance.",
     "price": 3850000,
-    "originalPrice": 5005000,
     "minPrice": 3850000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 660,
     "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Lenovo",
@@ -473,14 +485,15 @@ export const laptopsProducts: Product[] = [
     "name": "Apple MacBook Pro 14\" (M3 Pro, 18GB RAM, 512GB SSD, Silver)",
     "description": "Portable powerhouse with 11-core CPU, 14-core GPU, HDMI port, SDXC card slot, MagSafe 3, and 17 hours battery.",
     "price": 2650000,
-    "originalPrice": 3445000,
     "minPrice": 2650000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 786,
     "image": "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Apple",
@@ -519,14 +532,15 @@ export const laptopsProducts: Product[] = [
     "name": "Dell XPS 13 Plus (13.4\" 3.5K OLED Touch, i7-1360P, 16GB, 512GB SSD)",
     "description": "Futuristic zero-lattice keyboard, capacitive touch function row, and seamless haptic glass palm rest.",
     "price": 1850000,
-    "originalPrice": 2405000,
     "minPrice": 1850000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1021,
     "image": "https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Dell",
@@ -565,14 +579,15 @@ export const laptopsProducts: Product[] = [
     "name": "Acer Predator Helios 16 (i9-14900HX, RTX 4080, 32GB, 240Hz WQXGA Display)",
     "description": "5th Gen AeroBlade 3D metal fans with liquid metal thermal grease for non-throttling maximum gaming frame rates.",
     "price": 2950000,
-    "originalPrice": 3835000,
     "minPrice": 2950000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 842,
     "image": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Acer",
@@ -611,13 +626,14 @@ export const laptopsProducts: Product[] = [
     "name": "MSI Creator Z16 HX Studio (i9-13980HX, RTX 4070, 32GB, QHD+ 120Hz Touch)",
     "description": "Lunar grey CNC chassis based on Golden Ratio 16:10 display for professional video editors, designers, and 3D artists.",
     "price": 2650000,
-    "originalPrice": 3445000,
     "minPrice": 2650000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 957,
     "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85",
     "images": [
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
@@ -657,14 +673,15 @@ export const laptopsProducts: Product[] = [
     "name": "Alienware m16 R2 (Intel Core Ultra 7 155H, RTX 4070, 240Hz QHD+ Display)",
     "description": "Redesigned 15% smaller footprint with Stealth Mode button that turns off RGB and switches to quiet performance for class/office.",
     "price": 2750000,
-    "originalPrice": 3575000,
     "minPrice": 2750000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 934,
     "image": "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Alienware",
@@ -703,14 +720,15 @@ export const laptopsProducts: Product[] = [
     "name": "LG gram 17\" Ultra-Lightweight Laptop (Intel Core Ultra 7, 32GB, 1TB, 1.35kg)",
     "description": "Massive 17-inch WQXGA anti-glare display inside a magnesium alloy chassis weighing an astonishing 1.35 kg with 80Wh battery.",
     "price": 2150000,
-    "originalPrice": 2795000,
     "minPrice": 2150000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 499,
     "image": "https://images.unsplash.com/photo-1587614387466-0a72ca909e16?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1587614387466-0a72ca909e16?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1587614387466-0a72ca909e16?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "LG",
@@ -749,14 +767,15 @@ export const laptopsProducts: Product[] = [
     "name": "HP Envy 16 Studio Laptop (i7-13700H, RTX 4060, 32GB, 120Hz OLED Display)",
     "description": "Natural silver aluminum finish with 16-inch 120Hz OLED screen, 5MP IR webcam with auto-framing, and vapor chamber cooling.",
     "price": 1950000,
-    "originalPrice": 2535000,
     "minPrice": 1950000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 443,
     "image": "https://images.unsplash.com/photo-1587614381233-b13c3293e507?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1587614381233-b13c3293e507?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1587614381233-b13c3293e507?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "HP",
@@ -795,14 +814,15 @@ export const laptopsProducts: Product[] = [
     "name": "Samsung Galaxy Book4 Pro 360 (AMOLED 2X Touch, Core Ultra 7, S-Pen Included)",
     "description": "3K Dynamic AMOLED 2X touchscreen with anti-reflective glass, bundled S-Pen stylus, and seamless Galaxy phone sync.",
     "price": 2350000,
-    "originalPrice": 3055000,
     "minPrice": 2350000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 514,
     "image": "https://images.unsplash.com/photo-1587614380602-536098679b32?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1587614380602-536098679b32?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1587614380602-536098679b32?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Samsung",
@@ -841,14 +861,15 @@ export const laptopsProducts: Product[] = [
     "name": "Framework Laptop 16 (Modular Upgradeable, AMD Ryzen 9 7940HS, RX 7700S)",
     "description": "Fully repairable and modular gaming laptop with swappable GPU expansion bay, customizable keyboard modules, and port cards.",
     "price": 2450000,
-    "originalPrice": 3185000,
     "minPrice": 2450000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 385,
     "image": "https://images.unsplash.com/photo-1587614380963-c3f2b6070776?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1587614380963-c3f2b6070776?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1587614380963-c3f2b6070776?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Framework",
@@ -887,14 +908,15 @@ export const laptopsProducts: Product[] = [
     "name": "ASUS TUF Gaming A15 (AMD Ryzen 9 8945HS, RTX 4070, 16GB RAM, 1TB SSD)",
     "description": "Military-grade MIL-STD-810H durability with AMD Ryzen AI NPU processor and full-powered 140W RTX 4070 graphics.",
     "price": 1850000,
-    "originalPrice": 2405000,
     "minPrice": 1850000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 239,
     "image": "https://images.unsplash.com/photo-1587614380068-1507f352136e?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1587614380068-1507f352136e?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1587614380068-1507f352136e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "ASUS TUF",
@@ -940,7 +962,9 @@ export const laptopsProducts: Product[] = [
     "reviewCount": 294,
     "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Apple",
@@ -979,14 +1003,15 @@ export const laptopsProducts: Product[] = [
     "name": "Lenovo Yoga 9i 2-in-1 (4K OLED Touch, Bowers & Wilkins Soundbar Hinge)",
     "description": "Comfort-edge rounded aluminum body with rotating Bowers & Wilkins 360-degree soundbar hinge and 4K OLED HDR500 touch screen.",
     "price": 2250000,
-    "originalPrice": 2925000,
     "minPrice": 2250000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 706,
     "image": "https://images.unsplash.com/photo-1512756290469-ec9646247267?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1512756290469-ec9646247267?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1512756290469-ec9646247267?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Lenovo",
@@ -1025,14 +1050,15 @@ export const laptopsProducts: Product[] = [
     "name": "HP OMEN Transcend 14 (OLED 120Hz, Core Ultra 9, RTX 4070, 1.63kg)",
     "description": "World's lightest 14-inch gaming laptop with IMAX Enhanced OLED screen, HyperX pudding keycaps, and rear USB-C PD charging.",
     "price": 2450000,
-    "originalPrice": 3185000,
     "minPrice": 2450000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 318,
     "image": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "HP OMEN",
@@ -1071,14 +1097,15 @@ export const laptopsProducts: Product[] = [
     "name": "Gigabyte AORUS 17X (i9-14900HX, RTX 4090, 32GB RAM, 240Hz QHD Display)",
     "description": "Full-power 175W RTX 4090 with WINDFORCE Infinity vapor chamber cooling and CNC aluminum chassis.",
     "price": 4100000,
-    "originalPrice": 5330000,
     "minPrice": 4100000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 333,
     "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Gigabyte",
@@ -1117,14 +1144,15 @@ export const laptopsProducts: Product[] = [
     "name": "Microsoft Surface Pro 10 for Business (13\" 120Hz, Core Ultra 7, 16GB)",
     "description": "2-in-1 business tablet/laptop with built-in kickstand, NFC badge reader for secure login, and AI-powered Studio Camera.",
     "price": 1950000,
-    "originalPrice": 2535000,
     "minPrice": 1950000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 380,
     "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Microsoft",
@@ -1163,14 +1191,15 @@ export const laptopsProducts: Product[] = [
     "name": "Dell Alienware x14 R2 (Ultra-Thin Gaming, i7-13620H, RTX 4060, 165Hz QHD+)",
     "description": "Thinnest 14-inch gaming laptop ever built by Alienware at just 14.5mm with patent-pending hinge design and 130W USB-C charging.",
     "price": 2150000,
-    "originalPrice": 2795000,
     "minPrice": 2150000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 289,
     "image": "https://images.unsplash.com/photo-1508873696983-2df5293cb325?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1508873696983-2df5293cb325?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1508873696983-2df5293cb325?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Alienware",
@@ -1209,14 +1238,15 @@ export const laptopsProducts: Product[] = [
     "name": "ASUS ROG Flow Z13 Gaming Tablet (i9-13900H, RTX 4060, ROG XG Mobile Ready)",
     "description": "Detachable gaming tablet with RGB rear chassis window displaying motherboards, 165Hz Nebula display, and stylus support.",
     "price": 2350000,
-    "originalPrice": 3055000,
     "minPrice": 2350000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 701,
     "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "ASUS ROG",
@@ -1255,14 +1285,15 @@ export const laptopsProducts: Product[] = [
     "name": "Acer Swift Go 14 (Core Ultra 7 155H, 2.8K 90Hz OLED, 16GB RAM, 1TB SSD)",
     "description": "Stunning 2.8K OLED display inside a lightweight 1.32 kg aluminum chassis with 1440p QHD webcam and multi-touch touchpad.",
     "price": 1250000,
-    "originalPrice": 1625000,
     "minPrice": 1250000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 627,
     "image": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Acer",
@@ -1301,14 +1332,15 @@ export const laptopsProducts: Product[] = [
     "name": "Dynabook Portégé X40-K (Magnesium Alloy Lightweight Business Ultrabook)",
     "description": "Formerly Toshiba. Engineered with aerospace magnesium alloy chassis, antimicrobial coating, and 12-hour fast-charge battery.",
     "price": 1450000,
-    "originalPrice": 1885000,
     "minPrice": 1450000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 509,
     "image": "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Dynabook",
@@ -1347,14 +1379,15 @@ export const laptopsProducts: Product[] = [
     "name": "Huawei MateBook X Pro (14.2\" 3.1K Flexible OLED Touch, Core Ultra 9, 980g)",
     "description": "Revolutionary ultra-lightweight magnesium body weighing only 980 grams with 3.1K 120Hz flexible OLED touchscreen.",
     "price": 2650000,
-    "originalPrice": 3445000,
     "minPrice": 2650000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 238,
     "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Laptops",
     "brand": "Huawei",

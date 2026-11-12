@@ -12,9 +12,11 @@ export const carsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 38,
-    "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541348263662-e0c86437da7b?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Porsche",
@@ -64,14 +66,15 @@ export const carsProducts: Product[] = [
     "name": "Mercedes-AMG GT R Pro Coupe",
     "description": "Mercedes-AMG GT R Pro Coupe engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 115000000,
-    "originalPrice": 130000000,
     "minPrice": 115000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 29,
-    "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Mercedes-Benz",
@@ -121,14 +124,15 @@ export const carsProducts: Product[] = [
     "name": "BMW M4 Competition M xDrive Coupe",
     "description": "BMW M4 Competition M xDrive Coupe engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 78000000,
-    "originalPrice": 89000000,
     "minPrice": 78000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 52,
-    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "BMW",
@@ -178,14 +182,15 @@ export const carsProducts: Product[] = [
     "name": "Audi RS6 Avant Performance",
     "description": "Audi RS6 Avant Performance engineered for superior performance and elegance. Verified authentic quality from Munich Prestige Motors.",
     "price": 88000000,
-    "originalPrice": 99000000,
     "minPrice": 88000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 44,
-    "image": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Audi",
@@ -234,14 +239,15 @@ export const carsProducts: Product[] = [
     "name": "Tesla Model S Plaid",
     "description": "Tesla Model S Plaid engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 72000000,
-    "originalPrice": 85000000,
     "minPrice": 72000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 61,
-    "image": "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1536700503339-1e4b06520771?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1571127236794-81c0bbfe1ce3?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Tesla",
@@ -296,9 +302,11 @@ export const carsProducts: Product[] = [
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 22,
-    "image": "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Land Rover",
@@ -347,14 +355,15 @@ export const carsProducts: Product[] = [
     "name": "Ford Mustang Mach 1 Fastback",
     "description": "Ford Mustang Mach 1 Fastback engineered for superior performance and elegance. Verified authentic quality from American Muscle Imports.",
     "price": 48000000,
-    "originalPrice": 56000000,
     "minPrice": 48000000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 47,
-    "image": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Ford",
@@ -404,14 +413,15 @@ export const carsProducts: Product[] = [
     "name": "Chevrolet Corvette Stingray Z51 3LT",
     "description": "Chevrolet Corvette Stingray Z51 3LT engineered for superior performance and elegance. Verified authentic quality from Apex Speed Exotics.",
     "price": 65000000,
-    "originalPrice": 75000000,
     "minPrice": 65000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 36,
-    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Chevrolet",
@@ -460,14 +470,15 @@ export const carsProducts: Product[] = [
     "name": "Lamborghini Huracán EVO LP 640-4",
     "description": "Lamborghini Huracán EVO LP 640-4 engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 185000000,
-    "originalPrice": 210000000,
     "minPrice": 185000000,
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 19,
-    "image": "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Lamborghini",
@@ -516,14 +527,15 @@ export const carsProducts: Product[] = [
     "name": "Ferrari Roma V8 Coupe",
     "description": "Ferrari Roma V8 Coupe engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 165000000,
-    "originalPrice": 190000000,
     "minPrice": 165000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 15,
-    "image": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Ferrari",
@@ -572,14 +584,15 @@ export const carsProducts: Product[] = [
     "name": "Aston Martin DB11 V8 Coupe",
     "description": "Aston Martin DB11 V8 Coupe engineered for superior performance and elegance. Verified authentic quality from Crown Royal Motors.",
     "price": 135000000,
-    "originalPrice": 155000000,
     "minPrice": 135000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 18,
-    "image": "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541348263662-e0c86437da7b?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Aston Martin",
@@ -633,9 +646,11 @@ export const carsProducts: Product[] = [
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 94,
-    "image": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Toyota",
@@ -685,14 +700,15 @@ export const carsProducts: Product[] = [
     "name": "Lexus RX 350 Luxury AWD",
     "description": "Lexus RX 350 Luxury AWD engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 52000000,
-    "originalPrice": 59000000,
     "minPrice": 52000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 68,
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Lexus",
@@ -741,14 +757,15 @@ export const carsProducts: Product[] = [
     "name": "Mercedes-Benz G-Class G63 AMG 4MATIC",
     "description": "Mercedes-Benz G-Class G63 AMG 4MATIC engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 155000000,
-    "originalPrice": 175000000,
     "minPrice": 155000000,
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 77,
-    "image": "https://images.unsplash.com/photo-1526726538690-5cbf956ae2fd?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1526726538690-5cbf956ae2fd?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Mercedes-Benz",
@@ -798,14 +815,15 @@ export const carsProducts: Product[] = [
     "name": "BMW X7 M60i xDrive",
     "description": "BMW X7 M60i xDrive engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 92000000,
-    "originalPrice": 104000000,
     "minPrice": 92000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 39,
-    "image": "https://images.unsplash.com/photo-1555353540-64580b51c258?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1555353540-64580b51c258?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "BMW",
@@ -854,14 +872,15 @@ export const carsProducts: Product[] = [
     "name": "Audi R8 V10 Performance Quattro Coupe",
     "description": "Audi R8 V10 Performance Quattro Coupe engineered for superior performance and elegance. Verified authentic quality from Ingolstadt Exotic Cars.",
     "price": 125000000,
-    "originalPrice": 140000000,
     "minPrice": 125000000,
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 26,
-    "image": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541348263662-e0c86437da7b?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Audi",
@@ -910,14 +929,15 @@ export const carsProducts: Product[] = [
     "name": "McLaren 720S Performance Coupe",
     "description": "McLaren 720S Performance Coupe engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 175000000,
-    "originalPrice": 198000000,
     "minPrice": 175000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 20,
-    "image": "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "McLaren",
@@ -966,14 +986,15 @@ export const carsProducts: Product[] = [
     "name": "Rolls-Royce Ghost Extended Wheelbase",
     "description": "Rolls-Royce Ghost Extended Wheelbase engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 245000000,
-    "originalPrice": 280000000,
     "minPrice": 245000000,
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 11,
-    "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Rolls-Royce",
@@ -1021,14 +1042,15 @@ export const carsProducts: Product[] = [
     "name": "Bentley Continental GT V8 Azure",
     "description": "Bentley Continental GT V8 Azure engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 158000000,
-    "originalPrice": 178000000,
     "minPrice": 158000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 23,
-    "image": "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Bentley",
@@ -1081,9 +1103,11 @@ export const carsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 31,
-    "image": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541348263662-e0c86437da7b?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Porsche",
@@ -1131,14 +1155,15 @@ export const carsProducts: Product[] = [
     "name": "Nissan GT-R Nismo Special Edition",
     "description": "Nissan GT-R Nismo Special Edition engineered for superior performance and elegance. Verified authentic quality from Tokyo JDM Specialists.",
     "price": 105000000,
-    "originalPrice": 120000000,
     "minPrice": 105000000,
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 42,
-    "image": "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Nissan",
@@ -1186,14 +1211,15 @@ export const carsProducts: Product[] = [
     "name": "Jaguar F-Type R 575 V8 Coupe",
     "description": "Jaguar F-Type R 575 V8 Coupe engineered for superior performance and elegance. Verified authentic quality from Coventry Heritage Imports.",
     "price": 68000000,
-    "originalPrice": 79000000,
     "minPrice": 68000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 33,
-    "image": "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Jaguar",
@@ -1242,14 +1268,15 @@ export const carsProducts: Product[] = [
     "name": "Hyundai Ioniq 5 N Performance EV",
     "description": "Hyundai Ioniq 5 N Performance EV engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 49000000,
-    "originalPrice": 57000000,
     "minPrice": 49000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 41,
-    "image": "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1536700503339-1e4b06520771?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1571127236794-81c0bbfe1ce3?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Hyundai",
@@ -1297,14 +1324,15 @@ export const carsProducts: Product[] = [
     "name": "Genesis GV80 Prestige 3.5T AWD",
     "description": "Genesis GV80 Prestige 3.5T AWD engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 58000000,
-    "originalPrice": 67000000,
     "minPrice": 58000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 46,
-    "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Genesis",
@@ -1352,14 +1380,15 @@ export const carsProducts: Product[] = [
     "name": "Volvo XC90 Recharge Ultimate T8 AWD",
     "description": "Volvo XC90 Recharge Ultimate T8 AWD engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 64000000,
-    "originalPrice": 73000000,
     "minPrice": 64000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 50,
-    "image": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Volvo",
@@ -1407,14 +1436,15 @@ export const carsProducts: Product[] = [
     "name": "Alfa Romeo Giulia Quadrifoglio",
     "description": "Alfa Romeo Giulia Quadrifoglio engineered for superior performance and elegance. Verified authentic quality from Milano Corse Imports.",
     "price": 69000000,
-    "originalPrice": 79000000,
     "minPrice": 69000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 37,
-    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Alfa Romeo",
@@ -1462,14 +1492,15 @@ export const carsProducts: Product[] = [
     "name": "Dodge Challenger SRT Hellcat Jailbreak",
     "description": "Dodge Challenger SRT Hellcat Jailbreak engineered for superior performance and elegance. Verified authentic quality from Detroit Raw Power.",
     "price": 62000000,
-    "originalPrice": 72000000,
     "minPrice": 62000000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 58,
-    "image": "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Dodge",
@@ -1518,14 +1549,15 @@ export const carsProducts: Product[] = [
     "name": "Jeep Wrangler Rubicon 392 V8",
     "description": "Jeep Wrangler Rubicon 392 V8 engineered for superior performance and elegance. Verified authentic quality from Overland 4x4 Nigeria.",
     "price": 67000000,
-    "originalPrice": 77000000,
     "minPrice": 67000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 49,
-    "image": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Jeep",
@@ -1574,14 +1606,15 @@ export const carsProducts: Product[] = [
     "name": "Mercedes-Benz S-Class S580 4MATIC Sedan",
     "description": "Mercedes-Benz S-Class S580 4MATIC Sedan engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 138000000,
-    "originalPrice": 155000000,
     "minPrice": 138000000,
     "hasVariants": true,
     "rating": 5,
     "reviewCount": 43,
-    "image": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "Mercedes-Benz",
@@ -1629,14 +1662,15 @@ export const carsProducts: Product[] = [
     "name": "BMW M5 Competition LCI",
     "description": "BMW M5 Competition LCI engineered for superior performance and elegance. Verified authentic quality from Vroom Motors Direct.",
     "price": 89000000,
-    "originalPrice": 102000000,
     "minPrice": 89000000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 35,
-    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=85",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
     ],
     "category": "Cars",
     "brand": "BMW",

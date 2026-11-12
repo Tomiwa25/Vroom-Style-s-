@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import type { Product } from "../types";
 import { useClickOutside } from "../hooks/useClickOutside";
 
@@ -14,25 +14,32 @@ interface GlobalSearchPortalProps {
 }
 
 const TAXONOMY_OPTIONS = [
-  { key: "All", label: "All Taxonomies" },
-  { key: "Official Store", label: "Official Store" },
-  { key: "Fashion & Atelier", label: "Fashion & Atelier" },
-  { key: "Appliances", label: "Appliances" },
-  { key: "Phones & Tablets", label: "Phones & Tablets" },
-  { key: "Health & Beauty", label: "Health & Beauty" },
-  { key: "Outerwear", label: "Outerwear" },
-  { key: "Knitwear", label: "Knitwear" },
-  { key: "Accessories", label: "Accessories" },
+  { key: "All", label: "All Categories", icon: "✨" },
+  { key: "Cars", label: "Vehicles & Motors", icon: "🚗" },
+  { key: "Fridges", label: "Refrigerators", icon: "🧊" },
+  { key: "Microwaves", label: "Microwaves & Ovens", icon: "📻" },
+  { key: "Kitchen Utensils", label: "Cookware & Utensils", icon: "🍳" },
+  { key: "Furniture", label: "Designer Furniture", icon: "🛋️" },
+  { key: "TVs", label: "Smart TVs & Cinema", icon: "📺" },
+  { key: "Laptops", label: "Laptops & Ultrabooks", icon: "💻" },
+  { key: "Monitors", label: "Studio Monitors", icon: "🖥️" },
+  { key: "Women", label: "Fashion & Atelier", icon: "👗" },
+  { key: "Accessories", label: "Luxury Leather Goods", icon: "👜" },
+  { key: "Health & Beauty", label: "Parfumerie & Skincare", icon: "✨" },
 ];
 
 const TRENDING_SEARCHES = [
-  "Silk Midi Dress",
-  "Cashmere Sweaters",
-  "MagSafe Folio",
-  "Garment Steamer",
-  "Santal 28",
-  "Overcoats",
+  "Porsche 911",
+  "Mercedes-AMG GT",
+  "Samsung Bespoke Refrigerator",
+  "MacBook Pro M3",
+  "Sony BRAVIA OLED",
+  "Contour Silk Dress",
+  "Arc Cashmere Knit",
+  "Inverter Microwave",
 ];
+
+const RECENT_SEARCHES_KEY = "vroom_recent_searches";
 
 export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
   searchQuery,
@@ -45,12 +52,60 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
   formatPrice,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem(RECENT_SEARCHES_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(containerRef, () => setIsOpen(false), isOpen);
 
-  // Global Keyboard Shortcut: Press '/' or 'Ctrl+K' / 'Cmd+K' to auto-focus
+  const saveRecentSearch = useCallback((term: string) => {
+    const trimmed = term.trim();
+    if (!trimmed) return;
+    setRecentSearches((prev) => {
+      const filtered = prev.filter((item) => item.toLowerCase() !== trimmed.toLowerCase());
+      const next = [trimmed, ...filtered].slice(0, 6);
+      try {
+        localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  }, []);
+
+  const clearRecentSearches = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setRecentSearches([]);
+    try {
+      localStorage.removeItem(RECENT_SEARCHES_KEY);
+    } catch {
+      // ignore
+    }
+  };
+
+  const removeSingleRecentSearch = (e: React.MouseEvent, termToRemove: string) => {
+    e.stopPropagation();
+    setRecentSearches((prev) => {
+      const next = prev.filter((item) => item !== termToRemove);
+      try {
+        localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
+
+  // Keyboard shortcut '/' or Ctrl+K / Cmd+K to focus search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const activeTag = document.activeElement?.tagName.toLowerCase();
@@ -70,42 +125,50 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Compute multi-taxonomy matches (Categories, Brands, Products)
+  // Compute suggestions (Categories, Brands, Query Suggestions, Matching Products)
   const suggestions = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) {
       return {
+        querySuggestions: [],
         categories: [],
         brands: [],
         products: [],
       };
     }
 
-    // 1. Categories matching query
+    // 1. Category matches
     const matchedCategories = Array.from(
       new Set(
         products
           .map((p) => p.category)
           .filter((cat) => cat && cat.toLowerCase().includes(q))
       )
-    ).slice(0, 3);
+    ).slice(0, 4);
 
-    // 2. Brands matching query
+    // 2. Brand matches
     const matchedBrands = Array.from(
       new Set(
         products
           .map((p) => p.brand)
           .filter((brand): brand is string => Boolean(brand && brand.toLowerCase().includes(q)))
       )
-    ).slice(0, 3);
+    ).slice(0, 4);
 
-    // 3. Products matching query (title, description, material)
+    // 3. Query title suggestions (phrases)
+    const matchedQueries = Array.from(
+      new Set(
+        products
+          .map((p) => p.name)
+          .filter((name) => name.toLowerCase().includes(q))
+      )
+    ).slice(0, 4);
+
+    // 4. Products matching query
     const matchedProducts = products
       .filter((p) => {
         const matchesTaxonomy =
           selectedTaxonomy === "All" ||
-          (selectedTaxonomy === "Official Store" && (p.tag?.includes("Official") || p.tag?.includes("Atelier"))) ||
-          (selectedTaxonomy === "Fashion & Atelier" && (p.category === "Women" || p.category === "Fashion & Atelier")) ||
           p.category.toLowerCase() === selectedTaxonomy.toLowerCase();
 
         const matchesQuery =
@@ -120,6 +183,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
       .slice(0, 5);
 
     return {
+      querySuggestions: matchedQueries,
       categories: matchedCategories,
       brands: matchedBrands,
       products: matchedProducts,
@@ -127,48 +191,118 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
   }, [searchQuery, products, selectedTaxonomy]);
 
   const hasSuggestions =
+    suggestions.querySuggestions.length > 0 ||
     suggestions.categories.length > 0 ||
     suggestions.brands.length > 0 ||
     suggestions.products.length > 0;
 
-  const handleInputFocus = () => {
-    setIsOpen(true);
+  // Flatten suggestions for keyboard navigation
+  const flatItems = useMemo(() => {
+    const items: { type: "query" | "category" | "brand" | "product"; value: string | Product }[] = [];
+    suggestions.querySuggestions.forEach((q) => items.push({ type: "query", value: q }));
+    suggestions.categories.forEach((cat) => items.push({ type: "category", value: cat }));
+    suggestions.brands.forEach((brand) => items.push({ type: "brand", value: brand }));
+    suggestions.products.forEach((prod) => items.push({ type: "product", value: prod }));
+    return items;
+  }, [suggestions]);
+
+  const handleKeyDownInInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!isOpen) {
+      if (e.key === "ArrowDown" || e.key === "Enter") {
+        setIsOpen(true);
+      }
+      return;
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setFocusedIndex((prev) => (prev < flatItems.length - 1 ? prev + 1 : 0));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setFocusedIndex((prev) => (prev > 0 ? prev - 1 : flatItems.length - 1));
+    } else if (e.key === "Enter") {
+      if (focusedIndex >= 0 && flatItems[focusedIndex]) {
+        e.preventDefault();
+        const selected = flatItems[focusedIndex];
+        if (selected.type === "query") {
+          const val = selected.value as string;
+          onSearchChange(val);
+          saveRecentSearch(val);
+          setIsOpen(false);
+          onExecuteSearch();
+        } else if (selected.type === "category") {
+          const val = selected.value as string;
+          onTaxonomyChange(val);
+          onSearchChange("");
+          saveRecentSearch(val);
+          setIsOpen(false);
+          onExecuteSearch();
+        } else if (selected.type === "brand") {
+          const val = selected.value as string;
+          onSearchChange(val);
+          saveRecentSearch(val);
+          setIsOpen(false);
+          onExecuteSearch();
+        } else if (selected.type === "product") {
+          const prod = selected.value as Product;
+          onSelectProduct(prod);
+          saveRecentSearch(prod.name);
+          setIsOpen(false);
+        }
+      } else {
+        // Default form submit
+        saveRecentSearch(searchQuery);
+        setIsOpen(false);
+      }
+    }
   };
 
   const handleSelectCategory = (cat: string) => {
     onTaxonomyChange(cat);
     onSearchChange("");
+    saveRecentSearch(cat);
     setIsOpen(false);
     onExecuteSearch();
   };
 
   const handleSelectBrand = (brand: string) => {
     onSearchChange(brand);
+    saveRecentSearch(brand);
     setIsOpen(false);
     onExecuteSearch();
   };
 
   const handleSelectProduct = (prod: Product) => {
+    saveRecentSearch(prod.name);
     onSelectProduct(prod);
     setIsOpen(false);
   };
 
-  const handleTrendingClick = (term: string) => {
+  const handleDirectSearch = (term: string) => {
     onSearchChange(term);
+    saveRecentSearch(term);
     setIsOpen(false);
     onExecuteSearch();
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (searchQuery.trim()) {
+      saveRecentSearch(searchQuery);
+    }
     setIsOpen(false);
     onExecuteSearch();
+  };
+
+  const getCategoryIcon = (catName: string) => {
+    const opt = TAXONOMY_OPTIONS.find((t) => t.key.toLowerCase() === catName.toLowerCase());
+    return opt?.icon || "🏷️";
   };
 
   return (
     <div className="global-search-portal" ref={containerRef}>
       <form onSubmit={handleFormSubmit} className="search-form-shell">
-        {/* Taxonomy / Category Selector Prefix */}
+        {/* Category Taxonomy Selector */}
         <div className="search-taxonomy-select-wrap">
           <select
             id="search-taxonomy-select"
@@ -182,14 +316,14 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
           >
             {TAXONOMY_OPTIONS.map((opt) => (
               <option key={opt.key} value={opt.key}>
-                {opt.label}
+                {opt.icon} {opt.label}
               </option>
             ))}
           </select>
           <span className="taxonomy-select-chevron">▾</span>
         </div>
 
-        {/* Search Input Bar */}
+        {/* Search Input Bar with Real-time Suggestion listener */}
         <div className="search-input-field-wrap">
           <span className="search-field-icon">🔍</span>
           <input
@@ -198,14 +332,18 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
             className="search-input-field"
             placeholder={
               selectedTaxonomy !== "All"
-                ? `Search in ${selectedTaxonomy} (e.g. brand, style, item)...`
-                : "Search products, brands and luxury taxonomies..."
+                ? `Search ${selectedTaxonomy} (e.g. model, specs, brand)...`
+                : "Search cars, fridges, OLED TVs, tech & fashion..."
             }
             value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            onFocus={handleInputFocus}
+            onChange={(e) => {
+              onSearchChange(e.target.value);
+              setFocusedIndex(-1);
+            }}
+            onFocus={() => setIsOpen(true)}
+            onKeyDown={handleKeyDownInInput}
             autoComplete="off"
-            aria-label="Search Catalog"
+            aria-label="Search Catalog with Suggestions"
           />
 
           {/* Keyboard shortcut hint badge */}
@@ -222,6 +360,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               className="search-clear-btn"
               onClick={() => {
                 onSearchChange("");
+                setFocusedIndex(-1);
                 inputRef.current?.focus();
               }}
               title="Clear search text"
@@ -243,33 +382,92 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
         </button>
       </form>
 
-      {/* Predictive Multi-Taxonomy Suggestions Dropdown */}
+      {/* Predictive Suggestions Dropdown */}
       {isOpen && (
         <div className="search-suggestions-dropdown" role="listbox">
           {searchQuery.trim().length === 0 ? (
-            /* Popular / Trending Suggestions */
-            <div className="suggestions-trending-panel">
-              <span className="trending-title">🔥 TRENDING SEARCHES</span>
-              <div className="trending-pills-row">
-                {TRENDING_SEARCHES.map((term) => (
-                  <button
-                    key={term}
-                    type="button"
-                    className="trending-pill"
-                    onClick={() => handleTrendingClick(term)}
-                  >
-                    {term}
-                  </button>
-                ))}
+            /* Empty State: Recent Searches + Trending */
+            <div className="suggestions-idle-panel">
+              {recentSearches.length > 0 && (
+                <div className="suggestions-recent-panel">
+                  <div className="recent-header-row">
+                    <span className="trending-title">🕒 RECENT SEARCHES</span>
+                    <button
+                      type="button"
+                      className="clear-history-btn"
+                      onClick={clearRecentSearches}
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                  <div className="recent-pills-row">
+                    {recentSearches.map((term) => (
+                      <div key={term} className="recent-pill-wrap">
+                        <button
+                          type="button"
+                          className="recent-pill"
+                          onClick={() => handleDirectSearch(term)}
+                        >
+                          <span className="recent-icon">🕒</span>
+                          <span>{term}</span>
+                        </button>
+                        <button
+                          type="button"
+                          className="recent-delete-btn"
+                          onClick={(e) => removeSingleRecentSearch(e, term)}
+                          title={`Remove ${term} from history`}
+                          aria-label={`Remove ${term}`}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="suggestions-trending-panel">
+                <span className="trending-title">🔥 TRENDING SEARCHES</span>
+                <div className="trending-pills-row">
+                  {TRENDING_SEARCHES.map((term) => (
+                    <button
+                      key={term}
+                      type="button"
+                      className="trending-pill"
+                      onClick={() => handleDirectSearch(term)}
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           ) : hasSuggestions ? (
-            /* Multi-Taxonomy Matches */
+            /* Active Predictive Suggestions */
             <div className="suggestions-results-panel">
+              {/* Query Autocomplete Suggestions */}
+              {suggestions.querySuggestions.length > 0 && (
+                <div className="suggestion-section query-suggestions-section">
+                  <span className="suggestion-section-title">SUGGESTED SEARCHES</span>
+                  {suggestions.querySuggestions.map((queryText) => (
+                    <button
+                      key={queryText}
+                      type="button"
+                      className="suggestion-row query-row"
+                      onClick={() => handleDirectSearch(queryText)}
+                    >
+                      <span className="row-icon">🔍</span>
+                      <strong className="row-highlight">{queryText}</strong>
+                      <span className="row-arrow">↗</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {/* Category Matches */}
               {suggestions.categories.length > 0 && (
                 <div className="suggestion-section">
-                  <span className="suggestion-section-title">CATEGORIES</span>
+                  <span className="suggestion-section-title">MATCHING CATEGORIES</span>
                   {suggestions.categories.map((cat) => (
                     <button
                       key={cat}
@@ -277,7 +475,8 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                       className="suggestion-row category-row"
                       onClick={() => handleSelectCategory(cat)}
                     >
-                      <span className="row-prefix">Browse in</span>
+                      <span className="row-icon">{getCategoryIcon(cat)}</span>
+                      <span className="row-prefix">Explore in</span>
                       <strong className="row-highlight">{cat}</strong>
                       <span className="row-arrow">→</span>
                     </button>
@@ -296,6 +495,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                       className="suggestion-row brand-row"
                       onClick={() => handleSelectBrand(brand)}
                     >
+                      <span className="row-icon">🏷️</span>
                       <span className="row-prefix">Brand:</span>
                       <strong className="row-highlight">{brand}</strong>
                       <span className="row-arrow">→</span>
@@ -304,7 +504,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                 </div>
               )}
 
-              {/* Direct Product Matches */}
+              {/* Matching Products with Thumbnail & Price */}
               {suggestions.products.length > 0 && (
                 <div className="suggestion-section products-section">
                   <span className="suggestion-section-title">MATCHING PRODUCTS</span>
@@ -331,8 +531,8 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                           </span>
                         </div>
                       </div>
-                      <span className="suggestion-stock-tag">
-                        {prod.stock > 0 ? "In Stock" : "Out of Stock"}
+                      <span className={`suggestion-stock-tag ${prod.stock > 0 ? "in-stock" : "out"}`}>
+                        {prod.stock > 0 ? "In Stock" : "Sold Out"}
                       </span>
                     </div>
                   ))}
@@ -341,7 +541,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
             </div>
           ) : (
             <div className="suggestions-empty-state">
-              <p>No direct matches found for "{searchQuery}".</p>
+              <p>No direct suggestion found for "{searchQuery}".</p>
               <button
                 type="button"
                 className="empty-state-search-all-btn"

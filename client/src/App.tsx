@@ -6,6 +6,7 @@ import { DEFAULT_REGION } from "./data/regions";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
+import { ImageLightboxModal } from "./components/ImageLightboxModal";
 import { AdminModal } from "./components/AdminModal";
 import { CartFeedbackModal } from "./components/CartFeedbackModal";
 import { OrderTrackingModal } from "./components/OrderTrackingModal";
@@ -110,6 +111,33 @@ function App() {
     },
     [recordView]
   );
+
+  // High-Resolution Multi-Angle Image Lightbox Modal State
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [lightboxProduct, setLightboxProduct] = useState<Product | null>(null);
+  const [lightboxInitialIndex, setLightboxInitialIndex] = useState<number>(0);
+
+  const handleOpenLightbox = useCallback(
+    (product: Product, initialIndex = 0) => {
+      recordView(product);
+      setLightboxProduct(product);
+      setLightboxInitialIndex(initialIndex);
+      setIsLightboxOpen(true);
+    },
+    [recordView]
+  );
+
+  // Main Catalog Pagination (Show 12 items per page by default)
+  const [catalogCurrentPage, setCatalogCurrentPage] = useState<number>(1);
+  const [catalogPageSize, setCatalogPageSize] = useState<number>(12);
+  const [prevFilterKey, setPrevFilterKey] = useState<string>("");
+
+  // Reset pagination to first page whenever catalog filters change during render without effect
+  const filterKey = `${selectedCategory}|${searchQuery}|${sellerTypeFilter}|${isPodFilterActive}|${activeCampaign || ""}`;
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setCatalogCurrentPage(1);
+  }
   const [feedbackModal, setFeedbackModal] = useState<{
     isOpen: boolean;
     status: "SUCCESS" | "OUT_OF_STOCK";
@@ -659,6 +687,21 @@ function App() {
     });
   }, [allProducts, selectedCategory, searchQuery, activeCampaign, sellerTypeFilter, isPodFilterActive]);
 
+  // Main Catalog Pagination Slicing
+  const totalCatalogPages = Math.ceil(filteredProducts.length / catalogPageSize);
+  const paginatedCatalogProducts = useMemo(() => {
+    const start = (catalogCurrentPage - 1) * catalogPageSize;
+    return filteredProducts.slice(start, start + catalogPageSize);
+  }, [filteredProducts, catalogCurrentPage, catalogPageSize]);
+
+  const handleCatalogPageChange = (newPage: number) => {
+    setCatalogCurrentPage(newPage);
+    const catalogEl = document.getElementById("catalog-section");
+    if (catalogEl) {
+      catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   // Step 5: Curated Recommendation Feed - Payment on Delivery (PoD) Essentials
   const podEligibleProducts = useMemo(() => {
     return allProducts.filter((p) => p.isPodEligible);
@@ -1130,6 +1173,7 @@ function App() {
             wishlist={wishlist}
             onToggleWishlist={handleToggleWishlist}
             onQuickView={handleOpenQuickView}
+            onOpenLightbox={handleOpenLightbox}
             onAddToCart={handleAddToCart}
             onClearRail={clearHistory}
           />
@@ -1147,6 +1191,7 @@ function App() {
             wishlist={wishlist}
             onToggleWishlist={handleToggleWishlist}
             onQuickView={handleOpenQuickView}
+            onOpenLightbox={handleOpenLightbox}
             onAddToCart={handleAddToCart}
             onViewAll={() => handleScrollToCatalog()}
           />
@@ -1163,6 +1208,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onViewAll={(cat) => {
             setSelectedCategory(cat || "All");
@@ -1177,6 +1223,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onExploreBrandCatalog={(brandName) => {
             setSearchQuery(brandName);
@@ -1191,6 +1238,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onViewAllCars={() => {
             setSelectedCategory("Cars");
@@ -1205,6 +1253,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onSelectCategory={(cat) => {
             setSelectedCategory(cat);
@@ -1219,6 +1268,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onSelectCategory={(cat) => {
             setSelectedCategory(cat);
@@ -1372,19 +1422,97 @@ function App() {
               </button>
             </div>
           ) : (
-            <section className="product-grid">
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  formatPrice={formatPrice}
-                  isFavorited={wishlist.includes(product.id)}
-                  onToggleWishlist={handleToggleWishlist}
-                  onQuickView={handleOpenQuickView}
-                  onAddToCart={handleAddToCart}
-                />
-              ))}
-            </section>
+            <>
+              <section className="product-grid" id="catalog-results-grid">
+                {paginatedCatalogProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    formatPrice={formatPrice}
+                    isFavorited={wishlist.includes(product.id)}
+                    onToggleWishlist={handleToggleWishlist}
+                    onQuickView={handleOpenQuickView}
+                    onOpenLightbox={handleOpenLightbox}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))}
+              </section>
+
+              {/* Main Catalog Pagination Bar (Lazy page slicing) */}
+              {filteredProducts.length > catalogPageSize && (
+                <div className="catalog-pagination-container">
+                  <div className="pagination-count-summary">
+                    Showing {(catalogCurrentPage - 1) * catalogPageSize + 1}–
+                    {Math.min(catalogCurrentPage * catalogPageSize, filteredProducts.length)} of {filteredProducts.length} products
+                  </div>
+
+                  <div className="pagination-controls-row">
+                    <button
+                      type="button"
+                      className="pagination-arrow-btn"
+                      disabled={catalogCurrentPage === 1}
+                      onClick={() => handleCatalogPageChange(Math.max(1, catalogCurrentPage - 1))}
+                      aria-label="Previous page"
+                    >
+                      ‹ Previous
+                    </button>
+
+                    <div className="pagination-numbers-row">
+                      {Array.from({ length: totalCatalogPages }, (_, i) => i + 1).map((pageNum) => {
+                        if (
+                          pageNum === 1 ||
+                          pageNum === totalCatalogPages ||
+                          (pageNum >= catalogCurrentPage - 1 && pageNum <= catalogCurrentPage + 1)
+                        ) {
+                          return (
+                            <button
+                              key={pageNum}
+                              type="button"
+                              className={`pagination-number-btn ${catalogCurrentPage === pageNum ? "active" : ""}`}
+                              onClick={() => handleCatalogPageChange(pageNum)}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        } else if (
+                          pageNum === catalogCurrentPage - 2 ||
+                          pageNum === catalogCurrentPage + 2
+                        ) {
+                          return <span key={pageNum} className="pagination-ellipsis">…</span>;
+                        }
+                        return null;
+                      })}
+                    </div>
+
+                    <button
+                      type="button"
+                      className="pagination-arrow-btn"
+                      disabled={catalogCurrentPage === totalCatalogPages}
+                      onClick={() => handleCatalogPageChange(Math.min(totalCatalogPages, catalogCurrentPage + 1))}
+                      aria-label="Next page"
+                    >
+                      Next ›
+                    </button>
+                  </div>
+
+                  <div className="pagination-page-size-selector">
+                    <label htmlFor="catalog-page-size">Per Page:</label>
+                    <select
+                      id="catalog-page-size"
+                      value={catalogPageSize}
+                      onChange={(e) => {
+                        setCatalogPageSize(Number(e.target.value));
+                        setCatalogCurrentPage(1);
+                      }}
+                    >
+                      <option value={12}>12 Items</option>
+                      <option value={24}>24 Items</option>
+                      <option value={48}>48 Items</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </section>
 
@@ -1399,6 +1527,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           viewAllCategory="Phones & Tablets"
           onViewAll={(cat) => {
@@ -1418,6 +1547,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onViewAll={() => {
             setIsPodFilterActive(true);
@@ -1570,6 +1700,7 @@ function App() {
         onClose={() => setQuickViewProduct(null)}
         onAddToCart={handleAddToCart}
         formatPrice={formatPrice}
+        onOpenLightbox={handleOpenLightbox}
       />
 
       <AdminModal
@@ -1744,6 +1875,16 @@ function App() {
         isOpen={isPromptStudioOpen}
         onClose={() => setIsPromptStudioOpen(false)}
         initialCategory={promptStudioInitialCategory}
+      />
+
+      {/* ---------------- High-Resolution Multi-Angle Image Lightbox Modal ---------------- */}
+      <ImageLightboxModal
+        product={lightboxProduct}
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        initialIndex={lightboxInitialIndex}
+        formatPrice={formatPrice}
+        onAddToCart={handleAddToCart}
       />
     </div>
   );

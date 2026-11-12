@@ -8,6 +8,7 @@ interface ProductCardProps {
   isFavorited?: boolean;
   onToggleWishlist?: (productId: string) => void;
   onQuickView?: (product: Product) => void;
+  onOpenLightbox?: (product: Product, initialIndex?: number) => void;
   onAddToCart?: (product: Product, size?: string, color?: string) => void;
   compact?: boolean;
 }
@@ -28,11 +29,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   isFavorited = false,
   onToggleWishlist,
   onQuickView,
+  onOpenLightbox,
   onAddToCart,
   compact = false,
 }) => {
   const [errorImageId, setErrorImageId] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeAngleIndex, setActiveAngleIndex] = useState<number>(0);
   const [userSelectedSize, setUserSelectedSize] = useState<string | null>(null);
   const [userSelectedColor, setUserSelectedColor] = useState<string | null>(null);
 
@@ -41,12 +44,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const hasImgError = errorImageId === product.id;
 
   const discount = calculateDiscount(product.price, product.originalPrice);
-  const secondaryImage = product.images && product.images.length > 1 ? product.images[1] : null;
+  const gallery = product.images && product.images.length > 0 ? product.images : [product.image];
   const activeImage = hasImgError
     ? FALLBACK_IMAGE
-    : isHovered && secondaryImage
-    ? secondaryImage
-    : product.image || FALLBACK_IMAGE;
+    : gallery[activeAngleIndex] || product.image || FALLBACK_IMAGE;
 
   // Star Rating Engine
   const ratingValue = product.rating || 4.8;
@@ -82,14 +83,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <article
       className={`reusable-product-card ${compact ? "compact" : ""} ${
-        product.stock <= 0 ? "out-of-stock" : ""
-      }`}
+        product.category === "Cars" ? "card-category-cars" : ""
+      } ${product.stock <= 0 ? "out-of-stock" : ""}`}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setActiveAngleIndex(0);
+      }}
     >
       {/* Media & Badges */}
       <div
-        className="card-media-wrapper"
+        className={`card-media-wrapper ${product.category === "Cars" ? "cars-media-frame" : ""}`}
         onClick={handleCardClick}
         role="button"
         tabIndex={0}
@@ -107,6 +111,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {discount.hasDiscount && (
           <span className="card-dynamic-discount-badge">
             {discount.formattedBadge}
+          </span>
+        )}
+
+        {/* Multi-angle indicator pill */}
+        {gallery.length > 1 && (
+          <span className="card-angles-badge" title="Multiple high-resolution angles available">
+            📸 {gallery.length} Angles
           </span>
         )}
 
@@ -138,19 +149,66 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </button>
         )}
 
-        {/* Quick View Overlay Trigger */}
-        {onQuickView && (
-          <button
-            type="button"
-            className="card-quick-look-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              onQuickView(product);
-            }}
+        {/* Multi-angle quick hover dots / buttons */}
+        {gallery.length > 1 && isHovered && (
+          <div
+            className="card-angle-dots-row"
+            onClick={(e) => e.stopPropagation()}
           >
-            Quick Look
-          </button>
+            {gallery.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`card-angle-dot ${activeAngleIndex === idx ? "active" : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveAngleIndex(idx);
+                }}
+                onMouseEnter={() => setActiveAngleIndex(idx)}
+                title={
+                  product.category === "Cars"
+                    ? idx === 0
+                      ? "Front Exterior"
+                      : idx === 1
+                      ? "Rear View"
+                      : "Interior Cockpit"
+                    : `Angle ${idx + 1}`
+                }
+              />
+            ))}
+          </div>
         )}
+
+        {/* Card Overlay Actions: Quick Look + Open Lightbox */}
+        <div className="card-media-overlay-actions">
+          {onOpenLightbox && (
+            <button
+              type="button"
+              className="card-lightbox-trigger-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenLightbox(product, activeAngleIndex);
+              }}
+              title="Open full-resolution image viewer"
+              aria-label="Open full image gallery"
+            >
+              🔍 Open Angles
+            </button>
+          )}
+
+          {onQuickView && (
+            <button
+              type="button"
+              className="card-quick-look-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                onQuickView(product);
+              }}
+            >
+              Quick Look
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Card Content & Metadata */}

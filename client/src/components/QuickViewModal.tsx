@@ -12,6 +12,7 @@ interface QuickViewModalProps {
     quantity: number
   ) => void;
   formatPrice: (amountInNGN: number) => string;
+  onOpenLightbox?: (product: Product, initialIndex?: number) => void;
 }
 
 export const QuickViewModal: React.FC<QuickViewModalProps> = ({
@@ -20,6 +21,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   onClose,
   onAddToCart,
   formatPrice,
+  onOpenLightbox,
 }) => {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
@@ -56,11 +58,28 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
         <div className="quickview-layout">
           {/* Product Media with Multi-Image Gallery */}
           <div className="quickview-media">
-            <img
-              src={currentImage}
-              alt={product.name}
-              className="quickview-img"
-            />
+            <div
+              className="quickview-media-clickable"
+              onClick={() => {
+                if (onOpenLightbox) {
+                  const idx = gallery.indexOf(currentImage);
+                  onOpenLightbox(product, idx >= 0 ? idx : 0);
+                }
+              }}
+              title="Click to open full high-resolution image viewer"
+              style={{ cursor: onOpenLightbox ? "zoom-in" : "default", position: "relative" }}
+            >
+              <img
+                src={currentImage}
+                alt={product.name}
+                className="quickview-img"
+              />
+              {onOpenLightbox && (
+                <span className="quickview-zoom-hint-pill">
+                  🔍 Click to Enlarge / View Angles
+                </span>
+              )}
+            </div>
             {product.tag && (
               <span className="quickview-badge">{product.tag}</span>
             )}
@@ -70,9 +89,17 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 {gallery.map((img, idx) => (
                   <button
                     key={idx}
-                    className={`gallery-thumb-btn ${activeImage === img ? "active" : ""}`}
+                    className={`gallery-thumb-btn ${currentImage === img ? "active" : ""}`}
                     onClick={() => setActiveImage(img)}
-                    title={`View angle ${idx + 1}`}
+                    title={
+                      product.category === "Cars"
+                        ? idx === 0
+                          ? "Front Exterior (3/4 Profile)"
+                          : idx === 1
+                          ? "Rear Exterior (Lights & Aero)"
+                          : "Interior Cockpit (Cabin & Dash)"
+                        : `Angle ${idx + 1}`
+                    }
                   >
                     <img src={img} alt={`Angle ${idx + 1}`} />
                   </button>

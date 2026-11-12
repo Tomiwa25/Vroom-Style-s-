@@ -14,6 +14,8 @@ export const kitchenUtensilsProducts: Product[] = [
     "reviewCount": 274,
     "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
     "images": [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
@@ -54,14 +56,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Wüsthof Classic Ikon 7-Piece Knife Block Set",
     "description": "Precision-forged from a single piece of high-carbon stainless steel in Solingen, Germany. Double bolster for perfect balance.",
     "price": 420000,
-    "originalPrice": 546000,
     "minPrice": 420000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 323,
     "image": "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Wüsthof",
@@ -101,14 +104,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "All-Clad D5 10-Piece Brushed Stainless Cookware Set",
     "description": "Patented 5-ply bonded construction with alternating layers of stainless steel and aluminum for warp-free heating.",
     "price": 580000,
-    "originalPrice": 754000,
     "minPrice": 580000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 481,
     "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "All-Clad",
@@ -147,14 +151,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Staub Cast Iron Round Cocotte (4.0L, Matte Black)",
     "description": "Traditional French cocotte with spiked self-basting lid that continually circulates moisture over roasts and stews.",
     "price": 310000,
-    "originalPrice": 403000,
     "minPrice": 310000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 827,
     "image": "https://images.unsplash.com/photo-1583778176476-4a8b02a64c01?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583778176476-4a8b02a64c01?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1583778176476-4a8b02a64c01?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Staub",
@@ -193,14 +198,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Zwilling J.A. Henckels Pro 8-inch Chef's Knife",
     "description": "Friodur ice-hardened blade for exceptional cutting edge retention and corrosion resistance. Curved bolster for professional pinch grip.",
     "price": 125000,
-    "originalPrice": 162500,
     "minPrice": 125000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1072,
     "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Zwilling",
@@ -239,14 +245,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Global Classic 3-Piece Japanese Stainless Knife Set",
     "description": "Crafted from Cromova 18 stainless steel with signature dimpled hollow handles filled with sand for perfect balance.",
     "price": 215000,
-    "originalPrice": 279500,
     "minPrice": 215000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 721,
     "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Global",
@@ -285,14 +292,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Lodge Seasoned Cast Iron Skillet (12-inch)",
     "description": "Pre-seasoned with 100% natural vegetable oil. Exceptional heat retention for searing steaks and baking cornbread.",
     "price": 68000,
-    "originalPrice": 88400,
     "minPrice": 68000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 360,
     "image": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Lodge",
@@ -338,7 +346,9 @@ export const kitchenUtensilsProducts: Product[] = [
     "reviewCount": 1112,
     "image": "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Shun",
@@ -377,14 +387,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Caraway Non-Toxic Ceramic Non-Stick Cookware Set (Sage Green)",
     "description": "Free of PTFE, PFOA, lead, and cadmium. Naturally slick ceramic coating requires minimal oil or butter.",
     "price": 320000,
-    "originalPrice": 416000,
     "minPrice": 320000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 600,
     "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Caraway",
@@ -423,14 +434,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Material Kitchen The Iconics 10-Piece Kitchen Utensils Set",
     "description": "Award-winning kitchen tools in matte stainless steel, walnut wood, and BPA-free silicone with base stand.",
     "price": 195000,
-    "originalPrice": 253500,
     "minPrice": 195000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 572,
     "image": "https://images.unsplash.com/photo-1556911073-52527ac43761?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556911073-52527ac43761?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556911073-52527ac43761?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Material Kitchen",
@@ -468,14 +480,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "OXO Good Grips 15-Piece Stainless Steel Kitchen Tool Set",
     "description": "Ergonomic non-slip santoprene handles with stainless steel heads including tongs, whisk, spatula, and can opener.",
     "price": 145000,
-    "originalPrice": 188500,
     "minPrice": 145000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1053,
     "image": "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "OXO",
@@ -514,14 +527,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Joseph Joseph Elevate Carousel Silicone Cooking Utensils Set",
     "description": "Weighted handles with integrated tool rests prevent tool heads from touching kitchen countertops.",
     "price": 110000,
-    "originalPrice": 143000,
     "minPrice": 110000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 680,
     "image": "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Joseph Joseph",
@@ -560,14 +574,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Boos Block Maple Wood End-Grain Cutting Board (20x15 inch)",
     "description": "Harvested from sustainable American hard rock maple. End-grain construction preserves knife edges.",
     "price": 165000,
-    "originalPrice": 214500,
     "minPrice": 165000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 330,
     "image": "https://images.unsplash.com/photo-1514986888952-8cd320577b68?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1514986888952-8cd320577b68?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1514986888952-8cd320577b68?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "John Boos",
@@ -606,14 +621,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Microplane Master Series Walnut Handle Zester & Grater",
     "description": "Surgical-grade photo-etched stainless steel blades made in USA with oiled Kentucky walnut wood handle.",
     "price": 38000,
-    "originalPrice": 49400,
     "minPrice": 38000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 887,
     "image": "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Microplane",
@@ -652,14 +668,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "De Buyer Mineral B Carbon Steel Frying Pan (11-inch)",
     "description": "French carbon steel pan finished with organic beeswax. Develops a natural non-stick patina with use.",
     "price": 85000,
-    "originalPrice": 110500,
     "minPrice": 85000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 432,
     "image": "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "De Buyer",
@@ -698,14 +715,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Mauviel M'Heritage 150s Copper Sauté Pan (24cm)",
     "description": "Handcrafted in Normandy since 1830. 90% copper and 10% 18/10 stainless steel interior for instantaneous heat response.",
     "price": 310000,
-    "originalPrice": 403000,
     "minPrice": 310000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 885,
     "image": "https://images.unsplash.com/photo-1594998893017-36147cbcae05?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1594998893017-36147cbcae05?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1594998893017-36147cbcae05?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Mauviel 1830",
@@ -744,14 +762,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Victorinox Swiss Army Fibrox Pro 7-inch Santoku Knife",
     "description": "Swiss-made chef favorite with fluted granton edge and non-slip ergonomic Fibrox handle.",
     "price": 48000,
-    "originalPrice": 62400,
     "minPrice": 48000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 755,
     "image": "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Victorinox",
@@ -790,14 +809,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "GreenPan Valencia Pro Hard Anodized Ceramic Frypan (12-inch)",
     "description": "Thermolon Minerals Pro ceramic coating reinforced with diamonds. Magneto induction base.",
     "price": 92000,
-    "originalPrice": 119600,
     "minPrice": 92000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 426,
     "image": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "GreenPan",
@@ -843,7 +863,9 @@ export const kitchenUtensilsProducts: Product[] = [
     "reviewCount": 958,
     "image": "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Cuisinart",
@@ -882,14 +904,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "KitchenAid Gourmet Heavy-Duty Kitchen Shears with Blade Guard",
     "description": "Micro-serrated high-carbon stainless blades with bone-notching groove and soft-touch handles.",
     "price": 28000,
-    "originalPrice": 36400,
     "minPrice": 28000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 365,
     "image": "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "KitchenAid",
@@ -928,14 +951,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Emile Henry French Ceramic Pie & Tart Dish (28cm, Burgundy Red)",
     "description": "Handcrafted from High Resistance Burgundian clay. Bakes evenly without drying out delicate crusts.",
     "price": 62000,
-    "originalPrice": 80600,
     "minPrice": 62000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 459,
     "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Emile Henry",
@@ -974,14 +998,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Epicurean Non-Slip Eco Kitchen Cutting Board Set (3-Piece)",
     "description": "Made from eco-friendly wood fiber composite in USA. Dishwasher safe, non-porous, and knife-friendly.",
     "price": 74000,
-    "originalPrice": 96200,
     "minPrice": 74000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 504,
     "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Epicurean",
@@ -1020,14 +1045,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Alessi Knifeforkspoon 24-Piece Stainless Cutlery Set",
     "description": "Iconic minimalist Italian cutlery designed by Jasper Morrison in mirror-polished 18/10 stainless steel.",
     "price": 240000,
-    "originalPrice": 312000,
     "minPrice": 240000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 867,
     "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Alessi",
@@ -1066,14 +1092,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Lagostina Heritage Hammered Copper 8-Piece Cookware Set",
     "description": "Hand-hammered Italian copper exterior with stainless steel cooking surface and riveted handles.",
     "price": 395000,
-    "originalPrice": 513500,
     "minPrice": 395000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 215,
     "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Lagostina",
@@ -1112,14 +1139,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Rösle Stainless Steel Kitchen Tongs & Whisk Chef Set",
     "description": "German engineered with one-handed locking mechanism on tongs and silicone-coated whisk wires.",
     "price": 58000,
-    "originalPrice": 75400,
     "minPrice": 58000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 808,
     "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Rösle",
@@ -1158,14 +1186,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Cole & Mason Derwent Precision Salt and Pepper Mill Set (19cm)",
     "description": "Diamond-sharp ceramic salt mechanism and machine-cut hardened carbon steel pepper mechanism with 6 grind settings.",
     "price": 82000,
-    "originalPrice": 106600,
     "minPrice": 82000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 273,
     "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Cole & Mason",
@@ -1204,14 +1233,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Cristel Strate Detachable Handle Stainless Cookware Set",
     "description": "Patented detachable handle system allows compact nesting and seamless transition from stove to oven to table.",
     "price": 460000,
-    "originalPrice": 598000,
     "minPrice": 460000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1080,
     "image": "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Cristel",
@@ -1250,14 +1280,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Mercer Culinary Renaissance 8-inch Forged Chef Knife",
     "description": "Forged German high-carbon steel with rounded spine for comfort and full tang for superior balance.",
     "price": 52000,
-    "originalPrice": 67600,
     "minPrice": 52000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 878,
     "image": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Mercer Culinary",
@@ -1296,14 +1327,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Kuhn Rikon Original Swiss Peeler Tri-Pack (Red, Yellow, Green)",
     "description": "Featherweight Swiss peelers with ultra-sharp carbon steel blades that peel paper-thin effortlessly.",
     "price": 22000,
-    "originalPrice": 28600,
     "minPrice": 22000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 960,
     "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Kuhn Rikon",
@@ -1342,14 +1374,15 @@ export const kitchenUtensilsProducts: Product[] = [
     "name": "Tramontina Professional Tri-Ply Clad Stockpot with Lid (11.3L)",
     "description": "Full tri-ply bonded construction with hollow cast stainless handles and deep volume for family broths.",
     "price": 135000,
-    "originalPrice": 175500,
     "minPrice": 135000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 260,
     "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Kitchen Utensils",
     "brand": "Tramontina",
