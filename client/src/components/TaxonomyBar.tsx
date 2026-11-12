@@ -14,16 +14,21 @@ interface TaxonomyBarProps {
   onOpenMegaMenu: () => void;
   isMegaMenuOpen?: boolean;
   onOpenVroomDelivery?: () => void;
+  onOpenPromptStudio?: () => void;
 }
 
 const TAXONOMY_LINKS: TaxonomyItem[] = [
+  { id: "Cars", label: "Cars & Motors", icon: "🚗", badge: "30 CARS", isOfficial: true },
+  { id: "Fridges", label: "Fridges", icon: "🧊", badge: "30 ITEMS" },
+  { id: "Microwaves", label: "Microwaves", icon: "📻" },
+  { id: "Kitchen Utensils", label: "Kitchen Utensils", icon: "🍳" },
+  { id: "Furniture", label: "Furniture", icon: "🛋️" },
+  { id: "TVs", label: "Smart TVs", icon: "📺", badge: "4K/8K" },
+  { id: "Laptops", label: "Laptops", icon: "💻", badge: "M3/RTX" },
+  { id: "Monitors", label: "Monitors", icon: "🖥️" },
+  { id: "Appliances", label: "All Appliances", icon: "⚡" },
   { id: "Official Store", label: "Official Store", icon: "👑", badge: "VERIFIED", isOfficial: true },
-  { id: "Appliances", label: "Appliances", icon: "⚡", badge: "HOT" },
-  { id: "Phones & Tablets", label: "Phones & Tablets", icon: "📱" },
-  { id: "Health & Beauty", label: "Health & Beauty", icon: "💄", badge: "NEW" },
   { id: "Fashion & Atelier", label: "Fashion & Atelier", icon: "👗" },
-  { id: "Outerwear", label: "Outerwear", icon: "🧥" },
-  { id: "Knitwear", label: "Knitwear", icon: "🧶" },
   { id: "Accessories", label: "Accessories", icon: "👜" },
 ];
 
@@ -33,6 +38,7 @@ export const TaxonomyBar: React.FC<TaxonomyBarProps> = ({
   onOpenMegaMenu,
   isMegaMenuOpen = false,
   onOpenVroomDelivery,
+  onOpenPromptStudio,
 }) => {
   const handleItemClick = (taxonomyId: string) => {
     onSelectTaxonomy(taxonomyId);
@@ -88,6 +94,20 @@ export const TaxonomyBar: React.FC<TaxonomyBarProps> = ({
               </button>
             );
           })}
+
+          {onOpenPromptStudio && (
+            <button
+              type="button"
+              className="taxonomy-delivery-shortcut-btn"
+              style={{ borderColor: "#805AD5", color: "#B794F4", background: "rgba(128, 90, 213, 0.15)" }}
+              onClick={onOpenPromptStudio}
+              title="AI Image Prompt Studio (240 Prompts across all sections)"
+            >
+              <span className="shortcut-icon">🎨</span>
+              <span className="shortcut-label">AI Prompts</span>
+              <span className="shortcut-badge" style={{ background: "#6B46C1", color: "#FFFFFF" }}>240 PROMPTS</span>
+            </button>
+          )}
 
           {onOpenVroomDelivery && (
             <button

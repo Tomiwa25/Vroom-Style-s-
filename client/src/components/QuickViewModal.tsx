@@ -25,6 +25,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [activeImage, setActiveImage] = useState<string>("");
+  const [copiedPrompt, setCopiedPrompt] = useState<boolean>(false);
 
   if (!isOpen || !product) return null;
 
@@ -149,6 +150,42 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             {product.material && (
               <div className="quickview-spec">
                 <strong>Material:</strong> <span>{product.material}</span>
+              </div>
+            )}
+
+            {/* Automotive / Appliance / Tech Specifications Grid */}
+            {product.specs && Object.keys(product.specs).length > 0 && (
+              <div className="quickview-specs-box">
+                <span className="specs-heading">Key Specifications:</span>
+                <div className="quickview-specs-grid">
+                  {Object.entries(product.specs).map(([key, val]) => (
+                    <div key={key} className="quickview-spec-badge">
+                      <span className="spec-badge-key">{key}:</span>
+                      <span className="spec-badge-val">{val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* AI Image Generation Prompt Box */}
+            {product.imagePrompt && (
+              <div className="quickview-prompt-box">
+                <div className="prompt-header-row">
+                  <span className="prompt-title">🎨 AI Image Prompt (Midjourney / Imagen)</span>
+                  <button
+                    type="button"
+                    className="prompt-copy-btn"
+                    onClick={() => {
+                      navigator.clipboard.writeText(product.imagePrompt || "");
+                      setCopiedPrompt(true);
+                      setTimeout(() => setCopiedPrompt(false), 2000);
+                    }}
+                  >
+                    {copiedPrompt ? "✓ Copied!" : "📋 Copy Prompt"}
+                  </button>
+                </div>
+                <p className="prompt-code-text">{product.imagePrompt}</p>
               </div>
             )}
 

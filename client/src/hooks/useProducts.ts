@@ -24,7 +24,7 @@ export interface UseProductsResult {
  * Provides caching, background revalidation, and graceful fallback to the curated collection.
  */
 export function useProducts(options: UseProductsOptions = {}): UseProductsResult {
-  const { limit = 12, category, search } = options;
+  const { limit = 500, category, search } = options;
 
   const {
     data,
@@ -76,7 +76,7 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsResult
           minPrice: typeof p.minPrice === "number" ? p.minPrice : fallback.minPrice,
           colors: (p.colors as { name: string; hex: string }[]) || fallback.colors,
           sizes: (p.sizes as string[]) || fallback.sizes,
-          fitGuide: (p.fitGuide as "Runs Small" | "True to Size" | "Runs Large") || fallback.fitGuide,
+          fitGuide: (p.fitGuide as string) || fallback.fitGuide,
           material: (p.material as string) || fallback.material,
           sellerType: (p.sellerType as "1P" | "3P") || fallback.sellerType,
           sellerName: (p.sellerName as string) || fallback.sellerName,
@@ -86,6 +86,8 @@ export function useProducts(options: UseProductsOptions = {}): UseProductsResult
           bundledIncentive: (p.bundledIncentive as string) || fallback.bundledIncentive,
           isPodEligible: typeof p.isPodEligible === "boolean" ? p.isPodEligible : fallback.isPodEligible,
           podTerms: (p.podTerms as string) || fallback.podTerms,
+          imagePrompt: (p.imagePrompt as string) || fallback.imagePrompt,
+          specs: (p.specs as Record<string, string>) || fallback.specs,
         };
       });
     },

@@ -206,6 +206,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
+        {/* Specs Badges for Cars, Appliances & Tech */}
+        {product.specs && Object.keys(product.specs).length > 0 && (
+          <div className="card-specs-preview-strip">
+            {Object.entries(product.specs).slice(0, 3).map(([k, v]) => (
+              <span key={k} className="card-spec-chip" title={`${k}: ${v}`}>
+                <strong>{k}:</strong> {v}
+              </span>
+            ))}
+          </div>
+        )}
+
         {/* Multi-line clamped description string (hidden on compact mode) */}
         {!compact && product.description && (
           <p className="card-clamped-description" title={product.description}>

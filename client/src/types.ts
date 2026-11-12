@@ -19,7 +19,7 @@ export interface Product {
   colors?: { name: string; hex: string }[];
   sizes?: string[];
   tag?: string;
-  fitGuide?: "Runs Small" | "True to Size" | "Runs Large";
+  fitGuide?: "Runs Small" | "True to Size" | "Runs Large" | string;
   material?: string;
   // Step 4: Marketplace & Seller Integrations
   sellerType?: "1P" | "3P"; // 1P = Vroom Direct / Atelier; 3P = Marketplace Partner
@@ -31,6 +31,8 @@ export interface Product {
   // Step 5: Conversion & Checkout Enablers
   isPodEligible?: boolean; // Payment on Delivery (PoD) post-delivery settlement eligibility
   podTerms?: string; // PoD settlement terms e.g. "Pay with POS/Cash upon doorstep inspection"
+  imagePrompt?: string; // Generative AI photographic prompt for Midjourney / Imagen
+  specs?: Record<string, string>; // Key automotive, appliance, or tech specifications
 }
 
 export interface AttributionData {

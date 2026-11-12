@@ -1,6 +1,29 @@
 import type { Product } from "../types";
+import {
+  carsProducts,
+  fridgesProducts,
+  microwavesProducts,
+  kitchenUtensilsProducts,
+  furnitureProducts,
+  tvsProducts,
+  laptopsProducts,
+  monitorsProducts,
+  expandedCatalog,
+} from "./categories/index";
 
-export const initialProducts: Product[] = [
+export {
+  carsProducts,
+  fridgesProducts,
+  microwavesProducts,
+  kitchenUtensilsProducts,
+  furnitureProducts,
+  tvsProducts,
+  laptopsProducts,
+  monitorsProducts,
+  expandedCatalog,
+};
+
+const baseProducts: Product[] = [
   {
     id: "prod-101",
     externalId: 101,
@@ -687,3 +710,5 @@ export const initialProducts: Product[] = [
     podTerms: "Eligible for Payment on Delivery in Lagos, Abuja & PH. Settle via POS or cash upon arrival.",
   },
 ];
+
+export const initialProducts: Product[] = [...baseProducts, ...expandedCatalog];
