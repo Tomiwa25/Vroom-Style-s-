@@ -23,6 +23,7 @@ export const createProductForAdmin = async (data: {
     image: string;
     category: string;
     stock: number;
+    isActive?: boolean;
 }) => {
     return prisma.product.create({
         data: {
@@ -35,24 +36,27 @@ export const createProductForAdmin = async (data: {
 export const updateProductForAdmin = async (
     productId: string,
     data: {
-        externalId?: number;
+        externalId?: number | null;
         name?: string;
         description?: string;
         price?: number;
         image?: string;
         category?: string;
         stock?: number;
+        isActive?: boolean;
     }
 ) => {
-    const updateData: Prisma.ProductUpdateInput = {
-        ...(data.name ? { name: data.name } : {}),
-        ...(data.description ? { description: data.description } : {}),
-        ...(data.image ? { image: data.image } : {}),
-        ...(data.category ? { category: data.category } : {}),
-        ...(data.stock !== undefined ? { stock: data.stock } : {}),
-        ...(data.price !== undefined ? { price: new Prisma.Decimal(data.price) } : {}),
-        ...(data.externalId !== undefined ? { externalId: data.externalId } : {}),
-    };
+    // `!== undefined` (not truthiness): an admin editing a description
+    // down to "" or toggling isActive to false must be persisted.
+    const updateData: Prisma.ProductUpdateInput = {};
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.image !== undefined) updateData.image = data.image;
+    if (data.category !== undefined) updateData.category = data.category;
+    if (data.stock !== undefined) updateData.stock = data.stock;
+    if (data.price !== undefined) updateData.price = new Prisma.Decimal(data.price);
+    if (data.externalId !== undefined) updateData.externalId = data.externalId;
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     return prisma.product.update({
         where: {
@@ -76,8 +80,10 @@ export const updateProductStockForAdmin = async (
     });
 };
 
-export const findAllOrdersForAdmin = async () => {
+export const findAllOrdersForAdmin = async (skip = 0, take = 50) => {
     return prisma.order.findMany({
+        skip,
+        take,
         include: {
             user: {
                 select: {
@@ -98,6 +104,17 @@ export const findAllOrdersForAdmin = async () => {
         orderBy: {
             createdAt: "desc",
         },
+    });
+};
+
+export const countOrdersForAdmin = async () => {
+    return prisma.order.count();
+};
+
+export const findOrderForAdmin = async (orderId: string) => {
+    return prisma.order.findUnique({
+        where: { id: orderId },
+        include: { items: true, payment: true },
     });
 };
 

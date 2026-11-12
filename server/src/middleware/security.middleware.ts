@@ -50,6 +50,18 @@ export const securityHeadersMiddleware = (
   // Referrer policy
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
 
+  // Content Security Policy.
+  // This API serves JSON (no HTML), so the strictest sensible policy applies.
+  // The client SPA should set its own policy that allows Paystack inline.js,
+  // api.paystack.co, and checkout.paystack.com.
+  const isProduction = process.env.NODE_ENV === "production";
+  res.setHeader(
+    "Content-Security-Policy",
+    isProduction
+      ? "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+      : "default-src 'self'"
+  );
+
   // Restrict sensitive browser features
   res.setHeader(
     "Permissions-Policy",
@@ -126,25 +138,40 @@ export const errorHandlerMiddleware = (
     return;
   }
 
-  // 4. Domain errors thrown as standard Error with explicit messages
-  const statusCode =
+  // 4. Malformed JSON body (express.json throws SyntaxError with status 400)
+  if (err instanceof SyntaxError && "body" in err) {
+    res.status(400).json({
+      success: false,
+      message: "Malformed JSON request body",
+    });
+    return;
+  }
+
+  // 5. Errors carrying an explicit, trusted HTTP status (e.g. express body-parser).
+  //    Only accept 4xx here — a non-AppError claiming 5xx is treated as a real crash.
+  const explicitStatus =
     typeof err.statusCode === "number"
       ? err.statusCode
       : typeof err.status === "number"
       ? err.status
-      : err instanceof Error && err.name === "Error"
-      ? 400
-      : 500;
+      : null;
 
   const isProduction = process.env.NODE_ENV === "production";
-  const clientMessage =
-    statusCode === 500 && isProduction
-      ? "An unexpected internal server error occurred"
-      : err.message || "Internal server error";
 
-  res.status(statusCode).json({
+  if (explicitStatus && explicitStatus >= 400 && explicitStatus < 500) {
+    res.status(explicitStatus).json({
+      success: false,
+      message: err.message || "Request could not be processed",
+    });
+    return;
+  }
+
+  // 6. Anything else is an unexpected server fault. Never leak internals.
+  res.status(500).json({
     success: false,
-    message: clientMessage,
+    message: isProduction
+      ? "An unexpected internal server error occurred"
+      : err.message || "Internal server error",
   });
 };
 

@@ -11,6 +11,7 @@ import { validateRequest } from "../middleware/validate.middleware.js";
 import {
   authLimiter,
   otpResendLimiter,
+  otpVerifyLimiter,
 } from "../middleware/rate-limit.middleware.js";
 import {
   registerSchema,
@@ -29,6 +30,7 @@ router.post(
 router.post("/login", authLimiter, loginController);
 router.post(
   "/verify-otp",
+  otpVerifyLimiter,
   validateRequest({ body: verifyOtpSchema }),
   verifyOtpController
 );

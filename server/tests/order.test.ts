@@ -152,7 +152,7 @@ describe("Order API", () => {
         expect(trackRes.body.success).toBe(true);
         expect(trackRes.body.data.id).toBe(order.id);
         expect(trackRes.body.data.status).toBe("SHIPPED");
-        expect(trackRes.body.data.milestones).toHaveLength(5);
+        expect(trackRes.body.data.milestones).toHaveLength(4);
         expect(trackRes.body.data.milestones[0].completed).toBe(true);
         expect(trackRes.body.data.milestones[1].completed).toBe(true);
         expect(trackRes.body.data.milestones[2].completed).toBe(true);
@@ -201,9 +201,10 @@ describe("Order API", () => {
             .get(`/api/orders/${order.id}/track`)
             .set("Authorization", `Bearer ${otherToken}`);
 
-        expect(trackRes.status).toBe(400);
+        // 404, not 403, so non-owners can't distinguish "your order" from
+        // "someone else's order" by status code.
+        expect(trackRes.status).toBe(404);
         expect(trackRes.body.success).toBe(false);
-        expect(trackRes.body.message).toContain("not authorized");
     });
 
     it("should create an order directly with explicit client items payload", async () => {

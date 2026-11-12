@@ -12,6 +12,7 @@ interface RecommendationRailProps {
   wishlist: string[];
   onToggleWishlist: (productId: string) => void;
   onQuickView: (product: Product) => void;
+  onOpenLightbox?: (product: Product, initialIndex?: number) => void;
   onAddToCart: (product: Product, size?: string, color?: string) => void;
   onClearRail?: () => void;
   viewAllCategory?: string;
@@ -33,6 +34,7 @@ export const RecommendationRail: React.FC<RecommendationRailProps> = ({
   wishlist,
   onToggleWishlist,
   onQuickView,
+  onOpenLightbox,
   onAddToCart,
   onClearRail,
   viewAllCategory,
@@ -115,6 +117,7 @@ export const RecommendationRail: React.FC<RecommendationRailProps> = ({
               isFavorited={wishlist.includes(product.id)}
               onToggleWishlist={onToggleWishlist}
               onQuickView={onQuickView}
+              onOpenLightbox={onOpenLightbox}
               onAddToCart={onAddToCart}
               compact
             />

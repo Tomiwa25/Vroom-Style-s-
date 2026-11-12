@@ -52,3 +52,21 @@ export class ConflictError extends AppError {
     super(message, 409, true);
   }
 }
+
+export class UnprocessableEntityError extends AppError {
+  constructor(message = "Unprocessable entity", errors?: unknown) {
+    super(message, 422, true, errors);
+  }
+}
+
+export class TooManyRequestsError extends AppError {
+  constructor(message = "Too many requests") {
+    super(message, 429, true);
+  }
+}
+
+export class InternalServerError extends AppError {
+  constructor(message = "Internal server error") {
+    super(message, 500, false);
+  }
+}

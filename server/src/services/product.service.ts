@@ -2,16 +2,20 @@ import {
     findProducts,
     countProducts,
     findProductByExternalId,
+    findProductByUuid,
     searchProducts,
     countSearchProducts,
+    type ProductListFilter,
 } from "../repositories/product.repositories.js";
 import { getCache, setCache, deleteCachePattern } from "../lib/cache.js";
 import type { Product } from "../types/product.js";
 import { NotFoundError } from "../core/errors/app-error.js";
 
+export const MAX_PRODUCT_PAGE_SIZE = 200;
+
 const mapProduct = (p: any): Product => ({
     id: p.id,
-    externalId: p.externalId ?? 0,
+    externalId: p.externalId ?? null,
     name: p.name,
     description: p.description,
     price: Number(p.price),
@@ -34,21 +38,31 @@ const mapProduct = (p: any): Product => ({
     podTerms: p.podTerms ?? "Pay upon doorstep delivery via POS or cash in Lagos, Abuja & PH.",
 });
 
+const normalizeFilter = (filter: ProductListFilter = {}): ProductListFilter => ({
+    category: filter.category && filter.category !== "All" ? filter.category : undefined,
+    query: filter.query?.trim() || undefined,
+});
+
 /**
- * Retrieves paginated catalog products with high-speed Redis / memory cache acceleration.
+ * Retrieves paginated catalog products with cache acceleration.
+ * Supports optional category and free-text query filters.
  */
 export const getProducts = async (
     limit = 12,
-    skip = 0
+    skip = 0,
+    filter: ProductListFilter = {}
 ): Promise<{
     products: Product[];
     total: number;
     skip: number;
     limit: number;
 }> => {
-    const cacheKey = `products:all:${limit}:${skip}`;
+    const effectiveLimit = Math.min(Math.max(limit, 1), MAX_PRODUCT_PAGE_SIZE);
+    const safeSkip = Math.max(skip, 0);
+    const f = normalizeFilter(filter);
 
-    // 1. Attempt retrieval from cache layer
+    const cacheKey = `products:all:${f.category ?? "*"}:${f.query ?? "*"}:${effectiveLimit}:${safeSkip}`;
+
     const cached = await getCache<{
         products: Product[];
         total: number;
@@ -60,29 +74,48 @@ export const getProducts = async (
         return cached;
     }
 
-    // 2. Cache miss: Fetch directly from PostgreSQL
     const [products, total] = await Promise.all([
-        findProducts(skip, limit),
-        countProducts(),
+        findProducts(safeSkip, effectiveLimit, f),
+        countProducts(f),
     ]);
 
     const result = {
         products: products.map(mapProduct),
         total,
-        skip,
-        limit,
+        skip: safeSkip,
+        limit: effectiveLimit,
     };
 
-    // 3. Persist to cache (TTL: 300 seconds / 5 minutes)
     await setCache(cacheKey, result, 300);
 
     return result;
 };
 
 /**
- * Retrieves a single product by externalId with caching.
+ * Retrieves a single product by its database UUID.
  */
-export const getProductById = async (id: number): Promise<Product> => {
+export const getProductByUuid = async (id: string): Promise<Product> => {
+    const cacheKey = `products:uuid:${id}`;
+
+    const cached = await getCache<Product>(cacheKey);
+    if (cached) {
+        return cached;
+    }
+
+    const product = await findProductByUuid(id);
+    if (!product) {
+        throw new NotFoundError("Product not found");
+    }
+
+    const result = mapProduct(product);
+    await setCache(cacheKey, result, 600);
+    return result;
+};
+
+/**
+ * Retrieves a single product by its numeric external (legacy) id.
+ */
+export const getProductByExternalId = async (id: number): Promise<Product> => {
     const cacheKey = `products:id:${id}`;
 
     const cached = await getCache<Product>(cacheKey);
@@ -96,10 +129,7 @@ export const getProductById = async (id: number): Promise<Product> => {
     }
 
     const result = mapProduct(product);
-
-    // Cache for 10 minutes (600 seconds)
     await setCache(cacheKey, result, 600);
-
     return result;
 };
 
@@ -109,10 +139,15 @@ export const getProductById = async (id: number): Promise<Product> => {
 export const searchProductsService = async (
     query: string,
     limit = 12,
-    skip = 0
+    skip = 0,
+    filter: ProductListFilter = {}
 ) => {
-    const normalizedQuery = query.trim().toLowerCase();
-    const cacheKey = `products:search:${encodeURIComponent(normalizedQuery)}:${limit}:${skip}`;
+    const effectiveLimit = Math.min(Math.max(limit, 1), MAX_PRODUCT_PAGE_SIZE);
+    const safeSkip = Math.max(skip, 0);
+    const normalizedQuery = query.trim();
+    const f = normalizeFilter({ ...filter });
+
+    const cacheKey = `products:search:${encodeURIComponent(normalizedQuery)}:${f.category ?? "*"}:${effectiveLimit}:${safeSkip}`;
 
     const cached = await getCache<{
         products: Product[];
@@ -126,18 +161,17 @@ export const searchProductsService = async (
     }
 
     const [products, total] = await Promise.all([
-        searchProducts(query, skip, limit),
-        countSearchProducts(query),
+        searchProducts(normalizedQuery, safeSkip, effectiveLimit, f),
+        countSearchProducts(normalizedQuery, f),
     ]);
 
     const result = {
         products: products.map(mapProduct),
         total,
-        skip,
-        limit,
+        skip: safeSkip,
+        limit: effectiveLimit,
     };
 
-    // Cache search results for 3 minutes (180 seconds)
     await setCache(cacheKey, result, 180);
 
     return result;

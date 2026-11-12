@@ -14,7 +14,9 @@ export const microwavesProducts: Product[] = [
     "reviewCount": 891,
     "image": "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Panasonic",
@@ -54,14 +56,15 @@ export const microwavesProducts: Product[] = [
     "name": "Breville The Smooth Wave Smart Countertop Microwave (34L)",
     "description": "Sensor iQ technology automatically calculates cook time and power levels with whisper-quiet soft close door.",
     "price": 420000,
-    "originalPrice": 546000,
     "minPrice": 420000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1018,
     "image": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Breville",
@@ -101,14 +104,15 @@ export const microwavesProducts: Product[] = [
     "name": "Samsung Convection Countertop Microwave with Ceramic Enamel (45L)",
     "description": "Scratch-resistant ceramic enamel interior with Slim Fry technology that cooks crispy food without added oil.",
     "price": 340000,
-    "originalPrice": 442000,
     "minPrice": 340000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1024,
     "image": "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Samsung",
@@ -148,14 +152,15 @@ export const microwavesProducts: Product[] = [
     "name": "LG NeoChef Smart Inverter Countertop Microwave (42L)",
     "description": "Smart Inverter provides precise cooking control and uniform defrosting with Anti-Bacterial EasyClean coating.",
     "price": 310000,
-    "originalPrice": 403000,
     "minPrice": 310000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1146,
     "image": "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "LG",
@@ -195,14 +200,15 @@ export const microwavesProducts: Product[] = [
     "name": "Toshiba Smart Microwave with Sensor Cooking & Sound Mute (34L)",
     "description": "Built-in smart humidity sensor with 6 one-touch presets, ECO power-saving mode, and sound on/off toggle.",
     "price": 195000,
-    "originalPrice": 253500,
     "minPrice": 195000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1152,
     "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Toshiba",
@@ -242,13 +248,14 @@ export const microwavesProducts: Product[] = [
     "name": "Sharp Carousel Sensor Stainless Microwave (42L, 1100W)",
     "description": "Classic Carousel turntable ensures precise 360-degree heating with express 30-second rapid start.",
     "price": 230000,
-    "originalPrice": 299000,
     "minPrice": 230000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1148,
     "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
     "images": [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
@@ -288,14 +295,15 @@ export const microwavesProducts: Product[] = [
     "name": "Bosch 500 Series Built-In Speed Convection Microwave (44L)",
     "description": "Installs flush with cabinetry. Combines microwave speed with European convection baking and broiling.",
     "price": 650000,
-    "originalPrice": 845000,
     "minPrice": 650000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 943,
     "image": "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Bosch",
@@ -334,14 +342,15 @@ export const microwavesProducts: Product[] = [
     "name": "KitchenAid 1000-Watt Countertop Microwave with PrintShield",
     "description": "PrintShield fingerprint-resistant stainless finish with timed defrost and sensor steam cooking function.",
     "price": 390000,
-    "originalPrice": 507000,
     "minPrice": 390000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 386,
     "image": "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "KitchenAid",
@@ -380,14 +389,15 @@ export const microwavesProducts: Product[] = [
     "name": "GE Profile Smart Countertop Convection Microwave (42L)",
     "description": "Built-in WiFi connects to SmartHQ app for remote monitoring and voice control via Alexa or Google Home.",
     "price": 375000,
-    "originalPrice": 487500,
     "minPrice": 375000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 943,
     "image": "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "GE Appliances",
@@ -433,7 +443,9 @@ export const microwavesProducts: Product[] = [
     "reviewCount": 760,
     "image": "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Smeg",
@@ -473,14 +485,15 @@ export const microwavesProducts: Product[] = [
     "name": "Whirlpool Over-the-Range Microwave with Steam Cooking (55L)",
     "description": "Convenient 400 CFM ventilation motor and dishwasher-safe turntable plate with sensor steam cycle.",
     "price": 420000,
-    "originalPrice": 546000,
     "minPrice": 420000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 983,
     "image": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Whirlpool",
@@ -519,14 +532,15 @@ export const microwavesProducts: Product[] = [
     "name": "Miele PureLine Speed Convection Built-In Oven (43L)",
     "description": "Combines 1000W microwave power with 80-250°C oven roasting. Quick & Gentle inverter control.",
     "price": 1250000,
-    "originalPrice": 1625000,
     "minPrice": 1250000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 318,
     "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Miele",
@@ -566,14 +580,15 @@ export const microwavesProducts: Product[] = [
     "name": "Galanz ToastWave 4-in-1 Convection Air Fryer Microwave",
     "description": "Multifunctional 4-in-1 appliance combines Microwave, Air Fryer, Convection Oven, and Toaster.",
     "price": 320000,
-    "originalPrice": 416000,
     "minPrice": 320000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 767,
     "image": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Galanz",
@@ -612,14 +627,15 @@ export const microwavesProducts: Product[] = [
     "name": "Cuisinart Convection Microwave Oven with Grill (34L)",
     "description": "Stainless steel interior absorbs no odors and is easy to sanitize. Dual stage cooking presets.",
     "price": 295000,
-    "originalPrice": 383500,
     "minPrice": 295000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1130,
     "image": "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Cuisinart",
@@ -658,14 +674,15 @@ export const microwavesProducts: Product[] = [
     "name": "Farberware Classic Digital Stainless Countertop Microwave (30L)",
     "description": "Reliable 10 power levels with multi-stage cooking, memory function, and child safety lock.",
     "price": 165000,
-    "originalPrice": 214500,
     "minPrice": 165000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 306,
     "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Farberware",
@@ -704,14 +721,15 @@ export const microwavesProducts: Product[] = [
     "name": "Black+Decker Digital Microwave with Turntable (25L)",
     "description": "Compact apartment footprint with 30-second express cooking and 6 quick preset buttons.",
     "price": 145000,
-    "originalPrice": 188500,
     "minPrice": 145000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 648,
     "image": "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Black+Decker",
@@ -750,14 +768,15 @@ export const microwavesProducts: Product[] = [
     "name": "Magic Chef Retro Countertop Microwave in Mint Green (20L)",
     "description": "Charming vintage round viewing window with rotary dial control and 700W heating element.",
     "price": 185000,
-    "originalPrice": 240500,
     "minPrice": 185000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 522,
     "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Magic Chef",
@@ -797,14 +816,15 @@ export const microwavesProducts: Product[] = [
     "name": "Haier Smart Speed Wave Convection Microwave (38L)",
     "description": "High-speed quartz grill with motorized rotisserie for even whole chicken roasting at home.",
     "price": 260000,
-    "originalPrice": 338000,
     "minPrice": 260000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1125,
     "image": "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Haier",
@@ -843,14 +863,15 @@ export const microwavesProducts: Product[] = [
     "name": "Dacor Contemporary Built-In Microwave Drawer (30-inch)",
     "description": "Undercounter motorized slide-out drawer opens smoothly with a gentle touch or gesture.",
     "price": 890000,
-    "originalPrice": 1157000,
     "minPrice": 890000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 380,
     "image": "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Dacor",
@@ -889,14 +910,15 @@ export const microwavesProducts: Product[] = [
     "name": "Viking Professional Under-Counter Microwave Drawer",
     "description": "Commercial-grade 1000W microwave drawer fits flush in kitchen base cabinets for an open island look.",
     "price": 1100000,
-    "originalPrice": 1430000,
     "minPrice": 1100000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 603,
     "image": "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Viking",
@@ -935,14 +957,15 @@ export const microwavesProducts: Product[] = [
     "name": "Thermador Masterpiece Convection Speed Microwave",
     "description": "CookSmart technology with 36 automatic cooking programs for effortless gourmet meal preparation.",
     "price": 1150000,
-    "originalPrice": 1495000,
     "minPrice": 1150000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 501,
     "image": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Thermador",
@@ -988,7 +1011,9 @@ export const microwavesProducts: Product[] = [
     "reviewCount": 1087,
     "image": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Wolf",
@@ -1027,14 +1052,15 @@ export const microwavesProducts: Product[] = [
     "name": "Cafe Smart Over-the-Range Microwave Oven (60L)",
     "description": "Chef Connect automatically syncs microwave lights and vents with your Cafe range cooktop.",
     "price": 580000,
-    "originalPrice": 754000,
     "minPrice": 580000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 511,
     "image": "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Cafe",
@@ -1073,14 +1099,15 @@ export const microwavesProducts: Product[] = [
     "name": "Frigidaire Built-In Microwave with Even Heating (45L)",
     "description": "Drop-down door design with multi-stage sensor cooking and sleek integrated trim kit.",
     "price": 340000,
-    "originalPrice": 442000,
     "minPrice": 340000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1025,
     "image": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Frigidaire",
@@ -1119,14 +1146,15 @@ export const microwavesProducts: Product[] = [
     "name": "Electrolux Speed Clean Stainless Microwave (32L)",
     "description": "Quick defrost by weight and easy clean steam cycle that loosens stubborn food splatters in 5 minutes.",
     "price": 275000,
-    "originalPrice": 357500,
     "minPrice": 275000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1040,
     "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Electrolux",
@@ -1165,14 +1193,15 @@ export const microwavesProducts: Product[] = [
     "name": "Beko Stainless Sensor Reheating Microwave (30L)",
     "description": "Intelligent reheat sensor prevents drying out dishes, preserving flavors and textures.",
     "price": 195000,
-    "originalPrice": 253500,
     "minPrice": 195000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 719,
     "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Beko",
@@ -1211,14 +1240,15 @@ export const microwavesProducts: Product[] = [
     "name": "Hisense Compact Touch-Control Microwave (20L)",
     "description": "Mirror glass door finish with digital LED display, 6 auto cook menus, and child safety lock.",
     "price": 115000,
-    "originalPrice": 149500,
     "minPrice": 115000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 314,
     "image": "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Hisense",
@@ -1257,14 +1287,15 @@ export const microwavesProducts: Product[] = [
     "name": "Commercial Chef Heavy-Duty Stainless Microwave (30L)",
     "description": "Simple rugged dual dial timers built for reliable day-in day-out office or restaurant warming.",
     "price": 180000,
-    "originalPrice": 234000,
     "minPrice": 180000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 340,
     "image": "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Commercial Chef",
@@ -1303,14 +1334,15 @@ export const microwavesProducts: Product[] = [
     "name": "Sunbeam Classic Rotary Microwave Oven (20L)",
     "description": "Zero complicated menus. Quick mechanical turn-to-start rotary dial with 5 power levels.",
     "price": 95000,
-    "originalPrice": 123500,
     "minPrice": 95000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 553,
     "image": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Sunbeam",
@@ -1349,14 +1381,15 @@ export const microwavesProducts: Product[] = [
     "name": "Nostalgia Retro Countertop Microwave in Aqua Blue (22L)",
     "description": "Vintage 1950s American diner aesthetic with chrome accents and easy-turn LED program dial.",
     "price": 210000,
-    "originalPrice": 273000,
     "minPrice": 210000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1120,
     "image": "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Microwaves",
     "brand": "Nostalgia",

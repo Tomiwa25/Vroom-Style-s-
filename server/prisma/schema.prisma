@@ -101,12 +101,31 @@ model CartItem {
 }
 
 
+enum DeliveryMethod {
+    PAYSTACK
+    POD
+}
+
 model Order {
     id          String          @id @default(uuid())
-    userId      String   
+    userId      String
     total       Decimal         @db.Decimal(12, 2)
     status      OrderStatus     @default(PENDING)
     paymentStatus PaymentStatus @default(PENDING)
+    deliveryMethod DeliveryMethod @default(PAYSTACK)
+
+    // Shipping details, only used for POD orders for now. Kept loose so
+    // Paystack orders gain them later without another migration.
+    shippingName      String?
+    shippingPhone     String?
+    shippingAddress   String?
+    shippingCity      String?
+    shippingNotes     String?
+
+    // Set the first time stock was returned to inventory (order expiry,
+    // admin cancellation, failed payment). Guards against double restock.
+    stockReleasedAt DateTime?
+
     createdAt   DateTime        @default(now())
     updatedAt   DateTime        @updatedAt
 
@@ -114,6 +133,8 @@ model Order {
     items       OrderItem[]
     payment     Payment?
 
+    @@index([status, paymentStatus, createdAt])
+    @@index([userId])
     @@map("orders")
 
 }

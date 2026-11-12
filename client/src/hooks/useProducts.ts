@@ -1,109 +1,76 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../services/api";
-import { initialProducts } from "../data/products";
 import type { Product } from "../types";
 
 export interface UseProductsOptions {
   limit?: number;
   category?: string;
   search?: string;
+  skip?: number;
 }
 
 export interface UseProductsResult {
   products: Product[];
+  total: number;
   isLoading: boolean;
   isFetching: boolean;
   isError: boolean;
   error: Error | null;
   refetch: () => void;
-  isLive: boolean; // Indicates if data came from backend or fallback
+}
+
+interface ProductListResponse {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
 }
 
 /**
  * Reusable TanStack Query hook to fetch catalog products from the backend.
- * Provides caching, background revalidation, and graceful fallback to the curated collection.
+ *
+ * Note: we do NOT fabricate missing fields. In the previous version this hook
+ * filled gaps from `initialProducts`, which meant real products displayed
+ * invented ratings, prices, and promos. We show what the server returned,
+ * or an honest error state.
  */
 export function useProducts(options: UseProductsOptions = {}): UseProductsResult {
-  const { limit = 500, category, search } = options;
+  const { limit = 60, category, search, skip = 0 } = options;
 
-  const {
-    data,
-    isLoading,
-    isFetching,
-    isError,
-    error,
-    refetch,
-  } = useQuery<Product[], Error>({
-    queryKey: ["products", { limit, category, search }],
+  const { data, isLoading, isFetching, isError, error, refetch } = useQuery<
+    ProductListResponse,
+    Error
+  >({
+    queryKey: ["products", { limit, category, search, skip }],
     queryFn: async () => {
-      const params: Record<string, string | number> = { limit };
+      const params: Record<string, string | number> = { limit, skip };
+
       if (category && category !== "All") params.category = category;
-      if (search && search.trim()) params.search = search.trim();
+      if (search && search.trim()) params.q = search.trim();
 
       const res = await api.get("/products", { params });
-      const rawProducts: Record<string, unknown>[] = res.data?.data?.products || [];
 
-      if (!rawProducts || rawProducts.length === 0) {
-        return initialProducts;
-      }
-
-      // Map backend products to typed Product schema with fallbacks
-      return rawProducts.map((p, idx) => {
-        const fallback = initialProducts[idx % initialProducts.length];
-        const pImage = typeof p.image === "string" && p.image ? p.image : fallback.image;
-        const pImages = Array.isArray(p.images) && p.images.length > 0
-          ? (p.images as string[])
-          : [pImage];
-
-        return {
-          id: (p.id as string) || `live-${idx}`,
-          externalId: typeof p.externalId === "number" ? p.externalId : fallback.externalId,
-          name: (p.name as string) || fallback.name,
-          description: (p.description as string) || fallback.description,
-          price: Number(p.price) || fallback.price,
-          originalPrice: typeof p.originalPrice === "number" ? p.originalPrice : fallback.originalPrice,
-          image: pImage,
-          images: pImages,
-          category: (p.category as string) || fallback.category,
-          brand: (p.brand as string) || fallback.brand,
-          stock: typeof p.stock === "number" ? p.stock : fallback.stock,
-          initialStock: typeof p.initialStock === "number" ? p.initialStock : fallback.initialStock,
-          campaignTag: (p.campaignTag as Product["campaignTag"]) || fallback.campaignTag,
-          tag: (p.tag as string) || fallback.tag,
-          rating: typeof p.rating === "number" ? p.rating : fallback.rating,
-          reviewCount: typeof p.reviewCount === "number" ? p.reviewCount : fallback.reviewCount,
-          hasVariants: typeof p.hasVariants === "boolean" ? p.hasVariants : fallback.hasVariants,
-          minPrice: typeof p.minPrice === "number" ? p.minPrice : fallback.minPrice,
-          colors: (p.colors as { name: string; hex: string }[]) || fallback.colors,
-          sizes: (p.sizes as string[]) || fallback.sizes,
-          fitGuide: (p.fitGuide as string) || fallback.fitGuide,
-          material: (p.material as string) || fallback.material,
-          sellerType: (p.sellerType as "1P" | "3P") || fallback.sellerType,
-          sellerName: (p.sellerName as string) || fallback.sellerName,
-          sellerRating: typeof p.sellerRating === "number" ? p.sellerRating : fallback.sellerRating,
-          isFulfilledByVroom: typeof p.isFulfilledByVroom === "boolean" ? p.isFulfilledByVroom : fallback.isFulfilledByVroom,
-          warranty: (p.warranty as string) || fallback.warranty,
-          bundledIncentive: (p.bundledIncentive as string) || fallback.bundledIncentive,
-          isPodEligible: typeof p.isPodEligible === "boolean" ? p.isPodEligible : fallback.isPodEligible,
-          podTerms: (p.podTerms as string) || fallback.podTerms,
-          imagePrompt: (p.imagePrompt as string) || fallback.imagePrompt,
-          specs: (p.specs as Record<string, string>) || fallback.specs,
-        };
-      });
+      const payload = res.data?.data;
+      return {
+        products: Array.isArray(payload?.products) ? payload.products : [],
+        total: typeof payload?.total === "number" ? payload.total : 0,
+        skip: typeof payload?.skip === "number" ? payload.skip : skip,
+        limit: typeof payload?.limit === "number" ? payload.limit : limit,
+      };
     },
-    staleTime: 5 * 60 * 1000, // Fresh for 5 minutes
+    staleTime: 5 * 60 * 1000,
   });
 
-  const products = data && data.length > 0 ? data : initialProducts;
-  const isLive = !isError && !!data && data !== initialProducts;
+  const products = data?.products ?? [];
+  const total = data?.total ?? 0;
 
   return {
     products,
+    total,
     isLoading,
     isFetching,
     isError,
     error: error ?? null,
     refetch,
-    isLive,
   };
 }

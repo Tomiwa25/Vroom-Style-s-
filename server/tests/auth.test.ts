@@ -1,12 +1,42 @@
 import request from "supertest";
-import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "../src/app.js";
 import prisma from "../src/config/database.js";
 import { cleanDatabase } from "./helper/test-db.js";
+import { hashOtp, verifyOtpHash } from "../src/services/auth.service.js";
+
+// Capture dispatch instead of mocking sendOtpVerificationEmail outright, so the
+// rest of the email module (subject/body builders) stays real.
+const sentMail = vi.hoisted(() => ({ calls: [] as { to: string; firstName: string; code: string }[] }));
+
+vi.mock("../src/services/email.service.js", async (importOriginal) => {
+    const actual = await importOriginal<typeof import("../src/services/email.service.js")>();
+    return {
+        ...actual,
+        sendOtpVerificationEmail: async (options: { to: string; firstName: string; code: string }) => {
+            sentMail.calls.push(options);
+            return true;
+        },
+    };
+});
+
+/**
+ * The plaintext OTP only ever leaves the server inside the verification email
+ * — the database stores a salted hash. Capturing the dispatch is therefore the
+ * only legitimate way for a test to learn the code the user would type.
+ */
+const otpFor = (email: string): string => {
+    const sent = sentMail.calls.filter((c) => c.to === email).at(-1);
+    if (!sent) {
+        throw new Error(`No OTP email was dispatched to ${email}`);
+    }
+    return sent.code;
+};
 
 describe("Authentication & Email Verification", () => {
     beforeEach(async () => {
         await cleanDatabase();
+        sentMail.calls.length = 0;
     });
 
     afterAll(async () => {
@@ -28,14 +58,31 @@ describe("Authentication & Email Verification", () => {
         expect(response.body.data.email).toBe("admin@example.com");
         expect(response.body.data.isVerified).toBe(false);
 
-        // Verify OTP was stored in database
+        // The emailed code is the plaintext six digits the user will type.
+        const code = otpFor("admin@example.com");
+        expect(code).toMatch(/^\d{6}$/);
+
+        // At rest it must be a salted sha256 hash, never the plaintext.
         const otpRecord = await prisma.otpVerification.findFirst({
             where: { email: "admin@example.com" },
         });
 
         expect(otpRecord).not.toBeNull();
-        expect(otpRecord?.code).toMatch(/^\d{6}$/);
+        expect(otpRecord!.code).not.toBe(code);
+        expect(otpRecord!.code).toMatch(/^sha256\$[0-9a-f]{32}\$[0-9a-f]{64}$/);
+        expect(verifyOtpHash(code, otpRecord!.code)).toBe(true);
         expect(otpRecord?.isUsed).toBe(false);
+    });
+
+    it("should salt each OTP hash so identical codes never share a digest", () => {
+        const first = hashOtp("123456");
+        const second = hashOtp("123456");
+
+        expect(first).not.toBe(second);
+        expect(verifyOtpHash("123456", first)).toBe(true);
+        expect(verifyOtpHash("123456", second)).toBe(true);
+        expect(verifyOtpHash("654321", first)).toBe(false);
+        expect(verifyOtpHash("123456", "not-a-hash")).toBe(false);
     });
 
     it("should hash the user password before storing it", async () => {
@@ -74,18 +121,20 @@ describe("Authentication & Email Verification", () => {
                 lastName: "User",
             });
 
-        // Retrieve the generated 6-digit OTP
+        // The code lives only in the email; the row holds its hash.
+        const code = otpFor("verify@example.com");
         const otpRecord = await prisma.otpVerification.findFirst({
             where: { email: "verify@example.com" },
         });
         expect(otpRecord).not.toBeNull();
+        expect(verifyOtpHash(code, otpRecord!.code)).toBe(true);
 
-        // Submit OTP verification
+        // Submit the plaintext OTP exactly as a user would
         const verifyRes = await request(app)
             .post("/api/auth/verify-otp")
             .send({
                 email: "verify@example.com",
-                code: otpRecord!.code,
+                code,
             });
 
         expect(verifyRes.status).toBe(200);
@@ -152,12 +201,22 @@ describe("Authentication & Email Verification", () => {
         });
         expect(updatedFirstOtp?.isUsed).toBe(true);
 
-        // New OTP should exist and be active
+        // New OTP should exist and be active, and still stored hashed
         const latestOtp = await prisma.otpVerification.findFirst({
             where: { email: "resend@example.com", isUsed: false },
         });
         expect(latestOtp).not.toBeNull();
         expect(latestOtp?.id).not.toBe(firstOtp?.id);
+        expect(latestOtp!.code).toMatch(/^sha256\$/);
+
+        // The freshly emailed code verifies; the old one no longer does.
+        const code = otpFor("resend@example.com");
+        expect(verifyOtpHash(code, latestOtp!.code)).toBe(true);
+
+        const verifyRes = await request(app)
+            .post("/api/auth/verify-otp")
+            .send({ email: "resend@example.com", code });
+        expect(verifyRes.status).toBe(200);
     });
 
     it("should login an existing user and return a token", async () => {

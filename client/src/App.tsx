@@ -6,6 +6,7 @@ import { DEFAULT_REGION } from "./data/regions";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
+import { ImageLightboxModal } from "./components/ImageLightboxModal";
 import { AdminModal } from "./components/AdminModal";
 import { CartFeedbackModal } from "./components/CartFeedbackModal";
 import { OrderTrackingModal } from "./components/OrderTrackingModal";
@@ -44,7 +45,7 @@ import "./styles.css";
 
 function App() {
   // Store Catalog managed via TanStack Query
-  const { products, isLoading, isError, error, refetch, isLive } = useProducts();
+  const { products, isLoading, isError, error, refetch } = useProducts();
   const { activeCampaign, setCampaign, clearCampaign } = useAttribution();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -110,6 +111,33 @@ function App() {
     },
     [recordView]
   );
+
+  // High-Resolution Multi-Angle Image Lightbox Modal State
+  const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [lightboxProduct, setLightboxProduct] = useState<Product | null>(null);
+  const [lightboxInitialIndex, setLightboxInitialIndex] = useState<number>(0);
+
+  const handleOpenLightbox = useCallback(
+    (product: Product, initialIndex = 0) => {
+      recordView(product);
+      setLightboxProduct(product);
+      setLightboxInitialIndex(initialIndex);
+      setIsLightboxOpen(true);
+    },
+    [recordView]
+  );
+
+  // Main Catalog Pagination (Show 12 items per page by default)
+  const [catalogCurrentPage, setCatalogCurrentPage] = useState<number>(1);
+  const [catalogPageSize, setCatalogPageSize] = useState<number>(12);
+  const [prevFilterKey, setPrevFilterKey] = useState<string>("");
+
+  // Reset pagination to first page whenever catalog filters change during render without effect
+  const filterKey = `${selectedCategory}|${searchQuery}|${sellerTypeFilter}|${isPodFilterActive}|${activeCampaign || ""}`;
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setCatalogCurrentPage(1);
+  }
   const [feedbackModal, setFeedbackModal] = useState<{
     isOpen: boolean;
     status: "SUCCESS" | "OUT_OF_STOCK";
@@ -283,15 +311,27 @@ function App() {
           localStorage.removeItem("vroom_cart");
           setIsCartOpen(false);
 
+          // The verify endpoint now returns the authoritative orderId, so we
+          // never guess it from the reference string.
           const orderId =
+            verifyRes.data?.data?.orderId ||
             fallbackOrderId ||
             sessionStorage.getItem("vroom_pending_order") ||
-            reference.split("-")[1] ||
-            "ORD-ATELIER";
-          const total =
+            "";
+
+          let total =
             fallbackAmount ||
             Number(sessionStorage.getItem("vroom_pending_amount")) ||
             0;
+
+          if ((!total || !orderId) && orderId) {
+            try {
+              const trackRes = await api.get(`/orders/${orderId}/track`);
+              total = Number(trackRes.data?.data?.total) || total;
+            } catch {
+              /* best effort: amount is display-only */
+            }
+          }
 
           sessionStorage.removeItem("vroom_pending_order");
           sessionStorage.removeItem("vroom_pending_amount");
@@ -348,53 +388,64 @@ function App() {
 
     setIsCheckingOut(true);
 
-    // Option C: Payment on Delivery (PoD) Doorstep Settlement
-    if (method === "pod") {
-      const ineligible = cartItems.filter((i) => !i.product.isPodEligible);
-      if (ineligible.length > 0) {
-        showToast("Some items require prepayment. Please remove them or choose Pay Online.");
-        setIsCheckingOut(false);
-        return;
-      }
-
-      setTimeout(() => {
-        const rawSubtotal = cartItems.reduce(
-          (sum, item) => sum + item.product.price * item.quantity,
-          0
-        );
-        const shippingFee = rawSubtotal >= 100000 ? 0 : 5000;
-        const total = rawSubtotal + shippingFee;
-        const podOrderId = `VRM-POD-${Math.floor(100000 + Math.random() * 900000)}`;
-
-        setCartItems([]);
-        localStorage.removeItem("vroom_cart");
-        setIsCartOpen(false);
-        setIsCheckingOut(false);
-
-        setConfirmedOrderDetails({
-          orderId: podOrderId,
-          reference: `POD-DOORSTEP-${podDetails?.phone?.slice(-4) || "CASH"}`,
-          total,
-          isPod: true,
-          podAddress: podDetails?.address,
-          podCity: podDetails?.city,
-          podPhone: podDetails?.phone,
-        });
-        setIsSuccessModalOpen(true);
-        showToast("Payment on Delivery order confirmed! Dispatch courier assigned.");
-      }, 600);
-      return;
-    }
-
     try {
-      // 1. Lock in order items on backend with client-side idempotency protection
-      const orderPayload = {
+      // 1. Lock in order items on the backend with a client-side idempotency key.
+      //    `source: "cart"` tells the server to build from the user's cart and
+      //    clear it on success; the client-sent `items` are a fallback only.
+      const orderPayload: Record<string, unknown> = {
+        source: "cart",
         items: cartItems.map((item) => ({
           productId: item.product.id,
           externalId: item.product.externalId,
           quantity: item.quantity,
         })),
       };
+
+      // Option C: Payment on Delivery (PoD). Creates a real unpaid order that
+      // reserves stock and appears in the admin order list; settlement happens
+      // at the doorstep. No Paystack interaction.
+      if (method === "pod") {
+        const ineligible = cartItems.filter((i) => !i.product.isPodEligible);
+        if (ineligible.length > 0) {
+          showToast("Some items require prepayment. Please remove them or choose Pay Online.");
+          setIsCheckingOut(false);
+          return;
+        }
+
+        orderPayload.deliveryMethod = "POD";
+        orderPayload.shipping = {
+          name: `${currentUser.firstName} ${currentUser.lastName}`.trim(),
+          phone: podDetails?.phone,
+          address: podDetails?.address,
+          city: podDetails?.city,
+          notes: podDetails?.deliveryNotes,
+        };
+
+        const podRes = await api.post("/orders", orderPayload, {
+          headers: { "Idempotency-Key": createIdempotencyKey("pod") },
+        });
+        const createdPodOrder = podRes.data?.data;
+        if (!createdPodOrder?.id) {
+          throw new Error("Unable to create order. Please review your bag.");
+        }
+
+        setCartItems([]);
+        localStorage.removeItem("vroom_cart");
+        setIsCartOpen(false);
+
+        setConfirmedOrderDetails({
+          orderId: createdPodOrder.id,
+          reference: `POD-${createdPodOrder.id.slice(0, 8).toUpperCase()}`,
+          total: Number(createdPodOrder.total),
+          isPod: true,
+          podAddress: podDetails?.address,
+          podCity: podDetails?.city,
+          podPhone: podDetails?.phone,
+        });
+        setIsSuccessModalOpen(true);
+        showToast("Payment on Delivery order confirmed!");
+        return;
+      }
 
       const checkoutKey = createIdempotencyKey("checkout");
       const orderRes = await api.post("/orders", orderPayload, {
@@ -658,6 +709,21 @@ function App() {
       return matchesTaxonomy && matchesSearch;
     });
   }, [allProducts, selectedCategory, searchQuery, activeCampaign, sellerTypeFilter, isPodFilterActive]);
+
+  // Main Catalog Pagination Slicing
+  const totalCatalogPages = Math.ceil(filteredProducts.length / catalogPageSize);
+  const paginatedCatalogProducts = useMemo(() => {
+    const start = (catalogCurrentPage - 1) * catalogPageSize;
+    return filteredProducts.slice(start, start + catalogPageSize);
+  }, [filteredProducts, catalogCurrentPage, catalogPageSize]);
+
+  const handleCatalogPageChange = (newPage: number) => {
+    setCatalogCurrentPage(newPage);
+    const catalogEl = document.getElementById("catalog-section");
+    if (catalogEl) {
+      catalogEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   // Step 5: Curated Recommendation Feed - Payment on Delivery (PoD) Essentials
   const podEligibleProducts = useMemo(() => {
@@ -1130,6 +1196,7 @@ function App() {
             wishlist={wishlist}
             onToggleWishlist={handleToggleWishlist}
             onQuickView={handleOpenQuickView}
+            onOpenLightbox={handleOpenLightbox}
             onAddToCart={handleAddToCart}
             onClearRail={clearHistory}
           />
@@ -1147,6 +1214,7 @@ function App() {
             wishlist={wishlist}
             onToggleWishlist={handleToggleWishlist}
             onQuickView={handleOpenQuickView}
+            onOpenLightbox={handleOpenLightbox}
             onAddToCart={handleAddToCart}
             onViewAll={() => handleScrollToCatalog()}
           />
@@ -1163,6 +1231,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onViewAll={(cat) => {
             setSelectedCategory(cat || "All");
@@ -1177,6 +1246,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onExploreBrandCatalog={(brandName) => {
             setSearchQuery(brandName);
@@ -1191,6 +1261,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onViewAllCars={() => {
             setSelectedCategory("Cars");
@@ -1205,6 +1276,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onSelectCategory={(cat) => {
             setSelectedCategory(cat);
@@ -1219,6 +1291,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onSelectCategory={(cat) => {
             setSelectedCategory(cat);
@@ -1258,7 +1331,7 @@ function App() {
                     ⚠ Offline Mode (Click to Retry)
                   </button>
                 )}
-                {!isLoading && !isError && isLive && (
+                {!isLoading && !isError && products.length > 0 && (
                   <span className="catalog-status-badge live" title="Connected to live database">
                     ● Live Sync
                   </span>
@@ -1372,19 +1445,97 @@ function App() {
               </button>
             </div>
           ) : (
-            <section className="product-grid">
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  formatPrice={formatPrice}
-                  isFavorited={wishlist.includes(product.id)}
-                  onToggleWishlist={handleToggleWishlist}
-                  onQuickView={handleOpenQuickView}
-                  onAddToCart={handleAddToCart}
-                />
-              ))}
-            </section>
+            <>
+              <section className="product-grid" id="catalog-results-grid">
+                {paginatedCatalogProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    formatPrice={formatPrice}
+                    isFavorited={wishlist.includes(product.id)}
+                    onToggleWishlist={handleToggleWishlist}
+                    onQuickView={handleOpenQuickView}
+                    onOpenLightbox={handleOpenLightbox}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))}
+              </section>
+
+              {/* Main Catalog Pagination Bar (Lazy page slicing) */}
+              {filteredProducts.length > catalogPageSize && (
+                <div className="catalog-pagination-container">
+                  <div className="pagination-count-summary">
+                    Showing {(catalogCurrentPage - 1) * catalogPageSize + 1}–
+                    {Math.min(catalogCurrentPage * catalogPageSize, filteredProducts.length)} of {filteredProducts.length} products
+                  </div>
+
+                  <div className="pagination-controls-row">
+                    <button
+                      type="button"
+                      className="pagination-arrow-btn"
+                      disabled={catalogCurrentPage === 1}
+                      onClick={() => handleCatalogPageChange(Math.max(1, catalogCurrentPage - 1))}
+                      aria-label="Previous page"
+                    >
+                      ‹ Previous
+                    </button>
+
+                    <div className="pagination-numbers-row">
+                      {Array.from({ length: totalCatalogPages }, (_, i) => i + 1).map((pageNum) => {
+                        if (
+                          pageNum === 1 ||
+                          pageNum === totalCatalogPages ||
+                          (pageNum >= catalogCurrentPage - 1 && pageNum <= catalogCurrentPage + 1)
+                        ) {
+                          return (
+                            <button
+                              key={pageNum}
+                              type="button"
+                              className={`pagination-number-btn ${catalogCurrentPage === pageNum ? "active" : ""}`}
+                              onClick={() => handleCatalogPageChange(pageNum)}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        } else if (
+                          pageNum === catalogCurrentPage - 2 ||
+                          pageNum === catalogCurrentPage + 2
+                        ) {
+                          return <span key={pageNum} className="pagination-ellipsis">…</span>;
+                        }
+                        return null;
+                      })}
+                    </div>
+
+                    <button
+                      type="button"
+                      className="pagination-arrow-btn"
+                      disabled={catalogCurrentPage === totalCatalogPages}
+                      onClick={() => handleCatalogPageChange(Math.min(totalCatalogPages, catalogCurrentPage + 1))}
+                      aria-label="Next page"
+                    >
+                      Next ›
+                    </button>
+                  </div>
+
+                  <div className="pagination-page-size-selector">
+                    <label htmlFor="catalog-page-size">Per Page:</label>
+                    <select
+                      id="catalog-page-size"
+                      value={catalogPageSize}
+                      onChange={(e) => {
+                        setCatalogPageSize(Number(e.target.value));
+                        setCatalogCurrentPage(1);
+                      }}
+                    >
+                      <option value={12}>12 Items</option>
+                      <option value={24}>24 Items</option>
+                      <option value={48}>48 Items</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </section>
 
@@ -1399,6 +1550,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           viewAllCategory="Phones & Tablets"
           onViewAll={(cat) => {
@@ -1418,6 +1570,7 @@ function App() {
           wishlist={wishlist}
           onToggleWishlist={handleToggleWishlist}
           onQuickView={handleOpenQuickView}
+          onOpenLightbox={handleOpenLightbox}
           onAddToCart={handleAddToCart}
           onViewAll={() => {
             setIsPodFilterActive(true);
@@ -1570,6 +1723,7 @@ function App() {
         onClose={() => setQuickViewProduct(null)}
         onAddToCart={handleAddToCart}
         formatPrice={formatPrice}
+        onOpenLightbox={handleOpenLightbox}
       />
 
       <AdminModal
@@ -1744,6 +1898,16 @@ function App() {
         isOpen={isPromptStudioOpen}
         onClose={() => setIsPromptStudioOpen(false)}
         initialCategory={promptStudioInitialCategory}
+      />
+
+      {/* ---------------- High-Resolution Multi-Angle Image Lightbox Modal ---------------- */}
+      <ImageLightboxModal
+        product={lightboxProduct}
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        initialIndex={lightboxInitialIndex}
+        formatPrice={formatPrice}
+        onAddToCart={handleAddToCart}
       />
     </div>
   );

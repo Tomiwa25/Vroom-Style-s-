@@ -1,4 +1,5 @@
 import prisma from "../config/database.js";
+import { ConflictError } from "../core/errors/app-error.js";
 
 export const findCartByUserId = async (userId: string) => {
     return prisma.cart.findUnique({
@@ -76,12 +77,14 @@ export const findCartForCheckout = async (userId: string) => {
     });
 
     if (!cart) {
-        throw new Error("Cart not found");
+        return null;
     }
 
     for (const item of cart.items) {
         if (item.quantity > item.product.stock) {
-            throw new Error(`Insufficient stock for ${item.product.name}`);
+            throw new ConflictError(
+                `Insufficient stock for ${item.product.name} (only ${item.product.stock} available).`
+            );
         }
     }
 

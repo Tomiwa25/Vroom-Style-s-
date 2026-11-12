@@ -8,6 +8,7 @@ interface CarsShowroomSectionProps {
   wishlist: string[];
   onToggleWishlist: (productId: string) => void;
   onQuickView: (product: Product) => void;
+  onOpenLightbox?: (product: Product, initialIndex?: number) => void;
   onAddToCart: (product: Product, size?: string, color?: string) => void;
   onViewAllCars: () => void;
   onOpenPromptStudio?: (category: string) => void;
@@ -18,11 +19,20 @@ export const CarsShowroomSection: React.FC<CarsShowroomSectionProps> = ({
   wishlist,
   onToggleWishlist,
   onQuickView,
+  onOpenLightbox,
   onAddToCart,
   onViewAllCars,
   onOpenPromptStudio,
 }) => {
   const [activeFilter, setActiveFilter] = useState<string>("ALL");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [carsPerPage] = useState<number>(6);
+  const [showAll, setShowAll] = useState<boolean>(false);
+
+  const handleFilterChange = (filterId: string) => {
+    setActiveFilter(filterId);
+    setCurrentPage(1);
+  };
 
   const filteredCars = carsProducts.filter((car) => {
     if (activeFilter === "ALL") return true;
@@ -113,7 +123,12 @@ export const CarsShowroomSection: React.FC<CarsShowroomSectionProps> = ({
       {/* Featured Vehicle Spotlight Banner */}
       {featuredCar && (
         <div className="cars-spotlight-hero">
-          <div className="spotlight-media-frame">
+          <div
+            className="spotlight-media-frame"
+            onClick={() => onOpenLightbox && onOpenLightbox(featuredCar, 0)}
+            style={{ cursor: onOpenLightbox ? "zoom-in" : "default" }}
+            title="Click to view all 3 angles (Front, Rear, Interior)"
+          >
             <img
               src={featuredCar.image}
               alt={featuredCar.name}
@@ -126,6 +141,11 @@ export const CarsShowroomSection: React.FC<CarsShowroomSectionProps> = ({
                 {featuredCar.specs ? Object.entries(featuredCar.specs).map(([k, v]) => `${k}: ${v}`).join(" • ") : ""}
               </p>
             </div>
+            {onOpenLightbox && (
+              <span className="spotlight-angles-pill">
+                📸 Open 3 Angles (Front, Rear, Cockpit)
+              </span>
+            )}
           </div>
 
           <div className="spotlight-info-panel">
@@ -137,9 +157,11 @@ export const CarsShowroomSection: React.FC<CarsShowroomSectionProps> = ({
                   <span className="spotlight-orig-price">{formatPrice(featuredCar.originalPrice)}</span>
                 )}
               </div>
-              <span className="spotlight-savings-tag">
-                Direct Import Savings: {formatPrice((featuredCar.originalPrice || 0) - featuredCar.price)}
-              </span>
+              {featuredCar.originalPrice && (
+                <span className="spotlight-savings-tag">
+                  Direct Import Savings: {formatPrice(featuredCar.originalPrice - featuredCar.price)}
+                </span>
+              )}
             </div>
 
             <div className="spotlight-specs-grid">
@@ -177,6 +199,15 @@ export const CarsShowroomSection: React.FC<CarsShowroomSectionProps> = ({
               >
                 Inspect Vehicle Details
               </button>
+              {onOpenLightbox && (
+                <button
+                  type="button"
+                  className="spotlight-angles-action-btn"
+                  onClick={() => onOpenLightbox(featuredCar, 0)}
+                >
+                  View 3 Angles Gallery
+                </button>
+              )}
               <button
                 type="button"
                 className="spotlight-reserve-btn"
@@ -203,27 +234,96 @@ export const CarsShowroomSection: React.FC<CarsShowroomSectionProps> = ({
             key={tab.id}
             type="button"
             className={`showroom-filter-pill ${activeFilter === tab.id ? "active" : ""}`}
-            onClick={() => setActiveFilter(tab.id)}
+            onClick={() => handleFilterChange(tab.id)}
           >
             {tab.label}
           </button>
         ))}
       </div>
 
-      {/* Vehicles Grid */}
-      <div className="showroom-vehicles-grid">
-        {filteredCars.map((car) => (
-          <ProductCard
-            key={car.id}
-            product={car}
-            formatPrice={formatPrice}
-            isFavorited={wishlist.includes(car.id)}
-            onToggleWishlist={onToggleWishlist}
-            onQuickView={onQuickView}
-            onAddToCart={onAddToCart}
-          />
-        ))}
-      </div>
+      {/* Vehicles Grid with Pagination */}
+      {(() => {
+        const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+        const displayedCars = showAll
+          ? filteredCars
+          : filteredCars.slice((currentPage - 1) * carsPerPage, currentPage * carsPerPage);
+
+        return (
+          <>
+            <div className="showroom-vehicles-grid">
+              {displayedCars.map((car) => (
+                <ProductCard
+                  key={car.id}
+                  product={car}
+                  formatPrice={formatPrice}
+                  isFavorited={wishlist.includes(car.id)}
+                  onToggleWishlist={onToggleWishlist}
+                  onQuickView={onQuickView}
+                  onOpenLightbox={onOpenLightbox}
+                  onAddToCart={onAddToCart}
+                />
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            {filteredCars.length > carsPerPage && (
+              <div className="showroom-pagination-bar">
+                <span className="pagination-count-summary">
+                  Showing {showAll ? 1 : (currentPage - 1) * carsPerPage + 1}–
+                  {showAll ? filteredCars.length : Math.min(currentPage * carsPerPage, filteredCars.length)} of {filteredCars.length} vehicles
+                </span>
+
+                <div className="pagination-actions-wrap">
+                  {!showAll && (
+                    <>
+                      <button
+                        type="button"
+                        className="pagination-arrow-btn"
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        aria-label="Previous vehicle page"
+                      >
+                        ‹ Previous
+                      </button>
+
+                      <div className="pagination-numbers-row">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                          <button
+                            key={pageNum}
+                            type="button"
+                            className={`pagination-number-btn ${currentPage === pageNum ? "active" : ""}`}
+                            onClick={() => setCurrentPage(pageNum)}
+                          >
+                            {pageNum}
+                          </button>
+                        ))}
+                      </div>
+
+                      <button
+                        type="button"
+                        className="pagination-arrow-btn"
+                        disabled={currentPage === totalPages}
+                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                        aria-label="Next vehicle page"
+                      >
+                        Next ›
+                      </button>
+                    </>
+                  )}
+
+                  <button
+                    type="button"
+                    className="pagination-toggle-all-btn"
+                    onClick={() => setShowAll((prev) => !prev)}
+                  >
+                    {showAll ? "Show in Pages (6 per page)" : `Show All ${filteredCars.length} Vehicles`}
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
+        );
+      })()}
     </section>
   );
 };

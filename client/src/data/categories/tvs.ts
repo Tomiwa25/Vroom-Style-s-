@@ -14,7 +14,9 @@ export const tvsProducts: Product[] = [
     "reviewCount": 648,
     "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "LG",
@@ -54,14 +56,15 @@ export const tvsProducts: Product[] = [
     "name": "Sony BRAVIA XR A95L 65\" QD-OLED 4K Smart Google TV",
     "description": "Quantum Dot OLED panel powered by Cognitive Processor XR for astonishing color saturation and pure acoustic surface audio.",
     "price": 2950000,
-    "originalPrice": 3835000,
     "minPrice": 2950000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 377,
     "image": "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Sony",
@@ -101,14 +104,15 @@ export const tvsProducts: Product[] = [
     "name": "Samsung 75\" Neo QLED 8K QN900C HDR Smart TV",
     "description": "Real 8K resolution powered by 64 neural networks, Infinity Screen bezel-less design, and Quantum Matrix Mini LEDs.",
     "price": 3850000,
-    "originalPrice": 5005000,
     "minPrice": 3850000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 614,
     "image": "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Samsung",
@@ -148,14 +152,15 @@ export const tvsProducts: Product[] = [
     "name": "LG C3 55\" 4K OLED Gaming TV (120Hz, 0.1ms, Dolby Vision)",
     "description": "The premier gaming television with 4 full-bandwidth HDMI 2.1 ports, 0.1ms response time, VRR, and Game Optimizer dashboard.",
     "price": 1450000,
-    "originalPrice": 1885000,
     "minPrice": 1450000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 654,
     "image": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "LG",
@@ -194,14 +199,15 @@ export const tvsProducts: Product[] = [
     "name": "Sony BRAVIA Theatre 77\" A80L OLED Smart Google TV",
     "description": "Immersive 77-inch OLED panel with XR Triluminos Pro, XR Clear Image upscaling, and perfect PS5 integration.",
     "price": 3200000,
-    "originalPrice": 4160000,
     "minPrice": 3200000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1156,
     "image": "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Sony",
@@ -240,14 +246,15 @@ export const tvsProducts: Product[] = [
     "name": "Samsung The Frame 65\" QLED 4K Art Mode Smart TV",
     "description": "Anti-reflective matte display looks identical to real museum canvas art when idle, with customizable magnetic frames.",
     "price": 1650000,
-    "originalPrice": 2145000,
     "minPrice": 1650000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 372,
     "image": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Samsung",
@@ -293,7 +300,9 @@ export const tvsProducts: Product[] = [
     "reviewCount": 394,
     "image": "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "TCL",
@@ -333,14 +342,15 @@ export const tvsProducts: Product[] = [
     "name": "Hisense 75\" U8K Mini-LED ULED 4K 144Hz Gaming TV",
     "description": "Mini-LED Pro with 1,000+ dimming zones, 144Hz native refresh rate, AMD FreeSync Premium Pro, and built-in subwoofer.",
     "price": 1480000,
-    "originalPrice": 1924000,
     "minPrice": 1480000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 726,
     "image": "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Hisense",
@@ -379,14 +389,15 @@ export const tvsProducts: Product[] = [
     "name": "LG B3 65\" 4K HDR Smart OLED Cinema Screen",
     "description": "Self-lit OLED pixels with infinite contrast and Dolby Vision IQ that adjusts picture dynamically to room light.",
     "price": 1750000,
-    "originalPrice": 2275000,
     "minPrice": 1750000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 930,
     "image": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "LG",
@@ -425,14 +436,15 @@ export const tvsProducts: Product[] = [
     "name": "Samsung 85\" QN90C Neo QLED 4K Anti-Glare TV",
     "description": "Ultra-viewing angle with anti-glare technology designed specifically for bright living rooms with large windows.",
     "price": 2850000,
-    "originalPrice": 3705000,
     "minPrice": 2850000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 657,
     "image": "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Samsung",
@@ -471,14 +483,15 @@ export const tvsProducts: Product[] = [
     "name": "Sony 85\" X90L Full Array LED 4K HDR Google TV",
     "description": "Full array local dimming controlled by Cognitive Processor XR for natural depth, realistic contrast, and rich colors.",
     "price": 2450000,
-    "originalPrice": 3185000,
     "minPrice": 2450000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 416,
     "image": "https://images.unsplash.com/photo-1584905066893-7d5c142ba4e1?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1584905066893-7d5c142ba4e1?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584905066893-7d5c142ba4e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Sony",
@@ -517,14 +530,15 @@ export const tvsProducts: Product[] = [
     "name": "Panasonic 65\" MZ2000 Master OLED Pro Cinema TV",
     "description": "Tuned by Hollywood colorists with Master OLED Pro panel and 360-degree Soundscape Pro audio tuned by Technics.",
     "price": 2800000,
-    "originalPrice": 3640000,
     "minPrice": 2800000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1044,
     "image": "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Panasonic",
@@ -563,14 +577,15 @@ export const tvsProducts: Product[] = [
     "name": "Philips 65\" OLED+ 908 with 4-Sided Next-Gen Ambilight",
     "description": "Integrated Bowers & Wilkins 3.1 channel audio system with 4-sided Ambilight that projects colors onto the wall.",
     "price": 2200000,
-    "originalPrice": 2860000,
     "minPrice": 2200000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 374,
     "image": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Philips",
@@ -609,14 +624,15 @@ export const tvsProducts: Product[] = [
     "name": "Hisense 65\" U7K 144Hz Native Gaming TV",
     "description": "Mini-LED screen with Quantum Dot color and Game Mode Pro with 144Hz VRR and ultra-low input lag.",
     "price": 920000,
-    "originalPrice": 1196000,
     "minPrice": 920000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1071,
     "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Hisense",
@@ -655,14 +671,15 @@ export const tvsProducts: Product[] = [
     "name": "TCL 65\" C845 Mini-LED HDR2000 Smart TV",
     "description": "2,000 nits peak brightness with ONKYO 2.1 Hi-Fi audio system and Google TV smart assistant built-in.",
     "price": 980000,
-    "originalPrice": 1274000,
     "minPrice": 980000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1126,
     "image": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "TCL",
@@ -701,14 +718,15 @@ export const tvsProducts: Product[] = [
     "name": "Samsung 55\" OLED S95C Ultra-Thin Infinity One TV",
     "description": "Quantum Dot OLED with One Connect Box that routes all cables through a single discreet cord.",
     "price": 1850000,
-    "originalPrice": 2405000,
     "minPrice": 1850000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 326,
     "image": "https://images.unsplash.com/photo-1616469829941-c7200edec809?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616469829941-c7200edec809?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1616469829941-c7200edec809?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Samsung",
@@ -754,7 +772,9 @@ export const tvsProducts: Product[] = [
     "reviewCount": 469,
     "image": "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Sony",
@@ -793,14 +813,15 @@ export const tvsProducts: Product[] = [
     "name": "LG OLED Flex 42\" Bendable Curved Gaming TV (0.1ms)",
     "description": "Motorized screen bends from completely flat to a 900R curve with 20 distinct curvature levels at the touch of a button.",
     "price": 1650000,
-    "originalPrice": 2145000,
     "minPrice": 1650000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 771,
     "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "LG",
@@ -839,14 +860,15 @@ export const tvsProducts: Product[] = [
     "name": "Sharp AQUOS 70\" 4K Ultra HD Android Smart TV",
     "description": "Deep Chroma Display reproduces over 100% of DCI color gamut with X4 Revelation processor.",
     "price": 780000,
-    "originalPrice": 1014000,
     "minPrice": 780000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1115,
     "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Sharp",
@@ -885,14 +907,15 @@ export const tvsProducts: Product[] = [
     "name": "Toshiba 65\" Quantum Dot 4K Fire TV with Regza Engine",
     "description": "REGZA Engine 4K Pro with Quantum Dot color and built-in Alexa voice control with far-field microphones.",
     "price": 680000,
-    "originalPrice": 884000,
     "minPrice": 680000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 474,
     "image": "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Toshiba",
@@ -931,14 +954,15 @@ export const tvsProducts: Product[] = [
     "name": "VIZIO 75\" P-Series Quantum Pro 4K HDR Smart TV",
     "description": "Active Full Array backlighting with Quantum Color and 120Hz refresh rate with AMD FreeSync Premium.",
     "price": 1100000,
-    "originalPrice": 1430000,
     "minPrice": 1100000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 742,
     "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "VIZIO",
@@ -977,14 +1001,15 @@ export const tvsProducts: Product[] = [
     "name": "Xiaomi 65\" TV S Pro Mini-LED 144Hz High-Bright TV",
     "description": "Mini-LED backlighting with 144Hz gaming refresh rate and Xiaomi HyperOS seamless smart home ecosystem.",
     "price": 820000,
-    "originalPrice": 1066000,
     "minPrice": 820000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 529,
     "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Xiaomi",
@@ -1023,14 +1048,15 @@ export const tvsProducts: Product[] = [
     "name": "Skyworth 65\" SUE9500 QLED 4K Android TV",
     "description": "Chameleon Extreme 2.0 image processor with frameless screen design and Dolby Vision & Atmos decoding.",
     "price": 540000,
-    "originalPrice": 702000,
     "minPrice": 540000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 448,
     "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Skyworth",
@@ -1069,14 +1095,15 @@ export const tvsProducts: Product[] = [
     "name": "Loewe bild i.65 dr+ Premium German Smart OLED TV",
     "description": "Handcrafted in Germany with integrated 1TB hard drive video recorder and invisible hidden cable management.",
     "price": 3400000,
-    "originalPrice": 4420000,
     "minPrice": 3400000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 755,
     "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Loewe",
@@ -1115,14 +1142,15 @@ export const tvsProducts: Product[] = [
     "name": "Bang & Olufsen Beovision Contour 55\" All-in-One OLED",
     "description": "Award-winning design featuring an integrated 3-channel Stage soundbar crafted from ribbed oak lamellas and aluminum.",
     "price": 4900000,
-    "originalPrice": 6370000,
     "minPrice": 4900000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 689,
     "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Bang & Olufsen",
@@ -1161,14 +1189,15 @@ export const tvsProducts: Product[] = [
     "name": "Samsung 98\" Crystal 4K UHD DU8000 Giant Screen TV",
     "description": "Massive 98-inch cinema screen with Crystal Processor 4K and AirSlim design that blends into any grand wall.",
     "price": 3600000,
-    "originalPrice": 4680000,
     "minPrice": 3600000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 650,
     "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Samsung",
@@ -1207,14 +1236,15 @@ export const tvsProducts: Product[] = [
     "name": "LG 86\" QNED 80 Series 4K Quantum Dot Nanocell TV",
     "description": "Quantum Dot NanoCell color technology combined with a7 AI Processor 4K Gen6 and ultra-large screen presence.",
     "price": 2150000,
-    "originalPrice": 2795000,
     "minPrice": 2150000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 545,
     "image": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "LG",
@@ -1253,14 +1283,15 @@ export const tvsProducts: Product[] = [
     "name": "TCL 98\" S5 4K UHD LED HDR10+ Giant Display",
     "description": "Immersive 98-inch display with 120Hz panel, Game Accelerator 240, and Google TV voice search.",
     "price": 2750000,
-    "originalPrice": 3575000,
     "minPrice": 2750000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 951,
     "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "TCL",
@@ -1299,14 +1330,15 @@ export const tvsProducts: Product[] = [
     "name": "Hisense 100\" U76N QLED 4K Google Smart TV",
     "description": "Over 8 feet of screen real estate with 144Hz native refresh rate, full array local dimming, and Dolby Vision.",
     "price": 3200000,
-    "originalPrice": 4160000,
     "minPrice": 3200000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 618,
     "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Hisense",
@@ -1345,14 +1377,15 @@ export const tvsProducts: Product[] = [
     "name": "Roku Plus Series 65\" 4K QLED Smart TV with Voice Remote Pro",
     "description": "Simple seamless Roku operating system with Quantum Dot color, Dolby Vision HDR, and rechargeable voice remote.",
     "price": 620000,
-    "originalPrice": 806000,
     "minPrice": 620000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 839,
     "image": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "TVs",
     "brand": "Roku",

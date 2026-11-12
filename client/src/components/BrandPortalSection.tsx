@@ -8,6 +8,7 @@ interface BrandPortalSectionProps {
   wishlist: string[];
   onToggleWishlist: (productId: string) => void;
   onQuickView: (product: Product) => void;
+  onOpenLightbox?: (product: Product, initialIndex?: number) => void;
   onAddToCart: (product: Product, size?: string, color?: string) => void;
   onExploreBrandCatalog?: (brandName: string) => void;
 }
@@ -81,6 +82,7 @@ export const BrandPortalSection: React.FC<BrandPortalSectionProps> = ({
   wishlist,
   onToggleWishlist,
   onQuickView,
+  onOpenLightbox,
   onAddToCart,
   onExploreBrandCatalog,
 }) => {
@@ -184,6 +186,7 @@ export const BrandPortalSection: React.FC<BrandPortalSectionProps> = ({
                 isFavorited={wishlist.includes(product.id)}
                 onToggleWishlist={onToggleWishlist}
                 onQuickView={onQuickView}
+                onOpenLightbox={onOpenLightbox}
                 onAddToCart={onAddToCart}
                 compact
               />

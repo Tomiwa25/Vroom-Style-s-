@@ -16,7 +16,11 @@ import {
   markOtpUsed,
 } from "../repositories/otp.repository.js";
 import { sendOtpVerificationEmail } from "./email.service.js";
-import { UnauthorizedError, NotFoundError } from "../core/errors/app-error.js";
+import {
+  UnauthorizedError,
+  NotFoundError,
+  BadRequestError,
+} from "../core/errors/app-error.js";
 
 const getJwtSecret = (): string => {
   const secret = process.env.JWT_SECRET;
@@ -30,6 +34,49 @@ export const generateSixDigitOtp = (): string => {
   return crypto.randomInt(100000, 1000000).toString();
 };
 
+/**
+ * Hashes an OTP for at-rest storage. Format: "sha256$<saltHex>$<digestHex>".
+ * We don't need bcrypt here: OTPs expire in 10 minutes and are rate-limited,
+ * so a slow KDF would only hurt latency without meaningfully raising the
+ * cost of a brute-force against a stolen 6-digit code.
+ */
+export const hashOtp = (code: string): string => {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const digest = crypto
+    .createHash("sha256")
+    .update(`${salt}:${code}`)
+    .digest("hex");
+  return `sha256$${salt}$${digest}`;
+};
+
+export const verifyOtpHash = (code: string, stored: string): boolean => {
+  const parts = stored.split("$");
+  if (parts.length !== 3 || parts[0] !== "sha256") return false;
+  const [, salt, expected] = parts;
+  const computed = crypto
+    .createHash("sha256")
+    .update(`${salt}:${code}`)
+    .digest("hex");
+  const a = Buffer.from(expected, "hex");
+  const b = Buffer.from(computed, "hex");
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+};
+
+/**
+ * Fire-and-forget email send. Registration must not fail because SMTP is
+ * down — the user already exists by the time we send, and a failed send
+ * would strand them with an unverifiable account.
+ */
+const sendOtpEmailSafely = (payload: {
+  to: string;
+  firstName: string;
+  code: string;
+}): void => {
+  sendOtpVerificationEmail(payload).catch((err) =>
+    console.error("[Auth] Failed to dispatch OTP email:", err)
+  );
+};
+
 export const registerUser = async (data: {
   email: string;
   password: string;
@@ -39,7 +86,13 @@ export const registerUser = async (data: {
   const normalizedEmail = data.email.toLowerCase().trim();
   const existingUser = await findUserByEmail(normalizedEmail);
   if (existingUser) {
-    throw new Error("Email already registered");
+    // IMPORTANT: don't disclose account existence. Returning the same
+    // shape as a real signup keeps the endpoint from being an oracle.
+    return {
+      email: normalizedEmail,
+      requiresVerification: true,
+      message: "If this email is not yet registered, a verification code has been sent.",
+    };
   }
 
   const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -59,13 +112,13 @@ export const registerUser = async (data: {
   await invalidatePreviousOtps(normalizedEmail, OtpType.EMAIL_VERIFICATION);
   await createOtp({
     email: normalizedEmail,
-    code: otpCode,
+    code: hashOtp(otpCode),
     type: OtpType.EMAIL_VERIFICATION,
     expiresAt,
   });
 
-  // Send the luxury Vroom Style(s) OTP email
-  await sendOtpVerificationEmail({
+  // Send asynchronously: registration must not fail if SMTP is down.
+  sendOtpEmailSafely({
     to: user.email,
     firstName: user.firstName,
     code: otpCode,
@@ -86,8 +139,10 @@ export const verifyUserOtp = async (email: string, code: string) => {
   const normalizedEmail = email.toLowerCase().trim();
   const user = await findUserByEmail(normalizedEmail);
 
+  // Generic "invalid" message on missing user keeps this from being an
+  // account-enumeration oracle.
   if (!user) {
-    throw new Error("No account found with this email address");
+    throw new BadRequestError("Verification code has expired or is invalid. Please request a new code.");
   }
 
   const activeOtp = await findLatestActiveOtp(
@@ -96,16 +151,16 @@ export const verifyUserOtp = async (email: string, code: string) => {
   );
 
   if (!activeOtp) {
-    throw new Error("Verification code has expired or is invalid. Please request a new code.");
+    throw new BadRequestError("Verification code has expired or is invalid. Please request a new code.");
   }
 
   if (activeOtp.attempts >= 5) {
-    throw new Error("Too many incorrect attempts. Please request a new verification code.");
+    throw new BadRequestError("Too many incorrect attempts. Please request a new verification code.");
   }
 
-  if (activeOtp.code !== code.trim()) {
+  if (!verifyOtpHash(code.trim(), activeOtp.code)) {
     await incrementOtpAttempts(activeOtp.id);
-    throw new Error("Invalid verification code. Please check your email and try again.");
+    throw new BadRequestError("Invalid verification code. Please check your email and try again.");
   }
 
   // Mark OTP as used and update user
@@ -142,14 +197,11 @@ export const resendVerificationOtp = async (email: string) => {
   const normalizedEmail = email.toLowerCase().trim();
   const user = await findUserByEmail(normalizedEmail);
 
-  if (!user) {
-    throw new Error("No account found with this email address");
-  }
-
-  if (user.isVerified) {
+  // Always return the same message, whether or not the account exists, so
+  // this endpoint can't be used to detect registered emails.
+  if (!user || user.isVerified) {
     return {
-      alreadyVerified: true,
-      message: "Account is already verified. You may sign in directly.",
+      message: "If your account needs verification, a new 6-digit code has been dispatched.",
     };
   }
 
@@ -162,20 +214,19 @@ export const resendVerificationOtp = async (email: string) => {
 
   await createOtp({
     email: normalizedEmail,
-    code: otpCode,
+    code: hashOtp(otpCode),
     type: OtpType.EMAIL_VERIFICATION,
     expiresAt,
   });
 
-  await sendOtpVerificationEmail({
+  sendOtpEmailSafely({
     to: user.email,
     firstName: user.firstName,
     code: otpCode,
   });
 
   return {
-    alreadyVerified: false,
-    message: "A new 6-digit verification code has been dispatched to your email.",
+    message: "If your account needs verification, a new 6-digit code has been dispatched.",
   };
 };
 

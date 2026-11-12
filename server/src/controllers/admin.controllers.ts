@@ -45,9 +45,13 @@ export const updateAdminStockController = asyncHandler(async (req: Request, res:
     return ApiResponse.success(res, product, "Product stock updated successfully");
 });
 
-export const getAdminOrdersController = asyncHandler(async (_req: Request, res: Response) => {
-    const orders = await getAllOrdersForAdmin();
-    return ApiResponse.success(res, orders, "All customer orders retrieved successfully");
+export const getAdminOrdersController = asyncHandler(async (req: Request, res: Response) => {
+    // Validated via adminOrdersQuerySchema; fall back defensively.
+    const skip = Number(req.query.skip) || 0;
+    const take = Number(req.query.take) || 50;
+
+    const result = await getAllOrdersForAdmin(skip, take);
+    return ApiResponse.success(res, result, "All customer orders retrieved successfully");
 });
 
 export const updateAdminOrderStatusController = asyncHandler(async (req: Request, res: Response) => {

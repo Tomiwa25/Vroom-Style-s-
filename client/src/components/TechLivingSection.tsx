@@ -8,6 +8,7 @@ interface TechLivingSectionProps {
   wishlist: string[];
   onToggleWishlist: (productId: string) => void;
   onQuickView: (product: Product) => void;
+  onOpenLightbox?: (product: Product, initialIndex?: number) => void;
   onAddToCart: (product: Product, size?: string, color?: string) => void;
   onSelectCategory: (category: string) => void;
   onOpenPromptStudio?: (category: string) => void;
@@ -18,11 +19,19 @@ export const TechLivingSection: React.FC<TechLivingSectionProps> = ({
   wishlist,
   onToggleWishlist,
   onQuickView,
+  onOpenLightbox,
   onAddToCart,
   onSelectCategory,
   onOpenPromptStudio,
 }) => {
   const [activeTab, setActiveTab] = useState<"Furniture" | "TVs" | "Laptops" | "Monitors">("TVs");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 6;
+
+  const handleTabChange = (tab: "Furniture" | "TVs" | "Laptops" | "Monitors") => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+  };
 
   const getActiveProducts = (): Product[] => {
     switch (activeTab) {
@@ -91,7 +100,7 @@ export const TechLivingSection: React.FC<TechLivingSectionProps> = ({
             key={tab.id}
             type="button"
             className={`dept-tab-btn ${activeTab === tab.id ? "active" : ""}`}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => handleTabChange(tab.id)}
           >
             <span className="tab-label">{tab.label}</span>
             <span className="tab-tag">{tab.tag}</span>
@@ -99,20 +108,78 @@ export const TechLivingSection: React.FC<TechLivingSectionProps> = ({
         ))}
       </div>
 
-      {/* Grid of 30 products for the active tab */}
-      <div className="dept-products-grid">
-        {activeProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            formatPrice={formatPrice}
-            isFavorited={wishlist.includes(product.id)}
-            onToggleWishlist={onToggleWishlist}
-            onQuickView={onQuickView}
-            onAddToCart={onAddToCart}
-          />
-        ))}
-      </div>
+      {/* Grid of paginated products for the active tab */}
+      {(() => {
+        const totalPages = Math.ceil(activeProducts.length / itemsPerPage);
+        const displayedProducts = activeProducts.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        );
+
+        return (
+          <>
+            <div className="dept-products-grid">
+              {displayedProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  formatPrice={formatPrice}
+                  isFavorited={wishlist.includes(product.id)}
+                  onToggleWishlist={onToggleWishlist}
+                  onQuickView={onQuickView}
+                  onOpenLightbox={onOpenLightbox}
+                  onAddToCart={onAddToCart}
+                />
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            {activeProducts.length > itemsPerPage && (
+              <div className="showroom-pagination-bar dept-pagination-bar">
+                <span className="pagination-count-summary">
+                  Showing {(currentPage - 1) * itemsPerPage + 1}–
+                  {Math.min(currentPage * itemsPerPage, activeProducts.length)} of {activeProducts.length} items in {activeTab}
+                </span>
+
+                <div className="pagination-actions-wrap">
+                  <button
+                    type="button"
+                    className="pagination-arrow-btn"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    aria-label="Previous page"
+                  >
+                    ‹ Previous
+                  </button>
+
+                  <div className="pagination-numbers-row">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                      <button
+                        key={pageNum}
+                        type="button"
+                        className={`pagination-number-btn ${currentPage === pageNum ? "active" : ""}`}
+                        onClick={() => setCurrentPage(pageNum)}
+                      >
+                        {pageNum}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="pagination-arrow-btn"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                    aria-label="Next page"
+                  >
+                    Next ›
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
+        );
+      })()}
     </section>
   );
 };

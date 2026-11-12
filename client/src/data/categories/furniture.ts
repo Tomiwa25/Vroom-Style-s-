@@ -14,7 +14,9 @@ export const furnitureProducts: Product[] = [
     "reviewCount": 726,
     "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Herman Miller",
@@ -54,14 +56,15 @@ export const furnitureProducts: Product[] = [
     "name": "Scandinavian Minimalist Solid White Oak Dining Table (220cm)",
     "description": "Handcrafted from FSC-certified solid European white oak with organic bevelled edges and matte water-based lacquer.",
     "price": 780000,
-    "originalPrice": 1014000,
     "minPrice": 780000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 539,
     "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Muuto",
@@ -101,13 +104,14 @@ export const furnitureProducts: Product[] = [
     "name": "Chesterfield Deep-Tufted Royal Velvet Sofa (3-Seater, Emerald Green)",
     "description": "Classic British roll-arm silhouette hand-tufted with deep buttons in stain-resistant Italian jewel-toned emerald velvet.",
     "price": 890000,
-    "originalPrice": 1157000,
     "minPrice": 890000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 846,
     "image": "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85",
     "images": [
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
@@ -148,14 +152,15 @@ export const furnitureProducts: Product[] = [
     "name": "Herman Miller Aeron Ergonomic Office Task Chair (Remastered Size B)",
     "description": "Breathable 8Z Pellicle elastomeric suspension with PostureFit SL adjustable sacral support and harmonic tilt.",
     "price": 920000,
-    "originalPrice": 1196000,
     "minPrice": 920000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 375,
     "image": "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Herman Miller",
@@ -195,14 +200,15 @@ export const furnitureProducts: Product[] = [
     "name": "Mid-Century Modern Teak Credenza & Media Console (180cm)",
     "description": "Solid teak wood with rich grain, fluted tambour sliding doors, and integrated wire management ports.",
     "price": 620000,
-    "originalPrice": 806000,
     "minPrice": 620000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 814,
     "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "West Elm",
@@ -242,14 +248,15 @@ export const furnitureProducts: Product[] = [
     "name": "Bouclé Cloud Modular Sectional Sofa (4-Piece Set, Ivory)",
     "description": "Ultra-plush textured ivory bouclé upholstery with deep modular seating blocks that can be configured into infinite layouts.",
     "price": 1350000,
-    "originalPrice": 1755000,
     "minPrice": 1350000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1059,
     "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "CB2",
@@ -288,14 +295,15 @@ export const furnitureProducts: Product[] = [
     "name": "Solid American Walnut Floating Platform King Bed Frame",
     "description": "Minimalist cantilevered platform design that appears to float above the bedroom floor, crafted from solid American black walnut.",
     "price": 1100000,
-    "originalPrice": 1430000,
     "minPrice": 1100000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1062,
     "image": "https://images.unsplash.com/photo-1519974719765-e6559eac2575?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1519974719765-e6559eac2575?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1519974719765-e6559eac2575?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Room & Board",
@@ -335,14 +343,15 @@ export const furnitureProducts: Product[] = [
     "name": "Calacatta Gold Italian Marble Oval Coffee Table (130cm)",
     "description": "Honed natural Calacatta Gold marble tabletop with rich gold and grey veining on a sculptural fluted pedestal base.",
     "price": 740000,
-    "originalPrice": 962000,
     "minPrice": 740000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 542,
     "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Vroom Atelier",
@@ -381,14 +390,15 @@ export const furnitureProducts: Product[] = [
     "name": "Barcelona Pavilion Chair in Top-Grain Tan Leather",
     "description": "Designed by Mies van der Rohe in 1929. Hand-buffed chrome frame with 40 individual leather panels hand-welted and tufted.",
     "price": 820000,
-    "originalPrice": 1066000,
     "minPrice": 820000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 759,
     "image": "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Knoll",
@@ -427,14 +437,15 @@ export const furnitureProducts: Product[] = [
     "name": "Restoration Hardware Minimalist Travertine Dining Table (240cm)",
     "description": "Carved from monolithic blocks of unpolished Italian travertine stone with subtle natural hollows and warm earthy tones.",
     "price": 2150000,
-    "originalPrice": 2795000,
     "minPrice": 2150000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 383,
     "image": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Restoration Hardware",
@@ -481,7 +492,9 @@ export const furnitureProducts: Product[] = [
     "reviewCount": 350,
     "image": "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "West Elm",
@@ -520,14 +533,15 @@ export const furnitureProducts: Product[] = [
     "name": "CB2 Drommen Solid Acacia Wood & Upholstered King Bed",
     "description": "Sustainable solid acacia wood frame featuring a soft padded linen-blend headboard angled for relaxed reading in bed.",
     "price": 890000,
-    "originalPrice": 1157000,
     "minPrice": 890000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 951,
     "image": "https://images.unsplash.com/photo-1551298370-9d3d53740c72?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1551298370-9d3d53740c72?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1551298370-9d3d53740c72?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "CB2",
@@ -566,14 +580,15 @@ export const furnitureProducts: Product[] = [
     "name": "Hay About A Chair Solid Oak Swivel Dining Chairs (Set of 4)",
     "description": "Danish modern ergonomic polypropylene shell upholstered in Kvadrat remix wool on a 4-star solid oak swivel base.",
     "price": 460000,
-    "originalPrice": 598000,
     "minPrice": 460000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1093,
     "image": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Hay",
@@ -612,14 +627,15 @@ export const furnitureProducts: Product[] = [
     "name": "Muuto Outline Studio 2-Seater Velvet Sofa in Dark Ochre",
     "description": "Architectural clean lines with refined steel legs and generous feather-and-down cushioned seating wrapped in luxury velvet.",
     "price": 950000,
-    "originalPrice": 1235000,
     "minPrice": 950000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 653,
     "image": "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Muuto",
@@ -658,14 +674,15 @@ export const furnitureProducts: Product[] = [
     "name": "Knoll Saarinen Tulip Round Marble Dining Table (120cm)",
     "description": "Eero Saarinen's legendary 1957 pedestal table with beveled Arabescato marble top and heavy cast aluminum base.",
     "price": 1450000,
-    "originalPrice": 1885000,
     "minPrice": 1450000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1060,
     "image": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Knoll",
@@ -704,14 +721,15 @@ export const furnitureProducts: Product[] = [
     "name": "Cassina LC4 Chrome & Leather Chaise Longue",
     "description": "Designed by Le Corbusier, Pierre Jeanneret, and Charlotte Perriand. Adjustable reclining cradle on black steel base.",
     "price": 1650000,
-    "originalPrice": 2145000,
     "minPrice": 1650000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 484,
     "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Cassina",
@@ -750,14 +768,15 @@ export const furnitureProducts: Product[] = [
     "name": "Steelcase Gesture Executive Ergonomic Desk Chair",
     "description": "Designed for modern posture with 360-degree rotating armrests that support typing on phones, tablets, and laptops.",
     "price": 880000,
-    "originalPrice": 1144000,
     "minPrice": 880000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 779,
     "image": "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Steelcase",
@@ -796,14 +815,15 @@ export const furnitureProducts: Product[] = [
     "name": "Anthropologie Brass & Smoked Glass Art Deco Bar Cart",
     "description": "Gleaming polished brass frame with two tiers of tempered smoked glass, stemware hanging racks, and locking caster wheels.",
     "price": 295000,
-    "originalPrice": 383500,
     "minPrice": 295000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1143,
     "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Anthropologie",
@@ -842,14 +862,15 @@ export const furnitureProducts: Product[] = [
     "name": "Pottery Barn Livingston Executive Desk with File Drawers (180cm)",
     "description": "Crafted from kiln-dried solid hardwood with crown molding, fluted posts, and deep hanging letter/legal file drawers.",
     "price": 82000,
-    "originalPrice": 106600,
     "minPrice": 82000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 803,
     "image": "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Pottery Barn",
@@ -888,14 +909,15 @@ export const furnitureProducts: Product[] = [
     "name": "Fritz Hansen Egg Chair in Cashmere Wool (Designed by Arne Jacobsen)",
     "description": "Originally designed for the SAS Royal Hotel in Copenhagen. Organic sculptural shell upholstered in pure cashmere wool.",
     "price": 1850000,
-    "originalPrice": 2405000,
     "minPrice": 1850000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 652,
     "image": "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Fritz Hansen",
@@ -934,14 +956,15 @@ export const furnitureProducts: Product[] = [
     "name": "Artek Alvar Aalto Birch Bentwood Armchair 406",
     "description": "Pioneering Finnish bentwood cantilevered birch frame with natural linen webbed seating that flexes with body weight.",
     "price": 540000,
-    "originalPrice": 702000,
     "minPrice": 540000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 607,
     "image": "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Artek",
@@ -980,14 +1003,15 @@ export const furnitureProducts: Product[] = [
     "name": "Thonet 209 Bentwood Cane Armchair (The Corbusier Chair)",
     "description": "Hand-bent European beechwood with hand-woven cane back and seat. A favorite of architect Le Corbusier.",
     "price": 420000,
-    "originalPrice": 546000,
     "minPrice": 420000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1128,
     "image": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Thonet",
@@ -1033,7 +1057,9 @@ export const furnitureProducts: Product[] = [
     "reviewCount": 845,
     "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "B&B Italia",
@@ -1072,14 +1098,15 @@ export const furnitureProducts: Product[] = [
     "name": "Roche Bobois Bubble Curvilinear Armchair (Sacha Lakic)",
     "description": "Entirely handmade with 4D honeycomb techno fabric stretched over multidensity HR foam for cloud-like comfort.",
     "price": 1250000,
-    "originalPrice": 1625000,
     "minPrice": 1250000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 331,
     "image": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Roche Bobois",
@@ -1118,14 +1145,15 @@ export const furnitureProducts: Product[] = [
     "name": "Ligne Roset Togo Fireside Ergonomic Foam Lounge Chair",
     "description": "All-foam seating with polyether foam densities and generous quilted buttoned covers designed by Michel Ducaroy.",
     "price": 1100000,
-    "originalPrice": 1430000,
     "minPrice": 1100000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 596,
     "image": "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Ligne Roset",
@@ -1164,14 +1192,15 @@ export const furnitureProducts: Product[] = [
     "name": "Poliform Concorde Walnut & Emperador Dark Marble Dining Table",
     "description": "Sculpted solid Spessart walnut base supporting an expansive natural Spanish Emperador dark brown polished marble top.",
     "price": 2450000,
-    "originalPrice": 3185000,
     "minPrice": 2450000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1100,
     "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Poliform",
@@ -1210,14 +1239,15 @@ export const furnitureProducts: Product[] = [
     "name": "BoConcept Boston Swivel Recliner with Integrated Footstool",
     "description": "Danish swivel recliner with tilt-and-lock mechanism, adjustable headrest, and supple caramel semi-aniline leather.",
     "price": 790000,
-    "originalPrice": 1027000,
     "minPrice": 790000,
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 640,
     "image": "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "BoConcept",
@@ -1256,14 +1286,15 @@ export const furnitureProducts: Product[] = [
     "name": "Article Sven Charme Tan Leather Mid-Century Sofa (88-inch)",
     "description": "Full-aniline Italian leather with round bolster pillows and tufted bench seat that develops a rich vintage patina.",
     "price": 680000,
-    "originalPrice": 884000,
     "minPrice": 680000,
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 949,
     "image": "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Article",
@@ -1302,14 +1333,15 @@ export const furnitureProducts: Product[] = [
     "name": "Room & Board Linear Walnut Bookcase Tower (190cm)",
     "description": "Precision welded steel frame combined with solid American walnut shelves, hand-finished in Wisconsin.",
     "price": 540000,
-    "originalPrice": 702000,
     "minPrice": 540000,
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 430,
     "image": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Room & Board",
@@ -1348,14 +1380,15 @@ export const furnitureProducts: Product[] = [
     "name": "Design Within Reach Nelson Swag Leg Writing Desk",
     "description": "George Nelson's iconic 1958 desk with swaged chrome tubular legs, walnut frame, and colorful pigeonhole dividers.",
     "price": 720000,
-    "originalPrice": 936000,
     "minPrice": 720000,
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1047,
     "image": "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Furniture",
     "brand": "Herman Miller",

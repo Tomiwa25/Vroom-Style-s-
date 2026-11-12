@@ -19,6 +19,21 @@ const app = express();
 // Disable express identification banner
 app.disable("x-powered-by");
 
+// Trust the first reverse proxy hop (Render, Fly, nginx, Vercel, etc.) so
+// `req.ip` reflects the real client. Without this, express-rate-limit keys
+// every request on the proxy's IP and one user rate-limits everyone.
+// Set TRUST_PROXY to a hop count ("1"), a CIDR, or "false" to override.
+const trustProxyEnv = process.env.TRUST_PROXY;
+if (trustProxyEnv === "false") {
+  app.set("trust proxy", false);
+} else if (trustProxyEnv && /^\d+$/.test(trustProxyEnv)) {
+  app.set("trust proxy", Number(trustProxyEnv));
+} else if (trustProxyEnv) {
+  app.set("trust proxy", trustProxyEnv);
+} else {
+  app.set("trust proxy", 1);
+}
+
 // 1. HTTP Security Headers (OWASP compliant)
 app.use(securityHeadersMiddleware);
 
