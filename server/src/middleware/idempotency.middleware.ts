@@ -90,7 +90,23 @@ export const idempotencyMiddleware = (options: IdempotencyOptions = {}) => {
           return;
         }
 
-        // If status was FAILED, allow re-execution
+        // FAILED: a previous attempt crashed mid-execution. Claim the row
+        // atomically before re-executing. Without this fence two clients
+        // retrying at the same time would both run and both decrement stock.
+        if (record.status === "FAILED") {
+          const reclaimed = await idempotencyService.reclaim(
+            scopedKey,
+            record.updatedAt
+          );
+          if (!reclaimed) {
+            res.status(409).json({
+              success: false,
+              message: "A request with this idempotency key is currently processing. Please retry shortly.",
+              code: "IDEMPOTENCY_KEY_LOCKED",
+            });
+            return;
+          }
+        }
       }
 
       // Intercept response to record status and payload upon completion

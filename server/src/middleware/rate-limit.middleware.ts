@@ -66,6 +66,24 @@ export const otpResendLimiter = rateLimit({
 });
 
 /**
+ * OTP verify limiter. The 5-attempt counter lives on each OTP record, but
+ * without an endpoint-level limiter an attacker can burn through 6-digit
+ * space across *fresh* OTPs by requesting resends. 20 attempts / 15 min.
+ */
+export const otpVerifyLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: process.env.RATE_LIMIT_OTP_VERIFY_MAX
+    ? parseInt(process.env.RATE_LIMIT_OTP_VERIFY_MAX, 10)
+    : 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: () => process.env.NODE_ENV === "test",
+  handler: createRateLimitHandler(
+    "Too many verification attempts. Please wait 15 minutes before trying again."
+  ),
+});
+
+/**
  * Factory helper for testing rate limiting in integration tests
  */
 export const createTestableLimiter = (options: {

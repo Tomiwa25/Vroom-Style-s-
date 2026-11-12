@@ -45,7 +45,7 @@ import "./styles.css";
 
 function App() {
   // Store Catalog managed via TanStack Query
-  const { products, isLoading, isError, error, refetch, isLive } = useProducts();
+  const { products, isLoading, isError, error, refetch } = useProducts();
   const { activeCampaign, setCampaign, clearCampaign } = useAttribution();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -311,15 +311,27 @@ function App() {
           localStorage.removeItem("vroom_cart");
           setIsCartOpen(false);
 
+          // The verify endpoint now returns the authoritative orderId, so we
+          // never guess it from the reference string.
           const orderId =
+            verifyRes.data?.data?.orderId ||
             fallbackOrderId ||
             sessionStorage.getItem("vroom_pending_order") ||
-            reference.split("-")[1] ||
-            "ORD-ATELIER";
-          const total =
+            "";
+
+          let total =
             fallbackAmount ||
             Number(sessionStorage.getItem("vroom_pending_amount")) ||
             0;
+
+          if ((!total || !orderId) && orderId) {
+            try {
+              const trackRes = await api.get(`/orders/${orderId}/track`);
+              total = Number(trackRes.data?.data?.total) || total;
+            } catch {
+              /* best effort: amount is display-only */
+            }
+          }
 
           sessionStorage.removeItem("vroom_pending_order");
           sessionStorage.removeItem("vroom_pending_amount");
@@ -376,53 +388,64 @@ function App() {
 
     setIsCheckingOut(true);
 
-    // Option C: Payment on Delivery (PoD) Doorstep Settlement
-    if (method === "pod") {
-      const ineligible = cartItems.filter((i) => !i.product.isPodEligible);
-      if (ineligible.length > 0) {
-        showToast("Some items require prepayment. Please remove them or choose Pay Online.");
-        setIsCheckingOut(false);
-        return;
-      }
-
-      setTimeout(() => {
-        const rawSubtotal = cartItems.reduce(
-          (sum, item) => sum + item.product.price * item.quantity,
-          0
-        );
-        const shippingFee = rawSubtotal >= 100000 ? 0 : 5000;
-        const total = rawSubtotal + shippingFee;
-        const podOrderId = `VRM-POD-${Math.floor(100000 + Math.random() * 900000)}`;
-
-        setCartItems([]);
-        localStorage.removeItem("vroom_cart");
-        setIsCartOpen(false);
-        setIsCheckingOut(false);
-
-        setConfirmedOrderDetails({
-          orderId: podOrderId,
-          reference: `POD-DOORSTEP-${podDetails?.phone?.slice(-4) || "CASH"}`,
-          total,
-          isPod: true,
-          podAddress: podDetails?.address,
-          podCity: podDetails?.city,
-          podPhone: podDetails?.phone,
-        });
-        setIsSuccessModalOpen(true);
-        showToast("Payment on Delivery order confirmed! Dispatch courier assigned.");
-      }, 600);
-      return;
-    }
-
     try {
-      // 1. Lock in order items on backend with client-side idempotency protection
-      const orderPayload = {
+      // 1. Lock in order items on the backend with a client-side idempotency key.
+      //    `source: "cart"` tells the server to build from the user's cart and
+      //    clear it on success; the client-sent `items` are a fallback only.
+      const orderPayload: Record<string, unknown> = {
+        source: "cart",
         items: cartItems.map((item) => ({
           productId: item.product.id,
           externalId: item.product.externalId,
           quantity: item.quantity,
         })),
       };
+
+      // Option C: Payment on Delivery (PoD). Creates a real unpaid order that
+      // reserves stock and appears in the admin order list; settlement happens
+      // at the doorstep. No Paystack interaction.
+      if (method === "pod") {
+        const ineligible = cartItems.filter((i) => !i.product.isPodEligible);
+        if (ineligible.length > 0) {
+          showToast("Some items require prepayment. Please remove them or choose Pay Online.");
+          setIsCheckingOut(false);
+          return;
+        }
+
+        orderPayload.deliveryMethod = "POD";
+        orderPayload.shipping = {
+          name: `${currentUser.firstName} ${currentUser.lastName}`.trim(),
+          phone: podDetails?.phone,
+          address: podDetails?.address,
+          city: podDetails?.city,
+          notes: podDetails?.deliveryNotes,
+        };
+
+        const podRes = await api.post("/orders", orderPayload, {
+          headers: { "Idempotency-Key": createIdempotencyKey("pod") },
+        });
+        const createdPodOrder = podRes.data?.data;
+        if (!createdPodOrder?.id) {
+          throw new Error("Unable to create order. Please review your bag.");
+        }
+
+        setCartItems([]);
+        localStorage.removeItem("vroom_cart");
+        setIsCartOpen(false);
+
+        setConfirmedOrderDetails({
+          orderId: createdPodOrder.id,
+          reference: `POD-${createdPodOrder.id.slice(0, 8).toUpperCase()}`,
+          total: Number(createdPodOrder.total),
+          isPod: true,
+          podAddress: podDetails?.address,
+          podCity: podDetails?.city,
+          podPhone: podDetails?.phone,
+        });
+        setIsSuccessModalOpen(true);
+        showToast("Payment on Delivery order confirmed!");
+        return;
+      }
 
       const checkoutKey = createIdempotencyKey("checkout");
       const orderRes = await api.post("/orders", orderPayload, {
@@ -1308,7 +1331,7 @@ function App() {
                     ⚠ Offline Mode (Click to Retry)
                   </button>
                 )}
-                {!isLoading && !isError && isLive && (
+                {!isLoading && !isError && products.length > 0 && (
                   <span className="catalog-status-badge live" title="Connected to live database">
                     ● Live Sync
                   </span>

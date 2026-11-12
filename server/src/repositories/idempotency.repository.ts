@@ -1,5 +1,5 @@
 import prisma from "../config/database.js";
-import { IdempotencyStatus } from "@prisma/client";
+import { IdempotencyStatus, Prisma } from "@prisma/client";
 
 export interface CreateIdempotencyKeyParams {
   key: string;
@@ -84,6 +84,31 @@ export const failIdempotencyKey = async (key: string) => {
     // If the record was already cleaned or missing, ignore
     return null;
   }
+};
+
+/**
+ * Atomically reclaim a FAILED key for re-execution. Uses `updatedAt` as an
+ * optimistic-lock fence: only the caller that saw the same `updatedAt` wins.
+ * Returns true if this caller now owns the PROCESSING state.
+ */
+export const reclaimIdempotencyKey = async (
+  key: string,
+  expectedUpdatedAt: Date
+): Promise<boolean> => {
+  const result = await prisma.idempotencyKey.updateMany({
+    where: {
+      key,
+      status: IdempotencyStatus.FAILED,
+      updatedAt: expectedUpdatedAt,
+    },
+    data: {
+      status: IdempotencyStatus.PROCESSING,
+      statusCode: null,
+      responseBody: Prisma.JsonNull,
+      updatedAt: new Date(),
+    },
+  });
+  return result.count === 1;
 };
 
 /**

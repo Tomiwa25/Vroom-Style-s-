@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import type { AuthenticatedUser } from "../types/auth.js";
+import { UnauthorizedError } from "../core/errors/app-error.js";
 
 export const authenticate = (
   req: Request,
@@ -54,7 +55,7 @@ export const authenticate = (
  */
 export const getAuthUser = (req: Request): AuthenticatedUser => {
   if (!req.user) {
-    throw new Error("Authentication required");
+    throw new UnauthorizedError("Authentication required");
   }
   return req.user;
 };

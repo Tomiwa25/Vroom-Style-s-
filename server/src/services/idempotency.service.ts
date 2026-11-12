@@ -5,6 +5,7 @@ import {
   resolveIdempotencyKey,
   failIdempotencyKey,
   pruneExpiredIdempotencyKeys,
+  reclaimIdempotencyKey,
 } from "../repositories/idempotency.repository.js";
 
 /**
@@ -64,6 +65,15 @@ export const idempotencyService = {
 
   find: async (key: string) => {
     return findIdempotencyKey(key);
+  },
+
+  /**
+   * Atomically move a FAILED record back to PROCESSING, but only if nobody
+   * else has touched it since we read it (updatedAt fence). Returns true
+   * if this caller won the race and may execute.
+   */
+  reclaim: async (key: string, expectedUpdatedAt: Date): Promise<boolean> => {
+    return reclaimIdempotencyKey(key, expectedUpdatedAt);
   },
 
   resolve: async (key: string, statusCode: number, responseBody: any) => {

@@ -265,8 +265,9 @@ describe("Database-Backed Idempotency Engine & Middleware", () => {
         order: { userId: "user_1" },
       } as any);
 
-      vi.spyOn(paymentRepo, "updatePaymentSuccess").mockResolvedValue({} as any);
-      vi.spyOn(orderService, "markOrderAsPaid").mockResolvedValue({} as any);
+      const markOrderSpy = vi
+        .spyOn(orderService, "markOrderAsPaid")
+        .mockResolvedValue({} as any);
       vi.spyOn(idempotencyRepo, "acquireIdempotencyKey").mockResolvedValue({
         record: {
           id: "key_1",
@@ -280,13 +281,87 @@ describe("Database-Backed Idempotency Engine & Middleware", () => {
       const result = await processPaystackWebhookEvent(event);
 
       expect(result.success).toBe(true);
-      expect(paymentRepo.updatePaymentSuccess).toHaveBeenCalledWith(reference);
-      expect(orderService.markOrderAsPaid).toHaveBeenCalledWith("ord_999");
+      // Payment + order updates now happen together inside markOrderAsPaid,
+      // so the webhook only needs to call that single transactional helper.
+      expect(markOrderSpy).toHaveBeenCalledWith("ord_999");
       expect(idempotencyRepo.resolveIdempotencyKey).toHaveBeenCalledWith(
         `webhook:paystack:charge.success:${reference}`,
         200,
         { success: true }
       );
+    });
+
+    it("rejects a webhook when the transaction currency is not NGN", async () => {
+      const reference = "VROOM-order-999-currency-mismatch";
+      const event = {
+        event: "charge.success",
+        data: { reference, amount: 5000000, currency: "USD" },
+      };
+
+      vi.spyOn(paymentRepo, "findPaymentByReference").mockResolvedValue({
+        id: "pay_1",
+        orderId: "ord_999",
+        amount: "50000" as any,
+        status: "PENDING" as any,
+        reference,
+        paidAt: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        order: { userId: "user_1" },
+      } as any);
+      const markOrderSpy = vi
+        .spyOn(orderService, "markOrderAsPaid")
+        .mockResolvedValue({} as any);
+      vi.spyOn(idempotencyRepo, "acquireIdempotencyKey").mockResolvedValue({
+        record: {
+          id: "key_1",
+          key: `webhook:paystack:charge.success:${reference}`,
+          status: "PROCESSING",
+        } as any,
+        isNew: true,
+      });
+      const failSpy = vi
+        .spyOn(idempotencyRepo, "failIdempotencyKey")
+        .mockResolvedValue({} as any);
+
+      await expect(processPaystackWebhookEvent(event)).rejects.toThrow(
+        /currency mismatch/i
+      );
+      expect(markOrderSpy).not.toHaveBeenCalled();
+      expect(failSpy).toHaveBeenCalledOnce();
+    });
+
+    it("rejects a webhook when the amount does not match the order", async () => {
+      const reference = "VROOM-order-999-amount-mismatch";
+      const event = {
+        event: "charge.success",
+        data: { reference, amount: 100, currency: "NGN" },
+      };
+
+      vi.spyOn(paymentRepo, "findPaymentByReference").mockResolvedValue({
+        id: "pay_1",
+        orderId: "ord_999",
+        amount: "50000" as any,
+        status: "PENDING" as any,
+        reference,
+        paidAt: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        order: { userId: "user_1" },
+      } as any);
+      const markOrderSpy = vi
+        .spyOn(orderService, "markOrderAsPaid")
+        .mockResolvedValue({} as any);
+      vi.spyOn(idempotencyRepo, "acquireIdempotencyKey").mockResolvedValue({
+        record: { id: "key_1", key: "k", status: "PROCESSING" } as any,
+        isNew: true,
+      });
+      vi.spyOn(idempotencyRepo, "failIdempotencyKey").mockResolvedValue({} as any);
+
+      await expect(processPaystackWebhookEvent(event)).rejects.toThrow(
+        /amount does not match/i
+      );
+      expect(markOrderSpy).not.toHaveBeenCalled();
     });
 
     it("short-circuits duplicate webhook retries without re-executing order updates", async () => {
@@ -309,7 +384,6 @@ describe("Database-Backed Idempotency Engine & Middleware", () => {
         isNew: false,
       });
 
-      const updatePaymentSpy = vi.spyOn(paymentRepo, "updatePaymentSuccess");
       const markOrderSpy = vi.spyOn(orderService, "markOrderAsPaid");
 
       const result = await processPaystackWebhookEvent(event);
@@ -318,7 +392,6 @@ describe("Database-Backed Idempotency Engine & Middleware", () => {
       expect(result.idempotentReplay).toBe(true);
 
       // Verify no DB mutations occurred!
-      expect(updatePaymentSpy).not.toHaveBeenCalled();
       expect(markOrderSpy).not.toHaveBeenCalled();
     });
   });

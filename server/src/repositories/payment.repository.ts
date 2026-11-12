@@ -29,17 +29,4 @@ export const findPaymentByReference = async (
     });
 };
 
-export const updatePaymentSuccess = async (
-    reference: string
-) => {
-    return prisma.payment.update({
-        where: {
-            reference,
-        },
-        data: {
-            status: "PAID",
-            paidAt: new Date()
-        },
-    });
-};
 

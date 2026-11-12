@@ -144,3 +144,5 @@ dist
 .vibe-wise/
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+# Local code review notes (not for version control)
+CODE-REVIEW.md

@@ -13,6 +13,7 @@ import { authorizeRoles } from "../middleware/role.middleware.js";
 import { validateRequest } from "../middleware/validate.middleware.js";
 import {
     adminEntityIdParamSchema,
+    adminOrdersQuerySchema,
     createProductSchema,
     updateOrderStatusSchema,
     updateProductSchema,
@@ -43,7 +44,11 @@ router.patch(
     updateAdminStockController
 );
 
-router.get("/orders", getAdminOrdersController);
+router.get(
+    "/orders",
+    validateRequest({ query: adminOrdersQuerySchema }),
+    getAdminOrdersController
+);
 router.patch(
     "/orders/:id/status",
     validateRequest({ params: adminEntityIdParamSchema, body: updateOrderStatusSchema }),

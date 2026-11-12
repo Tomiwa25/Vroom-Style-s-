@@ -1,24 +1,30 @@
 import { Request, Response } from "express";
-import { checkout, getOrderTracking, getUserOrders } from "../services/order.service.js";
+import {
+	checkout,
+	getOrderTracking,
+	getUserOrdersWithExpiry,
+} from "../services/order.service.js";
 import { getAuthUser } from "../middleware/auth.middleware.js";
 import { ApiResponse } from "../core/http/api-response.js";
 import { asyncHandler } from "../core/http/async-handler.js";
 
-/**
- * HTTP Adapter Controller for Orders.
- * Extracts user context and validated payloads from the Gateway perimeter,
- * delegating domain operations to OrderService.
- */
 export const checkoutController = asyncHandler(async (req: Request, res: Response) => {
 	const user = getAuthUser(req);
-	const order = await checkout(user.userId, req.body?.items);
+	const body = req.body ?? {};
+
+	const order = await checkout(user.userId, {
+		source: body.source ?? "cart",
+		items: body.items,
+		deliveryMethod: body.deliveryMethod ?? "PAYSTACK",
+		shipping: body.shipping,
+	});
 
 	return ApiResponse.created(res, order, "Order created successfully");
 });
 
 export const getOrderController = asyncHandler(async (req: Request, res: Response) => {
 	const user = getAuthUser(req);
-	const orders = await getUserOrders(user.userId);
+	const orders = await getUserOrdersWithExpiry(user.userId);
 
 	return ApiResponse.success(res, orders);
 });
