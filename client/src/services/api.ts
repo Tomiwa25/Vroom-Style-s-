@@ -28,4 +28,14 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+/**
+ * Generate a cryptographically secure client idempotency key for mutating requests (orders, payments).
+ */
+export const createIdempotencyKey = (prefix = "req"): string => {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return `${prefix}_${crypto.randomUUID()}`;
+  }
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+};
+
 export default api;

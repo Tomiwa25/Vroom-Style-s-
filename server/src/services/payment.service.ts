@@ -3,6 +3,7 @@ import paystackApi from "./external/paystack.service";
 import { createPayment, findPaymentByReference, updatePaymentSuccess } from "../repositories/payment.repository";
 import { markOrderAsPaid } from "./order.service";
 import prisma from "../config/database.js";
+import { idempotencyService } from "./idempotency.service.js";
 
 export const initializePayment = async (
 	orderId: string,
@@ -105,25 +106,51 @@ export const verifyPayment = async (
 
 /**
  * Domain business logic for processing verified Paystack webhook events.
- * Updates payment status and marks orders as paid when payment amounts match.
+ * Idempotently updates payment status and marks orders as paid when payment amounts match.
  */
 export const processPaystackWebhookEvent = async (event: any) => {
 	if (event?.event === "charge.success") {
 		const transaction = event.data;
 		const reference = transaction?.reference;
-		const payment = reference
-			? await findPaymentByReference(reference)
-			: null;
+		if (!reference) {
+			return { success: false, message: "Missing reference in charge.success event" };
+		}
 
-		if (payment && payment.status !== "PAID") {
-			const expectedAmount = Math.round(Number(payment.amount) * 100);
+		const naturalKey = `webhook:paystack:${event.event}:${reference}`;
 
-			if (Number(transaction.amount) !== expectedAmount) {
-				throw new Error("Payment amount does not match the order amount");
+		const { record, isNew } = await idempotencyService.acquire({
+			key: naturalKey,
+			userId: null,
+			path: "/api/payments/webhook",
+			method: "POST",
+			payload: event,
+			ttlHours: 48,
+		});
+
+		if (!isNew && record.status === "RESOLVED") {
+			// Webhook was already processed successfully. Return early without mutating state!
+			return { success: true, idempotentReplay: true };
+		}
+
+		try {
+			const payment = await findPaymentByReference(reference);
+
+			if (payment && payment.status !== "PAID") {
+				const expectedAmount = Math.round(Number(payment.amount) * 100);
+
+				if (Number(transaction.amount) !== expectedAmount) {
+					await idempotencyService.fail(naturalKey);
+					throw new Error("Payment amount does not match the order amount");
+				}
+
+				await updatePaymentSuccess(reference);
+				await markOrderAsPaid(payment.orderId);
 			}
 
-			await updatePaymentSuccess(reference);
-			await markOrderAsPaid(payment.orderId);
+			await idempotencyService.resolve(naturalKey, 200, { success: true });
+		} catch (error) {
+			await idempotencyService.fail(naturalKey);
+			throw error;
 		}
 	}
 

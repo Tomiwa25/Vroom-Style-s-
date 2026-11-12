@@ -160,3 +160,28 @@ model Payment {
 
   @@map("payments")
 }
+
+enum IdempotencyStatus {
+  PROCESSING
+  RESOLVED
+  FAILED
+}
+
+model IdempotencyKey {
+  id           String            @id @default(uuid())
+  key          String            @unique
+  userId       String?
+  path         String
+  method       String
+  requestHash  String
+  status       IdempotencyStatus @default(PROCESSING)
+  statusCode   Int?
+  responseBody Json?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  expiresAt    DateTime
+
+  @@index([key, userId])
+  @@index([expiresAt])
+  @@map("idempotency_keys")
+}

@@ -33,9 +33,13 @@ import { ScavengerHuntModal } from "./components/ScavengerHuntModal";
 import { ProductCard } from "./components/ProductCard";
 import { RecommendationRail } from "./components/RecommendationRail";
 import { BrandPortalSection } from "./components/BrandPortalSection";
+import { CarsShowroomSection } from "./components/CarsShowroomSection";
+import { HomeAppliancesSection } from "./components/HomeAppliancesSection";
+import { TechLivingSection } from "./components/TechLivingSection";
+import { PromptStudioModal } from "./components/PromptStudioModal";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
-import api from "./services/api";
+import api, { createIdempotencyKey } from "./services/api";
 import "./styles.css";
 
 function App() {
@@ -75,6 +79,13 @@ function App() {
     podPhone?: string;
   } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [isPromptStudioOpen, setIsPromptStudioOpen] = useState<boolean>(false);
+  const [promptStudioInitialCategory, setPromptStudioInitialCategory] = useState<string>("Cars");
+
+  const handleOpenPromptStudio = (cat: string = "Cars") => {
+    setPromptStudioInitialCategory(cat);
+    setIsPromptStudioOpen(true);
+  };
 
   // Regional Storefront & Internationalization (i18n)
   const [currentRegion, setCurrentRegion] = useState<CountryRegion>(() => {
@@ -376,7 +387,7 @@ function App() {
     }
 
     try {
-      // 1. Lock in order items on backend
+      // 1. Lock in order items on backend with client-side idempotency protection
       const orderPayload = {
         items: cartItems.map((item) => ({
           productId: item.product.id,
@@ -385,17 +396,30 @@ function App() {
         })),
       };
 
-      const orderRes = await api.post("/orders", orderPayload);
+      const checkoutKey = createIdempotencyKey("checkout");
+      const orderRes = await api.post("/orders", orderPayload, {
+        headers: {
+          "Idempotency-Key": checkoutKey,
+        },
+      });
       const createdOrder = orderRes.data?.data;
 
       if (!createdOrder?.id) {
         throw new Error("Unable to create order. Please review your cart.");
       }
 
-      // 2. Initialize Paystack payment session
-      const initRes = await api.post("/payments/initialize", {
-        orderId: createdOrder.id,
-      });
+      // 2. Initialize Paystack payment session with deterministic idempotency key for this order
+      const initRes = await api.post(
+        "/payments/initialize",
+        {
+          orderId: createdOrder.id,
+        },
+        {
+          headers: {
+            "Idempotency-Key": `pay_init_${createdOrder.id}`,
+          },
+        }
+      );
 
       const paymentData = initRes.data?.data;
       if (!paymentData?.reference) {
@@ -601,6 +625,12 @@ function App() {
           pCat === "outerwear" ||
           pCat === "knitwear" ||
           Boolean(prod.tag && prod.tag.toLowerCase().includes("atelier"));
+      } else if (selectedCategory === "Appliances" || selectedCategory === "All Appliances") {
+        matchesTaxonomy =
+          pCat === "appliances" ||
+          pCat === "fridges" ||
+          pCat === "microwaves" ||
+          pCat === "kitchen utensils";
       } else {
         matchesTaxonomy =
           pCat === sCat ||
@@ -917,6 +947,7 @@ function App() {
             setVroomDeliveryInitialTab("calculator");
             setIsVroomDeliveryOpen(true);
           }}
+          onOpenPromptStudio={() => handleOpenPromptStudio("Cars")}
         />
 
         {/* Multi-Column Mega Menu Drawer */}
@@ -1061,10 +1092,15 @@ function App() {
 
         <section className="collection-strip">
           {[
-            { id: "01", title: "Women's Collection", cat: "Women" },
-            { id: "02", title: "Men's Outerwear", cat: "Outerwear" },
-            { id: "03", title: "Luxury Knitwear", cat: "Knitwear" },
-            { id: "04", title: "Signature Accessories", cat: "Accessories" },
+            { id: "01", title: "🚗 Vroom Motors (30 Cars)", cat: "Cars" },
+            { id: "02", title: "🧊 Fridges & Freezers (30)", cat: "Fridges" },
+            { id: "03", title: "📻 Smart Microwaves (30)", cat: "Microwaves" },
+            { id: "04", title: "🍳 Kitchen Utensils (30)", cat: "Kitchen Utensils" },
+            { id: "05", title: "🛋️ Designer Furniture (30)", cat: "Furniture" },
+            { id: "06", title: "📺 Cinematic 4K/8K TVs (30)", cat: "TVs" },
+            { id: "07", title: "💻 Laptops & Ultrabooks (30)", cat: "Laptops" },
+            { id: "08", title: "🖥️ Studio Monitors (30)", cat: "Monitors" },
+            { id: "09", title: "👗 Fashion & Atelier", cat: "Fashion & Atelier" },
           ].map((col) => (
             <article
               key={col.id}
@@ -1149,6 +1185,48 @@ function App() {
           }}
         />
 
+        {/* ---------------- Dedicated Vroom Motors Showroom Section (30 Cars) ---------------- */}
+        <CarsShowroomSection
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          onViewAllCars={() => {
+            setSelectedCategory("Cars");
+            handleScrollToCatalog();
+          }}
+          onOpenPromptStudio={handleOpenPromptStudio}
+        />
+
+        {/* ---------------- Dedicated Home Appliances Section (Fridges, Microwaves, Utensils - 30 each) ---------------- */}
+        <HomeAppliancesSection
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          onSelectCategory={(cat) => {
+            setSelectedCategory(cat);
+            handleScrollToCatalog();
+          }}
+          onOpenPromptStudio={handleOpenPromptStudio}
+        />
+
+        {/* ---------------- Dedicated Tech & Living Showcase (TVs, Laptops, Monitors, Furniture - 30 each) ---------------- */}
+        <TechLivingSection
+          formatPrice={formatPrice}
+          wishlist={wishlist}
+          onToggleWishlist={handleToggleWishlist}
+          onQuickView={handleOpenQuickView}
+          onAddToCart={handleAddToCart}
+          onSelectCategory={(cat) => {
+            setSelectedCategory(cat);
+            handleScrollToCatalog();
+          }}
+          onOpenPromptStudio={handleOpenPromptStudio}
+        />
+
         {/* ---------------- 12. Main Product Catalog Section ---------------- */}
         <Breadcrumbs
           selectedTaxonomy={selectedCategory}
@@ -1190,9 +1268,17 @@ function App() {
             <div className="catalog-filter-tabs">
               {[
                 "All",
+                "Cars",
+                "Fridges",
+                "Microwaves",
+                "Kitchen Utensils",
+                "Furniture",
+                "TVs",
+                "Laptops",
+                "Monitors",
+                "Appliances",
                 "Official Store",
                 "Fashion & Atelier",
-                "Appliances",
                 "Phones & Tablets",
                 "Health & Beauty",
                 "Outerwear",
@@ -1651,6 +1737,13 @@ function App() {
         onClose={() => setIsComplianceModalOpen(false)}
         initialTab={complianceInitialTab}
         onSuccessToast={showToast}
+      />
+
+      {/* ---------------- AI Image Generation Prompt Studio Modal (240 Prompts across 8 Categories) ---------------- */}
+      <PromptStudioModal
+        isOpen={isPromptStudioOpen}
+        onClose={() => setIsPromptStudioOpen(false)}
+        initialCategory={promptStudioInitialCategory}
       />
     </div>
   );

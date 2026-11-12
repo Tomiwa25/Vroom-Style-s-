@@ -1,6 +1,7 @@
 import prisma from "../../src/config/database.js";
 
 export const cleanDatabase = async () => {
+    await prisma.idempotencyKey.deleteMany();
     await prisma.otpVerification.deleteMany();
     await prisma.payment.deleteMany();
     await prisma.orderItem.deleteMany();

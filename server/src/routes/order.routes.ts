@@ -5,6 +5,7 @@ import {
   trackOrderController,
 } from "../controllers/order.controller.js";
 import { authenticate } from "../middleware/auth.middleware.js";
+import { idempotencyMiddleware } from "../middleware/idempotency.middleware.js";
 import { validateRequest } from "../middleware/validate.middleware.js";
 import {
   checkoutSchema,
@@ -16,7 +17,12 @@ const router = Router();
 // Gateway Auth Perimeter: All order routes require authenticated user session
 router.use(authenticate);
 
-router.post("/", validateRequest({ body: checkoutSchema }), checkoutController);
+router.post(
+  "/",
+  idempotencyMiddleware(),
+  validateRequest({ body: checkoutSchema }),
+  checkoutController
+);
 router.get("/", getOrderController);
 router.get("/:orderId/track", validateRequest({ params: trackOrderParamsSchema }), trackOrderController);
 
