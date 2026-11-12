@@ -22,7 +22,12 @@ export const validateRequest = (schemas: ValidationSchemas): RequestHandler => {
         req.query = schemas.query.parse(req.query) as any;
       }
       if (schemas.body) {
-        req.body = schemas.body.parse(req.body);
+        // express.json() leaves req.body undefined when the client sends no
+        // body at all (no Content-Type, or Content-Length: 0). That is a
+        // legitimate request — e.g. POST /api/orders checking out from the
+        // server-side cart — so parse it as an empty object instead of
+        // failing the schema with "expected object, received undefined".
+        req.body = schemas.body.parse(req.body ?? {});
       }
       next();
     } catch (error) {
