@@ -19,6 +19,7 @@ export interface Product {
   colors?: { name: string; hex: string }[];
   sizes?: string[];
   tag?: string;
+  subcategory?: string;
   fitGuide?: "Runs Small" | "True to Size" | "Runs Large" | string;
   material?: string;
   // Step 4: Marketplace & Seller Integrations

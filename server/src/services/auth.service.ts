@@ -17,9 +17,11 @@ import {
 } from "../repositories/otp.repository.js";
 import { sendOtpVerificationEmail } from "./email.service.js";
 import {
+  AppError,
   UnauthorizedError,
   NotFoundError,
   BadRequestError,
+  ConflictError,
 } from "../core/errors/app-error.js";
 
 const getJwtSecret = (): string => {
@@ -77,6 +79,55 @@ const sendOtpEmailSafely = (payload: {
   );
 };
 
+/**
+ * Issues a fresh verification code for an existing (unverified) account.
+ * Kept separate from the email dispatch so a database hiccup here can be
+ * reported without ever rolling back a registration the user just completed.
+ */
+const issueVerificationOtp = async (email: string): Promise<string> => {
+  const otpCode = generateSixDigitOtp();
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+  await invalidatePreviousOtps(email, OtpType.EMAIL_VERIFICATION);
+  await createOtp({
+    email,
+    code: hashOtp(otpCode),
+    type: OtpType.EMAIL_VERIFICATION,
+    expiresAt,
+  });
+
+  return otpCode;
+};
+
+/**
+ * Database failures are ours, not the visitor's. Say so, and say which one,
+ * so an empty database_url or an un-migrated schema is obvious at a glance.
+ */
+const toRegistrationError = (err: unknown): Error => {
+  const code = (err as { code?: string } | null)?.code;
+
+  if (code === "P2002") {
+    return new ConflictError(
+      "An account with this email already exists. Please sign in instead."
+    );
+  }
+
+  if (code === "P2021" || code === "P2022" || code === "P1001" || code === "P1000") {
+    console.error("[Auth] Registration reached an unusable database:", err);
+    return new AppError(
+      "We couldn't reach our account service. Please try again shortly.",
+      503
+    );
+  }
+
+  // Any other failure must never become a silent "unexpected server error".
+  // Operational errors keep their message; everything else gets a generic but
+  // honest one instead of leaking internals.
+  return err instanceof AppError
+    ? err
+    : new AppError("Registration could not be completed. Please try again shortly.", 503);
+};
+
 export const registerUser = async (data: {
   email: string;
   password: string;
@@ -84,55 +135,72 @@ export const registerUser = async (data: {
   lastName: string;
 }) => {
   const normalizedEmail = data.email.toLowerCase().trim();
-  const existingUser = await findUserByEmail(normalizedEmail);
-  if (existingUser) {
-    // IMPORTANT: don't disclose account existence. Returning the same
-    // shape as a real signup keeps the endpoint from being an oracle.
-    return {
+
+  // Fail before we write anything if the server can't mint tokens: otherwise
+  // the visitor ends up with an account that can never be logged into.
+  getJwtSecret();
+
+  try {
+    const existingUser = await findUserByEmail(normalizedEmail);
+    if (existingUser) {
+      // IMPORTANT: don't disclose account existence. Returning the same
+      // shape as a real signup keeps the endpoint from being an oracle.
+      if (!existingUser.isVerified) {
+        await issueVerificationOtp(normalizedEmail)
+          .then((code) =>
+            sendOtpEmailSafely({
+              to: existingUser.email,
+              firstName: existingUser.firstName,
+              code,
+            })
+          )
+          .catch((err) =>
+            console.error("[Auth] Could not re-issue verification code:", err)
+          );
+      }
+      return {
+        email: normalizedEmail,
+        requiresVerification: true,
+        message: "If this email is not yet registered, a verification code has been sent.",
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    const user = await createUser({
       email: normalizedEmail,
-      requiresVerification: true,
-      message: "If this email is not yet registered, a verification code has been sent.",
-    };
+      password: hashedPassword,
+      firstName: data.firstName.trim(),
+      lastName: data.lastName.trim(),
+      isVerified: false,
+    });
+
+    // The account now exists. Anything past this point is best-effort: a
+    // missing code only means the visitor has to tap "resend".
+    await issueVerificationOtp(normalizedEmail)
+      .then((otpCode) =>
+        sendOtpEmailSafely({
+          to: user.email,
+          firstName: user.firstName,
+          code: otpCode,
+        })
+      )
+      .catch((err) =>
+        console.error("[Auth] Account created but verification code was not issued:", err)
+      );
+
+      return {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        isVerified: user.isVerified,
+        requiresVerification: true,
+      };
+  } catch (err) {
+    throw toRegistrationError(err);
   }
-
-  const hashedPassword = await bcrypt.hash(data.password, 10);
-
-  const user = await createUser({
-    email: normalizedEmail,
-    password: hashedPassword,
-    firstName: data.firstName.trim(),
-    lastName: data.lastName.trim(),
-    isVerified: false,
-  });
-
-  // Generate 6-digit OTP code with 10 minutes expiry
-  const otpCode = generateSixDigitOtp();
-  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
-
-  await invalidatePreviousOtps(normalizedEmail, OtpType.EMAIL_VERIFICATION);
-  await createOtp({
-    email: normalizedEmail,
-    code: hashOtp(otpCode),
-    type: OtpType.EMAIL_VERIFICATION,
-    expiresAt,
-  });
-
-  // Send asynchronously: registration must not fail if SMTP is down.
-  sendOtpEmailSafely({
-    to: user.email,
-    firstName: user.firstName,
-    code: otpCode,
-  });
-
-  return {
-    id: user.id,
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    role: user.role,
-    isVerified: user.isVerified,
-    requiresVerification: true,
-  };
 };
 
 export const verifyUserOtp = async (email: string, code: string) => {

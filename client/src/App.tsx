@@ -3,6 +3,7 @@ import type { Product, CartItem, User, CampaignEvent, PodCheckoutDetails, Countr
 import { useProducts } from "./hooks/useProducts";
 import { useAttribution } from "./hooks/useAttribution";
 import { DEFAULT_REGION } from "./data/regions";
+import { initialProducts } from "./data/products";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
@@ -68,7 +69,7 @@ const DEPARTMENTS = [
 
 function App() {
   // Store Catalog managed via TanStack Query
-  const { products, isLoading, isError, error, refetch } = useProducts();
+  const { products, isLoading, isError, error, refetch } = useProducts({ limit: 200 });
   const { activeCampaign, setCampaign, clearCampaign } = useAttribution();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -628,9 +629,11 @@ function App() {
   );
 
   // Aggregate all products (live backend / initial + vendor-created 3P drops)
-  const allProducts = useMemo(() => {
-    return vendorDrops.length > 0 ? [...vendorDrops, ...products] : products;
-  }, [products, vendorDrops]);
+  const allProducts = useMemo<Product[]>(() => {
+    // If backend is unreachable or empty, fall back cleanly to initial curated products so UI remains functional
+    const base: Product[] = products.length > 0 ? products : (isError ? initialProducts : []);
+    return vendorDrops.length > 0 ? [...vendorDrops, ...base] : base;
+  }, [products, vendorDrops, isError]);
 
   // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
@@ -701,13 +704,39 @@ function App() {
           pCat === "men" ||
           pCat === "outerwear" ||
           pCat === "knitwear" ||
+          pCat === "fashion" ||
           Boolean(prod.tag && prod.tag.toLowerCase().includes("atelier"));
-      } else if (selectedCategory === "Appliances" || selectedCategory === "All Appliances") {
+      } else if (selectedCategory === "Footwear") {
+        matchesTaxonomy =
+          pCat === "footwear" ||
+          pCat === "shoes and bags" ||
+          Boolean(prod.brand && prod.brand.toLowerCase().includes("footwear")) ||
+          Boolean(prod.subcategory && /shoe|boot|derby|derbies|loafer|sneaker|oxford/i.test(prod.subcategory)) ||
+          Boolean(prod.name && /shoe|boot|derby|derbies|loafer|sneaker|oxford/i.test(prod.name));
+      } else if (selectedCategory === "Phones & Tablets" || selectedCategory === "Phones and Tablets") {
+        matchesTaxonomy =
+          pCat === "phones & tablets" ||
+          pCat === "phones and tablets" ||
+          pCat === "mobile-accessories";
+      } else if (selectedCategory === "Appliances" || selectedCategory === "All Appliances" || selectedCategory === "Home Appliances") {
         matchesTaxonomy =
           pCat === "appliances" ||
+          pCat === "home appliances" ||
+          pCat === "home and kitchen" ||
           pCat === "fridges" ||
           pCat === "microwaves" ||
           pCat === "kitchen utensils";
+      } else if (selectedCategory === "Health & Beauty" || selectedCategory === "Beauty and Personal Care") {
+        matchesTaxonomy =
+          pCat === "health & beauty" ||
+          pCat === "beauty and personal care" ||
+          pCat === "health and wellness" ||
+          pCat === "beauty" ||
+          pCat === "fragrances";
+      } else if (selectedCategory === "Cars" || selectedCategory === "Automotive") {
+        matchesTaxonomy =
+          pCat === "cars" ||
+          pCat === "automotive";
       } else {
         matchesTaxonomy =
           pCat === sCat ||
@@ -722,6 +751,7 @@ function App() {
         prod.name.toLowerCase().includes(q) ||
         prod.description.toLowerCase().includes(q) ||
         pCat.includes(q) ||
+        Boolean(prod.subcategory && prod.subcategory.toLowerCase().includes(q)) ||
         Boolean(prod.brand && prod.brand.toLowerCase().includes(q)) ||
         Boolean(prod.sellerName && prod.sellerName.toLowerCase().includes(q)) ||
         Boolean(prod.tag && prod.tag.toLowerCase().includes(q)) ||
@@ -1406,7 +1436,7 @@ function App() {
                 <div className="catalog-filter-tabs">
                   {(() => {
                     const seen = new Set<string>();
-                    const cats = ["All", ...products.map((p) => p.category).filter(Boolean)];
+                    const cats = ["All", ...DEPARTMENTS, ...products.map((p) => p.category).filter(Boolean)];
                     return cats.filter((cat) => {
                       if (!cat || seen.has(cat)) return false;
                       seen.add(cat);
