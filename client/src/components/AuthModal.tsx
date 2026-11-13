@@ -312,9 +312,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     <div className="modal-backdrop" onClick={handleClose}>
       <div className="modal-card auth-modal-card" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <span className="brand-mark-small">V</span>
-          <button className="modal-close-btn" onClick={handleClose} aria-label="Close modal">
-            ✕
+          <span className="auth-modal-title">
+            {currentUser ? "Your account" : activeTab === "login" ? "Sign in" : "Create an account"}
+          </span>
+          <button className="modal-close-btn" onClick={handleClose} aria-label="Close">
+            Close
           </button>
         </div>
 
@@ -332,20 +334,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             {/* Verification Status Badge */}
             <div style={{ marginBottom: 16 }}>
               {currentUser.isVerified ? (
-                <span className="verified-badge">
-                  <span>✓</span> Verified Atelier Member
-                </span>
+                <span className="verified-badge">Email verified</span>
               ) : (
-                <span
+                <button
+                  type="button"
                   className="unverified-badge"
                   onClick={() => {
                     setEmail(currentUser.email);
                     setView("otp");
                   }}
-                  title="Click to verify your email"
+                  title="Verify your email address"
                 >
-                  <span>⚠</span> Verification Pending • Verify Now
-                </span>
+                  Email not verified, verify now
+                </button>
               )}
               <span className="role-tag" style={{ marginLeft: 8 }}>
                 {currentUser.role}
@@ -354,34 +355,29 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
             <div className="user-perks-list">
               <div className="perk-item">
-                <span>✦</span>
-                <p>Complimentary White-Glove Atelier packaging</p>
+                <p>White-glove packaging on every order</p>
               </div>
               <div className="perk-item">
-                <span>✦</span>
-                <p>Early access to seasonal lookbook drops</p>
+                <p>Seasonal lookbook drops, a day early</p>
               </div>
               <div className="perk-item">
-                <span>✦</span>
-                <p>Direct priority support concierge</p>
+                <p>A concierge who knows your orders</p>
               </div>
             </div>
 
             <button className="secondary-button full-button" onClick={onLogout}>
-              Sign Out of Account
+              Sign out
             </button>
           </div>
         ) : view === "otp" ? (
           /* ---------------- 2. OTP 6-DIGIT VERIFICATION VIEW ---------------- */
           <div>
-            <div className="otp-header-icon">✦</div>
 
             <div className="otp-title-wrap">
-              <h3>Verify Your Email</h3>
+              <h3>Check your inbox</h3>
               <p>
-                We have dispatched a 6-digit code with Vroom Atelier styles to:
-                <br />
-                <span className="otp-email-highlight">{email}</span>
+                We sent a six-digit code to <span className="otp-email-highlight">{email}</span>.
+                It expires in ten minutes.
               </p>
             </div>
 
@@ -415,7 +411,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 className="primary-button full-button"
                 disabled={loading || otpDigits.join("").length !== 6}
               >
-                {loading ? "Verifying Code..." : "Verify & Activate Atelier Access"}
+                {loading ? "Checking…" : "Verify"}
               </button>
 
               <div className="otp-footer-actions">
@@ -426,8 +422,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   disabled={resendCooldown > 0 || loading}
                 >
                   {resendCooldown > 0
-                    ? `Resend 6-digit code in ${resendCooldown}s`
-                    : "Resend verification code"}
+                    ? `Send a new code in ${resendCooldown}s`
+                    : "Send a new code"}
                 </button>
 
                 <button
@@ -439,13 +435,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     setInfoMsg("");
                   }}
                 >
-                  ← Edit email or return to sign in
+                  Use a different email
                 </button>
               </div>
 
-              <div className="otp-security-note">
-                <strong>VROOM ATELIER SECURITY:</strong> Code expires in 10 minutes. If you are developing locally with <code>MAIL=log</code>, check your server console log.
-              </div>
             </form>
           </div>
         ) : (
@@ -459,7 +452,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   setErrorMsg("");
                 }}
               >
-                Sign In
+                Sign in
               </button>
               <button
                 className={`auth-tab-btn ${activeTab === "register" ? "active" : ""}`}
@@ -468,7 +461,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   setErrorMsg("");
                 }}
               >
-                Create Account
+                Create account
               </button>
             </div>
 
@@ -477,7 +470,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             {activeTab === "login" ? (
               <form onSubmit={handleLogin} className="modal-auth-form">
                 <label className="field-label">
-                  <span>Email address</span>
+                  <span>Email</span>
                   <input
                     type="email"
                     required
@@ -511,12 +504,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     <input type="checkbox" defaultChecked />
                     <span>Keep me signed in</span>
                   </label>
-                  <a href="#" className="forgot-pwd-link" onClick={(e) => e.preventDefault()}>
+                  <button
+                    type="button"
+                    className="forgot-pwd-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
                 <button type="submit" className="primary-button full-button" disabled={loading}>
-                  {loading ? "Authenticating..." : "Sign In to Atelier"}
+                  {loading ? "Signing in…" : "Sign in"}
                 </button>
               </form>
             ) : (
@@ -527,7 +524,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     <input
                       type="text"
                       required
-                      placeholder="Jane"
+                      placeholder="First"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                     />
@@ -537,24 +534,24 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     <input
                       type="text"
                       required
-                      placeholder="Doe"
+                      placeholder="Last"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                     />
                   </label>
                 </div>
                 <label className="field-label">
-                  <span>Email address</span>
+                  <span>Email</span>
                   <input
                     type="email"
                     required
-                    placeholder="jane.doe@domain.com"
+                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </label>
                 <label className="field-label">
-                  <span>Password (min. 8 characters)</span>
+                  <span>Password, at least 8 characters</span>
                   <div className="password-input-wrap">
                     <input
                       type={showPassword ? "text" : "password"}
@@ -575,7 +572,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   </div>
                 </label>
                 <button type="submit" className="primary-button full-button" disabled={loading}>
-                  {loading ? "Creating Account..." : "Join Vroom Atelier & Verify"}
+                  {loading ? "Creating account…" : "Create account"}
                 </button>
               </form>
             )}

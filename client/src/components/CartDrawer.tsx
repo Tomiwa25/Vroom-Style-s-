@@ -65,23 +65,23 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     e.preventDefault();
     if (promoCode.trim().toUpperCase() === "VROOM10") {
       setDiscountPercent(10);
-      setPromoMessage("10% Atelier VIP discount applied!");
+      setPromoMessage("VROOM10 applied — 10% off.");
     } else if (promoCode.trim().toUpperCase() === "VROOM20") {
       setDiscountPercent(20);
-      setPromoMessage("20% Summer Drop discount applied!");
+      setPromoMessage("VROOM20 applied — 20% off.");
     } else {
-      setPromoMessage("Invalid promo code. Try 'VROOM10'");
+      setPromoMessage("That code isn't valid.");
     }
   };
 
   const handlePodSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!podAddress.trim()) {
-      setPodFormError("Please enter your doorstep delivery address.");
+      setPodFormError("Add the address the courier should bring this to.");
       return;
     }
     if (!podPhone.trim() || podPhone.trim().length < 10) {
-      setPodFormError("Please enter a valid recipient phone number.");
+      setPodFormError("Add the phone number your courier will call.");
       return;
     }
     setPodFormError("");
@@ -100,17 +100,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         {/* Drawer Header */}
         <div className="drawer-header">
           <div className="drawer-title-group">
-            <h3>Shopping Bag</h3>
+            <h3>Bag</h3>
             <span className="drawer-count">
-              ({items.reduce((acc, i) => acc + i.quantity, 0)} items)
+              {items.reduce((acc, i) => acc + i.quantity, 0) === 1
+                ? "1 piece"
+                : `${items.reduce((acc, i) => acc + i.quantity, 0)} pieces`}
             </span>
           </div>
           <button
             className="drawer-close-btn"
             onClick={onClose}
-            aria-label="Close bag"
           >
-            ✕
+            Close
           </button>
         </div>
 
@@ -118,11 +119,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         <div className="shipping-tier-card">
           <div className="shipping-tier-text">
             {amountToFreeShipping === 0 ? (
-              <span>✨ <strong>Complimentary Express Dispatch unlocked!</strong></span>
+              <span>
+                <strong>Express delivery is on us</strong>
+              </span>
             ) : (
               <span>
-                Add <strong>{formatPrice(amountToFreeShipping)}</strong> more to
-                unlock <strong>Free Express Dispatch</strong>
+                <strong>{formatPrice(amountToFreeShipping)}</strong> more and
+                delivery is on us
               </span>
             )}
           </div>
@@ -138,13 +141,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         <div className="drawer-items">
           {items.length === 0 ? (
             <div className="drawer-empty-state">
-              <span className="empty-bag-icon">🛍</span>
-              <p className="empty-title">Your shopping bag is empty</p>
+              <p className="empty-title">Your bag is empty</p>
               <p className="empty-sub">
-                Explore our curated atelier clothing and luxury accessories.
+                Pieces you add will be held here until you check out.
               </p>
               <button className="primary-button" onClick={onClose}>
-                Explore Collection
+                Browse the collection
               </button>
             </div>
           ) : (
@@ -161,26 +163,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <button
                       className="item-remove-btn"
                       onClick={() => onRemoveItem(index)}
-                      title="Remove item"
+                      aria-label={`Remove ${item.product.name} from bag`}
                     >
-                      ×
+                      Remove
                     </button>
                   </div>
 
                   <div className="drawer-item-meta">
-                    {item.selectedSize && <span>Size: {item.selectedSize}</span>}
-                    {item.selectedColor && (
-                      <span>Color: {item.selectedColor}</span>
-                    )}
+                    {item.selectedSize && <span>Size {item.selectedSize}</span>}
+                    {item.selectedColor && <span>{item.selectedColor}</span>}
                   </div>
 
-                  {/* PoD Eligibility Micro-Badge */}
                   <div className="drawer-item-pod-tag">
-                    {item.product.isPodEligible ? (
-                      <span className="pod-tag-eligible">✓ Pay on Delivery Eligible</span>
-                    ) : (
-                      <span className="pod-tag-prepaid">🔒 Paystack Prepay Only</span>
-                    )}
+                    {item.product.isPodEligible
+                      ? "Can be paid at delivery"
+                      : "Paid in advance"}
                   </div>
 
                   <div className="drawer-item-bottom">
@@ -220,7 +217,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <form onSubmit={handleApplyPromo} className="promo-input-row">
               <input
                 type="text"
-                placeholder="Discount code (e.g. VROOM10)"
+                placeholder="Discount code"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
                 className="promo-field"
@@ -246,18 +243,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
               {discountPercent > 0 && (
                 <div className="cost-row discount">
-                  <span>VIP Discount ({discountPercent}%)</span>
+                  <span>Discount ({discountPercent}%)</span>
                   <span>-{formatPrice(discountAmount)}</span>
                 </div>
               )}
               <div className="cost-row">
-                <span>Estimated Shipping</span>
+                <span>Delivery</span>
                 <span>
-                  {amountToFreeShipping === 0 ? "FREE" : formatPrice(5000)}
+                  {amountToFreeShipping === 0 ? "Free" : formatPrice(5000)}
                 </span>
               </div>
               <div className="cost-row total-row">
-                <strong>Estimated Total</strong>
+                <strong>Total</strong>
                 <strong>{formatPrice(totalAmount)}</strong>
               </div>
             </div>
@@ -270,10 +267,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   className={`settlement-tab ${selectedMethod === "online" ? "active" : ""}`}
                   onClick={() => setSelectedMethod("online")}
                 >
-                  <span className="tab-icon">💳</span>
                   <div className="tab-labels">
-                    <strong>Pay Online Now</strong>
-                    <span>Paystack Card / Transfer</span>
+                    <strong>Pay online</strong>
+                    <span>Card or transfer via Paystack</span>
                   </div>
                 </button>
 
@@ -282,10 +278,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   className={`settlement-tab ${selectedMethod === "pod" ? "active" : ""}`}
                   onClick={() => setSelectedMethod("pod")}
                 >
-                  <span className="tab-icon">💵</span>
                   <div className="tab-labels">
-                    <strong>Pay on Delivery</strong>
-                    <span>Doorstep POS / Cash</span>
+                    <strong>Pay on delivery</strong>
+                    <span>POS or cash at your door</span>
                   </div>
                 </button>
               </div>
@@ -300,10 +295,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   >
                     {isCheckingOut ? (
                       <span className="checkout-spinner-label">
-                        <span className="btn-spinner"></span> Connecting Paystack...
+                        <span className="btn-spinner"></span> Taking you to payment...
                       </span>
                     ) : (
-                      `Proceed to Paystack Checkout (${formatPrice(totalAmount)}) →`
+                      `Checkout · ${formatPrice(totalAmount)}`
                     )}
                   </button>
 
@@ -312,9 +307,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     className="checkout-alt-link"
                     onClick={() => onCheckout("redirect")}
                     disabled={isCheckingOut}
-                    title="Open Paystack in full hosted browser tab"
+                    title="Open the Paystack checkout page in a new tab"
                   >
-                    Option A: Pay on Paystack Hosted Page ↗
+                    Pay in a separate window
                   </button>
                 </div>
               )}
@@ -324,12 +319,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="pod-checkout-form-container">
                   {!isCartEligibleForPod ? (
                     <div className="pod-ineligible-banner">
-                      <span className="ineligible-icon">⚠️</span>
+                      
                       <div>
-                        <strong>Payment on Delivery Unavailable</strong>
-                        <p>
-                          The following item(s) in your bag require prepayment:
-                        </p>
+                        <strong>These pieces need paying in advance</strong>
+                        <p>Everything else in your bag can be paid at the door.</p>
                         <ul>
                           {nonPodItems.map((it, i) => (
                             <li key={i}>{it.product.name}</li>
@@ -340,16 +333,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           className="switch-to-online-btn"
                           onClick={() => setSelectedMethod("online")}
                         >
-                          Switch to Online Checkout →
+                          Pay online instead
                         </button>
                       </div>
                     </div>
                   ) : (
                     <form onSubmit={handlePodSubmit} className="pod-doorstep-form">
                       <div className="pod-form-header">
-                        <span className="pod-form-badge">Doorstep Settlement</span>
+                        <span className="pod-form-badge">Paid at your door</span>
                         <p>
-                          Inspect your package upon arrival. Settle <strong>{formatPrice(totalAmount)}</strong> via mobile POS card terminal (Mastercard, Visa, Verve) or cash.
+                          Inspect the parcel when it arrives. Pay <strong>{formatPrice(totalAmount)}</strong> via mobile POS card terminal (Mastercard, Visa, Verve) or cash.
                         </p>
                       </div>
 
@@ -358,7 +351,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       )}
 
                       <div className="pod-input-group">
-                        <label>Delivery City Region</label>
+                        <label>Delivery region</label>
                         <select
                           value={podCity}
                           onChange={(e) => setPodCity(e.target.value)}
@@ -373,11 +366,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       </div>
 
                       <div className="pod-input-group">
-                        <label>Doorstep Delivery Street Address</label>
+                        <label>Street address</label>
                         <input
                           type="text"
                           className="pod-input"
-                          placeholder="e.g. Flat 3, 14 Admiralty Way, Lekki Phase 1"
+                          placeholder="Flat 3, 14 Admiralty Way, Lekki Phase 1"
                           value={podAddress}
                           onChange={(e) => setPodAddress(e.target.value)}
                           required
@@ -385,7 +378,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       </div>
 
                       <div className="pod-input-group">
-                        <label>Contact Phone (For Courier Dispatch Call)</label>
+                        <label>Phone for the courier</label>
                         <input
                           type="tel"
                           className="pod-input"
@@ -397,11 +390,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       </div>
 
                       <div className="pod-input-group">
-                        <label>Delivery Instructions (Optional)</label>
+                        <label>Delivery notes (optional)</label>
                         <input
                           type="text"
                           className="pod-input"
-                          placeholder="Gate security code, landmark, best call time"
+                          placeholder="Gate code, landmark, when to call"
                           value={podNotes}
                           onChange={(e) => setPodNotes(e.target.value)}
                         />
@@ -417,7 +410,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             <span className="btn-spinner"></span> Dispatching Order...
                           </span>
                         ) : (
-                          `Confirm Pay on Delivery Order (${formatPrice(totalAmount)}) →`
+                          `Place order, pay at delivery (${formatPrice(totalAmount)})`
                         )}
                       </button>
                     </form>
@@ -427,9 +420,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
 
             <div className="checkout-trust-row">
-              <span>🔒 256-Bit Encrypted</span>
-              <span>⚡ Vroom Express Dispatch</span>
-              <span>💵 Doorstep POS Inspection</span>
+              <span>256-bit encrypted checkout</span>
+              <span>Dispatched within 24 hours</span>
+              <span>Inspect before you pay</span>
             </div>
           </div>
         )}

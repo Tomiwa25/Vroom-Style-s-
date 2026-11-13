@@ -7,9 +7,12 @@ interface CategoryMegaMenuProps {
   onSearchQuery?: (query: string) => void;
   isOpen?: boolean;
   onToggle?: (open: boolean) => void;
+  /** When false, only the panel renders (trigger lives outside, e.g. header). */
+  showTrigger?: boolean;
 }
 
 interface MegaColumn {
+  no: string;
   title: string;
   categoryKey: string;
   items: { label: string; query?: string }[];
@@ -17,100 +20,71 @@ interface MegaColumn {
 
 const MEGA_DEPARTMENTS: MegaColumn[] = [
   {
-    title: "🚗 Vroom Motors Showroom",
-    categoryKey: "Cars",
+    no: "01",
+    title: "Tailoring",
+    categoryKey: "Women",
     items: [
-      { label: "Porsche 911 & Exotic Supercars", query: "Porsche" },
-      { label: "Mercedes-AMG & G-Wagon", query: "Mercedes" },
-      { label: "BMW M Series & Luxury Sedans", query: "BMW" },
-      { label: "Range Rover & 4x4 SUVs", query: "Range Rover" },
-      { label: "Tesla & Electric Hyper-Saloons", query: "Tesla" },
-      { label: "View All 30 Showroom Cars" },
+      { label: "Coats & Blazers", query: "blazer" },
+      { label: "Dresses", query: "dress" },
+      { label: "Trousers", query: "trouser" },
+      { label: "Shirts", query: "shirt" },
     ],
   },
   {
-    title: "🧊 Fridges & Cooling",
-    categoryKey: "Fridges",
+    no: "02",
+    title: "Outerwear",
+    categoryKey: "Outerwear",
     items: [
-      { label: "Samsung & LG French Door Smart Fridges", query: "French Door" },
-      { label: "Smeg Retro 50s Pastel Fridges", query: "Smeg" },
-      { label: "Side-by-Side Inverter Refrigerator", query: "Side-by-Side" },
-      { label: "Commercial Deep Chest Freezers", query: "Freezer" },
-      { label: "View All 30 Fridges & Freezers" },
+      { label: "Overshirts", query: "overshirt" },
+      { label: "Trench Coats", query: "trench" },
+      { label: "Field Jackets", query: "field" },
     ],
   },
   {
-    title: "📻 Microwaves & Ovens",
-    categoryKey: "Microwaves",
+    no: "03",
+    title: "Knitwear",
+    categoryKey: "Knitwear",
     items: [
-      { label: "Panasonic Genius Inverter Microwaves", query: "Inverter" },
-      { label: "Breville & Samsung Smart Sensors", query: "Breville" },
-      { label: "Convection Air Fryer Combos", query: "Convection" },
-      { label: "Built-In Undercounter Drawers", query: "Drawer" },
-      { label: "View All 30 Microwaves" },
+      { label: "Cashmere", query: "cashmere" },
+      { label: "Merino", query: "merino" },
+      { label: "Polo Collars", query: "polo" },
     ],
   },
   {
-    title: "🍳 Kitchenware & Utensils",
-    categoryKey: "Kitchen Utensils",
+    no: "04",
+    title: "Accessories",
+    categoryKey: "Accessories",
     items: [
-      { label: "Le Creuset Enameled Dutch Ovens", query: "Creuset" },
-      { label: "Wüsthof & Shun Japanese Knife Sets", query: "Knife" },
-      { label: "All-Clad & Caraway Cookware Sets", query: "Cookware" },
-      { label: "Boos Block End-Grain Cutting Boards", query: "Board" },
-      { label: "View All 30 Kitchen Essentials" },
+      { label: "Leather Goods", query: "leather" },
+      { label: "Belts", query: "belt" },
+      { label: "Silk", query: "silk" },
     ],
   },
   {
-    title: "🛋️ Designer Living & Furniture",
-    categoryKey: "Furniture",
+    no: "05",
+    title: "Footwear",
+    categoryKey: "Footwear",
     items: [
-      { label: "Eames Lounge & Barcelona Chairs", query: "Chair" },
-      { label: "Solid White Oak & Marble Dining Tables", query: "Table" },
-      { label: "Velvet & Bouclé Modular Sofas", query: "Sofa" },
-      { label: "Herman Miller & Steelcase Task Chairs", query: "Ergonomic" },
-      { label: "View All 30 Furniture Pieces" },
+      { label: "Loafers", query: "loafer" },
+      { label: "Boots", query: "boot" },
+      { label: "Derbies", query: "derby" },
     ],
   },
   {
-    title: "📺 Cinematic 4K/8K TVs",
-    categoryKey: "TVs",
+    no: "06",
+    title: "Living",
+    categoryKey: "Appliances",
     items: [
-      { label: "LG OLED evo & Gallery Edition", query: "OLED" },
-      { label: "Sony BRAVIA XR QD-OLED Displays", query: "Sony" },
-      { label: "Samsung Neo QLED 8K & The Frame", query: "Samsung" },
-      { label: "75\" - 100\" Giant Home Cinema Screens", query: "Giant" },
-      { label: "View All 30 Smart TVs" },
-    ],
-  },
-  {
-    title: "💻 Laptops & Workstations",
-    categoryKey: "Laptops",
-    items: [
-      { label: "Apple MacBook Pro M3 Max & Air", query: "MacBook" },
-      { label: "RTX 4090 Gaming Rigs & Zephyrus", query: "RTX" },
-      { label: "Dell XPS & Lenovo ThinkPad Carbon", query: "ThinkPad" },
-      { label: "OLED Creator & 2-in-1 Touch Laptops", query: "OLED" },
-      { label: "View All 30 Laptops" },
-    ],
-  },
-  {
-    title: "🖥️ Studio Displays & Monitors",
-    categoryKey: "Monitors",
-    items: [
-      { label: "Apple Studio Display 5K & XDR", query: "Apple" },
-      { label: "Samsung 49\" Odyssey OLED Ultrawide", query: "Odyssey" },
-      { label: "Dell UltraSharp & ASUS ProArt Displays", query: "UltraSharp" },
-      { label: "240Hz - 360Hz QD-OLED eSports Monitors", query: "OLED" },
-      { label: "View All 30 Monitors" },
+      { label: "Kitchen", query: "kitchen" },
+      { label: "Cooling", query: "fridge" },
+      { label: "Textiles", query: "linen" },
     ],
   },
 ];
 
 /**
- * High-contrast Category Navigation Bar & Multi-Column Mega Menu.
- * Features keyboard & click-outside dismissal, departmental grouping,
- * quick category tabs, and an Atelier spotlight showcase.
+ * Departments panel. One column per floor, thin rules, no ornament:
+ * a printed store index rather than a navigation widget.
  */
 export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
   selectedCategory,
@@ -118,6 +92,7 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
   onSearchQuery,
   isOpen: controlledIsOpen,
   onToggle: controlledOnToggle,
+  showTrigger = true,
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const isMegaOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
@@ -134,10 +109,11 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
 
   useClickOutside(containerRef, () => setMegaOpen(false), isMegaOpen);
 
-  const handleCategoryClick = (cat: string) => {
-    onSelectCategory(cat);
-    setMegaOpen(false);
-    scrollToCatalog();
+  const scrollToCatalog = () => {
+    const el = document.getElementById("catalog-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleSubItemClick = (categoryKey: string, query?: string) => {
@@ -149,76 +125,76 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
     scrollToCatalog();
   };
 
-  const scrollToCatalog = () => {
-    const el = document.getElementById("catalog-section");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <div className="mega-menu-drawer-wrapper" ref={containerRef}>
-      {/* Floating Mega-Menu Popover Panel */}
+    <div className="index-panel-anchor" ref={containerRef}>
+      {showTrigger && (
+        <button
+          type="button"
+          className={`all-categories-btn ${isMegaOpen ? "active" : ""}`}
+          onClick={() => setMegaOpen(!isMegaOpen)}
+          aria-expanded={isMegaOpen}
+          aria-controls="mega-menu-panel"
+          aria-label="Open Full Mega Menu Catalog"
+        >
+          <span className="hamburger-icon" aria-hidden="true">☰</span>
+          <span className="all-cat-label">All Categories</span>
+          <span className="all-cat-chevron" aria-hidden="true">▾</span>
+        </button>
+      )}
       {isMegaOpen && (
         <div
           id="mega-menu-panel"
-          className="mega-menu-panel"
+          className="index-panel"
           role="region"
-          aria-label="Atelier Departments Mega Menu"
+          aria-label="Departments index"
         >
-          <div className="mega-menu-inner">
-            {/* Multi-Column Grid */}
-            <div className="mega-columns-grid">
-              {MEGA_DEPARTMENTS.map((dept) => {
-                const isCurrent = selectedCategory.toLowerCase() === dept.categoryKey.toLowerCase();
-                return (
-                  <div
-                    key={dept.title}
-                    className={`mega-column ${isCurrent ? "active-department" : ""}`}
-                  >
-                    <h3
-                      className="mega-column-title"
-                      onClick={() => handleCategoryClick(dept.categoryKey)}
-                      tabIndex={0}
-                      role="button"
-                    >
-                      <span>{dept.title}</span>
-                      <span className="column-title-arrow">→</span>
-                    </h3>
-                    <ul className="mega-column-list">
-                      {dept.items.map((item) => (
-                        <li key={item.label}>
-                          <button
-                            type="button"
-                            className="mega-item-link"
-                            onClick={() => handleSubItemClick(dept.categoryKey, item.query)}
-                          >
-                            {item.label}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
-            </div>
+          <div className="index-panel-head">
+            <span className="kicker">Index</span>
+            <button
+              type="button"
+              className="index-panel-close"
+              onClick={() => setMegaOpen(false)}
+              aria-label="Close index"
+            >
+              Close
+            </button>
+          </div>
 
-            {/* Atelier Spotlight Card */}
-            <div className="mega-spotlight-card">
-              <div className="spotlight-badge">👑 OFFICIAL ATELIER</div>
-              <h4>Vroom Style(s) Master Lookbook</h4>
-              <p>
-                Handcrafted garments, Italian bridle leathers, and curated lifestyle essentials
-                shipped across Nigeria within 24–48 hours.
-              </p>
-              <button
-                type="button"
-                className="spotlight-cta-btn"
-                onClick={() => handleCategoryClick("Official Store")}
-              >
-                Explore Official Store →
-              </button>
-            </div>
+          <div className="index-panel-grid">
+            {MEGA_DEPARTMENTS.map((dept) => {
+              const isCurrent =
+                selectedCategory.toLowerCase() === dept.categoryKey.toLowerCase();
+              return (
+                <div
+                  key={dept.no}
+                  className={`index-column ${isCurrent ? "is-current" : ""}`}
+                >
+                  <div className="index-column-head">
+                    <span className="index-no">{dept.no}</span>
+                    <button
+                      type="button"
+                      className="index-column-title"
+                      onClick={() => handleSubItemClick(dept.categoryKey)}
+                    >
+                      {dept.title}
+                    </button>
+                  </div>
+                  <ul className="index-list">
+                    {dept.items.map((item) => (
+                      <li key={item.label}>
+                        <button
+                          type="button"
+                          className="index-item"
+                          onClick={() => handleSubItemClick(dept.categoryKey, item.query)}
+                        >
+                          {item.label}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

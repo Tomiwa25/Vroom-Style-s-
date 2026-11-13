@@ -165,12 +165,12 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
             title="Chat with Atelier Stylist Sarah"
           >
             <div className="bubble-avatar-wrapper">
-              <span className="stylist-avatar-emoji">👩🏾‍💼</span>
+              <span className="stylist-avatar-emoji" aria-hidden="true">S</span>
               <span className="online-pulse-beacon" title="Sarah is online now"></span>
             </div>
             <div className="bubble-text-group">
               <strong className="bubble-name">Ask a Stylist</strong>
-              <span className="bubble-status">Sarah • Online Now</span>
+              <span className="bubble-status">Sarah is online</span>
             </div>
             {hasUnread && <span className="unread-dot-badge">1</span>}
           </button>
@@ -184,12 +184,12 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
           <div className="chat-drawer-header">
             <div className="chat-agent-profile">
               <div className="agent-avatar-box">
-                <span className="agent-avatar-icon">👩🏾‍💼</span>
+                <span className="agent-avatar-icon" aria-hidden="true">S</span>
                 <span className="agent-status-dot online"></span>
               </div>
               <div className="agent-meta">
-                <strong className="agent-name">Sarah • Atelier Concierge</strong>
-                <span className="agent-sub">Replies in &lt; 2 minutes</span>
+                <strong className="agent-name">Sarah, atelier concierge</strong>
+                <span className="agent-sub">Usually replies within two minutes</span>
               </div>
             </div>
 
@@ -200,7 +200,7 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
                 onClick={() => handleActionClick("whatsapp")}
                 title="Launch WhatsApp Chat directly"
               >
-                <span>💬 WhatsApp</span>
+                <span>WhatsApp</span>
               </button>
               <button
                 type="button"
@@ -220,12 +220,11 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
             role="button"
             tabIndex={0}
           >
-            <span className="wa-brand-icon">💬</span>
             <div className="wa-banner-text">
-              <strong>Official WhatsApp Concierge:</strong>
+              <strong>WhatsApp</strong>
               <span>{OFFICIAL_WHATSAPP_DISPLAY}</span>
             </div>
-            <span className="wa-open-arrow">↗</span>
+            <span className="wa-open-arrow" aria-hidden="true">→</span>
           </div>
 
           {/* Chat Stream Body */}
@@ -233,7 +232,7 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
             {messages.map((msg) => (
               <div key={msg.id} className={`chat-message-row ${msg.sender}`}>
                 {msg.sender === "agent" && (
-                  <span className="msg-avatar-icon">👩🏾‍💼</span>
+                  <span className="msg-avatar-icon" aria-hidden="true">S</span>
                 )}
                 <div className="msg-bubble-content">
                   <p className="msg-bubble-text">{msg.text}</p>
@@ -258,7 +257,7 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
 
           {/* Quick Question Chips */}
           <div className="chat-quick-chips-wrapper">
-            <span className="quick-chips-hint">Frequently Asked:</span>
+            <span className="quick-chips-hint">Common questions</span>
             <div className="quick-chips-scroll">
               {PRESET_QUICK_ACTIONS.map((preset) => (
                 <button
@@ -285,7 +284,7 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Type your question or styling inquiry..."
+              placeholder="Ask about a piece, a size, or an order"
               className="chat-text-input"
               aria-label="Type message"
             />
@@ -295,7 +294,7 @@ export const LiveChatConcierge: React.FC<LiveChatConciergeProps> = ({
               disabled={!inputValue.trim()}
               aria-label="Send message"
             >
-              ➤
+              →
             </button>
           </form>
 

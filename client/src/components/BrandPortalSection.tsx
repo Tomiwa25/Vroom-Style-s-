@@ -72,10 +72,14 @@ const BRAND_PROFILES: BrandProfile[] = [
   },
 ];
 
-/**
- * Dedicated Brand Portal Showcase Section.
- * Inspired by official e-commerce brand store pages (e.g. Samsung/Apple/SteamOne official flagship carousels).
- */
+/** Who is authorised to sell here, set as a reading list rather than a tab bar. */
+const BADGE_AS_STATEMENT: Record<string, string> = {
+  "OFFICIAL FLAGSHIP": "Flagship house",
+  "OFFICIAL STORE": "Official store",
+  "SIGNATURE ATELIER": "Signature atelier",
+  "CLEAN BEAUTY": "Clean beauty house",
+};
+
 export const BrandPortalSection: React.FC<BrandPortalSectionProps> = ({
   products,
   formatPrice,
@@ -91,110 +95,113 @@ export const BrandPortalSection: React.FC<BrandPortalSectionProps> = ({
 
   const activeProfile = BRAND_PROFILES.find((b) => b.id === selectedBrandId) || BRAND_PROFILES[0];
 
-  // Filter products matching current brand
   const brandProducts = products.filter((p) => {
     const pBrand = (p.brand || "").toLowerCase();
     const query = activeProfile.brandQuery.toLowerCase();
     return pBrand.includes(query) || (p.tag && p.tag.toLowerCase().includes(query));
   });
 
-  const scroll = (direction: "left" | "right") => {
-    if (trackRef.current) {
-      const offset = direction === "left" ? -340 : 340;
-      trackRef.current.scrollBy({ left: offset, behavior: "smooth" });
-    }
+  const scroll = (direction: -1 | 1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollBy({ left: direction * Math.round(track.clientWidth * 0.8), behavior: "smooth" });
   };
 
   return (
-    <section className="brand-portal-section" aria-label="Official Brand Stores">
-      <div className="brand-portal-container">
-        {/* Brand Switcher Tabs */}
-        <div className="brand-portal-tabs-nav">
-          <div className="brand-tabs-header">
-            <span className="brand-tabs-kicker">AUTHORIZED FLAGSHIPS</span>
-            <h3 className="brand-tabs-heading">Official Brand Stores</h3>
-          </div>
+    <section className="showcase showcase-houses" aria-labelledby="houses-title">
+      <header className="showcase-head">
+        <div className="showcase-head-copy">
+          <span className="showcase-kicker">Authorised sellers</span>
+          <h2 className="showcase-title" id="houses-title">
+            The houses we keep
+          </h2>
+          <p className="showcase-lede">
+            Four labels, each one sold by its own studio. Warranty and authenticity are
+            the house&apos;s, not ours.
+          </p>
+        </div>
+      </header>
 
-          <div className="brand-tabs-list">
-            {BRAND_PROFILES.map((brand) => (
-              <button
-                key={brand.id}
-                type="button"
-                className={`brand-pill-tab ${selectedBrandId === brand.id ? "active" : ""}`}
-                onClick={() => setSelectedBrandId(brand.id)}
-              >
-                <span className="brand-pill-icon">{brand.icon}</span>
-                <span className="brand-pill-label">{brand.shortTag}</span>
-                {selectedBrandId === brand.id && (
-                  <span className="brand-pill-verified">✓</span>
-                )}
-              </button>
-            ))}
-          </div>
+      <nav className="house-index" aria-label="Choose a house">
+        {BRAND_PROFILES.map((brand) => {
+          const isActive = selectedBrandId === brand.id;
+          return (
+            <button
+              key={brand.id}
+              type="button"
+              className={`house-index-item ${isActive ? "is-active" : ""}`}
+              onClick={() => setSelectedBrandId(brand.id)}
+              aria-pressed={isActive}
+            >
+              <span className="house-index-name">{brand.shortTag}</span>
+              <span className="house-index-note">
+                {BADGE_AS_STATEMENT[brand.badge] ?? brand.badge.toLowerCase()}
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+
+      <div className="house-spotlight">
+        <div className="house-spotlight-copy">
+          <h3 className="house-name">{activeProfile.name}</h3>
+          <p className="house-tagline">{activeProfile.tagline}</p>
+          <p className="house-description">{activeProfile.description}</p>
+          <p className="house-warranty">{activeProfile.warranty}</p>
         </div>
 
-        {/* Brand Spotlight Banner Header */}
-        <div className="brand-spotlight-banner">
-          <div className="brand-spotlight-left">
-            <div className="brand-verified-row">
-              <span className="brand-badge-official">{activeProfile.badge}</span>
-              <span className="brand-verified-bullet">• {activeProfile.warranty}</span>
-            </div>
-            <h4 className="brand-spotlight-title">{activeProfile.name}</h4>
-            <p className="brand-spotlight-tagline">{activeProfile.tagline}</p>
-            <p className="brand-spotlight-desc">{activeProfile.description}</p>
+        <div className="house-spotlight-aside">
+          {onExploreBrandCatalog && (
+            <button
+              type="button"
+              className="showcase-link"
+              onClick={() => onExploreBrandCatalog(activeProfile.brandQuery)}
+            >
+              All {activeProfile.shortTag}
+            </button>
+          )}
+          <div className="rail-nav">
+            <button
+              type="button"
+              className="rail-nav-btn"
+              onClick={() => scroll(-1)}
+              aria-label={`Scroll ${activeProfile.shortTag} back`}
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              className="rail-nav-btn"
+              onClick={() => scroll(1)}
+              aria-label={`Scroll ${activeProfile.shortTag} forward`}
+            >
+              →
+            </button>
           </div>
-
-          <div className="brand-spotlight-actions">
-            {onExploreBrandCatalog && (
-              <button
-                type="button"
-                className="brand-explore-catalog-btn"
-                onClick={() => onExploreBrandCatalog(activeProfile.brandQuery)}
-              >
-                View Full {activeProfile.shortTag} Collection →
-              </button>
-            )}
-            <div className="brand-scroll-arrows">
-              <button
-                type="button"
-                className="rail-nav-btn prev"
-                onClick={() => scroll("left")}
-                aria-label="Scroll brand items left"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                className="rail-nav-btn next"
-                onClick={() => scroll("right")}
-                aria-label="Scroll brand items right"
-              >
-                ›
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Brand Products Carousel Track */}
-        <div className="brand-products-carousel-track" ref={trackRef}>
-          {brandProducts.map((product) => (
-            <div key={product.id} className="rail-item-card-wrapper">
-              <ProductCard
-                product={product}
-                formatPrice={formatPrice}
-                isFavorited={wishlist.includes(product.id)}
-                onToggleWishlist={onToggleWishlist}
-                onQuickView={onQuickView}
-                onOpenLightbox={onOpenLightbox}
-                onAddToCart={onAddToCart}
-                compact
-              />
-            </div>
-          ))}
         </div>
       </div>
+
+      {brandProducts.length > 0 ? (
+        <div className="rail-track" ref={trackRef}>
+          {brandProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              formatPrice={formatPrice}
+              isFavorited={wishlist.includes(product.id)}
+              onToggleWishlist={onToggleWishlist}
+              onQuickView={onQuickView}
+              onOpenLightbox={onOpenLightbox}
+              onAddToCart={onAddToCart}
+              compact
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="house-empty">
+          This house has nothing on the floor today. Its next drop is listed under events.
+        </p>
+      )}
     </section>
   );
 };
-

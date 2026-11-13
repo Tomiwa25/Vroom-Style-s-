@@ -38,62 +38,44 @@ export const AppSmartBanner: React.FC<AppSmartBannerProps> = ({ onOpenAppModal }
         setShowQrModal(true);
       }
     } else {
-      // On mobile devices, redirect directly to App Store / Google Play
       window.open(config.downloadUrl, "_blank", "noopener,noreferrer");
     }
   };
 
+  const actionLabel =
+    detectedOS === "ios" ? "Get it on the App Store" : detectedOS === "android" ? "Get it on Google Play" : "Get the app";
+
   return (
     <>
-      <div className={`smart-app-banner os-${detectedOS}`} role="banner" aria-label="Mobile app download banner">
+      <div className={`smart-app-banner os-${detectedOS}`} role="banner" aria-label="Vroom Style(s) mobile app">
         <div className="smart-banner-wrap">
-          {/* Dismiss button */}
+          <p className="smart-banner-info">
+            <span className="smart-app-name">Vroom Style(s) for {detectedOS === "android" ? "Android" : "iPhone"}</span>
+            <span className="smart-app-meta">{config.ratingText}</span>
+          </p>
+
+          <a
+            href={config.downloadUrl}
+            onClick={handleActionClick}
+            className="smart-banner-action-btn"
+            target={detectedOS === "desktop" ? undefined : "_blank"}
+            rel="noopener noreferrer"
+          >
+            {actionLabel}
+            <span aria-hidden="true">→</span>
+          </a>
+
           <button
             type="button"
             className="smart-banner-close-btn"
             onClick={handleDismiss}
             aria-label="Dismiss app banner"
           >
-            ✕
+            Dismiss
           </button>
-
-          {/* App Icon */}
-          <div className="smart-banner-app-icon">
-            <span className="app-icon-letter">V</span>
-            <span className="app-icon-spark">✦</span>
-          </div>
-
-          {/* App Details */}
-          <div className="smart-banner-info">
-            <div className="smart-banner-title-row">
-              <strong className="smart-app-name">{config.appTitle}</strong>
-              <span className="smart-os-pill">{config.storeName}</span>
-            </div>
-            <span className="smart-app-meta">{config.ratingText}</span>
-          </div>
-
-          {/* Call to Action */}
-          <div className="smart-banner-actions">
-            <a
-              href={config.downloadUrl}
-              onClick={handleActionClick}
-              className="smart-banner-action-btn"
-              target={detectedOS === "desktop" ? undefined : "_blank"}
-              rel="noopener noreferrer"
-            >
-              {detectedOS === "ios" ? (
-                <span>GET </span>
-              ) : detectedOS === "android" ? (
-                <span>INSTALL ▶</span>
-              ) : (
-                <span>GET APP 📱</span>
-              )}
-            </a>
-          </div>
         </div>
       </div>
 
-      {/* QR Code Scan Modal for Desktop */}
       {showQrModal && (
         <div className="modal-backdrop" onClick={() => setShowQrModal(false)}>
           <div
@@ -101,105 +83,85 @@ export const AppSmartBanner: React.FC<AppSmartBannerProps> = ({ onOpenAppModal }
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
+            aria-labelledby="app-download-title"
           >
             <button
               type="button"
               className="modal-close-btn"
               onClick={() => setShowQrModal(false)}
-              aria-label="Close app modal"
+              aria-label="Close app dialog"
             >
-              ✕
+              Close
             </button>
 
             <div className="app-download-content">
               <div className="app-modal-header">
-                <span className="app-modal-badge">MOBILE COMPANION</span>
-                <h3>Experience Vroom Style(s) on iOS & Android</h3>
+                <h3 id="app-download-title">Scan this to install Vroom Style(s)</h3>
                 <p>
-                  Scan the QR code with your smartphone camera to download our native app directly from the Apple App Store or Google Play Store.
+                  Point your phone camera at the code. It opens the App Store or Google Play, whichever your
+                  device uses.
                 </p>
               </div>
 
-              <div className="app-qr-display-grid">
-                {/* Simulated High-Res SVG QR Code */}
-                <div className="qr-code-box">
-                  <svg
-                    viewBox="0 0 100 100"
-                    className="qr-svg-graphic"
-                    aria-label="QR Code to download Vroom Styles mobile application"
-                  >
-                    <rect width="100" height="100" fill="#ffffff" />
-                    {/* Top-left marker */}
-                    <rect x="10" y="10" width="25" height="25" fill="#0f172a" />
-                    <rect x="15" y="15" width="15" height="15" fill="#ffffff" />
-                    <rect x="18" y="18" width="9" height="9" fill="#0f172a" />
+              <div className="qr-scan-block">
+                <svg viewBox="0 0 100 100" width="132" height="132" role="img" aria-label="App download QR code">
+                  <rect width="100" height="100" fill="#ffffff" />
 
-                    {/* Top-right marker */}
-                    <rect x="65" y="10" width="25" height="25" fill="#0f172a" />
-                    <rect x="70" y="15" width="15" height="15" fill="#ffffff" />
-                    <rect x="73" y="18" width="9" height="9" fill="#0f172a" />
+                  <rect x="8" y="8" width="25" height="25" fill="#0f172a" />
+                  <rect x="13" y="13" width="15" height="15" fill="#ffffff" />
+                  <rect x="18" y="18" width="5" height="5" fill="#0f172a" />
 
-                    {/* Bottom-left marker */}
-                    <rect x="10" y="65" width="25" height="25" fill="#0f172a" />
-                    <rect x="15" y="70" width="15" height="15" fill="#ffffff" />
-                    <rect x="18" y="73" width="9" height="9" fill="#0f172a" />
+                  <rect x="67" y="8" width="25" height="25" fill="#0f172a" />
+                  <rect x="72" y="13" width="15" height="15" fill="#ffffff" />
+                  <rect x="77" y="18" width="5" height="5" fill="#0f172a" />
 
-                    {/* Data patterns */}
-                    <rect x="40" y="12" width="6" height="6" fill="#0f172a" />
-                    <rect x="50" y="18" width="8" height="5" fill="#0f172a" />
-                    <rect x="42" y="26" width="12" height="6" fill="#0f172a" />
-                    <rect x="12" y="42" width="6" height="12" fill="#0f172a" />
-                    <rect x="25" y="45" width="8" height="8" fill="#0f172a" />
-                    <rect x="40" y="40" width="20" height="20" fill="#0f172a" />
-                    <rect x="45" y="45" width="10" height="10" fill="#ffffff" />
-                    <rect x="48" y="48" width="4" height="4" fill="#0f172a" />
-                    <rect x="66" y="42" width="10" height="6" fill="#0f172a" />
-                    <rect x="78" y="48" width="12" height="8" fill="#0f172a" />
-                    <rect x="42" y="66" width="6" height="14" fill="#0f172a" />
-                    <rect x="54" y="70" width="10" height="6" fill="#0f172a" />
-                    <rect x="68" y="68" width="8" height="8" fill="#0f172a" />
-                    <rect x="80" y="75" width="10" height="10" fill="#0f172a" />
-                  </svg>
-                  <span className="qr-scan-hint">📷 Scan with phone camera</span>
-                </div>
+                  <rect x="10" y="65" width="25" height="25" fill="#0f172a" />
+                  <rect x="15" y="70" width="15" height="15" fill="#ffffff" />
+                  <rect x="18" y="73" width="9" height="9" fill="#0f172a" />
 
-                <div className="app-perks-list">
-                  <div className="app-perk-item">
-                    <span className="perk-icon">⚡</span>
-                    <div>
-                      <strong>Exclusive App Drops</strong>
-                      <p>Access secret Friday runway drops 2 hours before the web catalog.</p>
-                    </div>
-                  </div>
-                  <div className="app-perk-item">
-                    <span className="perk-icon">🔔</span>
-                    <div>
-                      <strong>Live Courier Push Notifications</strong>
-                      <p>Real-time GPS rider location alerts right to your lock screen.</p>
-                    </div>
-                  </div>
-                  <div className="app-perk-item">
-                    <span className="perk-icon">💵</span>
-                    <div>
-                      <strong>₦5,000 In-App Voucher</strong>
-                      <p>Instant credit applied at checkout on your first native mobile purchase.</p>
-                    </div>
-                  </div>
-                </div>
+                  <rect x="40" y="12" width="6" height="6" fill="#0f172a" />
+                  <rect x="50" y="18" width="8" height="5" fill="#0f172a" />
+                  <rect x="42" y="26" width="12" height="6" fill="#0f172a" />
+                  <rect x="12" y="42" width="6" height="12" fill="#0f172a" />
+                  <rect x="25" y="45" width="8" height="8" fill="#0f172a" />
+                  <rect x="40" y="40" width="20" height="20" fill="#0f172a" />
+                  <rect x="45" y="45" width="10" height="10" fill="#ffffff" />
+                  <rect x="48" y="48" width="4" height="4" fill="#0f172a" />
+                  <rect x="66" y="42" width="10" height="6" fill="#0f172a" />
+                  <rect x="78" y="48" width="12" height="8" fill="#0f172a" />
+                  <rect x="42" y="66" width="6" height="14" fill="#0f172a" />
+                  <rect x="54" y="70" width="10" height="6" fill="#0f172a" />
+                  <rect x="68" y="68" width="8" height="8" fill="#0f172a" />
+                  <rect x="80" y="75" width="10" height="10" fill="#0f172a" />
+                </svg>
+                <span className="qr-scan-hint">Open your camera app and hold it over the code</span>
               </div>
 
-              {/* Direct Store Links */}
+              <dl className="app-perks-list">
+                <div className="app-perk-item">
+                  <dt>Early access</dt>
+                  <dd>Friday drops appear in the app two hours before they reach the web catalogue.</dd>
+                </div>
+                <div className="app-perk-item">
+                  <dt>Delivery on your lock screen</dt>
+                  <dd>Follow the rider who is carrying your parcel, live.</dd>
+                </div>
+                <div className="app-perk-item">
+                  <dt>₦5,000 credit</dt>
+                  <dd>Applied to your first order placed inside the app.</dd>
+                </div>
+              </dl>
+
               <div className="store-buttons-row">
                 <a
                   href="https://apps.apple.com/app/vroom-styles/id6478912345"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="store-download-btn apple"
+                  className="store-download-btn"
                 >
-                  <span className="store-btn-icon"></span>
                   <div className="store-btn-text">
                     <small>Download on the</small>
-                    <strong>Apple App Store</strong>
+                    <strong>App Store</strong>
                   </div>
                 </a>
 
@@ -207,11 +169,10 @@ export const AppSmartBanner: React.FC<AppSmartBannerProps> = ({ onOpenAppModal }
                   href="https://play.google.com/store/apps/details?id=com.vroomstyles.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="store-download-btn google"
+                  className="store-download-btn"
                 >
-                  <span className="store-btn-icon">▶</span>
                   <div className="store-btn-text">
-                    <small>GET IT ON</small>
+                    <small>Get it on</small>
                     <strong>Google Play</strong>
                   </div>
                 </a>

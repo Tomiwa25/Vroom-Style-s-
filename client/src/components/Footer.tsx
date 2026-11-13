@@ -1,6 +1,5 @@
 import React from "react";
 import type { CountryRegion } from "../types";
-import { AFRICAN_REGIONS } from "../data/regions";
 import { NewsletterSubscription } from "./NewsletterSubscription";
 import { OFFICIAL_WHATSAPP_DISPLAY } from "../utils/device";
 
@@ -68,41 +67,41 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 2: Shopping & Collections */}
           <div className="footer-nav-col">
-            <h4 className="col-heading">Collections & Drops</h4>
+            <h3 className="col-heading">Collections & Drops</h3>
             <ul className="footer-links-list">
               <li>
                 <a href="#catalog-section" onClick={onOpenPoDFilter}>
-                  💵 Payment on Delivery (PoD)
+                  Payment on Delivery (PoD)
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  👗 Women&apos;s Silk & Linen
+                  Women&apos;s Silk & Linen
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  👔 Men&apos;s Tailoring & Knits
+                  Men&apos;s Tailoring & Knits
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  ⚡ Appliances & Steamer Tech
+                  Appliances & Steamer Tech
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  📱 Phones & Tuscan Leather Folios
+                  Phones & Tuscan Leather Folios
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  👑 Official Flagship Stores
+                  Official Flagship Stores
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  🔥 Flash Sale & Scavenger Drops
+                  Flash Sale & Scavenger Drops
                 </a>
               </li>
             </ul>
@@ -110,36 +109,36 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 3: Partner & Marketplace */}
           <div className="footer-nav-col">
-            <h4 className="col-heading">Marketplace & Partners</h4>
+            <h3 className="col-heading">Marketplace & Partners</h3>
             <ul className="footer-links-list">
               <li>
                 <button type="button" className="footer-action-link" onClick={onOpenBecomeSeller}>
-                  🏪 Become a Seller (0% Fee)
+                  Become a Seller (0% Fee)
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={onOpenVendorHub}>
-                  🏢 3P Vendor Hub & Drops
+                  3P Vendor Hub & Drops
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={onOpenJForce}>
-                  💼 JForce Reseller (12% Commission)
+                  JForce Reseller (12% Commission)
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={onOpenVroomDelivery}>
-                  📦 Vroom Delivery Parcel Hub
+                  Vroom Delivery Parcel Hub
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={() => onOpenCompliance("gateways")}>
-                  🔌 Merchant REST API Documentation
+                  Merchant REST API Documentation
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={onOpenAdmin}>
-                  ⚡ Store Retail Intelligence
+                  Store Retail Intelligence
                 </button>
               </li>
             </ul>
@@ -147,26 +146,26 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 4: Customer Care & Fulfillment */}
           <div className="footer-nav-col">
-            <h4 className="col-heading">Customer Care</h4>
+            <h3 className="col-heading">Customer Care</h3>
             <ul className="footer-links-list">
               <li>
                 <button type="button" className="footer-action-link" onClick={onOpenTracking}>
-                  📍 Orders & Waybill Tracking
+                  Orders & Waybill Tracking
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={() => onOpenCompliance("returns")}>
-                  ⏱️ 24-48 Hour Shipping Information
+                  Shipping & delivery times
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={() => onOpenCompliance("returns")}>
-                  ↺ 7-Day Complimentary Returns
+                  Returns & exchanges
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={() => onShowToast("Complimentary size exchanges dispatched within 24 hours.")}>
-                  📐 Architectural Fit & Size Guide
+                  Architectural Fit & Size Guide
                 </button>
               </li>
               <li>
@@ -176,12 +175,12 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="footer-action-link"
                 >
-                  💬 WhatsApp Stylist Support
+                  WhatsApp Stylist Support
                 </a>
               </li>
               <li>
                 <button type="button" className="footer-action-link" onClick={() => onShowToast("All pieces dry clean or delicate silk wash.")}>
-                  ✨ Fabric & Leather Care Handbook
+                  Fabric & Leather Care Handbook
                 </button>
               </li>
             </ul>
@@ -189,7 +188,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 5: Compliance, Legal & Trust Verification */}
           <div className="footer-nav-col compliance-col">
-            <h4 className="col-heading">Compliance & Trust</h4>
+            <h3 className="col-heading">Compliance & Trust</h3>
             <ul className="footer-links-list">
               <li>
                 <button
@@ -197,7 +196,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="footer-action-link compliance-highlight"
                   onClick={() => onOpenCompliance("dispute")}
                 >
-                  ⚖️ Dispute Resolution Protocols
+                  Dispute Resolution Protocols
                 </button>
               </li>
               <li>
@@ -206,7 +205,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="footer-action-link"
                   onClick={() => onOpenCompliance("returns")}
                 >
-                  ↺ Return & Exchange Timelines
+                  Return & Exchange Timelines
                 </button>
               </li>
               <li>
@@ -215,7 +214,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="footer-action-link"
                   onClick={() => onOpenCompliance("cookies")}
                 >
-                  🍪 Cookie Management Preferences
+                  Cookie Management Preferences
                 </button>
               </li>
               <li>
@@ -224,7 +223,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="footer-action-link"
                   onClick={() => onOpenCompliance("gateways")}
                 >
-                  💳 Accepted Payment Gateways
+                  Accepted Payment Gateways
                 </button>
               </li>
               <li>
@@ -233,7 +232,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="footer-action-link"
                   onClick={() => onShowToast("Vroom Style(s) Privacy Policy audited under NDPR 2023.")}
                 >
-                  🛡️ NDPR & GDPR Privacy Charter
+                  NDPR & GDPR Privacy Charter
                 </button>
               </li>
               <li>
@@ -242,93 +241,55 @@ export const Footer: React.FC<FooterProps> = ({
                   className="footer-action-link"
                   onClick={() => onShowToast("All sales protected under FCCPA 2018 consumer regulations.")}
                 >
-                  🏛️ FCCPC Consumer Protection
+                  FCCPC Consumer Protection
                 </button>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Tier 3: Regional African Routing / Multi-Country Switcher */}
+        {/* Tier 3: Region line — the switcher modal carries the country list */}
         <div className="footer-regional-routing-tier">
-          <div className="regional-header">
-            <div className="regional-title-row">
-              <span className="regional-globe-icon">🌍</span>
-              <strong>Pan-African Regional Storefronts & Routing:</strong>
-            </div>
-            <button
-              type="button"
-              className="country-switcher-trigger-btn"
-              onClick={onOpenCountrySwitcher}
-              title="Open full country & currency switcher"
-            >
-              <span>Current Region: <strong>{currentRegion.flag} {currentRegion.name} ({currentRegion.currency})</strong></span>
-              <span className="switch-arrow">Change Country ▾</span>
-            </button>
-          </div>
-
-          <div className="regional-countries-strip">
-            {AFRICAN_REGIONS.map((reg) => {
-              const isSelected = reg.code === currentRegion.code;
-              return (
-                <button
-                  key={reg.code}
-                  type="button"
-                  className={`regional-country-pill ${isSelected ? "selected-country" : ""}`}
-                  onClick={() => {
-                    if (!isSelected) {
-                      onOpenCountrySwitcher();
-                    }
-                  }}
-                  title={`Switch to Vroom Style(s) ${reg.name} (${reg.domain})`}
-                >
-                  <span className="reg-flag">{reg.flag}</span>
-                  <span className="reg-name">{reg.name}</span>
-                  <span className="reg-curr">({reg.currency})</span>
-                </button>
-              );
-            })}
-          </div>
+          <span className="regional-title-row">
+            Shipping to <strong>{currentRegion.name}</strong> in{" "}
+            {currentRegion.currency}
+          </span>
+          <button
+            type="button"
+            className="country-switcher-trigger-btn"
+            onClick={onOpenCountrySwitcher}
+            title="Open full country & currency switcher"
+          >
+            Change region
+          </button>
         </div>
 
-        {/* Tier 4: Accepted Payment Gateway Badges & Trust Verification Seals */}
+        {/* Tier 4: Payment and verification, set as quiet text rather than badges */}
         <div className="footer-gateways-trust-tier">
           <div className="gateways-badges-group">
-            <span className="gateways-group-title">Accepted Payment Gateways:</span>
+            <span className="gateways-group-title">We accept</span>
             <div className="gateway-badges-list">
-              <span className="payment-badge-pill gateway-mastercard" title="Mastercard 3D Secure 2.0">
-                <span className="badge-icon">💳</span> Mastercard
-              </span>
-              <span className="payment-badge-pill gateway-visa" title="Verified by Visa Secure">
-                <span className="badge-icon">💳</span> Visa
-              </span>
-              <span className="payment-badge-pill gateway-verve" title="Interswitch Verve Certified">
-                <span className="badge-icon">🟢</span> Verve
-              </span>
-              <span className="payment-badge-pill gateway-paystack" title="Paystack PCI-DSS Level 1 Gateway">
-                <span className="badge-icon">⚡</span> Paystack
-              </span>
-              <span className="payment-badge-pill gateway-bank" title="Direct Instant NIP Bank Transfer">
-                <span className="badge-icon">🏦</span> Bank Transfer
-              </span>
-              <span className="payment-badge-pill gateway-pod" title="Payment on Delivery (Doorstep Mobile POS & Cash)">
-                <span className="badge-icon">💵</span> Pay on Delivery (PoD)
-              </span>
+              <span className="payment-badge-pill">Mastercard</span>
+              <span className="payment-badge-pill">Visa</span>
+              <span className="payment-badge-pill">Verve</span>
+              <span className="payment-badge-pill">Paystack</span>
+              <span className="payment-badge-pill">Bank transfer</span>
+              <span className="payment-badge-pill">Payment on delivery</span>
             </div>
           </div>
 
           <div className="trust-seals-group">
-            <span className="gateways-group-title">Trust & Regulatory Verification:</span>
+            <span className="gateways-group-title">Verified</span>
             <div className="trust-seals-list">
-              <span className="trust-seal-chip" onClick={() => onOpenCompliance("gateways")}>
-                🔒 256-Bit SSL Encrypted
-              </span>
-              <span className="trust-seal-chip" onClick={() => onOpenCompliance("cookies")}>
-                🛡️ NDPR & GDPR Certified
-              </span>
-              <span className="trust-seal-chip" onClick={() => onOpenCompliance("dispute")}>
-                🏛️ FCCPC Verified E-Commerce
-              </span>
+              <button type="button" className="trust-seal-chip" onClick={() => onOpenCompliance("gateways")}>
+                256-bit SSL
+              </button>
+              <button type="button" className="trust-seal-chip" onClick={() => onOpenCompliance("cookies")}>
+                NDPR &amp; GDPR
+              </button>
+              <button type="button" className="trust-seal-chip" onClick={() => onOpenCompliance("dispute")}>
+                FCCPC
+              </button>
             </div>
           </div>
         </div>

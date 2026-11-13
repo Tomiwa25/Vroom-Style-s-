@@ -77,8 +77,8 @@ export const CartFeedbackModal: React.FC<CartFeedbackModalProps> = ({
             <strong>{product.name}</strong>
             <span className="feedback-product-category">{product.category}</span>
             <div className="feedback-specs-row">
-              {selectedSize && <span>Size: {selectedSize}</span>}
-              {selectedColor && <span>Color: {selectedColor}</span>}
+              {selectedSize && <span>Size {selectedSize}</span>}
+              {selectedColor && <span>{selectedColor}</span>}
             </div>
             <strong className="feedback-product-price">
               {formatPrice(product.price)}

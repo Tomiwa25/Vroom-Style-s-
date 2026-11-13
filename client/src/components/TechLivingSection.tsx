@@ -14,6 +14,17 @@ interface TechLivingSectionProps {
   onOpenPromptStudio?: (category: string) => void;
 }
 
+type Tab = "TVs" | "Laptops" | "Monitors" | "Furniture";
+
+const TABS: { id: Tab; note: string }[] = [
+  { id: "TVs", note: "OLED & QLED" },
+  { id: "Laptops", note: "M-series & RTX" },
+  { id: "Monitors", note: "5K, 240Hz" },
+  { id: "Furniture", note: "Nordic & Italian" },
+];
+
+const ITEMS_PER_PAGE = 6;
+
 export const TechLivingSection: React.FC<TechLivingSectionProps> = ({
   formatPrice,
   wishlist,
@@ -24,162 +35,144 @@ export const TechLivingSection: React.FC<TechLivingSectionProps> = ({
   onSelectCategory,
   onOpenPromptStudio,
 }) => {
-  const [activeTab, setActiveTab] = useState<"Furniture" | "TVs" | "Laptops" | "Monitors">("TVs");
+  const [activeTab, setActiveTab] = useState<Tab>("TVs");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 6;
 
-  const handleTabChange = (tab: "Furniture" | "TVs" | "Laptops" | "Monitors") => {
+  const handleTabChange = (tab: Tab) => {
     setActiveTab(tab);
     setCurrentPage(1);
   };
 
-  const getActiveProducts = (): Product[] => {
-    switch (activeTab) {
-      case "Furniture":
-        return furnitureProducts;
-      case "TVs":
-        return tvsProducts;
-      case "Laptops":
-        return laptopsProducts;
-      case "Monitors":
-        return monitorsProducts;
-      default:
-        return tvsProducts;
-    }
+  const collections: Record<Tab, Product[]> = {
+    TVs: tvsProducts,
+    Laptops: laptopsProducts,
+    Monitors: monitorsProducts,
+    Furniture: furnitureProducts,
   };
 
-  const activeProducts = getActiveProducts();
+  const activeProducts = collections[activeTab];
+  const totalPages = Math.ceil(activeProducts.length / ITEMS_PER_PAGE);
+  const displayedProducts = activeProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
-    <section className="department-showcase-section tech-living-section" id="tech-living-showcase-section" aria-label="Electronics & Furniture Department">
-      <div className="department-header">
-        <div className="dept-title-group">
-          <div className="dept-badge tech-badge">
-            <span className="badge-icon">💻</span>
-            <span>ENTERTAINMENT, COMPUTING & LUXURY LIVING</span>
-            <span className="count-pill">120 Total Items</span>
-          </div>
-          <h2 className="dept-main-title">Cinematic Displays, High-Performance Computing & Interior Living</h2>
-          <p className="dept-subtitle">
-            Next-generation 4K/8K OLED televisions, M3 MacBooks, high-refresh studio gaming monitors, and architectural Scandinavian furniture.
+    <section
+      className="showcase showcase-department tech-living-section"
+      id="tech-living-showcase-section"
+      aria-labelledby="tech-title"
+    >
+      <header className="showcase-head">
+        <div className="showcase-head-copy">
+          <span className="showcase-kicker">
+            Screens, computing & living ·{" "}
+            {tvsProducts.length + laptopsProducts.length + monitorsProducts.length + furnitureProducts.length} pieces
+          </span>
+          <h2 className="showcase-title" id="tech-title">
+            The rooms you spend the evening in
+          </h2>
+          <p className="showcase-lede">
+            Displays, machines and furniture picked for how they sit in a room rather
+            than how they read on a specification sheet.
           </p>
         </div>
 
-        <div className="dept-header-actions">
+        <div className="showcase-aside">
           {onOpenPromptStudio && (
             <button
               type="button"
-              className="dept-prompt-btn"
+              className="showcase-link is-quiet"
               onClick={() => onOpenPromptStudio(activeTab)}
             >
-              <span className="btn-icon">🎨</span>
-              <span>View {activeTab} Prompts</span>
+              Photography prompts
             </button>
           )}
-
-          <button
-            type="button"
-            className="dept-catalog-btn"
-            onClick={() => onSelectCategory(activeTab)}
-          >
-            <span>Open {activeTab} in Catalog</span>
-            <span>→</span>
+          <button type="button" className="showcase-link" onClick={() => onSelectCategory(activeTab)}>
+            {activeTab} in the catalog
           </button>
         </div>
+      </header>
+
+      <div className="tab-row" role="tablist" aria-label="Living and technology collections">
+        {TABS.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              className={`tab-item ${isActive ? "is-active" : ""}`}
+              onClick={() => handleTabChange(tab.id)}
+            >
+              <span className="tab-name">{tab.id}</span>
+              <span className="tab-note">
+                {tab.note} · {collections[tab.id].length}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Department Tabs */}
-      <div className="dept-tabs-nav">
-        {[
-          { id: "TVs" as const, label: "📺 Smart TVs & Cinema (30 items)", tag: "OLED & QLED" },
-          { id: "Laptops" as const, label: "💻 Laptops & Ultrabooks (30 items)", tag: "M3 & RTX 4090" },
-          { id: "Monitors" as const, label: "🖥️ Studio Displays & Monitors (30 items)", tag: "5K & 240Hz OLED" },
-          { id: "Furniture" as const, label: "🛋️ Designer Furniture (30 items)", tag: "Nordic & Italian" },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            className={`dept-tab-btn ${activeTab === tab.id ? "active" : ""}`}
-            onClick={() => handleTabChange(tab.id)}
-          >
-            <span className="tab-label">{tab.label}</span>
-            <span className="tab-tag">{tab.tag}</span>
-          </button>
+      <div className="plate-grid">
+        {displayedProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            formatPrice={formatPrice}
+            isFavorited={wishlist.includes(product.id)}
+            onToggleWishlist={onToggleWishlist}
+            onQuickView={onQuickView}
+            onOpenLightbox={onOpenLightbox}
+            onAddToCart={onAddToCart}
+          />
         ))}
       </div>
 
-      {/* Grid of paginated products for the active tab */}
-      {(() => {
-        const totalPages = Math.ceil(activeProducts.length / itemsPerPage);
-        const displayedProducts = activeProducts.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        );
+      {activeProducts.length > ITEMS_PER_PAGE && (
+        <div className="pager">
+          <p className="pager-count">
+            {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
+            {Math.min(currentPage * ITEMS_PER_PAGE, activeProducts.length)} of {activeProducts.length}{" "}
+            in {activeTab.toLowerCase()}
+          </p>
 
-        return (
-          <>
-            <div className="dept-products-grid">
-              {displayedProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  formatPrice={formatPrice}
-                  isFavorited={wishlist.includes(product.id)}
-                  onToggleWishlist={onToggleWishlist}
-                  onQuickView={onQuickView}
-                  onOpenLightbox={onOpenLightbox}
-                  onAddToCart={onAddToCart}
-                />
+          <div className="pager-controls">
+            <button
+              type="button"
+              className="pager-step"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            >
+              ← Back
+            </button>
+
+            <div className="pager-numbers">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                <button
+                  key={pageNum}
+                  type="button"
+                  className={`pager-number ${currentPage === pageNum ? "is-active" : ""}`}
+                  onClick={() => setCurrentPage(pageNum)}
+                  aria-current={currentPage === pageNum ? "page" : undefined}
+                >
+                  {pageNum}
+                </button>
               ))}
             </div>
 
-            {/* Pagination Controls */}
-            {activeProducts.length > itemsPerPage && (
-              <div className="showroom-pagination-bar dept-pagination-bar">
-                <span className="pagination-count-summary">
-                  Showing {(currentPage - 1) * itemsPerPage + 1}–
-                  {Math.min(currentPage * itemsPerPage, activeProducts.length)} of {activeProducts.length} items in {activeTab}
-                </span>
-
-                <div className="pagination-actions-wrap">
-                  <button
-                    type="button"
-                    className="pagination-arrow-btn"
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                    aria-label="Previous page"
-                  >
-                    ‹ Previous
-                  </button>
-
-                  <div className="pagination-numbers-row">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                      <button
-                        key={pageNum}
-                        type="button"
-                        className={`pagination-number-btn ${currentPage === pageNum ? "active" : ""}`}
-                        onClick={() => setCurrentPage(pageNum)}
-                      >
-                        {pageNum}
-                      </button>
-                    ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    className="pagination-arrow-btn"
-                    disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                    aria-label="Next page"
-                  >
-                    Next ›
-                  </button>
-                </div>
-              </div>
-            )}
-          </>
-        );
-      })()}
+            <button
+              type="button"
+              className="pager-step"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            >
+              Next →
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
