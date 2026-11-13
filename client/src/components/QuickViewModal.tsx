@@ -129,7 +129,14 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
             <span className="quickview-category">{product.category}</span>
             <h2 className="quickview-title">{product.name}</h2>
-            <div className="quickview-price">{formatPrice(product.price)}</div>
+            <div className="quickview-price">
+              {formatPrice(product.price)}
+              {product.originalPrice && product.originalPrice > product.price ? (
+                <span className="quickview-price-was">
+                  {formatPrice(product.originalPrice)}
+                </span>
+              ) : null}
+            </div>
 
             {/* Bundled Incentive Banner */}
             {product.bundledIncentive && (
@@ -306,8 +313,8 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             </div>
 
             <div className="quickview-perks">
-              <span>✦ Free express dispatch on orders over ₦100,000</span>
-              <span>✦ 7-day complimentary return & size exchange</span>
+              <span>Free express dispatch over ₦100,000</span>
+              <span>7-day returns and size exchange</span>
             </div>
           </div>
         </div>

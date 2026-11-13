@@ -70,76 +70,72 @@ const CAMPAIGN_EVENTS: CampaignEvent[] = [
   },
 ];
 
+/** House titles. The stored event names are shouted; the page states them. */
+const DISPLAY_TITLES: Record<string, string> = {
+  "camp-01": "Black Friday",
+  "camp-02": "Buy one, get one",
+  "camp-03": "Secret scavenger hunt",
+  "camp-04": "Official store day",
+};
+
 export const CampaignBannerGrid: React.FC<CampaignBannerGridProps> = ({
   onSelectCampaign,
   activeCampaignKey,
   onClearCampaign,
 }) => {
   return (
-    <section className="campaign-banner-grid-section" aria-label="Featured Seasonal Promotions">
-      {/* Active Campaign Attribution Header if user arrived via campaign or selected one */}
+    <section className="showcase showcase-events" aria-labelledby="events-title">
       {activeCampaignKey && (
-        <div className="active-campaign-banner-strip">
-          <div className="campaign-strip-content">
-            <span className="campaign-pulse-icon">🏷️</span>
-            <span>
-              Active Marketing Event:{" "}
-              <strong className="campaign-key-label">{activeCampaignKey.replace(/_/g, " ").toUpperCase()}</strong>{" "}
-              — Special affiliate discount pricing and seasonal perks unlocked!
-            </span>
-          </div>
-          <button
-            type="button"
-            className="clear-campaign-btn"
-            onClick={onClearCampaign}
-            title="Reset active promotional event"
-          >
-            Clear Event ×
+        <div className="event-active-line" role="status">
+          <p>
+            You are shopping <strong>{activeCampaignKey.replace(/_/g, " ")}</strong> pricing.
+          </p>
+          <button type="button" className="showcase-link is-quiet" onClick={onClearCampaign}>
+            Leave event
           </button>
         </div>
       )}
 
-      <div className="campaign-grid-header">
-        <span className="kicker">CURATED PROMOTIONS</span>
-        <h2>Seasonal Events & Special Drops</h2>
-      </div>
+      <header className="showcase-head">
+        <div className="showcase-head-copy">
+          <span className="showcase-kicker">Running now</span>
+          <h2 className="showcase-title" id="events-title">
+            Four ways in this season
+          </h2>
+          <p className="showcase-lede">
+            Each one changes what lands in your bag, not the price you were quoted
+            before you arrived.
+          </p>
+        </div>
+      </header>
 
-      <div className="campaign-tiles-grid">
+      <div className="event-grid">
         {CAMPAIGN_EVENTS.map((event) => {
           const isActive =
-            activeCampaignKey &&
+            !!activeCampaignKey &&
             (activeCampaignKey === event.campaignKey ||
               activeCampaignKey === event.affiliateParams.utm_campaign);
 
           return (
-            <div
+            <button
               key={event.id}
-              className={`campaign-tile-card ${isActive ? "active-event" : ""}`}
+              type="button"
+              className={`event-tile ${isActive ? "is-active" : ""}`}
               onClick={() => onSelectCampaign(event)}
-              role="button"
-              tabIndex={0}
+              aria-pressed={isActive}
             >
-              <div className="campaign-tile-img-wrap">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="campaign-tile-img"
-                  loading="lazy"
-                />
-                <div className="campaign-tile-overlay" />
-                <span className="campaign-tile-badge">{event.badge}</span>
-                <span className="campaign-discount-pill">{event.discountHighlight}</span>
-              </div>
-
-              <div className="campaign-tile-content">
-                <h3 className="campaign-tile-title">{event.title}</h3>
-                <p className="campaign-tile-sub">{event.subtitle}</p>
-                <div className="campaign-tile-cta">
-                  <span>Enter Event</span>
-                  <span className="cta-arrow">→</span>
-                </div>
-              </div>
-            </div>
+              <span className="event-tile-media">
+                <img src={event.image} alt="" loading="lazy" />
+              </span>
+              <span className="event-tile-body">
+                <span className="event-tile-title">{DISPLAY_TITLES[event.id] ?? event.title}</span>
+                <span className="event-tile-line">{event.subtitle}</span>
+                <span className="event-tile-enter">
+                  {isActive ? "Shopping this event" : "Enter the event"}
+                  <span aria-hidden="true">→</span>
+                </span>
+              </span>
+            </button>
           );
         })}
       </div>

@@ -36,7 +36,7 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
     }
     setIsDismissed(true);
     if (onSuccessToast) {
-      onSuccessToast("Cookie preferences saved (All accepted).");
+      onSuccessToast("Cookie preferences saved.");
     }
   };
 
@@ -57,41 +57,33 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
     }
     setIsDismissed(true);
     if (onSuccessToast) {
-      onSuccessToast("Only strictly necessary cookies remain active.");
+      onSuccessToast("Only necessary cookies are active now.");
     }
   };
 
   return (
-    <div className="cookie-consent-bar" role="region" aria-label="Cookie consent banner">
+    <div className="cookie-consent-bar" role="region" aria-label="Cookie choices">
       <div className="cookie-consent-wrap">
         <div className="cookie-text-col">
-          <span className="cookie-icon">🍪</span>
           <p className="cookie-message">
-            We use essential and personalization cookies pursuant to the <strong>Nigeria Data Protection Regulation (NDPR)</strong> and <strong>GDPR</strong> to safeguard your browsing experience, remember bag items, and measure speed.
+            Some cookies keep your bag and sign-in working. Others tell us which pages people actually read.
+            You decide which of those we keep, under the NDPR and GDPR.
           </p>
         </div>
 
         <div className="cookie-buttons-col">
-          <button
-            type="button"
-            className="cookie-btn-link"
-            onClick={onOpenCookieSettings}
-          >
-            Manage Preferences
+          <button type="button" className="cookie-btn-primary" onClick={handleAcceptAll}>
+            Accept all
           </button>
           <button
             type="button"
             className="cookie-btn-secondary"
             onClick={handleDeclineNonEssential}
           >
-            Essential Only
+            Necessary only
           </button>
-          <button
-            type="button"
-            className="cookie-btn-primary"
-            onClick={handleAcceptAll}
-          >
-            Accept All Cookies
+          <button type="button" className="cookie-btn-link" onClick={onOpenCookieSettings}>
+            Choose individually
           </button>
         </div>
       </div>

@@ -294,10 +294,6 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
     onExecuteSearch();
   };
 
-  const getCategoryIcon = (catName: string) => {
-    const opt = TAXONOMY_OPTIONS.find((t) => t.key.toLowerCase() === catName.toLowerCase());
-    return opt?.icon || "🏷️";
-  };
 
   return (
     <div className="global-search-portal" ref={containerRef}>
@@ -313,27 +309,40 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               inputRef.current?.focus();
             }}
             aria-label="Filter Search by Category Taxonomy"
+            title={TAXONOMY_OPTIONS.find((o) => o.key === selectedTaxonomy)?.label ?? "All Categories"}
           >
             {TAXONOMY_OPTIONS.map((opt) => (
-              <option key={opt.key} value={opt.key}>
-                {opt.icon} {opt.label}
+              <option
+                key={opt.key}
+                value={opt.key}
+                label={opt.key === "All" ? "All" : opt.label}
+              >
+                {opt.label}
               </option>
             ))}
           </select>
-          <span className="taxonomy-select-chevron">▾</span>
+          <span className="taxonomy-select-value" aria-hidden="true">
+            {selectedTaxonomy === "All" ? "All" : selectedTaxonomy}
+          </span>
+          <span className="taxonomy-select-chevron" aria-hidden="true">▾</span>
         </div>
 
         {/* Search Input Bar with Real-time Suggestion listener */}
         <div className="search-input-field-wrap">
-          <span className="search-field-icon">🔍</span>
+          <span className="search-field-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.25" width="14" height="14">
+              <circle cx="7" cy="7" r="4.5" />
+              <path d="M10.4 10.4 14 14" />
+            </svg>
+          </span>
           <input
             ref={inputRef}
             type="text"
             className="search-input-field"
             placeholder={
               selectedTaxonomy !== "All"
-                ? `Search ${selectedTaxonomy} (e.g. model, specs, brand)...`
-                : "Search cars, fridges, OLED TVs, tech & fashion..."
+                ? `Search ${selectedTaxonomy}`
+                : "Search the collection"
             }
             value={searchQuery}
             onChange={(e) => {
@@ -345,13 +354,6 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
             autoComplete="off"
             aria-label="Search Catalog with Suggestions"
           />
-
-          {/* Keyboard shortcut hint badge */}
-          {!searchQuery && (
-            <span className="search-shortcut-badge" title="Press / or Ctrl+K to search">
-              <kbd>/</kbd>
-            </span>
-          )}
 
           {/* Clear button */}
           {searchQuery && (
@@ -391,7 +393,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               {recentSearches.length > 0 && (
                 <div className="suggestions-recent-panel">
                   <div className="recent-header-row">
-                    <span className="trending-title">🕒 RECENT SEARCHES</span>
+                    <span className="trending-title">Recent searches</span>
                     <button
                       type="button"
                       className="clear-history-btn"
@@ -408,7 +410,6 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                           className="recent-pill"
                           onClick={() => handleDirectSearch(term)}
                         >
-                          <span className="recent-icon">🕒</span>
                           <span>{term}</span>
                         </button>
                         <button
@@ -427,7 +428,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               )}
 
               <div className="suggestions-trending-panel">
-                <span className="trending-title">🔥 TRENDING SEARCHES</span>
+                <span className="trending-title">Trending now</span>
                 <div className="trending-pills-row">
                   {TRENDING_SEARCHES.map((term) => (
                     <button
@@ -448,7 +449,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               {/* Query Autocomplete Suggestions */}
               {suggestions.querySuggestions.length > 0 && (
                 <div className="suggestion-section query-suggestions-section">
-                  <span className="suggestion-section-title">SUGGESTED SEARCHES</span>
+                  <span className="suggestion-section-title">Searches</span>
                   {suggestions.querySuggestions.map((queryText) => (
                     <button
                       key={queryText}
@@ -456,9 +457,8 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                       className="suggestion-row query-row"
                       onClick={() => handleDirectSearch(queryText)}
                     >
-                      <span className="row-icon">🔍</span>
                       <strong className="row-highlight">{queryText}</strong>
-                      <span className="row-arrow">↗</span>
+                      <span className="row-arrow" aria-hidden="true">→</span>
                     </button>
                   ))}
                 </div>
@@ -467,7 +467,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               {/* Category Matches */}
               {suggestions.categories.length > 0 && (
                 <div className="suggestion-section">
-                  <span className="suggestion-section-title">MATCHING CATEGORIES</span>
+                  <span className="suggestion-section-title">Categories</span>
                   {suggestions.categories.map((cat) => (
                     <button
                       key={cat}
@@ -475,10 +475,8 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                       className="suggestion-row category-row"
                       onClick={() => handleSelectCategory(cat)}
                     >
-                      <span className="row-icon">{getCategoryIcon(cat)}</span>
-                      <span className="row-prefix">Explore in</span>
                       <strong className="row-highlight">{cat}</strong>
-                      <span className="row-arrow">→</span>
+                      <span className="row-arrow" aria-hidden="true">→</span>
                     </button>
                   ))}
                 </div>
@@ -487,7 +485,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               {/* Brand Matches */}
               {suggestions.brands.length > 0 && (
                 <div className="suggestion-section">
-                  <span className="suggestion-section-title">BRANDS & ATELIERS</span>
+                  <span className="suggestion-section-title">Brands</span>
                   {suggestions.brands.map((brand) => (
                     <button
                       key={brand}
@@ -495,10 +493,8 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                       className="suggestion-row brand-row"
                       onClick={() => handleSelectBrand(brand)}
                     >
-                      <span className="row-icon">🏷️</span>
-                      <span className="row-prefix">Brand:</span>
                       <strong className="row-highlight">{brand}</strong>
-                      <span className="row-arrow">→</span>
+                      <span className="row-arrow" aria-hidden="true">→</span>
                     </button>
                   ))}
                 </div>
@@ -507,7 +503,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
               {/* Matching Products with Thumbnail & Price */}
               {suggestions.products.length > 0 && (
                 <div className="suggestion-section products-section">
-                  <span className="suggestion-section-title">MATCHING PRODUCTS</span>
+                  <span className="suggestion-section-title">Pieces</span>
                   {suggestions.products.map((prod) => (
                     <div
                       key={prod.id}
@@ -532,7 +528,7 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
                         </div>
                       </div>
                       <span className={`suggestion-stock-tag ${prod.stock > 0 ? "in-stock" : "out"}`}>
-                        {prod.stock > 0 ? "In Stock" : "Sold Out"}
+                        {prod.stock > 0 ? "In stock" : "Sold out"}
                       </span>
                     </div>
                   ))}
@@ -541,13 +537,13 @@ export const GlobalSearchPortal: React.FC<GlobalSearchPortalProps> = ({
             </div>
           ) : (
             <div className="suggestions-empty-state">
-              <p>No direct suggestion found for "{searchQuery}".</p>
+              <p>Nothing matched "{searchQuery}".</p>
               <button
                 type="button"
                 className="empty-state-search-all-btn"
                 onClick={onExecuteSearch}
               >
-                Search entire catalog for "{searchQuery}" →
+                Search the whole catalogue for "{searchQuery}"
               </button>
             </div>
           )}

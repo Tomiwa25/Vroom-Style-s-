@@ -25,7 +25,6 @@ import { ComplianceModal } from "./components/ComplianceModal";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
 import { Footer } from "./components/Footer";
 import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
-import { TaxonomyBar } from "./components/TaxonomyBar";
 import { Breadcrumbs } from "./components/Breadcrumbs";
 import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
 import { FlashSaleSection } from "./components/FlashSaleSection";
@@ -39,9 +38,33 @@ import { HomeAppliancesSection } from "./components/HomeAppliancesSection";
 import { TechLivingSection } from "./components/TechLivingSection";
 import { PromptStudioModal } from "./components/PromptStudioModal";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
+import { useReveal } from "./hooks/useReveal";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api, { createIdempotencyKey } from "./services/api";
 import "./styles.css";
+
+/**
+ * Density switch.
+ *
+ * The storefront is deliberately quiet: one hero, one catalog, one editorial
+ * band. The legacy marketing rails (flash sale, campaign grid, brand/vehicle/
+ * appliance showcases, affiliate banners) still ship, but stay folded away so
+ * the page reads as a gallery rather than a marketplace. Flip to true to
+ * restore them.
+ */
+const SHOW_MARKETING_SECTIONS = false;
+
+// Departments that actually hold stock — mirrors Product.category values.
+const DEPARTMENTS = [
+  "Women",
+  "Outerwear",
+  "Knitwear",
+  "Accessories",
+  "Footwear",
+  "Phones & Tablets",
+  "Appliances",
+  "Health & Beauty",
+];
 
 function App() {
   // Store Catalog managed via TanStack Query
@@ -100,6 +123,8 @@ function App() {
   const [isCountrySwitcherOpen, setIsCountrySwitcherOpen] = useState<boolean>(false);
   const [isComplianceModalOpen, setIsComplianceModalOpen] = useState<boolean>(false);
   const [complianceInitialTab, setComplianceInitialTab] = useState<"dispute" | "returns" | "cookies" | "gateways">("dispute");
+  // The consent card waits until someone has actually read the page.
+  const [isCookieCardVisible, setIsCookieCardVisible] = useState<boolean>(false);
 
   // Recently Viewed history (client-side localStorage tracking)
   const { recentlyViewed, recordView, clearHistory } = useRecentlyViewed();
@@ -130,6 +155,7 @@ function App() {
   // Main Catalog Pagination (Show 12 items per page by default)
   const [catalogCurrentPage, setCatalogCurrentPage] = useState<number>(1);
   const [catalogPageSize, setCatalogPageSize] = useState<number>(12);
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState<boolean>(false);
   const [prevFilterKey, setPrevFilterKey] = useState<string>("");
 
   // Reset pagination to first page whenever catalog filters change during render without effect
@@ -195,6 +221,12 @@ function App() {
       console.warn("Could not save cart to localStorage", e);
     }
   }, [cartItems]);
+
+  // Let the page speak first; consent asks once the visitor has settled in.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsCookieCardVisible(true), 2500);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   // Persist wishlist
   useEffect(() => {
@@ -263,14 +295,8 @@ function App() {
       ];
     });
 
-    // 3. Display confirmation modal popup
-    setFeedbackModal({
-      isOpen: true,
-      status: "SUCCESS",
-      product,
-      selectedSize: chosenSize,
-      selectedColor: chosenColor,
-    });
+    // 3. Open the bag. One less modal to dismiss before checkout.
+    setIsCartOpen(true);
   };
 
   // Update Cart Quantity
@@ -761,8 +787,13 @@ function App() {
 
   const totalCartCount = cartItems.reduce((acc, i) => acc + i.quantity, 0);
 
+  // Reveal sections as they enter the viewport (see useReveal).
+  useReveal([isLoading, products.length]);
+
   return (
     <div className="app">
+      {SHOW_MARKETING_SECTIONS && (
+      <>
       {/* ---------------- 0. App Store Deep-Linking / Smart Banner (iOS, Android & Desktop) ---------------- */}
       <AppSmartBanner />
 
@@ -887,27 +918,43 @@ function App() {
         </div>
       </div>
 
+      </>
+      )}
+
       {/* ---------------- 2. Sticky Header with Persistent Global Search Portal ---------------- */}
       <header className="topbar">
         <div className="topbar-wrap">
           {/* Brand Logo & Home Reset */}
           <a
             className="brand"
-            href="#"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
               handleResetToHome();
             }}
           >
-            <span className="brand-mark">V</span>
+            <span className="brand-mark" aria-hidden="true">V</span>
             <span className="brand-copy">
               <strong>Vroom Style(s)</strong>
-              <span>Modern Essentials</span>
+              <span>Lagos &middot; Since 2021</span>
             </span>
           </a>
 
-          {/* Center Persistent Search Portal with Auto-Focus & Multi-Taxonomy Routing */}
-          <GlobalSearchPortal
+          {/* Center: department index toggle + search portal */}
+          <div className="topbar-center">
+            <button
+              type="button"
+              className={`index-trigger ${isMegaMenuOpen ? "is-open" : ""}`}
+              onClick={() => setIsMegaMenuOpen((prev) => !prev)}
+              aria-expanded={isMegaMenuOpen}
+              aria-controls="mega-menu-panel"
+            >
+              <span className="index-trigger-rule" aria-hidden="true" />
+              <span>Index</span>
+            </button>
+
+            {/* Center Persistent Search Portal with Auto-Focus & Multi-Taxonomy Routing */}
+            <GlobalSearchPortal
             searchQuery={searchQuery}
             selectedTaxonomy={selectedCategory}
             products={products}
@@ -920,6 +967,7 @@ function App() {
             onExecuteSearch={handleScrollToCatalog}
             formatPrice={formatPrice}
           />
+          </div>
 
           {/* Right Session Identity & Cart State */}
           <div className="topbar-actions">
@@ -975,8 +1023,7 @@ function App() {
               aria-label={`Shopping Bag with ${totalCartCount} items`}
               onClick={() => setIsCartOpen(true)}
             >
-              <span className="cart-icon-graphic">🛒</span>
-              <span className="bag-label">Cart</span>
+              <span className="cart-icon-graphic">Bag</span>
               <span
                 className={`cart-counter-badge ${
                   totalCartCount > 0 ? "badge-active" : "badge-empty"
@@ -1001,136 +1048,130 @@ function App() {
         </div>
 
         {/* Multi-Tiered Taxonomy Navigation: Horizontal quick links bar */}
-        <TaxonomyBar
-          selectedTaxonomy={selectedCategory}
-          onSelectTaxonomy={(tax) => {
-            setSelectedCategory(tax);
-            handleScrollToCatalog();
-          }}
-          onOpenMegaMenu={() => setIsMegaMenuOpen((prev) => !prev)}
-          isMegaMenuOpen={isMegaMenuOpen}
-          onOpenVroomDelivery={() => {
-            setVroomDeliveryInitialTab("calculator");
-            setIsVroomDeliveryOpen(true);
-          }}
-          onOpenPromptStudio={() => handleOpenPromptStudio("Cars")}
-        />
+        <nav className="dept-bar" aria-label="Departments">
+          <div className="dept-bar-inner">
+            <CategoryMegaMenu
+              showTrigger={false}
+              selectedCategory={selectedCategory}
+              onSelectCategory={(cat) => {
+                setSelectedCategory(cat);
+                setIsMegaMenuOpen(false);
+                handleScrollToCatalog();
+              }}
+              onSearchQuery={(q) => setSearchQuery(q)}
+              isOpen={isMegaMenuOpen}
+              onToggle={setIsMegaMenuOpen}
+            />
+            {DEPARTMENTS.map((dept) => {
+              const isActive = selectedCategory === dept;
+              return (
+                <button
+                  key={dept}
+                  type="button"
+                  className={`dept-link ${isActive ? "is-active" : ""}`}
+                  aria-current={isActive ? "true" : undefined}
+                  onClick={() => {
+                    setSelectedCategory(dept);
+                    handleScrollToCatalog();
+                  }}
+                >
+                  {dept}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
 
-        {/* Multi-Column Mega Menu Drawer */}
-        <CategoryMegaMenu
-          selectedCategory={selectedCategory}
-          onSelectCategory={(cat) => {
-            setSelectedCategory(cat);
-            setIsMegaMenuOpen(false);
-            handleScrollToCatalog();
-          }}
-          onSearchQuery={(q) => setSearchQuery(q)}
-          isOpen={isMegaMenuOpen}
-          onToggle={setIsMegaMenuOpen}
-        />
       </header>
 
       {/* ---------------- 3. Main Page Body ---------------- */}
       <main className="page-wrap">
-        {/* Hero Section with Confirmed Tagline */}
+        {/* Hero — one image, one line, two doors. */}
         <section className="hero">
-          <section className="hero-copy">
-            <span className="kicker">NEW ARRIVALS • 2026</span>
-            <h1>Style in Motion</h1>
+          <div className="hero-copy">
+            <span className="kicker">Autumn 2026 &mdash; The First Cut</span>
+
+            <h1>
+              Elegance
+              <em>in motion</em>
+            </h1>
+
             <p className="subtitle">
-              Premium clothing and signature accessories designed for modern momentum,
-              refined comfort, and effortless everyday confidence.
+              Considered clothing and signature accessories, cut in small runs from
+              mulberry silk, Grade-A cashmere and Italian calfskin. Delivered
+              nationwide within 24 hours.
             </p>
 
             <div className="hero-cta">
               <button
+                type="button"
                 className="primary-button"
                 onClick={() => {
                   const el = document.getElementById("catalog-section");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                Shop New Arrivals
-              </button>
-              <button
-                className="secondary-button"
-                onClick={() => {
-                  setSelectedCategory("Women");
-                  const el = document.getElementById("catalog-section");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Explore Collection
+                Shop the collection
               </button>
             </div>
 
-            <div className="hero-metrics">
+            <dl className="hero-facts">
               <div>
-                <span className="metric-value">24h</span>
-                <br />
-                <span className="metric-label">Fast Dispatch</span>
+                <dt>Dispatch</dt>
+                <dd>24 hours</dd>
               </div>
               <div>
-                <span className="metric-value">100%</span>
-                <br />
-                <span className="metric-label">Premium Fabrics</span>
+                <dt>Returns</dt>
+                <dd>7 days</dd>
               </div>
               <div>
-                <span className="metric-value">7 Days</span>
-                <br />
-                <span className="metric-label">Easy Returns</span>
+                <dt>Payment</dt>
+                <dd>Card or cash</dd>
               </div>
-            </div>
-          </section>
+            </dl>
+          </div>
 
-          <section className="hero-image">
+          <figure className="hero-image">
             <div className="hero-photo-wrap">
               <img
                 src="/images/hero.jpg"
-                alt="Vroom Style High Fashion Model"
+                alt=""
                 className="hero-photo-img"
+                loading="eager"
+                decoding="async"
               />
-              <div className="hero-floating-card">
-                <span className="floating-card-tag">Trending Now</span>
-                <strong>Belted Tailored Blazer Set</strong>
-                <p>Designed for versatile day-to-night movement</p>
-              </div>
             </div>
-          </section>
+            <figcaption className="hero-caption">
+              <span className="hero-caption-index">01</span>
+              <span className="hero-caption-text">
+                Belted tailored blazer &mdash; mulberry silk
+              </span>
+            </figcaption>
+          </figure>
         </section>
 
         {/* ---------------- 4. Value Proposition Trust Bar ---------------- */}
-        <section className="trust-bar">
+        <section className="trust-bar" data-reveal aria-label="Service">
           <div className="trust-item">
-            <div className="trust-icon">🚚</div>
-            <div className="trust-content">
-              <strong>Fast Express Delivery</strong>
-              <span>Nationwide 24-48h dispatch</span>
-            </div>
+            <strong>24h dispatch</strong>
+            <span>Nationwide, Lagos to Abuja</span>
           </div>
           <div className="trust-item">
-            <div className="trust-icon">🔒</div>
-            <div className="trust-content">
-              <strong>Secure Payments</strong>
-              <span>Encrypted Paystack checkout</span>
-            </div>
+            <strong>7-day returns</strong>
+            <span>Unworn, with tags</span>
           </div>
           <div className="trust-item">
-            <div className="trust-icon">↺</div>
-            <div className="trust-content">
-              <strong>7-Day Easy Returns</strong>
-              <span>Hassle-free size exchange</span>
-            </div>
+            <strong>Pay on delivery</strong>
+            <span>Card, POS or cash at the door</span>
           </div>
           <div className="trust-item">
-            <div className="trust-icon">✨</div>
-            <div className="trust-content">
-              <strong>Authentic Quality</strong>
-              <span>100% verified materials</span>
-            </div>
+            <strong>Paystack secured</strong>
+            <span>Encrypted checkout</span>
           </div>
         </section>
 
+{SHOW_MARKETING_SECTIONS && (
+        <>
         {/* ---------------- 5. Real-Time Flash Sale Countdown Engine ---------------- */}
         <FlashSaleSection
           products={products}
@@ -1189,8 +1230,7 @@ function App() {
           <RecommendationRail
             title="Recently Viewed Pieces"
             subtitle="Pick up right where you left off"
-            kicker="BROWSING HISTORY"
-            badge={`${recentlyViewed.length} Saved`}
+            kicker="Browsing history"
             products={recentlyViewed}
             formatPrice={formatPrice}
             wishlist={wishlist}
@@ -1206,9 +1246,8 @@ function App() {
         {searchQuery.trim().length > 0 && searchBasedProducts.length > 0 && (
           <RecommendationRail
             title={`Based on your search for "${searchQuery}"`}
-            subtitle="Curated matching styles and compatible accessories"
-            kicker="SEARCH RECOMMENDATIONS"
-            badge={`${searchBasedProducts.length} Matches`}
+            subtitle="Pieces that go with what you were just looking at."
+            kicker="Based on what you searched"
             products={searchBasedProducts}
             formatPrice={formatPrice}
             wishlist={wishlist}
@@ -1222,10 +1261,10 @@ function App() {
 
         {/* ---------------- 10. Curated Recommendation Rails: Top Selling & Customer Faves ---------------- */}
         <RecommendationRail
-          title="Top Selling Items & Customer Faves"
-          subtitle="High-velocity verified patron favorites with 4.8★+ aggregate ratings"
-          kicker="BESTSELLERS"
-          badge="TRENDING"
+          title="What everyone is buying"
+          subtitle="Ranked by what has actually left the shelf this month."
+          kicker="Bestsellers"
+          
           products={topSellingProducts}
           formatPrice={formatPrice}
           wishlist={wishlist}
@@ -1300,6 +1339,9 @@ function App() {
           onOpenPromptStudio={handleOpenPromptStudio}
         />
 
+        </>
+      )}
+
         {/* ---------------- 12. Main Product Catalog Section ---------------- */}
         <Breadcrumbs
           selectedTaxonomy={selectedCategory}
@@ -1313,127 +1355,140 @@ function App() {
           onClearSearch={() => setSearchQuery("")}
         />
 
-        <section id="catalog-section" className="catalog-container">
+        <section id="catalog-section" className="catalog-container" data-reveal>
           <div className="catalog-header-bar">
-            <div>
-              <span className="kicker">FEATURED COLLECTION</span>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <h2>Trending Styles</h2>
-                {isLoading && (
-                  <span className="catalog-status-badge loading">Syncing Catalog...</span>
-                )}
-                {isError && (
-                  <button
-                    onClick={() => refetch()}
-                    className="catalog-retry-btn"
-                    title={`Failed: ${error?.message || "Server unreachable"}. Click to retry.`}
-                  >
-                    ⚠ Offline Mode (Click to Retry)
-                  </button>
-                )}
-                {!isLoading && !isError && products.length > 0 && (
-                  <span className="catalog-status-badge live" title="Connected to live database">
-                    ● Live Sync
-                  </span>
-                )}
-              </div>
+            <div className="catalog-title-block">
+              <span className="kicker">
+                {selectedCategory === "All" ? "The collection" : selectedCategory}
+              </span>
+              <h2 className="catalog-title">
+                {searchQuery.trim()
+                  ? `“${searchQuery.trim()}”`
+                  : selectedCategory === "All"
+                    ? "Autumn 2026"
+                    : selectedCategory}
+              </h2>
             </div>
-            <div className="catalog-filter-tabs">
-              {[
-                "All",
-                "Cars",
-                "Fridges",
-                "Microwaves",
-                "Kitchen Utensils",
-                "Furniture",
-                "TVs",
-                "Laptops",
-                "Monitors",
-                "Appliances",
-                "Official Store",
-                "Fashion & Atelier",
-                "Phones & Tablets",
-                "Health & Beauty",
-                "Outerwear",
-                "Knitwear",
-                "Accessories",
-              ].map((cat) => (
+            <div className="catalog-meta">
+              {isError ? (
                 <button
-                  key={cat}
-                  className={`filter-pill ${selectedCategory === cat ? "active" : ""}`}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => refetch()}
+                  className="catalog-retry-btn"
+                  title={`The catalogue did not load: ${error?.message || "the server could not be reached"}. Click to try again.`}
                 >
-                  {cat}
+                  Try again
                 </button>
-              ))}
-            </div>
-
-            {/* Multi-Tenant Vendor Model Separation Routing (1P vs 3P) */}
-            <div className="catalog-seller-filter-row">
-              <div className="seller-filter-label">
-                <span>Vendor Model:</span>
-              </div>
-              <div className="seller-filter-pills">
-                <button
-                  type="button"
-                  className={`seller-pill ${sellerTypeFilter === "ALL" ? "active" : ""}`}
-                  onClick={() => setSellerTypeFilter("ALL")}
-                >
-                  All Vendors ({allProducts.length})
-                </button>
-                <button
-                  type="button"
-                  className={`seller-pill seller-1p ${sellerTypeFilter === "1P" ? "active" : ""}`}
-                  onClick={() => setSellerTypeFilter("1P")}
-                  title="Official First-Party Retail directly from Vroom Atelier"
-                >
-                  👑 1P Vroom Direct
-                </button>
-                <button
-                  type="button"
-                  className={`seller-pill seller-3p ${sellerTypeFilter === "3P" ? "active" : ""}`}
-                  onClick={() => setSellerTypeFilter("3P")}
-                  title="Verified Third-Party Marketplace Partners"
-                >
-                  🏪 3P Verified Marketplace
-                </button>
-              </div>
-            </div>
-
-            {/* Step 5: Conversion & Checkout Enabler - Payment on Delivery (PoD) Filter Rail */}
-            <div className="catalog-pod-filter-row">
-              <div className="pod-filter-label">
-                <span>Settlement Rail:</span>
-              </div>
-              <div className="pod-filter-pills">
-                <button
-                  type="button"
-                  className={`pod-filter-pill ${isPodFilterActive ? "active" : ""}`}
-                  onClick={() => setIsPodFilterActive((prev) => !prev)}
-                  title="Filter to items eligible for post-delivery settlement (doorstep POS/cash inspection)"
-                >
-                  <span className="pod-pill-icon">💵</span>
-                  <span>Payment on Delivery (PoD)</span>
-                  <span className="pod-count-badge">{podEligibleProducts.length} items</span>
-                </button>
-
-                {isPodFilterActive && (
-                  <button
-                    type="button"
-                    className="pod-reset-btn"
-                    onClick={() => setIsPodFilterActive(false)}
-                    title="Remove Payment on Delivery filter"
-                  >
-                    Showing PoD Eligible Only ✕
-                  </button>
+              ) : (
+                <span className="catalog-count">
+                  {filteredProducts.length} {filteredProducts.length === 1 ? "piece" : "pieces"}
+                </span>
+              )}
+              <button
+                type="button"
+                className={`catalog-filter-toggle ${isFilterPanelOpen ? "is-open" : ""}`}
+                onClick={() => setIsFilterPanelOpen((v) => !v)}
+                aria-expanded={isFilterPanelOpen}
+                aria-controls="catalog-filters"
+              >
+                <span className="catalog-filter-toggle-rule" aria-hidden="true" />
+                <span>Filter</span>
+                {(sellerTypeFilter !== "ALL" || isPodFilterActive) && (
+                  <span className="catalog-filter-dot" aria-hidden="true" />
                 )}
-              </div>
+              </button>
             </div>
           </div>
 
+          {isFilterPanelOpen && (
+            <div className="catalog-filter-panel" id="catalog-filters">
+              <div className="catalog-filter-group">
+                <span className="catalog-filter-label">Category</span>
+                <div className="catalog-filter-tabs">
+                  {(() => {
+                    const seen = new Set<string>();
+                    const cats = ["All", ...products.map((p) => p.category).filter(Boolean)];
+                    return cats.filter((cat) => {
+                      if (!cat || seen.has(cat)) return false;
+                      seen.add(cat);
+                      return true;
+                    });
+                  })().map((cat) => (
+                    <button
+                      key={cat}
+                      className={`filter-pill ${selectedCategory === cat ? "active" : ""}`}
+                      onClick={() => setSelectedCategory(cat)}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="catalog-filter-group">
+                <span className="catalog-filter-label">Source</span>
+                <div className="catalog-filter-tabs">
+                  <button
+                    type="button"
+                    className={`filter-pill ${sellerTypeFilter === "ALL" ? "active" : ""}`}
+                    onClick={() => setSellerTypeFilter("ALL")}
+                  >
+                    All
+                  </button>
+                  <button
+                    type="button"
+                    className={`filter-pill ${sellerTypeFilter === "1P" ? "active" : ""}`}
+                    onClick={() => setSellerTypeFilter("1P")}
+                    title="First-party, made in the Vroom atelier"
+                  >
+                    Atelier
+                  </button>
+                  <button
+                    type="button"
+                    className={`filter-pill ${sellerTypeFilter === "3P" ? "active" : ""}`}
+                    onClick={() => setSellerTypeFilter("3P")}
+                    title="Verified third-party partners"
+                  >
+                    Partners
+                  </button>
+                </div>
+              </div>
+
+              <div className="catalog-filter-group">
+                <span className="catalog-filter-label">Settlement</span>
+                <div className="catalog-filter-tabs">
+                  <button
+                    type="button"
+                    className={`filter-pill ${isPodFilterActive ? "active" : ""}`}
+                    onClick={() => setIsPodFilterActive((prev) => !prev)}
+                    title="Inspect on arrival, then settle by POS or cash"
+                  >
+                    Pay on delivery
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="catalog-filter-reset"
+                onClick={() => {
+                  setSellerTypeFilter("ALL");
+                  setIsPodFilterActive(false);
+                  setSelectedCategory("All");
+                  setSearchQuery("");
+                }}
+              >
+                Reset
+              </button>
+            </div>
+          )}
+
           {filteredProducts.length === 0 ? (
             <div className="catalog-empty-notice">
-              <p>No products found matching "{searchQuery}" in {selectedCategory}.</p>
+              <p>
+                {searchQuery.trim()
+                  ? `Nothing in ${selectedCategory === "All" ? "the collection" : selectedCategory} matches “${searchQuery.trim()}”.`
+                  : `Nothing in ${selectedCategory === "All" ? "the collection" : selectedCategory} right now.`}
+              </p>
               <button
                 className="secondary-button"
                 onClick={() => {
@@ -1441,7 +1496,7 @@ function App() {
                   setSelectedCategory("All");
                 }}
               >
-                Reset All Filters
+                Clear filters
               </button>
             </div>
           ) : (
@@ -1464,10 +1519,15 @@ function App() {
               {/* Main Catalog Pagination Bar (Lazy page slicing) */}
               {filteredProducts.length > catalogPageSize && (
                 <div className="catalog-pagination-container">
-                  <div className="pagination-count-summary">
-                    Showing {(catalogCurrentPage - 1) * catalogPageSize + 1}–
-                    {Math.min(catalogCurrentPage * catalogPageSize, filteredProducts.length)} of {filteredProducts.length} products
-                  </div>
+                  <span className="pagination-count-summary">
+                    {String((catalogCurrentPage - 1) * catalogPageSize + 1).padStart(3, "0")}
+                    &ndash;
+                    {String(
+                      Math.min(catalogCurrentPage * catalogPageSize, filteredProducts.length)
+                    ).padStart(3, "0")}
+                    <span className="pagination-of"> of </span>
+                    {String(filteredProducts.length).padStart(3, "0")}
+                  </span>
 
                   <div className="pagination-controls-row">
                     <button
@@ -1475,51 +1535,22 @@ function App() {
                       className="pagination-arrow-btn"
                       disabled={catalogCurrentPage === 1}
                       onClick={() => handleCatalogPageChange(Math.max(1, catalogCurrentPage - 1))}
-                      aria-label="Previous page"
                     >
-                      ‹ Previous
+                      Previous
                     </button>
-
-                    <div className="pagination-numbers-row">
-                      {Array.from({ length: totalCatalogPages }, (_, i) => i + 1).map((pageNum) => {
-                        if (
-                          pageNum === 1 ||
-                          pageNum === totalCatalogPages ||
-                          (pageNum >= catalogCurrentPage - 1 && pageNum <= catalogCurrentPage + 1)
-                        ) {
-                          return (
-                            <button
-                              key={pageNum}
-                              type="button"
-                              className={`pagination-number-btn ${catalogCurrentPage === pageNum ? "active" : ""}`}
-                              onClick={() => handleCatalogPageChange(pageNum)}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        } else if (
-                          pageNum === catalogCurrentPage - 2 ||
-                          pageNum === catalogCurrentPage + 2
-                        ) {
-                          return <span key={pageNum} className="pagination-ellipsis">…</span>;
-                        }
-                        return null;
-                      })}
-                    </div>
-
                     <button
                       type="button"
                       className="pagination-arrow-btn"
-                      disabled={catalogCurrentPage === totalCatalogPages}
-                      onClick={() => handleCatalogPageChange(Math.min(totalCatalogPages, catalogCurrentPage + 1))}
-                      aria-label="Next page"
+                      disabled={catalogCurrentPage >= totalCatalogPages}
+                      onClick={() =>
+                        handleCatalogPageChange(Math.min(totalCatalogPages, catalogCurrentPage + 1))
+                      }
                     >
-                      Next ›
+                      Next
                     </button>
                   </div>
 
-                  <div className="pagination-page-size-selector">
-                    <label htmlFor="catalog-page-size">Per Page:</label>
+                  <label className="pagination-page-size-selector" htmlFor="catalog-page-size">
                     <select
                       id="catalog-page-size"
                       value={catalogPageSize}
@@ -1528,23 +1559,25 @@ function App() {
                         setCatalogCurrentPage(1);
                       }}
                     >
-                      <option value={12}>12 Items</option>
-                      <option value={24}>24 Items</option>
-                      <option value={48}>48 Items</option>
+                      <option value={12}>12 per page</option>
+                      <option value={24}>24 per page</option>
+                      <option value={48}>48 per page</option>
                     </select>
-                  </div>
+                  </label>
                 </div>
               )}
             </>
           )}
         </section>
 
+{SHOW_MARKETING_SECTIONS && (
+        <>
         {/* ---------------- 13. Category Specific Feed: Smart Living & Tech Deals ---------------- */}
         <RecommendationRail
-          title="Smart Devices & Signature Living"
-          subtitle="Engineered for high-efficiency living, garment care, and modern workspaces"
-          kicker="TECH & LIVING"
-          badge="IN DEMAND"
+          title="For the desk and the wardrobe"
+          subtitle="Steamers, chargers and desk pieces that earn the space they take."
+          kicker="Tech and living"
+          
           products={techDealsProducts}
           formatPrice={formatPrice}
           wishlist={wishlist}
@@ -1561,10 +1594,10 @@ function App() {
 
         {/* ---------------- 13b. Conversion Enabler: Payment on Delivery (PoD) Essentials Rail ---------------- */}
         <RecommendationRail
-          title="Payment on Delivery (PoD) Essentials"
-          subtitle="Inspect your items upon arrival before paying via card POS or cash in Lagos, Abuja & Port Harcourt"
-          kicker="DOORSTEP SETTLEMENT"
-          badge="💵 PoD VERIFIED"
+          title="Pay when it reaches you"
+          subtitle="Open the box, look it over, then settle by card, POS or cash. Lagos, Abuja and Port Harcourt."
+          kicker="Paid at the door"
+          
           products={podEligibleProducts}
           formatPrice={formatPrice}
           wishlist={wishlist}
@@ -1579,94 +1612,88 @@ function App() {
         />
 
         {/* ---------------- Integrated Delivery Services (Vroom Delivery) Showcase Banner ---------------- */}
-        <section className="vroom-delivery-showcase-banner">
-          <div className="delivery-banner-content">
-            <div className="banner-brand-pill">
-              <span className="pill-icon">🚚</span>
-              <span>INTEGRATED PARCEL-SHIPPING MICRO-SERVICES</span>
-            </div>
-            <h2 className="banner-title">
-              Vroom Delivery: On-Demand Dispatch & Doorstep PoD Settlement
-            </h2>
-            <p className="banner-description">
-              Powering rapid intra-city flash delivery across Lagos and Abuja, verified interstate line-haul freight, and secure Payment on Delivery (Cash / POS) collections for retail merchants and shoppers across Nigeria.
-            </p>
-            <div className="banner-actions">
-              <button
-                type="button"
-                className="primary-button delivery-action-btn"
-                onClick={() => {
-                  setVroomDeliveryInitialTab("calculator");
-                  setIsVroomDeliveryOpen(true);
-                }}
-              >
-                <span>Calculate Shipping Rate</span>
-                <span className="btn-arrow">→</span>
-              </button>
-              <button
-                type="button"
-                className="secondary-button delivery-action-btn alt"
-                onClick={() => {
-                  setVroomDeliveryInitialTab("track");
-                  setIsVroomDeliveryOpen(true);
-                }}
-              >
-                <span>Track Live Waybill</span>
-                <span className="btn-arrow">📍</span>
-              </button>
-              <button
-                type="button"
-                className="link-button delivery-api-link"
-                onClick={() => {
-                  setVroomDeliveryInitialTab("api");
-                  setIsVroomDeliveryOpen(true);
-                }}
-              >
-                <span>Explore Merchant API ⚡</span>
-              </button>
-            </div>
-          </div>
-          <div className="delivery-banner-graphic">
-            <div className="graphic-stats-card top">
-              <span className="stat-icon">⚡</span>
-              <div>
-                <strong>3 - 5 Hours</strong>
-                <span>Intra-City Flash Dispatch</span>
+        <section className="vroom-delivery-showcase-banner" aria-labelledby="delivery-title">
+          <div className="delivery-layout">
+            <div className="delivery-copy">
+              <span className="showcase-kicker">Vroom Delivery</span>
+              <h2 className="showcase-title" id="delivery-title">
+                We can move it for you, too
+              </h2>
+              <p className="showcase-lede">
+                Same-day dispatch inside Lagos and Abuja, interstate line-haul, and cash
+                or POS collected at the door. Available for our own orders and for other
+                merchants.
+              </p>
+              <div className="delivery-actions">
+                <button
+                  type="button"
+                  className="primary-button"
+                  onClick={() => {
+                    setVroomDeliveryInitialTab("calculator");
+                    setIsVroomDeliveryOpen(true);
+                  }}
+                >
+                  Calculate a rate
+                </button>
+                <button
+                  type="button"
+                  className="showcase-link"
+                  onClick={() => {
+                    setVroomDeliveryInitialTab("track");
+                    setIsVroomDeliveryOpen(true);
+                  }}
+                >
+                  Track a waybill
+                </button>
+                <button
+                  type="button"
+                  className="showcase-link is-quiet"
+                  onClick={() => {
+                    setVroomDeliveryInitialTab("api");
+                    setIsVroomDeliveryOpen(true);
+                  }}
+                >
+                  Merchant API
+                </button>
               </div>
             </div>
-            <div className="graphic-stats-card middle">
-              <span className="stat-icon">💵</span>
+
+            <dl className="delivery-facts">
               <div>
-                <strong>PoD Collection</strong>
-                <span>Mobile POS & Cash Remittance</span>
+                <dt>Inside the city</dt>
+                <dd>3–5 hours</dd>
               </div>
-            </div>
-            <div className="graphic-stats-card bottom">
-              <span className="stat-icon">🛡️</span>
               <div>
-                <strong>100% Insured</strong>
-                <span>Goods In-Transit Protection</span>
+                <dt>At the door</dt>
+                <dd>POS or cash collection</dd>
               </div>
-            </div>
+              <div>
+                <dt>In transit</dt>
+                <dd>Insured to full value</dd>
+              </div>
+            </dl>
           </div>
         </section>
 
+        </>
+      )}
+
         {/* ---------------- 7. Quality & Craftsmanship Pillars ---------------- */}
-        <section className="feature-band">
+        <section className="feature-band" data-reveal>
           <article className="feature">
-            <span className="feature-title">01 / Premium Fabrics</span>
+            <span className="feature-title">Premium fabrics</span>
             <p className="feature-copy">
               Mulberry silk, Grade-A cashmere, Italian calfskin leather, and heavy combed cotton.
             </p>
           </article>
           <article className="feature">
-            <span className="feature-title">02 / Tailored Fit</span>
+            <span className="feature-title">Tailored fit</span>
             <p className="feature-copy">
               Architectural silhouettes designed for versatile movement, comfortable all-day wear, and effortless presence.
             </p>
           </article>
           <article className="feature">
-            <span className="feature-title">03 / Made to Endure</span>
+            <span className="feature-title">Made to endure</span>
             <p className="feature-copy">
               Reinforced construction and thoughtful finishing details built to look exceptional season after season.
             </p>
@@ -1674,7 +1701,7 @@ function App() {
         </section>
 
         {/* ---------------- 6. User Retention & Growth: VIP Newsletter Acquisition ---------------- */}
-        <section className="newsletter-retention-section">
+        <section className="newsletter-retention-section" data-reveal>
           <NewsletterSubscription onSuccessToast={showToast} variant="banner" />
         </section>
       </main>
@@ -1868,6 +1895,7 @@ function App() {
       />
 
       {/* ---------------- NDPR & GDPR Cookie Consent Banner ---------------- */}
+      {isCookieCardVisible && (
       <CookieConsentBanner
         onOpenCookieSettings={() => {
           setComplianceInitialTab("cookies");
@@ -1875,6 +1903,7 @@ function App() {
         }}
         onSuccessToast={showToast}
       />
+      )}
 
       {/* ---------------- Pan-African Regional Storefront Switcher Modal ---------------- */}
       <CountrySwitcherModal

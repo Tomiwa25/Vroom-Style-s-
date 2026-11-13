@@ -159,18 +159,17 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
     return (
       <div className={`newsletter-module subscriber-confirmed ${variant}`}>
         <div className="subscriber-badge-header">
-          <span className="subscriber-seal">👑</span>
           <div>
-            <h4 className="subscriber-title">You Are a Vroom VIP Patron</h4>
+            <h3 className="subscriber-title">You're on the list</h3>
             <span className="subscriber-email-tag">{subscriber.email}</span>
           </div>
         </div>
         <p className="subscriber-benefit-text">
-          Your complimentary 10% welcome discount is active on all atelier garments and luxury accessories.
+          Your 10% welcome credit is active on everything in the collection.
         </p>
 
         <div className="promo-voucher-pill-container">
-          <span className="voucher-label">Welcome Code:</span>
+          <span className="voucher-label">Welcome code</span>
           <div className="voucher-display">
             <span className="voucher-code">{subscriber.promoCode}</span>
             <button
@@ -179,21 +178,21 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
               onClick={handleCopyCode}
               title="Copy promo code"
             >
-              {copiedCode ? "Copied! ✓" : "Copy Code"}
+              {copiedCode ? "Copied" : "Copy"}
             </button>
           </div>
         </div>
 
         <div className="subscriber-footer-row">
           <span className="gdpr-verified-badge">
-            ✓ NDPR / GDPR Consent Recorded ({new Date(subscriber.subscribedAt).toLocaleDateString()})
+            Consent recorded {new Date(subscriber.subscribedAt).toLocaleDateString()}
           </span>
           <button
             type="button"
             className="subscriber-switch-btn"
             onClick={handleResetSubscriber}
           >
-            Change Email
+            Use a different email
           </button>
         </div>
       </div>
@@ -204,11 +203,10 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
     <div className={`newsletter-module ${variant}`}>
       <div className="newsletter-intro">
         <div className="newsletter-title-row">
-          <span className="newsletter-spark-icon">✉️</span>
-          <h4 className="newsletter-title">Join the Vroom Style Club</h4>
+          <h3 className="newsletter-title">The Vroom list</h3>
         </div>
         <p className="newsletter-sub">
-          Receive private drop invitations, runway previews, and an instant <strong>10% voucher</strong> on your first order.
+          Private drop invitations, runway previews, and <strong>10% off</strong> your first order.
         </p>
       </div>
 
@@ -222,7 +220,7 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
               setEmail(e.target.value);
               if (errorMessage) setErrorMessage("");
             }}
-            placeholder="Enter your email address (e.g. adeyemi@vroom.ng)"
+            placeholder="you@example.com"
             className={`newsletter-email-input ${errorMessage ? "has-error" : ""}`}
             aria-label="Email address for newsletter"
             required
@@ -235,7 +233,7 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
             {isSubmitting ? (
               <span className="btn-spinner-sm"></span>
             ) : (
-              "Claim 10% Off →"
+              "Claim 10% off"
             )}
           </button>
         </div>
@@ -243,14 +241,13 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
         {/* Inline Error Message */}
         {errorMessage && (
           <div className="newsletter-inline-error" role="alert">
-            <span className="error-icon">⚠</span>
             <span>{errorMessage}</span>
           </div>
         )}
 
         {/* Interest Selection Chips */}
         <div className="newsletter-interests-strip">
-          <span className="interests-label">Curate My Feed:</span>
+          <span className="interests-label">What you follow</span>
           <div className="interests-chips">
             {INTEREST_TAGS.map((tag) => (
               <button
@@ -279,7 +276,7 @@ export const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
               className="gdpr-checkbox"
             />
             <span className="gdpr-text">
-              I give explicit consent for Vroom Style(s) to process my personal data to send promotional newsletters, private runway access, and seasonal discount drops pursuant to the <strong>Nigeria Data Protection Regulation (NDPR)</strong> and <strong>GDPR</strong> data processing standards. You may unsubscribe anytime.
+              I agree to receive newsletters, private runway access, and seasonal drops. Vroom Style(s) processes this data under the <strong>NDPR</strong> and <strong>GDPR</strong>. You can unsubscribe at any time.
             </span>
           </label>
         </div>

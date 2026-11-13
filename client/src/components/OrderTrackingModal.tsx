@@ -53,8 +53,7 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
       >
         <div className="modal-header">
           <div className="admin-header-title">
-            <span className="kicker">Atelier Concierge</span>
-            <h3>Order Fulfillment & Live Tracking</h3>
+            <h3>Where is my order?</h3>
           </div>
           <button
             className="modal-close-btn"
@@ -68,7 +67,7 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
         {/* Recent Orders Quick-Picker */}
         {orders && orders.length > 0 && (
           <div className="tracking-quick-orders">
-            <span className="tracking-section-label">Your Recent Orders:</span>
+            <span className="tracking-section-label">Your recent orders</span>
             <div className="tracking-orders-pills">
               {orders.map((o) => (
                 <button
@@ -94,13 +93,13 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
         <form onSubmit={handleSearchSubmit} className="tracking-search-bar">
           <input
             type="text"
-            placeholder="Enter Order ID (e.g. uuid or reference)..."
+            placeholder="Order reference or email"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="tracking-input"
           />
           <button type="submit" className="primary-button tracking-search-btn">
-            Track Order
+            Track
           </button>
         </form>
 
@@ -108,14 +107,13 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
         {isTrackingLoading ? (
           <div className="tracking-loading-state">
             <div className="tracking-spinner"></div>
-            <p>Retrieving real-time dispatch telemetrics...</p>
+            <p>Looking up your order…</p>
           </div>
         ) : isError ? (
           <div className="tracking-error-notice">
-            <span className="error-icon">⚠</span>
-            <p>{errorMessage || "Order not found. Please verify the ID or log into the account used during checkout."}</p>
+            <p>{errorMessage || "We couldn't find an order with that reference. Check the number in your confirmation email, or sign in with the account you ordered from."}</p>
             <button className="secondary-button" onClick={() => refetch()}>
-              Try Again
+              Try again
             </button>
           </div>
         ) : tracking ? (
@@ -123,10 +121,9 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
             {/* Delivery Alert Banner when out for delivery */}
             {(tracking.status === "SHIPPED" || tracking.status === "DELIVERED") && (
               <div className="delivery-alert-banner">
-                <span className="alert-badge">⚡ Real-time Notification</span>
-                <strong>Order is In Final Delivery Transit</strong>
+                <strong>Out for delivery</strong>
                 <p>
-                  An arrival email has been activated and dispatched to your email with courier contact details.
+                  We emailed you the courier's contact details. Keep your phone close.
                 </p>
               </div>
             )}
@@ -134,7 +131,7 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
             {/* Order Overview Header */}
             <div className="tracking-meta-header">
               <div>
-                <span className="tracking-id-label">Order Reference</span>
+                <span className="tracking-id-label">Reference</span>
                 <strong className="tracking-id-value">#{tracking.id}</strong>
               </div>
               <div className="tracking-meta-right">
@@ -174,7 +171,7 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
                       <div className="milestone-title-row">
                         <strong>{m.title}</strong>
                         {isStepCurrent && (
-                          <span className="milestone-live-pill">Active Step</span>
+                          <span className="milestone-live-pill">In progress</span>
                         )}
                       </div>
                       <p className="milestone-desc">{m.description}</p>
@@ -186,7 +183,7 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
 
             {/* Ordered Items Mini List */}
             <div className="tracking-items-section">
-              <span className="tracking-section-label">Artisan Items in Shipment:</span>
+              <span className="tracking-section-label">In this parcel</span>
               <div className="tracking-items-grid">
                 {tracking.items.map((item) => (
                   <div key={item.id} className="tracking-item-card">
@@ -198,7 +195,7 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
                     <div className="tracking-item-info">
                       <strong>{item.productName}</strong>
                       <span>
-                        Qty: {item.quantity} • {formatPrice(item.price)}
+                        {item.quantity} × {formatPrice(item.price)}
                       </span>
                     </div>
                   </div>
@@ -209,11 +206,11 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
             {/* Delivery Summary Footer */}
             <div className="tracking-footer-summary">
               <div className="summary-col">
-                <span>Estimated Delivery:</span>
+                <span>Arriving</span>
                 <strong>{tracking.estimatedDelivery}</strong>
               </div>
               <div className="summary-col text-right">
-                <span>Order Total:</span>
+                <span>Total</span>
                 <strong className="tracking-total-amount">
                   {formatPrice(tracking.total)}
                 </strong>
@@ -222,10 +219,9 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
           </div>
         ) : (
           <div className="tracking-empty-state">
-            <span className="empty-icon">📦</span>
-            <h4>No Active Order Selected</h4>
+            <h4>Nothing to show yet</h4>
             <p>
-              Select one of your recent purchases above or enter your Order Reference ID to view live fulfillment milestones.
+              Pick one of your recent orders above, or paste an order reference to follow it from our workshop to your door.
             </p>
           </div>
         )}
