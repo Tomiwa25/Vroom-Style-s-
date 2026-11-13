@@ -173,11 +173,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       const backendMessage = axiosErr.response?.data?.message;
       if (backendMessage) {
         setErrorMsg(backendMessage);
+      } else if (axiosErr.response) {
+        // The backend answered but gave no reason — tell the visitor plainly
+        // instead of pretending the signup succeeded.
+        setErrorMsg(
+          "Registration could not be completed. Please try again in a moment, or sign in if your account already exists."
+        );
       } else {
-        // Fallback demo simulation
-        onShowToast("Atelier invitation code dispatched. Check your inbox.");
-        setView("otp");
-        setResendCooldown(60);
+        // No response from the server at all — local preview mode only.
+        onShowToast("Demo mode: no account was created.");
       }
     } finally {
       setLoading(false);
@@ -265,8 +269,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       const backendMessage = axiosErr.response?.data?.message;
       if (backendMessage) {
         setErrorMsg(backendMessage);
+      } else if (axiosErr.response) {
+        // The backend answered with a status but no message — trust it.
+        setErrorMsg("Verification failed. Please check your code and try again.");
       } else {
-        // Fallback preview
+        // Fallback preview — only when the server is genuinely unreachable.
         const mockUser: User = {
           id: "demo-user-verified",
           email: email || "atelier.client@vroomstyles.com",

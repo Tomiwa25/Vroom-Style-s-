@@ -109,7 +109,7 @@ export const CATEGORY_TEMPLATES: Record<string, CategoryTemplate> = {
   "Shoes and Bags": {
     name: "Shoes and Bags",
     code: "SHOE",
-    subcategories: ["Italian Calfskin Loafers", "Structured Leather Totes", "Minimalist White Sneakers", "Crossbody Satchels", "Oxford Dress Shoes"],
+    subcategories: ["Italian Calfskin Loafers", "Structured Leather Totes", "Minimalist White Sneakers", "Crossbody Satchels", "Oxford Dress Shoes", "Goodyear-Welted Derby Shoes", "Italian Calfskin Derbies"],
     brands: ["Vroom Leather Goods", "Tod's", "Common Projects", "Ferragamo", "Coach", "Michael Kors", "Clarks"],
     priceRange: [28000, 320000],
     weightRange: [0.6, 2.8],
@@ -117,6 +117,27 @@ export const CATEGORY_TEMPLATES: Record<string, CategoryTemplate> = {
       "Upper Material": faker.helpers.arrayElement(["100% Full-Grain Vegetable-Tanned Italian Calfskin", "Hand-Burnished Box Calf", "Nappa Lambskin Leather"]),
       "Sole Construction": faker.helpers.arrayElement(["Goodyear Welted Leather Sole", "Vibram Rubber Outsole", "Reinforced Margom Cup Sole"]),
       "Hardware": faker.helpers.arrayElement(["Brushed Solid Brass Feet & Buckles", "Palladium Finished Zippers", "Gunmetal Hardware"]),
+    }),
+    generateVariations: () => ({
+      sizes: ["40", "41", "42", "43", "44", "45"],
+      colors: faker.helpers.arrayElements(COLOR_PALETTES, { min: 2, max: 4 }),
+      material: "Full-Grain Italian Calfskin Leather",
+      fitGuide: faker.helpers.arrayElement(["True to Size", "Runs Slightly Large", "Italian D-Width Fit"]),
+    }),
+  },
+
+  "Footwear": {
+    name: "Footwear",
+    code: "FOOT",
+    subcategories: ["Italian Calfskin Loafers", "Goodyear-Welted Derby Shoes", "Classic Leather Derbies", "Oxford Dress Shoes", "Minimalist White Sneakers", "Chelsea Leather Boots"],
+    brands: ["Vroom Footwear", "Tod's", "Church's", "Common Projects", "Ferragamo", "Clarks"],
+    priceRange: [35000, 320000],
+    weightRange: [0.8, 2.2],
+    generateSpecs: (brand, sub) => ({
+      "Upper Material": faker.helpers.arrayElement(["100% Full-Grain Vegetable-Tanned Italian Calfskin", "Hand-Burnished Box Calf", "Nappa Lambskin Leather"]),
+      "Sole Construction": faker.helpers.arrayElement(["Goodyear Welted Leather Sole", "Vibram Commando Lug Sole", "Reinforced Margom Cup Sole"]),
+      "Hardware": faker.helpers.arrayElement(["Blind Eyelets", "Brushed Brass Eyelets", "Hand-Finished Stitched Welts"]),
+      "Lacing": faker.helpers.arrayElement(["Open-Laced Derby", "Closed-Laced Oxford", "Slip-On Penny Loafer"]),
     }),
     generateVariations: () => ({
       sizes: ["40", "41", "42", "43", "44", "45"],
