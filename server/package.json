@@ -8,6 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/import-products.ts",
+    "catalog:seed": "tsx src/scripts/generate-catalog.ts",
+    "catalog:clean": "tsx src/scripts/generate-catalog.ts --only-clean",
     "test": "vitest",
     "postinstall": "prisma generate",
     "test:run": "vitest run",
@@ -34,6 +36,7 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",

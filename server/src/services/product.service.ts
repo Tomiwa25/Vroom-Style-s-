@@ -3,6 +3,7 @@ import {
     countProducts,
     findProductByExternalId,
     findProductByUuid,
+    findProductBySlug,
     searchProducts,
     countSearchProducts,
     type ProductListFilter,
@@ -13,39 +14,57 @@ import { NotFoundError } from "../core/errors/app-error.js";
 
 export const MAX_PRODUCT_PAGE_SIZE = 200;
 
-const mapProduct = (p: any): Product => ({
+export const mapProduct = (p: any): Product => ({
     id: p.id,
     externalId: p.externalId ?? null,
+    sku: p.sku ?? null,
     name: p.name,
+    slug: p.slug ?? null,
     description: p.description,
     price: Number(p.price),
+    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
     image: p.image,
-    images: p.images ?? [p.image],
+    images: p.images && p.images.length > 0 ? p.images : [p.image],
     category: p.category,
+    subcategory: p.subcategory ?? null,
+    brand: p.brand ?? null,
     stock: p.stock,
     tag: p.tag ?? null,
     sizes: p.sizes ?? [],
     colors: p.colors ?? null,
     material: p.material ?? null,
     fitGuide: p.fitGuide ?? null,
+    specs: p.specs ?? null,
+    dimensions: p.dimensions ?? null,
+    weight: p.weight ? Number(p.weight) : null,
     sellerType: p.sellerType ?? "1P",
     sellerName: p.sellerName ?? "Vroom Direct",
     sellerRating: p.sellerRating ?? 100,
     isFulfilledByVroom: p.isFulfilledByVroom ?? true,
-    warranty: p.warranty,
-    bundledIncentive: p.bundledIncentive,
+    warranty: p.warranty ?? null,
+    bundledIncentive: p.bundledIncentive ?? null,
     isPodEligible: p.isPodEligible ?? true,
     podTerms: p.podTerms ?? "Pay upon doorstep delivery via POS or cash in Lagos, Abuja & PH.",
+    rating: p.rating ? Number(p.rating) : 4.8,
+    reviewCount: p.reviewCount ?? 12,
+    isDemo: p.isDemo ?? false,
+    jobId: p.jobId ?? null,
+    isActive: p.isActive ?? true,
+    createdAt: p.createdAt,
+    updatedAt: p.updatedAt,
 });
 
 const normalizeFilter = (filter: ProductListFilter = {}): ProductListFilter => ({
     category: filter.category && filter.category !== "All" ? filter.category : undefined,
     query: filter.query?.trim() || undefined,
+    brand: filter.brand?.trim() || undefined,
+    sellerType: filter.sellerType?.trim() || undefined,
+    isDemo: filter.isDemo,
 });
 
 /**
  * Retrieves paginated catalog products with cache acceleration.
- * Supports optional category and free-text query filters.
+ * Supports optional category, brand, query, and demo filters.
  */
 export const getProducts = async (
     limit = 12,
@@ -61,7 +80,7 @@ export const getProducts = async (
     const safeSkip = Math.max(skip, 0);
     const f = normalizeFilter(filter);
 
-    const cacheKey = `products:all:${f.category ?? "*"}:${f.query ?? "*"}:${effectiveLimit}:${safeSkip}`;
+    const cacheKey = `products:all:${f.category ?? "*"}:${f.brand ?? "*"}:${f.isDemo ?? "*"}:${f.query ?? "*"}:${effectiveLimit}:${safeSkip}`;
 
     const cached = await getCache<{
         products: Product[];
@@ -103,6 +122,27 @@ export const getProductByUuid = async (id: string): Promise<Product> => {
     }
 
     const product = await findProductByUuid(id);
+    if (!product) {
+        throw new NotFoundError("Product not found");
+    }
+
+    const result = mapProduct(product);
+    await setCache(cacheKey, result, 600);
+    return result;
+};
+
+/**
+ * Retrieves a single product by its slug.
+ */
+export const getProductBySlug = async (slug: string): Promise<Product> => {
+    const cacheKey = `products:slug:${slug}`;
+
+    const cached = await getCache<Product>(cacheKey);
+    if (cached) {
+        return cached;
+    }
+
+    const product = await findProductBySlug(slug);
     if (!product) {
         throw new NotFoundError("Product not found");
     }
