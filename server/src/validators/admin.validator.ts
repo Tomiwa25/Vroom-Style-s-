@@ -39,8 +39,25 @@ export const adminEntityIdParamSchema = z.object({
     id: z.string().min(1, "ID is required"),
 });
 
+export const adminJobIdParamSchema = z.object({
+    jobId: z.string().min(1, "jobId is required"),
+});
+
 export const adminOrdersQuerySchema = z.object({
     // Accept string query params, coerce to bounded integers.
     skip: z.coerce.number().int().min(0).optional().default(0),
     take: z.coerce.number().int().min(1).max(200).optional().default(50),
+});
+
+export const adminJobsQuerySchema = z.object({
+    skip: z.coerce.number().int().min(0).optional().default(0),
+    take: z.coerce.number().int().min(1).max(100).optional().default(20),
+});
+
+export const generateCatalogSchema = z.object({
+    count: z.number().int().min(1).max(100000).default(100),
+    categories: z.array(z.string()).optional(),
+    seed: z.number().int().optional(),
+    batchSize: z.number().int().min(50).max(2000).optional().default(500),
+    includeVariations: z.boolean().optional().default(true),
 });

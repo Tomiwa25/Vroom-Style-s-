@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../services/api";
 import type { Product } from "../types";
@@ -14,14 +15,38 @@ export interface UpdateStockPayload {
   stock: number;
 }
 
+export interface GenerationJob {
+  id: string;
+  status: "PENDING" | "RUNNING" | "COMPLETED" | "FAILED" | "DELETED" | string;
+  totalRequested: number;
+  totalGenerated: number;
+  totalFailed: number;
+  categories: string[];
+  seed: number | null;
+  includeVariations: boolean;
+  createdAt: string;
+  updatedAt: string;
+  _count?: { products: number };
+}
+
+export interface GenerateCatalogPayload {
+  count: number;
+  categories?: string[];
+  seed?: number;
+  batchSize?: number;
+  includeVariations?: boolean;
+}
+
 /**
  * Broader hook for Admin operations:
  * - Reads admin stats and live product inventory
  * - Optimistically updates product stock with instant cache invalidation
  * - Automates batch inventory synchronization
+ * - Manages high-scale catalog generation and safe demo lifecycle
  */
 export function useAdminCatalog() {
   const queryClient = useQueryClient();
+  const [activeJobId, setActiveJobId] = useState<string | null>(null);
 
   // Admin stats query
   const statsQuery = useQuery<AdminStats>({
@@ -37,7 +62,7 @@ export function useAdminCatalog() {
         }
       );
     },
-    staleTime: 60 * 1000, // 1 minute
+    staleTime: 60 * 1000,
   });
 
   // Admin products query
@@ -50,6 +75,20 @@ export function useAdminCatalog() {
     staleTime: 60 * 1000,
   });
 
+  // Generation jobs history query
+  const jobsQuery = useQuery<{ jobs: GenerationJob[]; total: number }>({
+    queryKey: ["admin", "generationJobs"],
+    queryFn: async () => {
+      const res = await api.get("/admin/products/generation-jobs?take=10");
+      return res.data?.data || { jobs: [], total: 0 };
+    },
+    staleTime: 10 * 1000,
+    refetchInterval: (query) => {
+      const hasRunning = query.state.data?.jobs?.some((j: GenerationJob) => j.status === "RUNNING");
+      return hasRunning || activeJobId ? 2500 : 30000;
+    },
+  });
+
   // Optimistic stock update mutation
   const updateStockMutation = useMutation({
     mutationFn: async ({ productId, stock }: UpdateStockPayload) => {
@@ -57,38 +96,28 @@ export function useAdminCatalog() {
       return res.data?.data;
     },
     onMutate: async ({ productId, stock }: UpdateStockPayload) => {
-      // 1. Cancel any outgoing refetches to avoid overwriting optimistic update
       await queryClient.cancelQueries({ queryKey: ["products"] });
       await queryClient.cancelQueries({ queryKey: ["admin", "products"] });
 
-      // 2. Snapshot previous values
       const previousStorefrontProducts = queryClient.getQueryData<Product[]>(["products"]);
       const previousAdminProducts = queryClient.getQueryData<Product[]>(["admin", "products"]);
 
-      // 3. Optimistically update storefront products queries
       queryClient.setQueriesData<Product[]>(
         { queryKey: ["products"] },
         (oldProducts) => {
           if (!oldProducts) return oldProducts;
-          return oldProducts.map((p) =>
-            p.id === productId ? { ...p, stock } : p
-          );
+          return oldProducts.map((p) => (p.id === productId ? { ...p, stock } : p));
         }
       );
 
-      // 4. Optimistically update admin products query
       queryClient.setQueryData<Product[]>(["admin", "products"], (oldProducts) => {
         if (!oldProducts) return oldProducts;
-        return oldProducts.map((p) =>
-          p.id === productId ? { ...p, stock } : p
-        );
+        return oldProducts.map((p) => (p.id === productId ? { ...p, stock } : p));
       });
 
-      // Return context with snapshots for rollback
       return { previousStorefrontProducts, previousAdminProducts };
     },
     onError: (_err, _variables, context) => {
-      // Rollback to previous state on failure
       if (context?.previousStorefrontProducts) {
         queryClient.setQueriesData({ queryKey: ["products"] }, context.previousStorefrontProducts);
       }
@@ -97,7 +126,6 @@ export function useAdminCatalog() {
       }
     },
     onSettled: () => {
-      // Re-sync server truth for both customer storefront and admin queries
       queryClient.invalidateQueries({ queryKey: ["products"] });
       queryClient.invalidateQueries({ queryKey: ["admin", "products"] });
       queryClient.invalidateQueries({ queryKey: ["admin", "stats"] });
@@ -107,7 +135,6 @@ export function useAdminCatalog() {
   // Automated batch inventory re-sync mutation
   const syncInventoryMutation = useMutation({
     mutationFn: async () => {
-      // Fetch fresh health check and re-sync catalog & stats
       const [healthRes, statsRes] = await Promise.all([
         api.get("/health").catch(() => ({ data: { message: "Connected to Local Cache" } })),
         api.get("/admin/stats").catch(() => ({ data: { data: null } })),
@@ -118,12 +145,63 @@ export function useAdminCatalog() {
       };
     },
     onSuccess: () => {
-      // Invalidate all product and admin caches across the app
       queryClient.invalidateQueries({ queryKey: ["products"] });
       queryClient.invalidateQueries({ queryKey: ["admin", "products"] });
       queryClient.invalidateQueries({ queryKey: ["admin", "stats"] });
     },
   });
+
+  // Catalog Generation Mutation
+  const generateCatalogMutation = useMutation({
+    mutationFn: async (payload: GenerateCatalogPayload) => {
+      const res = await api.post("/admin/products/generate", payload);
+      return res.data?.data;
+    },
+    onSuccess: (data) => {
+      if (data?.jobId && data?.status === "RUNNING") {
+        setActiveJobId(data.jobId);
+      }
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "products"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "stats"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "generationJobs"] });
+    },
+  });
+
+  // Delete Job Products Mutation
+  const deleteJobProductsMutation = useMutation({
+    mutationFn: async (jobId: string) => {
+      const res = await api.delete(`/admin/products/generation-jobs/${jobId}/products`);
+      return res.data?.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "products"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "stats"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "generationJobs"] });
+    },
+  });
+
+  // Clean All Demo Products Mutation
+  const cleanAllDemoMutation = useMutation({
+    mutationFn: async () => {
+      const res = await api.delete("/admin/products/demo-clean");
+      return res.data?.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "products"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "stats"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "generationJobs"] });
+    },
+  });
+
+  const activeJob = activeJobId
+    ? jobsQuery.data?.jobs?.find((j: GenerationJob) => j.id === activeJobId)
+    : null;
+  const isJobActive = activeJob
+    ? activeJob.status === "RUNNING" || activeJob.status === "PENDING"
+    : false;
 
   return {
     stats: statsQuery.data,
@@ -135,5 +213,15 @@ export function useAdminCatalog() {
     syncInventory: syncInventoryMutation.mutate,
     isSyncingInventory: syncInventoryMutation.isPending,
     syncStatus: syncInventoryMutation.isSuccess ? "Synced" : undefined,
+    // Catalog Generator
+    generationJobs: jobsQuery.data?.jobs || [],
+    isJobsLoading: jobsQuery.isLoading,
+    generateCatalog: generateCatalogMutation.mutateAsync,
+    isGenerating: generateCatalogMutation.isPending || isJobActive,
+    activeJobId: isJobActive ? activeJobId : null,
+    deleteJobProducts: deleteJobProductsMutation.mutateAsync,
+    isDeletingJob: deleteJobProductsMutation.isPending,
+    cleanAllDemoProducts: cleanAllDemoMutation.mutateAsync,
+    isCleaningDemo: cleanAllDemoMutation.isPending,
   };
 }

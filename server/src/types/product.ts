@@ -1,19 +1,27 @@
 export interface Product {
     id: string;
     externalId: number | null;
+    sku?: string | null;
     name: string;
+    slug?: string | null;
     description: string;
     price: number;
+    originalPrice?: number | null;
     image: string;
     images?: string[];
     category: string;
+    subcategory?: string | null;
+    brand?: string | null;
     stock: number;
     tag?: string | null;
     sizes?: string[];
     colors?: any;
     material?: string | null;
     fitGuide?: string | null;
-    sellerType?: "1P" | "3P";
+    specs?: Record<string, string> | any;
+    dimensions?: any;
+    weight?: number | null;
+    sellerType?: "1P" | "3P" | string;
     sellerName?: string;
     sellerRating?: number;
     isFulfilledByVroom?: boolean;
@@ -21,4 +29,11 @@ export interface Product {
     bundledIncentive?: string;
     isPodEligible?: boolean;
     podTerms?: string;
+    rating?: number | null;
+    reviewCount?: number | null;
+    isDemo?: boolean;
+    jobId?: string | null;
+    isActive?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
 }

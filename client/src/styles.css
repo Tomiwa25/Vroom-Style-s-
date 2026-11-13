@@ -4377,6 +4377,239 @@ select::-ms-expand {
   color: var(--graphite-soft);
 }
 
+.admin-tabs {
+  display: flex;
+  gap: var(--s4);
+  padding: 0 var(--s5);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--bg);
+}
+
+.admin-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--s3) var(--s2);
+  font-family: var(--display);
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-tab-btn:hover {
+  color: var(--ink);
+}
+
+.admin-tab-btn.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  font-weight: 500;
+}
+
+.generator-section {
+  padding: var(--s5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+.generator-kicker {
+  font-size: var(--t-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.generator-title {
+  font-family: var(--display);
+  font-size: var(--t-h3);
+  font-weight: 400;
+  margin: var(--s1) 0;
+  color: var(--ink);
+}
+
+.generator-desc {
+  font-size: var(--t-small);
+  color: var(--graphite-soft);
+  line-height: 1.5;
+}
+
+.generator-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.generator-preset-btn {
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--hairline);
+  background: var(--bg);
+  font-size: var(--t-small);
+  font-family: var(--display);
+  color: var(--graphite);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.generator-preset-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.generator-preset-btn.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.generator-custom-input {
+  width: 110px;
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--hairline);
+  font-size: var(--t-small);
+  font-family: var(--display);
+  background: var(--wash);
+}
+
+.generator-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s2);
+}
+
+.generator-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--s2);
+  max-height: 170px;
+  overflow-y: auto;
+  padding: var(--s2);
+  border: 1px solid var(--hairline);
+  background: var(--wash);
+}
+
+.generator-cat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-small);
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+}
+
+.generator-cat-item input[type="checkbox"] {
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.generator-options-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3);
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+}
+
+.generator-progress-wrap {
+  padding: var(--s4);
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.generator-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--hairline);
+  overflow: hidden;
+}
+
+.generator-progress-fill {
+  height: 100%;
+  background: var(--ink);
+  transition: width 0.3s ease;
+}
+
+.generator-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  padding-top: var(--s2);
+}
+
+.generator-jobs-wrap {
+  margin-top: var(--s4);
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--s4);
+}
+
+.generator-jobs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-small);
+  margin-top: var(--s2);
+}
+
+.generator-jobs-th {
+  text-align: left;
+  padding: var(--s2);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--graphite-soft);
+  font-size: var(--t-label);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.generator-jobs-td {
+  padding: var(--s2);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink);
+}
+
+.job-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid var(--hairline);
+}
+
+.job-badge.completed {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.job-badge.running {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.job-badge.failed {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.job-badge.deleted {
+  background: #f3f4f6;
+  color: #6b7280;
+  border-color: #e5e7eb;
+}
+
 /* ---------- Popovers ----------------------------------------------------- */
 
 .account-dropdown-wrapper,
