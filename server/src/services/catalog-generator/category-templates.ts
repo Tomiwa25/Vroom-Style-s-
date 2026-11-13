@@ -396,3 +396,4 @@ export const CATEGORY_TEMPLATES: Record<string, CategoryTemplate> = {
     }),
   },
 };
+

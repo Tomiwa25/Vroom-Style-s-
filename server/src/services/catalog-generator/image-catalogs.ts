@@ -280,3 +280,4 @@ export function resolveProductImages(category: string, index: number = 0): Multi
     gallery: triplet.length > 0 ? triplet : [FALLBACK_PRODUCT_IMAGE],
   };
 }
+

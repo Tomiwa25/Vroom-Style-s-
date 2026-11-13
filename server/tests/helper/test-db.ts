@@ -11,5 +11,6 @@ export const cleanDatabase = async () => {
     await prisma.product.deleteMany({
         where: { externalId: null }
     });
+    await prisma.productGenerationJob.deleteMany().catch(() => {});
     await prisma.user.deleteMany();
 };

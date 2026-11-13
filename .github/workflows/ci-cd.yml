@@ -122,7 +122,9 @@ jobs:
       - name: Apply Sequential Migrations to Test Database
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/vroom_test?sslmode=disable
-        run: npx prisma migrate deploy
+        run: |
+          npx prisma migrate deploy
+          npx prisma migrate status
 
       - name: Run Test Suite (Vitest)
         env:
