@@ -92,6 +92,7 @@ jobs:
       CLIENT_URL: http://localhost:5173
       CORS_ORIGIN: http://localhost:5173
       NODE_ENV: test
+      CACHE_DRIVER: memory
 
     steps:
       - name: Checkout Code
@@ -134,6 +135,7 @@ jobs:
           CLIENT_URL: http://localhost:5173
           CORS_ORIGIN: http://localhost:5173
           NODE_ENV: test
+          CACHE_DRIVER: memory
         run: npm run test:run
 
       - name: Validate Server Dockerfile Build

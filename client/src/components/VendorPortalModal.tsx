@@ -918,7 +918,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <select
                         style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
                         value={dropFitGuide}
-                        onChange={(e) => setDropFitGuide(e.target.value as any)}
+                        onChange={(e) => setDropFitGuide(e.target.value as "True to Size" | "Runs Small" | "Runs Large")}
                       >
                         <option value="True to Size">True to Size (Recommended)</option>
                         <option value="Runs Small">Runs Small (Recommend 1 size up)</option>
