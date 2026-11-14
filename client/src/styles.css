@@ -1,21 +1,47 @@
 /* ==========================================================================
-   VROOM STYLE(S) — Gallery White
-   One ground. One ink. One hairline. Photography is the only colour.
+   VROOM STYLE(S) — Warm Minimalist Atelier
+   Warm Oat Ground, Obsidian Ink, Camel Tan & Mineral Riviera Blue.
    ========================================================================== */
 
 :root {
-  --paper: #ffffff;
-  --wash: #f4f3f1;
-  --wash-deep: #eceae6;
+  /* Warm Minimalist Luxury Palette (Alabaster Oat, Desert Camel Tan, Mineral Riviera Blue & Laurel Sage) */
+  --page-bg: #F7F5F0;
+  --paper: #FAF8F4;
+  --paper-pure: #ffffff;
+  --paper-warm: #FAF8F4;
+  --wash: #F7F5F0;
+  --wash-deep: #EFEBE2;
 
-  --ink: #0b0b0b;
-  --graphite: #6b6b6b;
-  --graphite-soft: #9a9a9a;
+  --ink: #181614;
+  --text: #181614;
+  --text-secondary: #5C554B;
+  --graphite: #5C554B;
+  --graphite-soft: #7E766B;
+  --muted: #7E766B;
+  --muted-light: #ABA294;
 
-  --hairline: #e4e4e4;
-  --hairline-strong: #cfcfcf;
+  --hairline: #E6DFD5;
+  --hairline-strong: #D5CCC0;
+  --line: #E6DFD5;
+  --line-subtle: #EFEAE1;
+  --soft: #EFEBE2;
+  --soft-hover: #E5DFD4;
 
-  --alert: #9b2c1f;
+  --accent: #1E3A5F;
+  --accent-hover: #142842;
+  --brand-tan: #C59B6D;
+  --brand-tan-hover: #B38858;
+  --brand-tan-light: #F4ECE1;
+  --brand-blue: #1E3A5F;
+  --brand-green: #4E6554;
+
+  --alert: #B84A39;
+  --success: #3E6F58;
+  --danger: #B84A39;
+
+  --shadow-sm: 0 2px 6px rgba(35, 30, 20, 0.05);
+  --shadow: 0 8px 24px rgba(35, 30, 20, 0.07);
+  --shadow-lg: 0 20px 48px rgba(35, 30, 20, 0.10);
 
   --display: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif;
   --ui: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -73,7 +99,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--page-bg);
   color: var(--ink);
   font-family: var(--ui);
   font-size: var(--t-body);
@@ -6279,7 +6305,6 @@ select::-ms-expand {
 /* ---------- Long-form modal content -------------------------------------- */
 
 .jforce-modal,
-.vendor-portal-modal .modal-card,
 .vroom-delivery-modal-card,
 .help-center-modal .modal-card,
 .country-switcher-modal-card,
@@ -6288,6 +6313,15 @@ select::-ms-expand {
 .app-download-modal-card,
 .scavenger-modal {
   width: min(760px, 100%);
+}
+
+.vendor-portal-modal,
+.vendor-portal-modal.modal-container,
+.vendor-portal-modal .modal-card {
+  width: min(1080px, 96vw) !important;
+  max-width: 1080px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
 }
 
 .pane-title {

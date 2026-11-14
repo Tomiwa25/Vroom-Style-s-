@@ -38,11 +38,15 @@ import { CarsShowroomSection } from "./components/CarsShowroomSection";
 import { HomeAppliancesSection } from "./components/HomeAppliancesSection";
 import { TechLivingSection } from "./components/TechLivingSection";
 import { PromptStudioModal } from "./components/PromptStudioModal";
+import { Hero3DShowcase } from "./components/Hero3DShowcase";
+import { LuxuryMarquee } from "./components/LuxuryMarquee";
+import { InteractiveProductCard } from "./components/InteractiveProductCard";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { useReveal } from "./hooks/useReveal";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api, { createIdempotencyKey } from "./services/api";
 import "./styles.css";
+import "./3d-components.css";
 
 /**
  * Density switch.
@@ -126,6 +130,8 @@ function App() {
   const [complianceInitialTab, setComplianceInitialTab] = useState<"dispute" | "returns" | "cookies" | "gateways">("dispute");
   // The consent card waits until someone has actually read the page.
   const [isCookieCardVisible, setIsCookieCardVisible] = useState<boolean>(false);
+  // 3D Triad Tilt & Scrubbing interaction mode for catalog
+  const [isInteractive3DMode, setIsInteractive3DMode] = useState<boolean>(true);
 
   // Recently Viewed history (client-side localStorage tracking)
   const { recentlyViewed, recordView, clearHistory } = useRecentlyViewed();
@@ -1091,6 +1097,10 @@ function App() {
               onSearchQuery={(q) => setSearchQuery(q)}
               isOpen={isMegaMenuOpen}
               onToggle={setIsMegaMenuOpen}
+              onOpenBecomeSeller={() => {
+                setVendorPortalInitialTab("onboarding");
+                setIsVendorPortalOpen(true);
+              }}
             />
             {DEPARTMENTS.map((dept) => {
               const isActive = selectedCategory === dept;
@@ -1116,69 +1126,15 @@ function App() {
 
       {/* ---------------- 3. Main Page Body ---------------- */}
       <main className="page-wrap">
-        {/* Hero — one image, one line, two doors. */}
-        <section className="hero">
-          <div className="hero-copy">
-            <span className="kicker">Autumn 2026 &mdash; The First Cut</span>
+        {/* ---------------- 3. Interactive 3D Momentum Hero Showcase ---------------- */}
+        <Hero3DShowcase
+          featuredProduct={allProducts[0] || initialProducts[0]}
+          onExploreCollection={handleScrollToCatalog}
+          onQuickView={handleOpenQuickView}
+        />
 
-            <h1>
-              Elegance
-              <em>in motion</em>
-            </h1>
-
-            <p className="subtitle">
-              Considered clothing and signature accessories, cut in small runs from
-              mulberry silk, Grade-A cashmere and Italian calfskin. Delivered
-              nationwide within 24 hours.
-            </p>
-
-            <div className="hero-cta">
-              <button
-                type="button"
-                className="primary-button"
-                onClick={() => {
-                  const el = document.getElementById("catalog-section");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Shop the collection
-              </button>
-            </div>
-
-            <dl className="hero-facts">
-              <div>
-                <dt>Dispatch</dt>
-                <dd>24 hours</dd>
-              </div>
-              <div>
-                <dt>Returns</dt>
-                <dd>7 days</dd>
-              </div>
-              <div>
-                <dt>Payment</dt>
-                <dd>Card or cash</dd>
-              </div>
-            </dl>
-          </div>
-
-          <figure className="hero-image">
-            <div className="hero-photo-wrap">
-              <img
-                src="/images/hero.jpg"
-                alt=""
-                className="hero-photo-img"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-            <figcaption className="hero-caption">
-              <span className="hero-caption-index">01</span>
-              <span className="hero-caption-text">
-                Belted tailored blazer &mdash; mulberry silk
-              </span>
-            </figcaption>
-          </figure>
-        </section>
+        {/* Dynamic Architectural Luxury Marquee */}
+        <LuxuryMarquee />
 
         {/* ---------------- 4. Value Proposition Trust Bar ---------------- */}
         <section className="trust-bar" data-reveal aria-label="Service">
@@ -1415,6 +1371,18 @@ function App() {
               )}
               <button
                 type="button"
+                className={`catalog-filter-toggle ${isInteractive3DMode ? "is-open" : ""}`}
+                onClick={() => setIsInteractive3DMode((v) => !v)}
+                title={isInteractive3DMode ? "Switch to Classic Grid View" : "Switch to 3D Tilt & Angle Scrubbing Mode"}
+                style={{
+                  background: isInteractive3DMode ? "var(--soft)" : "transparent",
+                  borderColor: isInteractive3DMode ? "var(--brand-tan)" : "var(--line)",
+                }}
+              >
+                <span>{isInteractive3DMode ? "✦ 3D Triad Mode" : "⚂ Classic Mode"}</span>
+              </button>
+              <button
+                type="button"
                 className={`catalog-filter-toggle ${isFilterPanelOpen ? "is-open" : ""}`}
                 onClick={() => setIsFilterPanelOpen((v) => !v)}
                 aria-expanded={isFilterPanelOpen}
@@ -1532,18 +1500,36 @@ function App() {
           ) : (
             <>
               <section className="product-grid" id="catalog-results-grid">
-                {paginatedCatalogProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    formatPrice={formatPrice}
-                    isFavorited={wishlist.includes(product.id)}
-                    onToggleWishlist={handleToggleWishlist}
-                    onQuickView={handleOpenQuickView}
-                    onOpenLightbox={handleOpenLightbox}
-                    onAddToCart={handleAddToCart}
-                  />
-                ))}
+                {paginatedCatalogProducts.map((product) =>
+                  isInteractive3DMode ? (
+                    <InteractiveProductCard
+                      key={product.id}
+                      product={product}
+                      isFavorited={wishlist.includes(product.id)}
+                      onToggleWishlist={handleToggleWishlist}
+                      onQuickView={handleOpenQuickView}
+                      onAddToCart={(prod) =>
+                        handleAddToCart(
+                          prod,
+                          prod.sizes?.[0] || "Standard",
+                          prod.colors?.[0]?.name || "Default"
+                        )
+                      }
+                      formatPrice={formatPrice}
+                    />
+                  ) : (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      formatPrice={formatPrice}
+                      isFavorited={wishlist.includes(product.id)}
+                      onToggleWishlist={handleToggleWishlist}
+                      onQuickView={handleOpenQuickView}
+                      onOpenLightbox={handleOpenLightbox}
+                      onAddToCart={handleAddToCart}
+                    />
+                  )
+                )}
               </section>
 
               {/* Main Catalog Pagination Bar (Lazy page slicing) */}

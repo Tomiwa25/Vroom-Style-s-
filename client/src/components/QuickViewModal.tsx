@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Product } from "../types";
+import { Product360Viewer } from "./Product360Viewer";
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -26,12 +27,10 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
-  const [activeImage, setActiveImage] = useState<string>("");
   const [copiedPrompt, setCopiedPrompt] = useState<boolean>(false);
 
   if (!isOpen || !product) return null;
 
-  const currentImage = activeImage || product.image;
   const currentSize = selectedSize || product.sizes?.[0] || "One Size";
   const currentColor = selectedColor || product.colors?.[0]?.name || "Default";
   const gallery = product.images && product.images.length > 0 ? product.images : [product.image];
@@ -56,55 +55,34 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
         </button>
 
         <div className="quickview-layout">
-          {/* Product Media with Multi-Image Gallery */}
+          {/* Enhanced 3D Multi-Angle Viewer Stage */}
           <div className="quickview-media">
-            <div
-              className="quickview-media-clickable"
-              onClick={() => {
-                if (onOpenLightbox) {
-                  const idx = gallery.indexOf(currentImage);
-                  onOpenLightbox(product, idx >= 0 ? idx : 0);
-                }
-              }}
-              title="Click to open full high-resolution image viewer"
-              style={{ cursor: onOpenLightbox ? "zoom-in" : "default", position: "relative" }}
-            >
-              <img
-                src={currentImage}
-                alt={product.name}
-                className="quickview-img"
-              />
-              {onOpenLightbox && (
-                <span className="quickview-zoom-hint-pill">
-                  🔍 Click to Enlarge / View Angles
-                </span>
-              )}
-            </div>
-            {product.tag && (
-              <span className="quickview-badge">{product.tag}</span>
-            )}
-
-            {gallery.length > 1 && (
-              <div className="quickview-gallery-strip">
-                {gallery.map((img, idx) => (
-                  <button
-                    key={idx}
-                    className={`gallery-thumb-btn ${currentImage === img ? "active" : ""}`}
-                    onClick={() => setActiveImage(img)}
-                    title={
-                      product.category === "Cars"
-                        ? idx === 0
-                          ? "Front Exterior (3/4 Profile)"
-                          : idx === 1
-                          ? "Rear Exterior (Lights & Aero)"
-                          : "Interior Cockpit (Cabin & Dash)"
-                        : `Angle ${idx + 1}`
-                    }
-                  >
-                    <img src={img} alt={`Angle ${idx + 1}`} />
-                  </button>
-                ))}
-              </div>
+            <Product360Viewer
+              images={gallery}
+              productName={product.name}
+              category={product.category}
+              tag={product.tag}
+            />
+            {onOpenLightbox && (
+              <button
+                type="button"
+                className="quickview-lightbox-trigger-btn"
+                onClick={() => onOpenLightbox(product, 0)}
+                style={{
+                  marginTop: "8px",
+                  width: "100%",
+                  background: "var(--soft)",
+                  border: "1px solid var(--line)",
+                  padding: "6px 12px",
+                  borderRadius: "6px",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  color: "var(--text)",
+                  cursor: "pointer",
+                }}
+              >
+                🔍 Expand Full-Screen Studio Lightbox
+              </button>
             )}
           </div>
 

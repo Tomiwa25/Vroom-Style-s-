@@ -113,9 +113,49 @@ export interface VendorProductListing {
   stock: number;
   warranty: string;
   bundledIncentive?: string;
-  image: string;
+  image: string; // Primary Editorial shot
+  images?: string[]; // Guaranteed 3-angle Fashion Triad [Editorial, Studio Silhouette, Detail Texture]
+  sizes?: string[];
+  colors?: { name: string; hex: string }[];
+  material?: string;
+  fitGuide?: "Runs Small" | "True to Size" | "Runs Large";
+  sku?: string;
+  salesCount?: number;
+  revenueNGN?: number;
   status: "ACTIVE" | "PENDING_REVIEW" | "OUT_OF_STOCK";
   createdAt: string;
+}
+
+export interface VendorOrder {
+  orderId: string;
+  customerName: string;
+  customerCity: string;
+  items: {
+    listingId: string;
+    productName: string;
+    quantity: number;
+    price: number;
+    image: string;
+    size?: string;
+    color?: string;
+  }[];
+  grossTotalNGN: number;
+  platformFeeNGN: number; // 10% Vroom marketplace infrastructure
+  netPayoutNGN: number;   // 90% Vendor payout
+  fulfillmentStatus: "PENDING_DISPATCH" | "PICKED_BY_VROOM" | "IN_TRANSIT" | "DELIVERED";
+  createdAt: string;
+}
+
+export interface VendorSalesAnalytics {
+  weeklySales: { day: string; amount: number; orders: number }[];
+  payoutHistory: {
+    id: string;
+    amount: number;
+    date: string;
+    reference: string;
+    bank: string;
+    status: "PAID" | "PROCESSING";
+  }[];
 }
 
 // ---------------- JForce Reseller / Affiliate Types ----------------
