@@ -5,18 +5,33 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   build: {
-    chunkSizeWarningLimit: 1200,
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+          const cleanId = id.replace(/\\/g, '/')
+          if (cleanId.includes('/node_modules/react/') || cleanId.includes('/node_modules/react-dom/')) {
             return 'react-vendor'
           }
-          if (id.includes('node_modules/@tanstack')) {
+          if (cleanId.includes('/node_modules/@tanstack/')) {
             return 'query-vendor'
           }
-          if (id.includes('node_modules/axios')) {
+          if (cleanId.includes('/node_modules/axios/')) {
             return 'network-vendor'
+          }
+          if (cleanId.includes('/src/data/categories/') || cleanId.includes('/src/data/products')) {
+            return 'catalog-data'
+          }
+          if (
+            cleanId.includes('/src/components/VendorPortalModal') ||
+            cleanId.includes('/src/components/AdminModal') ||
+            cleanId.includes('/src/components/VroomDeliveryModal') ||
+            cleanId.includes('/src/components/ComplianceModal')
+          ) {
+            return 'management-portals'
+          }
+          if (cleanId.includes('/src/components/CircleLookbook') || cleanId.includes('/src/data/circleLooks')) {
+            return 'circle-lookbook'
           }
         },
       },

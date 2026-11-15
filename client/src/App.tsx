@@ -39,6 +39,7 @@ import { HomeAppliancesSection } from "./components/HomeAppliancesSection";
 import { TechLivingSection } from "./components/TechLivingSection";
 import { PromptStudioModal } from "./components/PromptStudioModal";
 import { Hero3DShowcase } from "./components/Hero3DShowcase";
+import { CircleLookbook } from "./components/CircleLookbook";
 import { LuxuryMarquee } from "./components/LuxuryMarquee";
 import { InteractiveProductCard } from "./components/InteractiveProductCard";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
@@ -78,6 +79,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
+  const [heroViewMode, setHeroViewMode] = useState<"lookbook" | "studio">("lookbook");
 
   // Modals & Drawers
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -1119,6 +1121,16 @@ function App() {
                 </button>
               );
             })}
+            <button
+              type="button"
+              className={`dept-link ${heroViewMode === "lookbook" ? "is-active" : ""}`}
+              onClick={() => {
+                setHeroViewMode("lookbook");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              ✦ Circle Lookbook
+            </button>
           </div>
         </nav>
 
@@ -1126,12 +1138,64 @@ function App() {
 
       {/* ---------------- 3. Main Page Body ---------------- */}
       <main className="page-wrap">
-        {/* ---------------- 3. Interactive 3D Momentum Hero Showcase ---------------- */}
-        <Hero3DShowcase
-          featuredProduct={allProducts[0] || initialProducts[0]}
-          onExploreCollection={handleScrollToCatalog}
-          onQuickView={handleOpenQuickView}
-        />
+        {/* Editorial Experience Switcher */}
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "12px 24px", background: "var(--bg-surface, #F7F5F0)", borderBottom: "1px solid var(--border-subtle, #E5E0D8)", gap: "12px" }}>
+          <div style={{ display: "inline-flex", padding: "4px", background: "#FFFFFF", borderRadius: "999px", border: "1px solid var(--border-subtle, #E5E0D8)", boxShadow: "0 2px 8px rgba(30, 58, 95, 0.04)", gap: "4px" }}>
+            <button
+              type="button"
+              onClick={() => setHeroViewMode("lookbook")}
+              style={{
+                padding: "8px 18px",
+                borderRadius: "999px",
+                fontSize: "11px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                background: heroViewMode === "lookbook" ? "var(--color-navy, #1E3A5F)" : "transparent",
+                color: heroViewMode === "lookbook" ? "#FFFFFF" : "var(--color-ink-muted, #706E6B)",
+                transition: "all 0.25s ease",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              ◯ Circle Lookbook (Vol. 01)
+            </button>
+            <button
+              type="button"
+              onClick={() => setHeroViewMode("studio")}
+              style={{
+                padding: "8px 18px",
+                borderRadius: "999px",
+                fontSize: "11px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                background: heroViewMode === "studio" ? "var(--color-navy, #1E3A5F)" : "transparent",
+                color: heroViewMode === "studio" ? "#FFFFFF" : "var(--color-ink-muted, #706E6B)",
+                transition: "all 0.25s ease",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              ✦ Studio 3D Showcase
+            </button>
+          </div>
+        </div>
+
+        {heroViewMode === "lookbook" ? (
+          <CircleLookbook
+            onAddToCart={handleAddToCart}
+            cartCount={totalCartCount}
+            onOpenCart={() => setIsCartOpen(true)}
+            onExploreCatalog={handleScrollToCatalog}
+          />
+        ) : (
+          <Hero3DShowcase
+            featuredProduct={allProducts[0] || initialProducts[0]}
+            onExploreCollection={handleScrollToCatalog}
+            onQuickView={handleOpenQuickView}
+          />
+        )}
 
         {/* Dynamic Architectural Luxury Marquee */}
         <LuxuryMarquee />
