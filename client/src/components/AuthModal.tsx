@@ -80,19 +80,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     onClose();
   };
 
-  // Quick Demo Autofill
-  const handleQuickDemoFill = (type: "client" | "admin") => {
-    if (type === "admin") {
-      setEmail("admin@vroomstyles.com");
-      setPassword("AtelierAdmin2026!");
-      onShowToast("Loaded Admin credentials");
-    } else {
-      setEmail("client@vroomstyles.com");
-      setPassword("VroomCashmere2026!");
-      onShowToast("Loaded Client credentials");
-    }
-  };
-
   // ---------------- LOGIN ----------------
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -541,27 +528,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 }}
               >
                 Create Account
-              </button>
-            </div>
-
-            {/* 1-Click Fast Demo Fill Pill Bar */}
-            <div className="auth-demo-bar">
-              <span className="demo-bar-label">Quick fill:</span>
-              <button
-                type="button"
-                className="demo-pill-btn"
-                onClick={() => handleQuickDemoFill("client")}
-                title="Populate test client account"
-              >
-                ⚡ Client Demo
-              </button>
-              <button
-                type="button"
-                className="demo-pill-btn"
-                onClick={() => handleQuickDemoFill("admin")}
-                title="Populate test admin account"
-              >
-                🛡️ Admin
               </button>
             </div>
 

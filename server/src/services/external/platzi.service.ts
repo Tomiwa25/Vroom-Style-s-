@@ -61,8 +61,8 @@ const FASHION_TRIAD_CATALOG: Record<string, string[]> = {
   ],
   coat: [
     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85", // 1: Editorial outdoor
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85", // 2: Studio silhouette
-    "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85", // 3: Wool split seam
+    "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85", // 2: Studio silhouette
+    "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=1200&q=85", // 3: Wool split seam
   ],
   sweater: [
     "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=85", // 1: Editorial lifestyle
@@ -81,8 +81,8 @@ const FASHION_TRIAD_CATALOG: Record<string, string[]> = {
   ],
   dress: [
     "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85", // 1: Editorial on model
-    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85", // 2: Clean studio silhouette
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85", // 3: Fabric flow & hem detail
+    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1200&q=85", // 2: Clean studio silhouette
+    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85", // 3: Fabric flow & hem detail
   ],
   pants: [
     "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85", // 1: Editorial walking
