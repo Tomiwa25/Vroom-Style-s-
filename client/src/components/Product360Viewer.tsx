@@ -8,11 +8,86 @@ interface Product360ViewerProps {
   initialMode?: "triad" | "360";
 }
 
-const VIEW_LABELS = [
-  { label: "Editorial Fit", icon: "👤", desc: "Styled lookbook drape on model" },
-  { label: "Studio Silhouette", icon: "📐", desc: "Isolated 3/4 clean studio profile" },
-  { label: "Craftsmanship Detail", icon: "🔍", desc: "Macro fabric weave & hardware" },
-];
+interface ViewAngleDescriptor {
+  label: string;
+  icon: string;
+  desc: string;
+}
+
+function getCategoryViewLabels(category: string = ""): ViewAngleDescriptor[] {
+  const cat = category.toLowerCase();
+
+  if (cat.includes("fridge") || cat.includes("refrigerator") || cat.includes("appliance")) {
+    return [
+      { label: "Front Exterior", icon: "🚪", desc: "Clean architectural facade & finish" },
+      { label: "Interior & Capacity", icon: "🧊", desc: "Shelving, compartments & cooling layout" },
+      { label: "Engineering Detail", icon: "🔍", desc: "Handles, digital controls & compressor tech" },
+    ];
+  }
+
+  if (cat.includes("microwave") || cat.includes("oven")) {
+    return [
+      { label: "Countertop Silhouette", icon: "⚡", desc: "Sleek stainless steel / matte profile" },
+      { label: "Cavity & Turntable", icon: "🍲", desc: "Illuminated chamber & rotary glass tray" },
+      { label: "Control Architecture", icon: "🔍", desc: "Tactile dial, sensor touch & digital panel" },
+    ];
+  }
+
+  if (cat.includes("tv") || cat.includes("television")) {
+    return [
+      { label: "Display Frontal", icon: "📺", desc: "Bezel-less 4K OLED / Mini-LED panel" },
+      { label: "Living Space Staging", icon: "🛋️", desc: "Architectural wall mount & ambient setup" },
+      { label: "Slim Depth & Ports", icon: "🔍", desc: "Wafer-thin chassis & cable routing" },
+    ];
+  }
+
+  if (cat.includes("laptop") || cat.includes("computer") || cat.includes("monitor") || cat.includes("tech")) {
+    return [
+      { label: "Device Profile", icon: "💻", desc: "Ultra-slim chassis & frontal display" },
+      { label: "Spatial Workspace", icon: "📐", desc: "Desk setup & ergonomic viewing angle" },
+      { label: "Hardware & Ports", icon: "🔍", desc: "Precision chassis, ports & keyboard architecture" },
+    ];
+  }
+
+  if (cat.includes("car") || cat.includes("automotive") || cat.includes("vehicle")) {
+    return [
+      { label: "Exterior Profile", icon: "🚗", desc: "Full aerodynamic studio silhouette" },
+      { label: "Cockpit & Cabin", icon: "💺", desc: "Executive interior & digital console" },
+      { label: "Trim & Alloy Detail", icon: "🔍", desc: "Precision rims, headlamps & badge finish" },
+    ];
+  }
+
+  if (cat.includes("furniture")) {
+    return [
+      { label: "Living Space Staging", icon: "🛋️", desc: "Ambient architectural room placement" },
+      { label: "Structural Silhouette", icon: "📐", desc: "Ergonomic 3/4 studio angle" },
+      { label: "Joinery & Material", icon: "🔍", desc: "Solid timber grain, bouclé & seams" },
+    ];
+  }
+
+  if (cat.includes("kitchen") || cat.includes("utensil") || cat.includes("cookware")) {
+    return [
+      { label: "Product Overview", icon: "🍳", desc: "Clean studio profile & proportions" },
+      { label: "Culinary Staging", icon: "✨", desc: "Cooktop & tabletop preparation context" },
+      { label: "Material & Finish", icon: "🔍", desc: "Cast iron, damascus steel & ergonomic grip" },
+    ];
+  }
+
+  if (cat.includes("shoe") || cat.includes("bag") || cat.includes("footwear") || cat.includes("accessories")) {
+    return [
+      { label: "Hero Silhouette", icon: "👠", desc: "Clean studio footwear / leather profile" },
+      { label: "Perspective & Sole", icon: "📐", desc: "3/4 elevated angle & sole profile" },
+      { label: "Leather & Hardware", icon: "🔍", desc: "Full-grain calfskin, stitching & brass accents" },
+    ];
+  }
+
+  // Default Apparel
+  return [
+    { label: "Editorial Fit", icon: "👤", desc: "Styled lookbook drape on model" },
+    { label: "Studio Silhouette", icon: "📐", desc: "Isolated 3/4 clean studio profile" },
+    { label: "Craftsmanship Detail", icon: "🔍", desc: "Macro fabric weave & hardware" },
+  ];
+}
 
 export const Product360Viewer: React.FC<Product360ViewerProps> = ({
   images,
@@ -98,7 +173,8 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
     };
   }, [isAutoSpinning, safeImages.length]);
 
-  const activeLabel = VIEW_LABELS[activeIndex] || {
+  const categoryLabels = getCategoryViewLabels(category);
+  const activeLabel = categoryLabels[activeIndex] || {
     label: `Angle ${activeIndex + 1}`,
     icon: "✦",
     desc: "Alternative perspective",
@@ -180,7 +256,7 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
       {/* 3-Angle Fashion Triad Navigation Strip */}
       <div className="viewer-triad-tabs">
         {safeImages.map((img, idx) => {
-          const itemMeta = VIEW_LABELS[idx] || {
+          const itemMeta = categoryLabels[idx] || {
             label: `Angle ${idx + 1}`,
             icon: "✦",
             desc: "Custom Angle",
