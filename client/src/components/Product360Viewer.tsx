@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 
 interface Product360ViewerProps {
   images: string[];
@@ -8,87 +8,6 @@ interface Product360ViewerProps {
   initialMode?: "triad" | "360";
 }
 
-interface ViewAngleDescriptor {
-  label: string;
-  icon: string;
-  desc: string;
-}
-
-function getCategoryViewLabels(category: string = ""): ViewAngleDescriptor[] {
-  const cat = category.toLowerCase();
-
-  if (cat.includes("fridge") || cat.includes("refrigerator") || cat.includes("appliance")) {
-    return [
-      { label: "Front Exterior", icon: "🚪", desc: "Clean architectural facade & finish" },
-      { label: "Interior & Capacity", icon: "🧊", desc: "Shelving, compartments & cooling layout" },
-      { label: "Engineering Detail", icon: "🔍", desc: "Handles, digital controls & compressor tech" },
-    ];
-  }
-
-  if (cat.includes("microwave") || cat.includes("oven")) {
-    return [
-      { label: "Countertop Silhouette", icon: "⚡", desc: "Sleek stainless steel / matte profile" },
-      { label: "Cavity & Turntable", icon: "🍲", desc: "Illuminated chamber & rotary glass tray" },
-      { label: "Control Architecture", icon: "🔍", desc: "Tactile dial, sensor touch & digital panel" },
-    ];
-  }
-
-  if (cat.includes("tv") || cat.includes("television")) {
-    return [
-      { label: "Display Frontal", icon: "📺", desc: "Bezel-less 4K OLED / Mini-LED panel" },
-      { label: "Living Space Staging", icon: "🛋️", desc: "Architectural wall mount & ambient setup" },
-      { label: "Slim Depth & Ports", icon: "🔍", desc: "Wafer-thin chassis & cable routing" },
-    ];
-  }
-
-  if (cat.includes("laptop") || cat.includes("computer") || cat.includes("monitor") || cat.includes("tech")) {
-    return [
-      { label: "Device Profile", icon: "💻", desc: "Ultra-slim chassis & frontal display" },
-      { label: "Spatial Workspace", icon: "📐", desc: "Desk setup & ergonomic viewing angle" },
-      { label: "Hardware & Ports", icon: "🔍", desc: "Precision chassis, ports & keyboard architecture" },
-    ];
-  }
-
-  if (cat.includes("car") || cat.includes("automotive") || cat.includes("vehicle")) {
-    return [
-      { label: "Exterior Profile", icon: "🚗", desc: "Full aerodynamic studio silhouette" },
-      { label: "Cockpit & Cabin", icon: "💺", desc: "Executive interior & digital console" },
-      { label: "Trim & Alloy Detail", icon: "🔍", desc: "Precision rims, headlamps & badge finish" },
-    ];
-  }
-
-  if (cat.includes("furniture")) {
-    return [
-      { label: "Living Space Staging", icon: "🛋️", desc: "Ambient architectural room placement" },
-      { label: "Structural Silhouette", icon: "📐", desc: "Ergonomic 3/4 studio angle" },
-      { label: "Joinery & Material", icon: "🔍", desc: "Solid timber grain, bouclé & seams" },
-    ];
-  }
-
-  if (cat.includes("kitchen") || cat.includes("utensil") || cat.includes("cookware")) {
-    return [
-      { label: "Product Overview", icon: "🍳", desc: "Clean studio profile & proportions" },
-      { label: "Culinary Staging", icon: "✨", desc: "Cooktop & tabletop preparation context" },
-      { label: "Material & Finish", icon: "🔍", desc: "Cast iron, damascus steel & ergonomic grip" },
-    ];
-  }
-
-  if (cat.includes("shoe") || cat.includes("bag") || cat.includes("footwear") || cat.includes("accessories")) {
-    return [
-      { label: "Hero Silhouette", icon: "👠", desc: "Clean studio footwear / leather profile" },
-      { label: "Perspective & Sole", icon: "📐", desc: "3/4 elevated angle & sole profile" },
-      { label: "Leather & Hardware", icon: "🔍", desc: "Full-grain calfskin, stitching & brass accents" },
-    ];
-  }
-
-  // Default Apparel
-  return [
-    { label: "Editorial Fit", icon: "👤", desc: "Styled lookbook drape on model" },
-    { label: "Studio Silhouette", icon: "📐", desc: "Isolated 3/4 clean studio profile" },
-    { label: "Craftsmanship Detail", icon: "🔍", desc: "Macro fabric weave & hardware" },
-  ];
-}
-
 export const Product360Viewer: React.FC<Product360ViewerProps> = ({
   images,
   productName,
@@ -96,24 +15,21 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
   tag,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoSpinning, setIsAutoSpinning] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const startX = useRef(0);
-  const autoSpinInterval = useRef<number | null>(null);
 
   // Guarantee we always have safe images
   const safeImages = images && images.length > 0 ? images : ["/images/hero.jpg"];
 
-  // Handle pointer drag to spin/rotate angles
+  // Handle pointer drag to swipe angles
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     setIsDragging(true);
     startX.current = e.clientX;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    if (isAutoSpinning) setIsAutoSpinning(false);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -127,7 +43,7 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
 
     if (!isDragging || safeImages.length <= 1) return;
     const deltaX = e.clientX - startX.current;
-    const sensitivity = 35; // Pixels per angle step
+    const sensitivity = 40; // Pixels per angle step
 
     if (Math.abs(deltaX) > sensitivity) {
       const step = deltaX > 0 ? -1 : 1;
@@ -141,48 +57,24 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
-      // Ignore if pointer capture already lost
+      // Ignore if pointer capture was already released
     }
   };
 
-  // Scroll wheel on viewer to scrub angles
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (safeImages.length <= 1) return;
-    e.preventDefault();
-    if (Math.abs(e.deltaY) > 15) {
-      const step = e.deltaY > 0 ? 1 : -1;
-      setActiveIndex((prev) => (prev + step + safeImages.length) % safeImages.length);
-    }
-  };
-
-  // Auto-spin toggle
-  const toggleAutoSpin = useCallback(() => {
-    setIsAutoSpinning((prev) => !prev);
-  }, []);
-
-  useEffect(() => {
-    if (isAutoSpinning && safeImages.length > 1) {
-      autoSpinInterval.current = window.setInterval(() => {
-        setActiveIndex((prev) => (prev + 1) % safeImages.length);
-      }, 1400);
-    } else if (autoSpinInterval.current) {
-      window.clearInterval(autoSpinInterval.current);
-    }
-    return () => {
-      if (autoSpinInterval.current) window.clearInterval(autoSpinInterval.current);
-    };
-  }, [isAutoSpinning, safeImages.length]);
-
-  const categoryLabels = getCategoryViewLabels(category);
-  const activeLabel = categoryLabels[activeIndex] || {
-    label: `Angle ${activeIndex + 1}`,
-    icon: "✦",
-    desc: "Alternative perspective",
-  };
+  const handleWheel = useCallback(
+    (e: React.WheelEvent<HTMLDivElement>) => {
+      if (isZoomed || safeImages.length <= 1) return;
+      if (Math.abs(e.deltaX) > 20) {
+        const step = e.deltaX > 0 ? 1 : -1;
+        setActiveIndex((prev) => (prev + step + safeImages.length) % safeImages.length);
+      }
+    },
+    [isZoomed, safeImages.length]
+  );
 
   return (
     <div className="product-360-container">
-      {/* 3D Viewer Canvas Header */}
+      {/* Clean Top Bar */}
       <div className="viewer-top-bar">
         <div className="viewer-badge-group">
           <span className="viewer-category-tag">{category}</span>
@@ -191,24 +83,16 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
         <div className="viewer-controls-group">
           <button
             type="button"
-            className={`viewer-action-pill ${isAutoSpinning ? "active" : ""}`}
-            onClick={toggleAutoSpin}
-            title="Auto-rotate 360°"
-          >
-            <span>{isAutoSpinning ? "⏸ Pause Spin" : "▶ 360° Auto-Spin"}</span>
-          </button>
-          <button
-            type="button"
             className={`viewer-action-pill ${isZoomed ? "active" : ""}`}
             onClick={() => setIsZoomed((z) => !z)}
-            title="Inspect fabric texture up close"
+            title={isZoomed ? "Exit zoom" : "Inspect fabric texture"}
           >
-            <span>{isZoomed ? "🔍 Exit Zoom" : "🔎 2x Loupe"}</span>
+            <span>{isZoomed ? "Exit Zoom" : "🔎 2x Loupe"}</span>
           </button>
         </div>
       </div>
 
-      {/* Main Interactive Stage */}
+      {/* Main Photographic Stage (No intrusive text overlays) */}
       <div
         ref={containerRef}
         className={`viewer-stage ${isDragging ? "dragging" : ""} ${isZoomed ? "zoomed" : ""}`}
@@ -219,7 +103,7 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
       >
         <img
           src={safeImages[activeIndex]}
-          alt={`${productName} - ${activeLabel.label}`}
+          alt={`${productName} view ${activeIndex + 1}`}
           className="viewer-main-image"
           style={
             isZoomed
@@ -232,61 +116,33 @@ export const Product360Viewer: React.FC<Product360ViewerProps> = ({
           }
         />
 
-        {/* Ambient 3D Rim Light Glare */}
+        {/* Ambient Studio Rim Light */}
         <div className="viewer-ambient-light" />
+      </div>
 
-        {/* Overlay Interactive Prompt */}
-        {!isZoomed && (
-          <div className="viewer-drag-prompt">
-            <span className="prompt-icon">⇄</span>
-            <span>Drag or scroll to rotate 3D view</span>
-          </div>
-        )}
+      {/* Clean Photo Thumbnail Strip (Clean minimalist image tiles, no redundant text) */}
+      {safeImages.length > 1 && (
+        <div className="viewer-triad-tabs clean-thumbs-strip">
+          {safeImages.map((img, idx) => {
+            const isActive = activeIndex === idx;
 
-        {/* Active Angle Descriptor Pill */}
-        <div className="viewer-angle-descriptor">
-          <span className="descriptor-icon">{activeLabel.icon}</span>
-          <div className="descriptor-copy">
-            <strong>{activeLabel.label}</strong>
-            <small>{activeLabel.desc}</small>
-          </div>
+            return (
+              <button
+                key={idx}
+                type="button"
+                className={`triad-tab-card clean-thumb-card ${isActive ? "active" : ""}`}
+                onClick={() => setActiveIndex(idx)}
+                aria-label={`View angle ${idx + 1}`}
+              >
+                <div className="triad-thumb-wrap">
+                  <img src={img} alt="" />
+                  {isActive && <span className="triad-active-indicator" />}
+                </div>
+              </button>
+            );
+          })}
         </div>
-      </div>
-
-      {/* 3-Angle Fashion Triad Navigation Strip */}
-      <div className="viewer-triad-tabs">
-        {safeImages.map((img, idx) => {
-          const itemMeta = categoryLabels[idx] || {
-            label: `Angle ${idx + 1}`,
-            icon: "✦",
-            desc: "Custom Angle",
-          };
-          const isActive = activeIndex === idx;
-
-          return (
-            <button
-              key={idx}
-              type="button"
-              className={`triad-tab-card ${isActive ? "active" : ""}`}
-              onClick={() => {
-                setActiveIndex(idx);
-                setIsAutoSpinning(false);
-              }}
-            >
-              <div className="triad-thumb-wrap">
-                <img src={img} alt={itemMeta.label} />
-                {isActive && <span className="triad-active-indicator" />}
-              </div>
-              <div className="triad-text">
-                <span className="triad-label-title">
-                  {itemMeta.icon} {itemMeta.label}
-                </span>
-                <span className="triad-label-sub">{itemMeta.desc}</span>
-              </div>
-            </button>
-          );
-        })}
-      </div>
+      )}
     </div>
   );
 };

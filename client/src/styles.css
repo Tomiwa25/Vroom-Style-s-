@@ -3395,8 +3395,606 @@ select::-ms-expand {
   text-transform: none;
 }
 
-/* ---------- Auth --------------------------------------------------------- */
+/* ---------- Auth (Luxury Atelier Redesign) ------------------------------ */
 
+.luxury-auth-backdrop {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(18, 16, 14, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.luxury-auth-card {
+  width: min(480px, 100%);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 34px 32px 36px;
+  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  position: relative;
+  max-height: 92vh;
+  overflow-y: auto;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.auth-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.auth-brand-kicker {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #767676;
+}
+
+.auth-round-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f2f2f2;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-round-close-btn:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.auth-heading-block {
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.auth-card-headline {
+  font-family: var(--display, serif);
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.auth-card-subhead {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #666666;
+  margin: 0;
+}
+
+/* Interactive Segmented Pill Switcher */
+.interactive-pill-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f1f1;
+  padding: 4px;
+  border-radius: 999px;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.segmented-tab-btn {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+.segmented-tab-btn.active {
+  background: #000000;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+}
+
+.segmented-tab-btn:not(.active):hover {
+  color: #000000;
+}
+
+/* 1-Click Fast Demo Autofill Bar */
+.auth-demo-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 8px 12px;
+  background: #fafafa;
+  border: 1px dashed #dedede;
+  border-radius: 10px;
+}
+
+.demo-bar-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #777777;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.demo-pill-btn {
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #222222;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.demo-pill-btn:hover {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+/* Form & Input Enclosures */
+.luxury-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.interactive-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.interactive-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #333333;
+}
+
+.interactive-input-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fafafa;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 0 14px;
+  height: 52px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interactive-input-box:focus-within {
+  background: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  color: #888888;
+  flex-shrink: 0;
+}
+
+.spacious-input {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  height: 100% !important;
+  font-size: 14.5px !important;
+  color: #111111 !important;
+  outline: none !important;
+  min-height: unset !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.spacious-input::placeholder {
+  color: #aaaaaa;
+}
+
+.interactive-pwd-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #eeeeee;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #444444;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.interactive-pwd-toggle:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Custom Interactive Checkbox & Options */
+.auth-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+
+.custom-interactive-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-interactive-checkbox input {
+  display: none;
+}
+
+.checkbox-visual {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid #cccccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  background: #ffffff;
+}
+
+.custom-interactive-checkbox input:checked + .checkbox-visual {
+  background: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+.custom-interactive-checkbox input:not(:checked) + .checkbox-visual svg {
+  display: none;
+}
+
+.checkbox-text {
+  font-size: 13px;
+  color: #444444;
+}
+
+.forgot-link-btn {
+  font-size: 12.5px;
+  color: #666666;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.forgot-link-btn:hover {
+  color: #000000;
+}
+
+/* Primary Action CTA */
+.luxury-auth-submit {
+  height: 52px;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  width: 100%;
+}
+
+.luxury-auth-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background: #1a1a1a;
+}
+
+.luxury-auth-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Social Fast Auth */
+.social-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888888;
+}
+
+.social-auth-divider::before,
+.social-auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e8e8e8;
+}
+
+.social-auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.social-auth-pill {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid #e0e0e0;
+  background: #ffffff;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #222222;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.social-auth-pill:hover {
+  border-color: #000000;
+  background: #fafafa;
+  transform: translateY(-1px);
+}
+
+.interactive-name-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.reg-terms-notice {
+  font-size: 11.5px;
+  color: #777777;
+  line-height: 1.4;
+  margin: 2px 0 4px;
+  text-align: center;
+}
+
+/* User Profile & Status Badges */
+.luxury-profile-wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.luxury-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.luxury-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #000000;
+  color: #ffffff;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.profile-user-name {
+  font-family: var(--display, serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0;
+}
+
+.profile-user-email {
+  font-size: 13.5px;
+  color: #666666;
+}
+
+.profile-status-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 12px;
+}
+
+.luxury-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: #f4f4f4;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.badge-dot.verified {
+  background: #10b981;
+}
+
+.badge-dot.pending {
+  background: #f59e0b;
+}
+
+.luxury-role-tag {
+  background: #000000;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.luxury-perks-card {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.luxury-perk-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12.5px;
+  color: #555555;
+  line-height: 1.4;
+}
+
+.luxury-perk-row .perk-icon {
+  color: #000000;
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+.luxury-perk-row p {
+  margin: 0;
+}
+
+.luxury-signout-btn {
+  background: #ffffff;
+  color: #000000;
+  border: 1.5px solid #000000;
+}
+
+.luxury-signout-btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Luxury OTP View */
+.luxury-otp-wrap {
+  text-align: center;
+}
+
+.luxury-otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.luxury-otp-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+
+.luxury-otp-input {
+  width: 48px;
+  height: 56px;
+  border-radius: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  border: 1.5px solid #e0e0e0;
+  background: #fafafa;
+  color: #000000;
+  transition: all 0.2s ease;
+}
+
+.luxury-otp-input:focus {
+  background: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.luxury-otp-input.filled {
+  border-color: #000000;
+  background: #ffffff;
+}
+
+.luxury-otp-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.text-action-btn {
+  background: none;
+  border: none;
+  font-size: 12.5px;
+  color: #666666;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.text-action-btn:hover {
+  color: #000000;
+}
+
+.auth-info-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* Legacy Fallbacks for Auth */
 .auth-modal-card {
   width: min(460px, 100%);
 }

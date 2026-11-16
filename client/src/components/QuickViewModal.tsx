@@ -69,19 +69,24 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 className="quickview-lightbox-trigger-btn"
                 onClick={() => onOpenLightbox(product, 0)}
                 style={{
-                  marginTop: "8px",
+                  marginTop: "10px",
                   width: "100%",
-                  background: "var(--soft)",
+                  background: "transparent",
                   border: "1px solid var(--line)",
-                  padding: "6px 12px",
-                  borderRadius: "6px",
-                  fontSize: "11px",
-                  fontWeight: 600,
+                  padding: "8px 14px",
+                  borderRadius: "999px",
+                  fontSize: "11.5px",
+                  fontWeight: 500,
                   color: "var(--text)",
                   cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  transition: "all 0.15s ease",
                 }}
               >
-                🔍 Expand Full-Screen Studio Lightbox
+                <span>🔍 View Fullscreen Gallery</span>
               </button>
             )}
           </div>

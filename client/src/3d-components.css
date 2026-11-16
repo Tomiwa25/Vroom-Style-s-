@@ -798,6 +798,57 @@
   line-height: 1.2;
 }
 
+/* Clean Photo Thumbnails Strip (Minimalist, No Redundant Buzzwords) */
+.viewer-triad-tabs.clean-thumbs-strip {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 14px;
+}
+
+.clean-thumb-card {
+  padding: 3px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line, #e5e5e5);
+  background: var(--paper, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.clean-thumb-card:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.clean-thumb-card.active {
+  border-color: #000000;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.clean-thumb-card .triad-thumb-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.clean-thumb-card .triad-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.clean-thumb-card .triad-active-indicator {
+  border: 2px solid #000000;
+  border-radius: 6px;
+}
+
 /* 3-Angle Triad Strip */
 .viewer-triad-tabs {
   display: grid;

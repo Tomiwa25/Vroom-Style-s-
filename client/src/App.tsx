@@ -831,132 +831,132 @@ function App() {
   return (
     <div className="app">
       {SHOW_MARKETING_SECTIONS && (
-      <>
-      {/* ---------------- 0. App Store Deep-Linking / Smart Banner (iOS, Android & Desktop) ---------------- */}
-      <AppSmartBanner />
+        <>
+          {/* ---------------- 0. App Store Deep-Linking / Smart Banner (iOS, Android & Desktop) ---------------- */}
+          <AppSmartBanner />
 
-      {/* ---------------- 1. Top Quick Action Utility Bar & Announcements ---------------- */}
-      <div className="quick-action-utility-bar">
-        <div className="utility-bar-wrap">
-          <div className="utility-left-links">
-            <button
-              type="button"
-              className="utility-link vendor-entry-btn"
-              onClick={() => {
-                setVendorPortalInitialTab("onboarding");
-                setIsVendorPortalOpen(true);
-              }}
-              title="Sell on Vroom Style(s) Marketplace"
-            >
-              <span className="utility-icon">🏪</span>
-              <strong>Sell on Vroom</strong>
-              <span className="utility-tag">0% Fee</span>
-            </button>
+          {/* ---------------- 1. Top Quick Action Utility Bar & Announcements ---------------- */}
+          <div className="quick-action-utility-bar">
+            <div className="utility-bar-wrap">
+              <div className="utility-left-links">
+                <button
+                  type="button"
+                  className="utility-link vendor-entry-btn"
+                  onClick={() => {
+                    setVendorPortalInitialTab("onboarding");
+                    setIsVendorPortalOpen(true);
+                  }}
+                  title="Sell on Vroom Style(s) Marketplace"
+                >
+                  <span className="utility-icon">🏪</span>
+                  <strong>Sell on Vroom</strong>
+                  <span className="utility-tag">0% Fee</span>
+                </button>
 
-            <span className="utility-sep">•</span>
+                <span className="utility-sep">•</span>
 
-            <button
-              type="button"
-              className="utility-link vendor-hub-btn"
-              onClick={() => {
-                setVendorPortalInitialTab("hub");
-                setIsVendorPortalOpen(true);
-              }}
-              title="3P Merchant Portal & Drops Manager"
-            >
-              <span className="utility-icon">🏢</span>
-              <span>Vendor Hub</span>
-            </button>
+                <button
+                  type="button"
+                  className="utility-link vendor-hub-btn"
+                  onClick={() => {
+                    setVendorPortalInitialTab("hub");
+                    setIsVendorPortalOpen(true);
+                  }}
+                  title="3P Merchant Portal & Drops Manager"
+                >
+                  <span className="utility-icon">🏢</span>
+                  <span>Vendor Hub</span>
+                </button>
 
-            <span className="utility-sep">•</span>
+                <span className="utility-sep">•</span>
 
-            <button
-              type="button"
-              className="utility-link jforce-entry-btn"
-              onClick={() => setIsJForcePortalOpen(true)}
-              title="Earn 12% Commission on Client Orders"
-            >
-              <span className="utility-icon">💼</span>
-              <strong>JForce Network</strong>
-              <span className="utility-tag" style={{ background: "#fef08a", color: "#854d0e" }}>12% Earn</span>
-            </button>
+                <button
+                  type="button"
+                  className="utility-link jforce-entry-btn"
+                  onClick={() => setIsJForcePortalOpen(true)}
+                  title="Earn 12% Commission on Client Orders"
+                >
+                  <span className="utility-icon">💼</span>
+                  <strong>JForce Network</strong>
+                  <span className="utility-tag" style={{ background: "#fef08a", color: "#854d0e" }}>12% Earn</span>
+                </button>
 
-            <span className="utility-sep">•</span>
+                <span className="utility-sep">•</span>
 
-            <button
-              type="button"
-              className="utility-link logistics-entry-btn"
-              onClick={() => {
-                if (!currentUser) {
-                  showToast("Please sign in or enter your Order ID to track");
-                  setIsAuthOpen(true);
-                } else {
-                  setIsTrackingOpen(true);
-                }
-              }}
-              title="Track nationwide shipment"
-            >
-              <span className="utility-icon">🚚</span>
-              <span>Logistics & Order Tracking</span>
-            </button>
+                <button
+                  type="button"
+                  className="utility-link logistics-entry-btn"
+                  onClick={() => {
+                    if (!currentUser) {
+                      showToast("Please sign in or enter your Order ID to track");
+                      setIsAuthOpen(true);
+                    } else {
+                      setIsTrackingOpen(true);
+                    }
+                  }}
+                  title="Track nationwide shipment"
+                >
+                  <span className="utility-icon">🚚</span>
+                  <span>Logistics & Order Tracking</span>
+                </button>
 
-            <span className="utility-sep">•</span>
+                <span className="utility-sep">•</span>
 
-            <button
-              type="button"
-              className="utility-link vroom-delivery-entry-btn"
-              onClick={() => {
-                setVroomDeliveryInitialTab("calculator");
-                setIsVroomDeliveryOpen(true);
-              }}
-              title="Vroom Delivery — Parcel Shipping & Rate Calculator"
-            >
-              <span className="utility-icon">📦</span>
-              <strong>Vroom Delivery</strong>
-              <span className="utility-tag delivery-tag">Parcel Hub</span>
-            </button>
+                <button
+                  type="button"
+                  className="utility-link vroom-delivery-entry-btn"
+                  onClick={() => {
+                    setVroomDeliveryInitialTab("calculator");
+                    setIsVroomDeliveryOpen(true);
+                  }}
+                  title="Vroom Delivery — Parcel Shipping & Rate Calculator"
+                >
+                  <span className="utility-icon">📦</span>
+                  <strong>Vroom Delivery</strong>
+                  <span className="utility-tag delivery-tag">Parcel Hub</span>
+                </button>
 
-            <span className="utility-sep">•</span>
+                <span className="utility-sep">•</span>
 
-            <span className="utility-notice">
-              ⚡ Free Express Delivery on orders over ₦100,000 • 7-Day Doorstep Returns
-            </span>
+                <span className="utility-notice">
+                  ⚡ Free Express Delivery on orders over ₦100,000 • 7-Day Doorstep Returns
+                </span>
+              </div>
+
+              <div className="utility-right-links">
+                <button
+                  type="button"
+                  className="utility-region-btn"
+                  onClick={() => setIsCountrySwitcherOpen(true)}
+                  title={`Switch Country / Regional Storefront (Current: ${currentRegion.name})`}
+                >
+                  <span className="utility-flag">{currentRegion.flag}</span>
+                  <span className="utility-region-name">{currentRegion.name}</span>
+                  <span className="utility-region-tld">.{currentRegion.code.toLowerCase()}</span>
+                </button>
+                <span className="utility-sep">•</span>
+                <button
+                  type="button"
+                  className="utility-link"
+                  onClick={() => setIsHelpModalOpen(true)}
+                  title="Official Concierge & WhatsApp Support (+234 913 083 1439)"
+                >
+                  <span>24/7 Concierge: +234 913 083 1439</span>
+                </button>
+                <span className="utility-sep">•</span>
+                <button
+                  type="button"
+                  className="utility-currency-toggle"
+                  onClick={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
+                  title="Toggle Currency"
+                >
+                  <span>{currency === "NGN" ? "🇳🇬 NGN (₦)" : "🇺🇸 USD ($)"}</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="utility-right-links">
-            <button
-              type="button"
-              className="utility-region-btn"
-              onClick={() => setIsCountrySwitcherOpen(true)}
-              title={`Switch Country / Regional Storefront (Current: ${currentRegion.name})`}
-            >
-              <span className="utility-flag">{currentRegion.flag}</span>
-              <span className="utility-region-name">{currentRegion.name}</span>
-              <span className="utility-region-tld">.{currentRegion.code.toLowerCase()}</span>
-            </button>
-            <span className="utility-sep">•</span>
-            <button
-              type="button"
-              className="utility-link"
-              onClick={() => setIsHelpModalOpen(true)}
-              title="Official Concierge & WhatsApp Support (+234 913 083 1439)"
-            >
-              <span>24/7 Concierge: +234 913 083 1439</span>
-            </button>
-            <span className="utility-sep">•</span>
-            <button
-              type="button"
-              className="utility-currency-toggle"
-              onClick={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
-              title="Toggle Currency"
-            >
-              <span>{currency === "NGN" ? "🇳🇬 NGN (₦)" : "🇺🇸 USD ($)"}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      </>
+        </>
       )}
 
       {/* ---------------- 2. Sticky Header with Persistent Global Search Portal ---------------- */}
@@ -993,18 +993,18 @@ function App() {
 
             {/* Center Persistent Search Portal with Auto-Focus & Multi-Taxonomy Routing */}
             <GlobalSearchPortal
-            searchQuery={searchQuery}
-            selectedTaxonomy={selectedCategory}
-            products={products}
-            onSearchChange={setSearchQuery}
-            onTaxonomyChange={(tax) => {
-              setSelectedCategory(tax);
-              handleScrollToCatalog();
-            }}
-            onSelectProduct={handleOpenQuickView}
-            onExecuteSearch={handleScrollToCatalog}
-            formatPrice={formatPrice}
-          />
+              searchQuery={searchQuery}
+              selectedTaxonomy={selectedCategory}
+              products={products}
+              onSearchChange={setSearchQuery}
+              onTaxonomyChange={(tax) => {
+                setSelectedCategory(tax);
+                handleScrollToCatalog();
+              }}
+              onSelectProduct={handleOpenQuickView}
+              onExecuteSearch={handleScrollToCatalog}
+              formatPrice={formatPrice}
+            />
           </div>
 
           {/* Right Session Identity & Cart State */}
@@ -1063,9 +1063,8 @@ function App() {
             >
               <span className="cart-icon-graphic">Bag</span>
               <span
-                className={`cart-counter-badge ${
-                  totalCartCount > 0 ? "badge-active" : "badge-empty"
-                }`}
+                className={`cart-counter-badge ${totalCartCount > 0 ? "badge-active" : "badge-empty"
+                  }`}
               >
                 {totalCartCount}
               </span>
@@ -1139,23 +1138,21 @@ function App() {
       {/* ---------------- 3. Main Page Body ---------------- */}
       <main className="page-wrap">
         {/* Editorial Experience Switcher */}
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "12px 24px", background: "var(--bg-surface, #F7F5F0)", borderBottom: "1px solid var(--border-subtle, #E5E0D8)", gap: "12px" }}>
-          <div style={{ display: "inline-flex", padding: "4px", background: "#FFFFFF", borderRadius: "999px", border: "1px solid var(--border-subtle, #E5E0D8)", boxShadow: "0 2px 8px rgba(30, 58, 95, 0.04)", gap: "4px" }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "12px 24px", background: "#ececec", borderBottom: "1px solid rgba(0,0,0,0.06)", gap: "12px" }}>
+          <div style={{ display: "inline-flex", padding: "3px", background: "#fff", borderRadius: "999px", border: "1px dashed #000", gap: "4px" }}>
             <button
               type="button"
               onClick={() => setHeroViewMode("lookbook")}
               style={{
-                padding: "8px 18px",
+                padding: "6px 16px",
                 borderRadius: "999px",
                 fontSize: "11px",
                 fontWeight: 600,
                 textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                background: heroViewMode === "lookbook" ? "var(--color-navy, #1E3A5F)" : "transparent",
-                color: heroViewMode === "lookbook" ? "#FFFFFF" : "var(--color-ink-muted, #706E6B)",
+                letterSpacing: "0.04em",
+                background: heroViewMode === "lookbook" ? "#000" : "transparent",
+                color: heroViewMode === "lookbook" ? "#fff" : "#000",
                 transition: "all 0.25s ease",
-                border: "none",
-                cursor: "pointer",
               }}
             >
               ◯ Circle Lookbook (Vol. 01)
@@ -1164,17 +1161,15 @@ function App() {
               type="button"
               onClick={() => setHeroViewMode("studio")}
               style={{
-                padding: "8px 18px",
+                padding: "6px 16px",
                 borderRadius: "999px",
                 fontSize: "11px",
                 fontWeight: 600,
                 textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                background: heroViewMode === "studio" ? "var(--color-navy, #1E3A5F)" : "transparent",
-                color: heroViewMode === "studio" ? "#FFFFFF" : "var(--color-ink-muted, #706E6B)",
+                letterSpacing: "0.04em",
+                background: heroViewMode === "studio" ? "#000" : "transparent",
+                color: heroViewMode === "studio" ? "#fff" : "#000",
                 transition: "all 0.25s ease",
-                border: "none",
-                cursor: "pointer",
               }}
             >
               ✦ Studio 3D Showcase
@@ -1220,177 +1215,177 @@ function App() {
           </div>
         </section>
 
-{SHOW_MARKETING_SECTIONS && (
-        <>
-        {/* ---------------- 5. Real-Time Flash Sale Countdown Engine ---------------- */}
-        <FlashSaleSection
-          products={products}
-          onSelectProduct={handleOpenQuickView}
-          onAddToCart={handleAddToCart}
-          formatPrice={formatPrice}
-          onViewAllFlashSales={() => {
-            setCampaign("flash_sale");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- 6. Marketing & Campaign Banner Grids (Affiliate Attribution) ---------------- */}
-        <CampaignBannerGrid
-          onSelectCampaign={handleSelectCampaign}
-          activeCampaignKey={activeCampaign}
-          onClearCampaign={clearCampaign}
-        />
-
-        {/* ---------------- 7. Collections / Category Spotlight ---------------- */}
-        <section className="section-label">
-          <h2>Shop by Category</h2>
-          <span>Curated Selections</span>
-        </section>
-
-        <section className="collection-strip">
-          {[
-            { id: "01", title: "🚗 Vroom Motors (30 Cars)", cat: "Cars" },
-            { id: "02", title: "🧊 Fridges & Freezers (30)", cat: "Fridges" },
-            { id: "03", title: "📻 Smart Microwaves (30)", cat: "Microwaves" },
-            { id: "04", title: "🍳 Kitchen Utensils (30)", cat: "Kitchen Utensils" },
-            { id: "05", title: "🛋️ Designer Furniture (30)", cat: "Furniture" },
-            { id: "06", title: "📺 Cinematic 4K/8K TVs (30)", cat: "TVs" },
-            { id: "07", title: "💻 Laptops & Ultrabooks (30)", cat: "Laptops" },
-            { id: "08", title: "🖥️ Studio Monitors (30)", cat: "Monitors" },
-            { id: "09", title: "👗 Fashion & Atelier", cat: "Fashion & Atelier" },
-          ].map((col) => (
-            <article
-              key={col.id}
-              className={`collection-card ${selectedCategory === col.cat ? "active" : ""}`}
-              onClick={() => {
-                setSelectedCategory(col.cat);
-                const el = document.getElementById("catalog-section");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
+        {SHOW_MARKETING_SECTIONS && (
+          <>
+            {/* ---------------- 5. Real-Time Flash Sale Countdown Engine ---------------- */}
+            <FlashSaleSection
+              products={products}
+              onSelectProduct={handleOpenQuickView}
+              onAddToCart={handleAddToCart}
+              formatPrice={formatPrice}
+              onViewAllFlashSales={() => {
+                setCampaign("flash_sale");
+                handleScrollToCatalog();
               }}
-            >
-              <span className="collection-index">{col.id}</span>
-              <span className="collection-title">{col.title}</span>
-              <span className="collection-arrow">→</span>
-            </article>
-          ))}
-        </section>
+            />
 
-        {/* ---------------- 8. Curated Recommendation Rails: Recently Viewed ---------------- */}
-        {recentlyViewed.length > 0 && (
-          <RecommendationRail
-            title="Recently Viewed Pieces"
-            subtitle="Pick up right where you left off"
-            kicker="Browsing history"
-            products={recentlyViewed}
-            formatPrice={formatPrice}
-            wishlist={wishlist}
-            onToggleWishlist={handleToggleWishlist}
-            onQuickView={handleOpenQuickView}
-            onOpenLightbox={handleOpenLightbox}
-            onAddToCart={handleAddToCart}
-            onClearRail={clearHistory}
-          />
+            {/* ---------------- 6. Marketing & Campaign Banner Grids (Affiliate Attribution) ---------------- */}
+            <CampaignBannerGrid
+              onSelectCampaign={handleSelectCampaign}
+              activeCampaignKey={activeCampaign}
+              onClearCampaign={clearCampaign}
+            />
+
+            {/* ---------------- 7. Collections / Category Spotlight ---------------- */}
+            <section className="section-label">
+              <h2>Shop by Category</h2>
+              <span>Curated Selections</span>
+            </section>
+
+            <section className="collection-strip">
+              {[
+                { id: "01", title: "🚗 Vroom Motors (30 Cars)", cat: "Cars" },
+                { id: "02", title: "🧊 Fridges & Freezers (30)", cat: "Fridges" },
+                { id: "03", title: "📻 Smart Microwaves (30)", cat: "Microwaves" },
+                { id: "04", title: "🍳 Kitchen Utensils (30)", cat: "Kitchen Utensils" },
+                { id: "05", title: "🛋️ Designer Furniture (30)", cat: "Furniture" },
+                { id: "06", title: "📺 Cinematic 4K/8K TVs (30)", cat: "TVs" },
+                { id: "07", title: "💻 Laptops & Ultrabooks (30)", cat: "Laptops" },
+                { id: "08", title: "🖥️ Studio Monitors (30)", cat: "Monitors" },
+                { id: "09", title: "👗 Fashion & Atelier", cat: "Fashion & Atelier" },
+              ].map((col) => (
+                <article
+                  key={col.id}
+                  className={`collection-card ${selectedCategory === col.cat ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedCategory(col.cat);
+                    const el = document.getElementById("catalog-section");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  <span className="collection-index">{col.id}</span>
+                  <span className="collection-title">{col.title}</span>
+                  <span className="collection-arrow">→</span>
+                </article>
+              ))}
+            </section>
+
+            {/* ---------------- 8. Curated Recommendation Rails: Recently Viewed ---------------- */}
+            {recentlyViewed.length > 0 && (
+              <RecommendationRail
+                title="Recently Viewed Pieces"
+                subtitle="Pick up right where you left off"
+                kicker="Browsing history"
+                products={recentlyViewed}
+                formatPrice={formatPrice}
+                wishlist={wishlist}
+                onToggleWishlist={handleToggleWishlist}
+                onQuickView={handleOpenQuickView}
+                onOpenLightbox={handleOpenLightbox}
+                onAddToCart={handleAddToCart}
+                onClearRail={clearHistory}
+              />
+            )}
+
+            {/* ---------------- 9. Curated Recommendation Rails: Based on Your Search ---------------- */}
+            {searchQuery.trim().length > 0 && searchBasedProducts.length > 0 && (
+              <RecommendationRail
+                title={`Based on your search for "${searchQuery}"`}
+                subtitle="Pieces that go with what you were just looking at."
+                kicker="Based on what you searched"
+                products={searchBasedProducts}
+                formatPrice={formatPrice}
+                wishlist={wishlist}
+                onToggleWishlist={handleToggleWishlist}
+                onQuickView={handleOpenQuickView}
+                onOpenLightbox={handleOpenLightbox}
+                onAddToCart={handleAddToCart}
+                onViewAll={() => handleScrollToCatalog()}
+              />
+            )}
+
+            {/* ---------------- 10. Curated Recommendation Rails: Top Selling & Customer Faves ---------------- */}
+            <RecommendationRail
+              title="What everyone is buying"
+              subtitle="Ranked by what has actually left the shelf this month."
+              kicker="Bestsellers"
+
+              products={topSellingProducts}
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              onViewAll={(cat) => {
+                setSelectedCategory(cat || "All");
+                handleScrollToCatalog();
+              }}
+            />
+
+            {/* ---------------- 11. Dedicated Brand Portal Section (Authorized Flagships) ---------------- */}
+            <BrandPortalSection
+              products={products}
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              onExploreBrandCatalog={(brandName) => {
+                setSearchQuery(brandName);
+                setSelectedCategory("All");
+                handleScrollToCatalog();
+              }}
+            />
+
+            {/* ---------------- Dedicated Vroom Motors Showroom Section (30 Cars) ---------------- */}
+            <CarsShowroomSection
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              onViewAllCars={() => {
+                setSelectedCategory("Cars");
+                handleScrollToCatalog();
+              }}
+              onOpenPromptStudio={handleOpenPromptStudio}
+            />
+
+            {/* ---------------- Dedicated Home Appliances Section (Fridges, Microwaves, Utensils - 30 each) ---------------- */}
+            <HomeAppliancesSection
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              onSelectCategory={(cat) => {
+                setSelectedCategory(cat);
+                handleScrollToCatalog();
+              }}
+              onOpenPromptStudio={handleOpenPromptStudio}
+            />
+
+            {/* ---------------- Dedicated Tech & Living Showcase (TVs, Laptops, Monitors, Furniture - 30 each) ---------------- */}
+            <TechLivingSection
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              onSelectCategory={(cat) => {
+                setSelectedCategory(cat);
+                handleScrollToCatalog();
+              }}
+              onOpenPromptStudio={handleOpenPromptStudio}
+            />
+
+          </>
         )}
-
-        {/* ---------------- 9. Curated Recommendation Rails: Based on Your Search ---------------- */}
-        {searchQuery.trim().length > 0 && searchBasedProducts.length > 0 && (
-          <RecommendationRail
-            title={`Based on your search for "${searchQuery}"`}
-            subtitle="Pieces that go with what you were just looking at."
-            kicker="Based on what you searched"
-            products={searchBasedProducts}
-            formatPrice={formatPrice}
-            wishlist={wishlist}
-            onToggleWishlist={handleToggleWishlist}
-            onQuickView={handleOpenQuickView}
-            onOpenLightbox={handleOpenLightbox}
-            onAddToCart={handleAddToCart}
-            onViewAll={() => handleScrollToCatalog()}
-          />
-        )}
-
-        {/* ---------------- 10. Curated Recommendation Rails: Top Selling & Customer Faves ---------------- */}
-        <RecommendationRail
-          title="What everyone is buying"
-          subtitle="Ranked by what has actually left the shelf this month."
-          kicker="Bestsellers"
-          
-          products={topSellingProducts}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onViewAll={(cat) => {
-            setSelectedCategory(cat || "All");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- 11. Dedicated Brand Portal Section (Authorized Flagships) ---------------- */}
-        <BrandPortalSection
-          products={products}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onExploreBrandCatalog={(brandName) => {
-            setSearchQuery(brandName);
-            setSelectedCategory("All");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- Dedicated Vroom Motors Showroom Section (30 Cars) ---------------- */}
-        <CarsShowroomSection
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onViewAllCars={() => {
-            setSelectedCategory("Cars");
-            handleScrollToCatalog();
-          }}
-          onOpenPromptStudio={handleOpenPromptStudio}
-        />
-
-        {/* ---------------- Dedicated Home Appliances Section (Fridges, Microwaves, Utensils - 30 each) ---------------- */}
-        <HomeAppliancesSection
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onSelectCategory={(cat) => {
-            setSelectedCategory(cat);
-            handleScrollToCatalog();
-          }}
-          onOpenPromptStudio={handleOpenPromptStudio}
-        />
-
-        {/* ---------------- Dedicated Tech & Living Showcase (TVs, Laptops, Monitors, Furniture - 30 each) ---------------- */}
-        <TechLivingSection
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onSelectCategory={(cat) => {
-            setSelectedCategory(cat);
-            handleScrollToCatalog();
-          }}
-          onOpenPromptStudio={handleOpenPromptStudio}
-        />
-
-        </>
-      )}
 
         {/* ---------------- 12. Main Product Catalog Section ---------------- */}
         <Breadcrumbs
@@ -1650,113 +1645,113 @@ function App() {
           )}
         </section>
 
-{SHOW_MARKETING_SECTIONS && (
-        <>
-        {/* ---------------- 13. Category Specific Feed: Smart Living & Tech Deals ---------------- */}
-        <RecommendationRail
-          title="For the desk and the wardrobe"
-          subtitle="Steamers, chargers and desk pieces that earn the space they take."
-          kicker="Tech and living"
-          
-          products={techDealsProducts}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          viewAllCategory="Phones & Tablets"
-          onViewAll={(cat) => {
-            setSelectedCategory(cat || "Phones & Tablets");
-            handleScrollToCatalog();
-          }}
-        />
+        {SHOW_MARKETING_SECTIONS && (
+          <>
+            {/* ---------------- 13. Category Specific Feed: Smart Living & Tech Deals ---------------- */}
+            <RecommendationRail
+              title="For the desk and the wardrobe"
+              subtitle="Steamers, chargers and desk pieces that earn the space they take."
+              kicker="Tech and living"
 
-        {/* ---------------- 13b. Conversion Enabler: Payment on Delivery (PoD) Essentials Rail ---------------- */}
-        <RecommendationRail
-          title="Pay when it reaches you"
-          subtitle="Open the box, look it over, then settle by card, POS or cash. Lagos, Abuja and Port Harcourt."
-          kicker="Paid at the door"
-          
-          products={podEligibleProducts}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onViewAll={() => {
-            setIsPodFilterActive(true);
-            handleScrollToCatalog();
-          }}
-        />
+              products={techDealsProducts}
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              viewAllCategory="Phones & Tablets"
+              onViewAll={(cat) => {
+                setSelectedCategory(cat || "Phones & Tablets");
+                handleScrollToCatalog();
+              }}
+            />
 
-        {/* ---------------- Integrated Delivery Services (Vroom Delivery) Showcase Banner ---------------- */}
-        <section className="vroom-delivery-showcase-banner" aria-labelledby="delivery-title">
-          <div className="delivery-layout">
-            <div className="delivery-copy">
-              <span className="showcase-kicker">Vroom Delivery</span>
-              <h2 className="showcase-title" id="delivery-title">
-                We can move it for you, too
-              </h2>
-              <p className="showcase-lede">
-                Same-day dispatch inside Lagos and Abuja, interstate line-haul, and cash
-                or POS collected at the door. Available for our own orders and for other
-                merchants.
-              </p>
-              <div className="delivery-actions">
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={() => {
-                    setVroomDeliveryInitialTab("calculator");
-                    setIsVroomDeliveryOpen(true);
-                  }}
-                >
-                  Calculate a rate
-                </button>
-                <button
-                  type="button"
-                  className="showcase-link"
-                  onClick={() => {
-                    setVroomDeliveryInitialTab("track");
-                    setIsVroomDeliveryOpen(true);
-                  }}
-                >
-                  Track a waybill
-                </button>
-                <button
-                  type="button"
-                  className="showcase-link is-quiet"
-                  onClick={() => {
-                    setVroomDeliveryInitialTab("api");
-                    setIsVroomDeliveryOpen(true);
-                  }}
-                >
-                  Merchant API
-                </button>
-              </div>
-            </div>
+            {/* ---------------- 13b. Conversion Enabler: Payment on Delivery (PoD) Essentials Rail ---------------- */}
+            <RecommendationRail
+              title="Pay when it reaches you"
+              subtitle="Open the box, look it over, then settle by card, POS or cash. Lagos, Abuja and Port Harcourt."
+              kicker="Paid at the door"
 
-            <dl className="delivery-facts">
-              <div>
-                <dt>Inside the city</dt>
-                <dd>3–5 hours</dd>
-              </div>
-              <div>
-                <dt>At the door</dt>
-                <dd>POS or cash collection</dd>
-              </div>
-              <div>
-                <dt>In transit</dt>
-                <dd>Insured to full value</dd>
-              </div>
-            </dl>
-          </div>
-        </section>
+              products={podEligibleProducts}
+              formatPrice={formatPrice}
+              wishlist={wishlist}
+              onToggleWishlist={handleToggleWishlist}
+              onQuickView={handleOpenQuickView}
+              onOpenLightbox={handleOpenLightbox}
+              onAddToCart={handleAddToCart}
+              onViewAll={() => {
+                setIsPodFilterActive(true);
+                handleScrollToCatalog();
+              }}
+            />
 
-        </>
-      )}
+            {/* ---------------- Integrated Delivery Services (Vroom Delivery) Showcase Banner ---------------- */}
+            <section className="vroom-delivery-showcase-banner" aria-labelledby="delivery-title">
+              <div className="delivery-layout">
+                <div className="delivery-copy">
+                  <span className="showcase-kicker">Vroom Delivery</span>
+                  <h2 className="showcase-title" id="delivery-title">
+                    We can move it for you, too
+                  </h2>
+                  <p className="showcase-lede">
+                    Same-day dispatch inside Lagos and Abuja, interstate line-haul, and cash
+                    or POS collected at the door. Available for our own orders and for other
+                    merchants.
+                  </p>
+                  <div className="delivery-actions">
+                    <button
+                      type="button"
+                      className="primary-button"
+                      onClick={() => {
+                        setVroomDeliveryInitialTab("calculator");
+                        setIsVroomDeliveryOpen(true);
+                      }}
+                    >
+                      Calculate a rate
+                    </button>
+                    <button
+                      type="button"
+                      className="showcase-link"
+                      onClick={() => {
+                        setVroomDeliveryInitialTab("track");
+                        setIsVroomDeliveryOpen(true);
+                      }}
+                    >
+                      Track a waybill
+                    </button>
+                    <button
+                      type="button"
+                      className="showcase-link is-quiet"
+                      onClick={() => {
+                        setVroomDeliveryInitialTab("api");
+                        setIsVroomDeliveryOpen(true);
+                      }}
+                    >
+                      Merchant API
+                    </button>
+                  </div>
+                </div>
+
+                <dl className="delivery-facts">
+                  <div>
+                    <dt>Inside the city</dt>
+                    <dd>3–5 hours</dd>
+                  </div>
+                  <div>
+                    <dt>At the door</dt>
+                    <dd>POS or cash collection</dd>
+                  </div>
+                  <div>
+                    <dt>In transit</dt>
+                    <dd>Insured to full value</dd>
+                  </div>
+                </dl>
+              </div>
+            </section>
+
+          </>
+        )}
 
         {/* ---------------- 7. Quality & Craftsmanship Pillars ---------------- */}
         <section className="feature-band" data-reveal>
@@ -1976,13 +1971,13 @@ function App() {
 
       {/* ---------------- NDPR & GDPR Cookie Consent Banner ---------------- */}
       {isCookieCardVisible && (
-      <CookieConsentBanner
-        onOpenCookieSettings={() => {
-          setComplianceInitialTab("cookies");
-          setIsComplianceModalOpen(true);
-        }}
-        onSuccessToast={showToast}
-      />
+        <CookieConsentBanner
+          onOpenCookieSettings={() => {
+            setComplianceInitialTab("cookies");
+            setIsComplianceModalOpen(true);
+          }}
+          onSuccessToast={showToast}
+        />
       )}
 
       {/* ---------------- Pan-African Regional Storefront Switcher Modal ---------------- */}
