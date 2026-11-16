@@ -137,18 +137,18 @@ export const CATEGORY_IMAGE_POOLS: Record<string, string[][]> = {
   "Fridges": [
     [
       "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1710947949965-8150d227d337?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85"
     ],
     [
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1643705314142-6f072c3d48fa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85"
     ],
     [
-      "https://images.unsplash.com/photo-1642497590009-a163903de133?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1710947949965-8150d227d337?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1680382578857-c331ead9ed51?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1748274699808-50964cebce9c?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661342474567-f84bb6959d9f?auto=format&fit=crop&w=1200&q=85"
     ]
   ],
   "Microwaves": [
