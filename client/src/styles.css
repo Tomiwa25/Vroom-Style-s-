@@ -1,24 +1,28 @@
 /* ==========================================================================
-   VROOM STYLE(S) — Gallery White
-   One ground. One ink. One hairline. Photography is the only colour.
+   VROOM STYLES — Haute Warmth Fashion Atelier Design System
+   Warm Ecru Ground • Pure Silk Surface • Terracotta Accent • Bodoni & Jakarta Sans
    ========================================================================== */
 
 :root {
-  --paper: #ffffff;
-  --wash: #f4f3f1;
-  --wash-deep: #eceae6;
+  --paper: #faf8f5;
+  --surface: #ffffff;
+  --wash: #f3efea;
+  --wash-deep: #ebe7e1;
 
-  --ink: #0b0b0b;
-  --graphite: #6b6b6b;
-  --graphite-soft: #9a9a9a;
+  --ink: #141312;
+  --graphite: #4d4843;
+  --graphite-soft: #827b73;
 
-  --hairline: #e4e4e4;
-  --hairline-strong: #cfcfcf;
+  --hairline: #ebe6df;
+  --hairline-strong: #d9d2c7;
 
+  --accent: #a84b2c;
+  --accent-hover: #893417;
+  --accent-soft: #ffe0d7;
   --alert: #9b2c1f;
 
   --display: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif;
-  --ui: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
   --t-display: clamp(2.9rem, 6.4vw, 6.2rem);
   --t-h1: clamp(2rem, 4.4vw, 3.4rem);
@@ -333,6 +337,99 @@ select {
 .page-wrap {
   flex: 1;
   width: 100%;
+}
+
+/* ---------- Announcement Strip ------------------------------------------- */
+
+.announcement-strip {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: var(--t-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: calc(var(--z-header) + 1);
+}
+
+.announcement-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 8px var(--gutter);
+  min-height: 36px;
+}
+
+.announcement-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 2px 7px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  border-radius: 2px;
+}
+
+.announcement-text {
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #ded9d1;
+}
+
+.announcement-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.announcement-currency-btn,
+.announcement-link-btn {
+  background: transparent;
+  border: none;
+  color: #ded9d1;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 2px;
+  transition: color var(--d-micro) ease, background-color var(--d-micro) ease;
+}
+
+.announcement-currency-btn:hover,
+.announcement-link-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.announcement-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 860px) {
+  .announcement-content {
+    flex-direction: column;
+    padding: 6px var(--gutter);
+    gap: 4px;
+    text-align: center;
+  }
+  .announcement-text {
+    font-size: 0.625rem;
+    line-height: 1.3;
+  }
+  .announcement-actions {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /* ---------- Header ------------------------------------------------------- */
