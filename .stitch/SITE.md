@@ -24,8 +24,8 @@ The platform embodies modern fashion commerce: editorial imagery, serene typogra
 
 ## 4. Sitemap & Page Status
 - [x] `index` (Home / Fashion Storefront & Atelier Hero) — **Completed (Iteration 1)**
-- [ ] `lookbook` (Seasonal Editorial Lookbook: Autumn/Winter Atelier) — **Active (Iteration 2)**
-- [ ] `catalog` (Curated Fashion Collection with Filters & Sorting)
+- [x] `lookbook` (Seasonal Editorial Lookbook & Atelier Fitting View) — **Completed (Iteration 2)**
+- [ ] `catalog` (Curated Fashion Collection with Filters & Sorting) — **Active (Iteration 3)**
 - [ ] `product-detail` (Garment Story, Fabric Details, Size Guide, Add to Bag)
 - [ ] `cart-checkout` (Slide Cart Drawer & Streamlined Checkout Flow)
 - [ ] `order-tracking` (Real-time Delivery & Parcel Tracker)
@@ -34,8 +34,8 @@ The platform embodies modern fashion commerce: editorial imagery, serene typogra
 
 ## 5. Roadmap & Iteration Backlog
 1. **Iteration 1 (Completed)**: Purged all automotive/appliances/tech clutter, established Haute Warmth token system (`#FAF8F5`, `#FFFFFF`, `#A84B2C`), built editorial announcement bar, category showcase strip, and verified clean TypeScript compilation (0 errors).
-2. **Iteration 2 (Current)**: Build the **Seasonal Editorial Lookbook & Atelier Fitting View** (`lookbook`): immersive runway imagery, interactive "Shop the Silhouette" hot spots, fabric drape inspect, and instant quick-drawer garment selection.
-3. **Iteration 3**: Refine Curated Catalog Filters (Women, Men, Knitwear, Outerwear, Accessories, Atelier Drops) with working price sliders, size selectors, and instant search.
+2. **Iteration 2 (Completed)**: Built the **Seasonal Editorial Lookbook & Atelier Fitting View** (`lookbook`): 6 interactive runway looks, pulse pins with live hover tags, slide-out Atelier Fitting Drawer with size chips and instant add-to-bag, Materiality Archive with GSM specs, and private studio fitting appointments.
+3. **Iteration 3 (Current)**: Refine **Curated Catalog Filters & Facets** (`catalog`): working dual-currency dynamic price range sliders, size chips (`XS`–`XL`, `40`–`45`), material filters (*Mulberry Silk, Grade-A Cashmere, Italian Calfskin*), and instantaneous client-side sorting.
 4. **Iteration 4**: Enhance Quick View & Garment Modal with high-resolution image zoom, fabric composition notes, model measurements, and direct cart drawer integration.
 5. **Iteration 5**: Streamline Cart Drawer & Checkout with free shipping progress threshold, gift wrapping options, and Paystack payment gateway.
 

@@ -28,6 +28,7 @@ import { Breadcrumbs } from "./components/Breadcrumbs";
 import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
 import { ProductCard } from "./components/ProductCard";
 import { RecommendationRail } from "./components/RecommendationRail";
+import { LookbookModal } from "./components/LookbookModal";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { useReveal } from "./hooks/useReveal";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
@@ -80,6 +81,7 @@ function App() {
     podPhone?: string;
   } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [isLookbookOpen, setIsLookbookOpen] = useState<boolean>(false);
 
   // Regional Storefront & Internationalization (i18n)
   const [currentRegion, setCurrentRegion] = useState<CountryRegion>(() => {
@@ -928,6 +930,15 @@ function App() {
                 </button>
               );
             })}
+            <button
+              type="button"
+              className="dept-link lookbook-nav-pill"
+              onClick={() => setIsLookbookOpen(true)}
+              style={{ color: "var(--accent)", fontWeight: 700 }}
+              title="Explore the Autumn/Winter Atelier Lookbook"
+            >
+              The Lookbook &rarr;
+            </button>
           </div>
         </nav>
 
@@ -961,6 +972,14 @@ function App() {
                 }}
               >
                 Shop the collection
+              </button>
+              <button
+                type="button"
+                className="showcase-link"
+                onClick={() => setIsLookbookOpen(true)}
+                style={{ marginLeft: "1.25rem", textDecoration: "none" }}
+              >
+                The Lookbook &rarr;
               </button>
             </div>
 
@@ -1620,6 +1639,18 @@ function App() {
         initialIndex={lightboxInitialIndex}
         formatPrice={formatPrice}
         onAddToCart={handleAddToCart}
+      />
+
+      {/* ---------------- Autumn / Winter Atelier Runway Lookbook Modal ---------------- */}
+      <LookbookModal
+        isOpen={isLookbookOpen}
+        onClose={() => setIsLookbookOpen(false)}
+        formatPrice={formatPrice}
+        onAddToCart={handleAddToCart}
+        onOpenCart={() => setIsCartOpen(true)}
+        currency={currency}
+        onToggleCurrency={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
+        onShowToast={showToast}
       />
     </div>
   );
