@@ -44,12 +44,6 @@ export const LookbookModal: React.FC<LookbookModalProps> = ({
   const [appointmentNotes, setAppointmentNotes] = useState("");
   const [isBooked, setIsBooked] = useState(false);
 
-  // When selectedHotspot changes, initialize selected size
-  useEffect(() => {
-    if (selectedHotspot && selectedHotspot.sizes.length > 0) {
-      setSelectedSize(selectedHotspot.sizes[0]);
-    }
-  }, [selectedHotspot]);
 
   // Handle ESC key to close modal or drawer
   useEffect(() => {
@@ -93,6 +87,7 @@ export const LookbookModal: React.FC<LookbookModalProps> = ({
 
   const handleHotspotClick = (spot: LookbookHotspot) => {
     setSelectedHotspot(spot);
+    setSelectedSize(spot.sizes.length > 0 ? spot.sizes[0] : "");
   };
 
   const handleAddGarmentToBag = () => {
