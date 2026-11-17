@@ -26,8 +26,8 @@ The platform embodies modern fashion commerce: editorial imagery, serene typogra
 - [x] `index` (Home / Fashion Storefront & Atelier Hero) — **Completed (Iteration 1)**
 - [x] `lookbook` (Seasonal Editorial Lookbook & Atelier Fitting View) — **Completed (Iteration 2)**
 - [x] `catalog` (Curated Fashion Collection with Filters & Sorting) — **Completed (Iteration 3)**
-- [ ] `product-detail` (Garment Story, High-Res Zoom, Fabric Details, Size Guide, Add to Bag) — **Active (Iteration 4)**
-- [ ] `cart-checkout` (Slide Cart Drawer & Streamlined Checkout Flow)
+- [x] `product-detail` (Garment Story, Optical Magnifier Zoom, Materiality Tabs, Size Matrix Table) — **Completed (Iteration 4)**
+- [ ] `cart-checkout` (Slide Cart Drawer, Free Shipping Progress, & Streamlined Paystack Checkout) — **Active (Iteration 5)**
 - [ ] `order-tracking` (Real-time Delivery & Parcel Tracker)
 
 ---
@@ -36,8 +36,8 @@ The platform embodies modern fashion commerce: editorial imagery, serene typogra
 1. **Iteration 1 (Completed)**: Purged all automotive/appliances/tech clutter, established Haute Warmth token system (`#FAF8F5`, `#FFFFFF`, `#A84B2C`), built editorial announcement bar, category showcase strip, and verified clean TypeScript compilation (0 errors).
 2. **Iteration 2 (Completed)**: Built the **Seasonal Editorial Lookbook & Atelier Fitting View** (`lookbook`): 6 interactive runway looks, pulse pins with live hover tags, slide-out Atelier Fitting Drawer with size chips and instant add-to-bag, Materiality Archive with GSM specs, and private studio fitting appointments.
 3. **Iteration 3 (Completed)**: Refined **Curated Catalog Filters & Facets** (`catalog`): working dual-currency dynamic price range sliders, apparel (`XS`–`XL`) & footwear (`40`–`45`) size chips, artisanal material filters (*Mulberry Silk, Grade-A Cashmere, Italian Calfskin*), instantaneous client-side sorting, active facet dismiss chips, and in-card color swatches and size chips.
-4. **Iteration 4 (Active)**: Enhance Quick View & Garment Story modal with high-resolution image zoom, fabric composition notes, model measurements, and direct cart drawer integration.
-5. **Iteration 5**: Streamline Cart Drawer & Checkout with free shipping progress threshold, gift wrapping options, and Paystack payment gateway.
+4. **Iteration 4 (Completed)**: Built the **Atelier Garment Story & Salon View** (`product-detail`): optical magnifying zoom viewport on mouse hover, 3-angle drape/profile/texture thumbnail gallery, Bodoni Moda editorial essay, interactive size & measurement matrix with unit switcher (`Inches` / `Centimeters`), materiality & craftsmanship tabs, and direct WhatsApp concierge integration.
+5. **Iteration 5 (Active)**: Streamline Cart Drawer & Checkout with free shipping progress threshold, gift wrapping options, and Paystack payment gateway.
 
 ---
 

@@ -1532,6 +1532,8 @@ function App() {
         onAddToCart={handleAddToCart}
         formatPrice={formatPrice}
         onOpenLightbox={handleOpenLightbox}
+        isFavorited={Boolean(quickViewProduct && wishlist.includes(quickViewProduct.id))}
+        onToggleWishlist={handleToggleWishlist}
       />
 
       <AdminModal
