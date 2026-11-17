@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
-import type { Product, CartItem, User, CampaignEvent, PodCheckoutDetails, CountryRegion } from "./types";
+import type { Product, CartItem, User, PodCheckoutDetails, CountryRegion } from "./types";
 import { useProducts } from "./hooks/useProducts";
 import { useAttribution } from "./hooks/useAttribution";
 import { DEFAULT_REGION } from "./data/regions";
+import { initialProducts } from "./data/products";
 import { CartDrawer } from "./components/CartDrawer";
 import { AuthModal } from "./components/AuthModal";
 import { QuickViewModal } from "./components/QuickViewModal";
@@ -15,10 +16,8 @@ import { AccountDropdown } from "./components/AccountDropdown";
 import { HelpDropdown } from "./components/HelpDropdown";
 import { HelpCenterModal } from "./components/HelpCenterModal";
 import { VendorPortalModal } from "./components/VendorPortalModal";
-import { JForcePortalModal } from "./components/JForcePortalModal";
 import { VroomDeliveryModal } from "./components/VroomDeliveryModal";
 import { NewsletterSubscription } from "./components/NewsletterSubscription";
-import { AppSmartBanner } from "./components/AppSmartBanner";
 import { LiveChatConcierge } from "./components/LiveChatConcierge";
 import { CountrySwitcherModal } from "./components/CountrySwitcherModal";
 import { ComplianceModal } from "./components/ComplianceModal";
@@ -27,49 +26,29 @@ import { Footer } from "./components/Footer";
 import { GlobalSearchPortal } from "./components/GlobalSearchPortal";
 import { Breadcrumbs } from "./components/Breadcrumbs";
 import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
-import { FlashSaleSection } from "./components/FlashSaleSection";
-import { CampaignBannerGrid } from "./components/CampaignBannerGrid";
-import { ScavengerHuntModal } from "./components/ScavengerHuntModal";
 import { ProductCard } from "./components/ProductCard";
 import { RecommendationRail } from "./components/RecommendationRail";
-import { BrandPortalSection } from "./components/BrandPortalSection";
-import { CarsShowroomSection } from "./components/CarsShowroomSection";
-import { HomeAppliancesSection } from "./components/HomeAppliancesSection";
-import { TechLivingSection } from "./components/TechLivingSection";
-import { PromptStudioModal } from "./components/PromptStudioModal";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { useReveal } from "./hooks/useReveal";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api, { createIdempotencyKey } from "./services/api";
 import "./styles.css";
 
-/**
- * Density switch.
- *
- * The storefront is deliberately quiet: one hero, one catalog, one editorial
- * band. The legacy marketing rails (flash sale, campaign grid, brand/vehicle/
- * appliance showcases, affiliate banners) still ship, but stay folded away so
- * the page reads as a gallery rather than a marketplace. Flip to true to
- * restore them.
- */
-const SHOW_MARKETING_SECTIONS = false;
-
 // Departments that actually hold stock — mirrors Product.category values.
 const DEPARTMENTS = [
   "Women",
+  "Men",
+  "Atelier",
   "Outerwear",
   "Knitwear",
-  "Accessories",
   "Footwear",
-  "Phones & Tablets",
-  "Appliances",
-  "Health & Beauty",
+  "Accessories",
 ];
 
 function App() {
   // Store Catalog managed via TanStack Query
-  const { products, isLoading, isError, error, refetch } = useProducts();
-  const { activeCampaign, setCampaign, clearCampaign } = useAttribution();
+  const { products, isLoading, isError, error, refetch } = useProducts({ limit: 200 });
+  const { activeCampaign, clearCampaign } = useAttribution();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
@@ -81,13 +60,11 @@ function App() {
   const [isTrackingOpen, setIsTrackingOpen] = useState<boolean>(false);
   const [isVendorPortalOpen, setIsVendorPortalOpen] = useState<boolean>(false);
   const [vendorPortalInitialTab, setVendorPortalInitialTab] = useState<"onboarding" | "hub">("onboarding");
-  const [isJForcePortalOpen, setIsJForcePortalOpen] = useState<boolean>(false);
   const [sellerTypeFilter, setSellerTypeFilter] = useState<"ALL" | "1P" | "3P">("ALL");
   const [isPodFilterActive, setIsPodFilterActive] = useState<boolean>(false);
   const [vendorDrops, setVendorDrops] = useState<Product[]>([]);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState<boolean>(false);
-  const [isScavengerModalOpen, setIsScavengerModalOpen] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
   const [isVroomDeliveryOpen, setIsVroomDeliveryOpen] = useState<boolean>(false);
   const [vroomDeliveryInitialTab, setVroomDeliveryInitialTab] = useState<"calculator" | "book" | "track" | "api">("calculator");
@@ -103,13 +80,6 @@ function App() {
     podPhone?: string;
   } | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
-  const [isPromptStudioOpen, setIsPromptStudioOpen] = useState<boolean>(false);
-  const [promptStudioInitialCategory, setPromptStudioInitialCategory] = useState<string>("Cars");
-
-  const handleOpenPromptStudio = (cat: string = "Cars") => {
-    setPromptStudioInitialCategory(cat);
-    setIsPromptStudioOpen(true);
-  };
 
   // Regional Storefront & Internationalization (i18n)
   const [currentRegion, setCurrentRegion] = useState<CountryRegion>(() => {
@@ -600,37 +570,12 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [clearCampaign]);
 
-  const handleSelectCampaign = useCallback(
-    (event: CampaignEvent) => {
-      setCampaign(event.campaignKey, event.affiliateParams);
-
-      if (event.campaignKey === "scavenger_hunt") {
-        setIsScavengerModalOpen(true);
-        return;
-      }
-
-      if (event.targetCategory) {
-        setSelectedCategory(event.targetCategory);
-      } else if (event.campaignKey === "black_friday") {
-        setSelectedCategory("All");
-        showToast("🔥 Black Friday Event Activated! Special discounts up to -56% applied.");
-      } else if (event.campaignKey === "bogof") {
-        setSelectedCategory("All");
-        showToast("🎁 BOGOF Event Activated! Buy One Get One 50% Off.");
-      } else if (event.campaignKey === "flash_sale") {
-        setSelectedCategory("All");
-        showToast("⚡ Flash Deals Activated!");
-      }
-
-      handleScrollToCatalog();
-    },
-    [handleScrollToCatalog, setCampaign, showToast]
-  );
-
   // Aggregate all products (live backend / initial + vendor-created 3P drops)
-  const allProducts = useMemo(() => {
-    return vendorDrops.length > 0 ? [...vendorDrops, ...products] : products;
-  }, [products, vendorDrops]);
+  const allProducts = useMemo<Product[]>(() => {
+    // If backend is unreachable or empty, fall back cleanly to initial curated products so UI remains functional
+    const base: Product[] = products.length > 0 ? products : (isError ? initialProducts : []);
+    return vendorDrops.length > 0 ? [...vendorDrops, ...base] : base;
+  }, [products, vendorDrops, isError]);
 
   // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
@@ -701,13 +646,39 @@ function App() {
           pCat === "men" ||
           pCat === "outerwear" ||
           pCat === "knitwear" ||
+          pCat === "fashion" ||
           Boolean(prod.tag && prod.tag.toLowerCase().includes("atelier"));
-      } else if (selectedCategory === "Appliances" || selectedCategory === "All Appliances") {
+      } else if (selectedCategory === "Footwear") {
+        matchesTaxonomy =
+          pCat === "footwear" ||
+          pCat === "shoes and bags" ||
+          Boolean(prod.brand && prod.brand.toLowerCase().includes("footwear")) ||
+          Boolean(prod.subcategory && /shoe|boot|derby|derbies|loafer|sneaker|oxford/i.test(prod.subcategory)) ||
+          Boolean(prod.name && /shoe|boot|derby|derbies|loafer|sneaker|oxford/i.test(prod.name));
+      } else if (selectedCategory === "Phones & Tablets" || selectedCategory === "Phones and Tablets") {
+        matchesTaxonomy =
+          pCat === "phones & tablets" ||
+          pCat === "phones and tablets" ||
+          pCat === "mobile-accessories";
+      } else if (selectedCategory === "Appliances" || selectedCategory === "All Appliances" || selectedCategory === "Home Appliances") {
         matchesTaxonomy =
           pCat === "appliances" ||
+          pCat === "home appliances" ||
+          pCat === "home and kitchen" ||
           pCat === "fridges" ||
           pCat === "microwaves" ||
           pCat === "kitchen utensils";
+      } else if (selectedCategory === "Health & Beauty" || selectedCategory === "Beauty and Personal Care") {
+        matchesTaxonomy =
+          pCat === "health & beauty" ||
+          pCat === "beauty and personal care" ||
+          pCat === "health and wellness" ||
+          pCat === "beauty" ||
+          pCat === "fragrances";
+      } else if (selectedCategory === "Cars" || selectedCategory === "Automotive") {
+        matchesTaxonomy =
+          pCat === "cars" ||
+          pCat === "automotive";
       } else {
         matchesTaxonomy =
           pCat === sCat ||
@@ -722,6 +693,7 @@ function App() {
         prod.name.toLowerCase().includes(q) ||
         prod.description.toLowerCase().includes(q) ||
         pCat.includes(q) ||
+        Boolean(prod.subcategory && prod.subcategory.toLowerCase().includes(q)) ||
         Boolean(prod.brand && prod.brand.toLowerCase().includes(q)) ||
         Boolean(prod.sellerName && prod.sellerName.toLowerCase().includes(q)) ||
         Boolean(prod.tag && prod.tag.toLowerCase().includes(q)) ||
@@ -763,28 +735,6 @@ function App() {
       .sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
   }, [allProducts]);
 
-  const searchBasedProducts = useMemo(() => {
-    if (!searchQuery.trim()) return [];
-    const q = searchQuery.toLowerCase().trim();
-    return allProducts.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
-        Boolean(p.brand && p.brand.toLowerCase().includes(q)) ||
-        Boolean(p.sellerName && p.sellerName.toLowerCase().includes(q)) ||
-        Boolean(p.tag && p.tag.toLowerCase().includes(q))
-    );
-  }, [allProducts, searchQuery]);
-
-  const techDealsProducts = useMemo(() => {
-    return allProducts.filter(
-      (p) =>
-        p.category === "Phones & Tablets" ||
-        p.category === "Appliances" ||
-        Boolean(p.brand && (p.brand === "Courant" || p.brand === "SteamOne"))
-    );
-  }, [allProducts]);
-
   const totalCartCount = cartItems.reduce((acc, i) => acc + i.quantity, 0);
 
   // Reveal sections as they enter the viewport (see useReveal).
@@ -792,134 +742,34 @@ function App() {
 
   return (
     <div className="app">
-      {SHOW_MARKETING_SECTIONS && (
-      <>
-      {/* ---------------- 0. App Store Deep-Linking / Smart Banner (iOS, Android & Desktop) ---------------- */}
-      <AppSmartBanner />
-
-      {/* ---------------- 1. Top Quick Action Utility Bar & Announcements ---------------- */}
-      <div className="quick-action-utility-bar">
-        <div className="utility-bar-wrap">
-          <div className="utility-left-links">
+      {/* ---------------- 1. Atelier Top Announcement Strip ---------------- */}
+      <div className="announcement-strip" role="region" aria-label="Store announcement">
+        <div className="announcement-content">
+          <span className="announcement-badge">AW 24/25</span>
+          <span className="announcement-text">
+            Complimentary worldwide express shipping on orders over ₦150,000 / $120 • Autumn / Winter Atelier Capsule
+          </span>
+          <div className="announcement-actions">
             <button
               type="button"
-              className="utility-link vendor-entry-btn"
-              onClick={() => {
-                setVendorPortalInitialTab("onboarding");
-                setIsVendorPortalOpen(true);
-              }}
-              title="Sell on Vroom Style(s) Marketplace"
-            >
-              <span className="utility-icon">🏪</span>
-              <strong>Sell on Vroom</strong>
-              <span className="utility-tag">0% Fee</span>
-            </button>
-
-            <span className="utility-sep">•</span>
-
-            <button
-              type="button"
-              className="utility-link vendor-hub-btn"
-              onClick={() => {
-                setVendorPortalInitialTab("hub");
-                setIsVendorPortalOpen(true);
-              }}
-              title="3P Merchant Portal & Drops Manager"
-            >
-              <span className="utility-icon">🏢</span>
-              <span>Vendor Hub</span>
-            </button>
-
-            <span className="utility-sep">•</span>
-
-            <button
-              type="button"
-              className="utility-link jforce-entry-btn"
-              onClick={() => setIsJForcePortalOpen(true)}
-              title="Earn 12% Commission on Client Orders"
-            >
-              <span className="utility-icon">💼</span>
-              <strong>JForce Network</strong>
-              <span className="utility-tag" style={{ background: "#fef08a", color: "#854d0e" }}>12% Earn</span>
-            </button>
-
-            <span className="utility-sep">•</span>
-
-            <button
-              type="button"
-              className="utility-link logistics-entry-btn"
-              onClick={() => {
-                if (!currentUser) {
-                  showToast("Please sign in or enter your Order ID to track");
-                  setIsAuthOpen(true);
-                } else {
-                  setIsTrackingOpen(true);
-                }
-              }}
-              title="Track nationwide shipment"
-            >
-              <span className="utility-icon">🚚</span>
-              <span>Logistics & Order Tracking</span>
-            </button>
-
-            <span className="utility-sep">•</span>
-
-            <button
-              type="button"
-              className="utility-link vroom-delivery-entry-btn"
-              onClick={() => {
-                setVroomDeliveryInitialTab("calculator");
-                setIsVroomDeliveryOpen(true);
-              }}
-              title="Vroom Delivery — Parcel Shipping & Rate Calculator"
-            >
-              <span className="utility-icon">📦</span>
-              <strong>Vroom Delivery</strong>
-              <span className="utility-tag delivery-tag">Parcel Hub</span>
-            </button>
-
-            <span className="utility-sep">•</span>
-
-            <span className="utility-notice">
-              ⚡ Free Express Delivery on orders over ₦100,000 • 7-Day Doorstep Returns
-            </span>
-          </div>
-
-          <div className="utility-right-links">
-            <button
-              type="button"
-              className="utility-region-btn"
-              onClick={() => setIsCountrySwitcherOpen(true)}
-              title={`Switch Country / Regional Storefront (Current: ${currentRegion.name})`}
-            >
-              <span className="utility-flag">{currentRegion.flag}</span>
-              <span className="utility-region-name">{currentRegion.name}</span>
-              <span className="utility-region-tld">.{currentRegion.code.toLowerCase()}</span>
-            </button>
-            <span className="utility-sep">•</span>
-            <button
-              type="button"
-              className="utility-link"
-              onClick={() => setIsHelpModalOpen(true)}
-              title="Official Concierge & WhatsApp Support (+234 913 083 1439)"
-            >
-              <span>24/7 Concierge: +234 913 083 1439</span>
-            </button>
-            <span className="utility-sep">•</span>
-            <button
-              type="button"
-              className="utility-currency-toggle"
+              className="announcement-currency-btn"
               onClick={() => setCurrency((c) => (c === "NGN" ? "USD" : "NGN"))}
               title="Toggle Currency"
             >
               <span>{currency === "NGN" ? "🇳🇬 NGN (₦)" : "🇺🇸 USD ($)"}</span>
             </button>
+            <span className="announcement-divider">•</span>
+            <button
+              type="button"
+              className="announcement-link-btn"
+              onClick={() => setIsHelpModalOpen(true)}
+              title="Official Concierge & WhatsApp Support (+234 913 083 1439)"
+            >
+              <span>Concierge: +234 913 083 1439</span>
+            </button>
           </div>
         </div>
       </div>
-
-      </>
-      )}
 
       {/* ---------------- 2. Sticky Header with Persistent Global Search Portal ---------------- */}
       <header className="topbar">
@@ -993,7 +843,6 @@ function App() {
                 setVendorPortalInitialTab("hub");
                 setIsVendorPortalOpen(true);
               }}
-              onOpenJForce={() => setIsJForcePortalOpen(true)}
               onOpenVroomDelivery={() => {
                 setVroomDeliveryInitialTab("calculator");
                 setIsVroomDeliveryOpen(true);
@@ -1170,44 +1019,21 @@ function App() {
           </div>
         </section>
 
-{SHOW_MARKETING_SECTIONS && (
-        <>
-        {/* ---------------- 5. Real-Time Flash Sale Countdown Engine ---------------- */}
-        <FlashSaleSection
-          products={products}
-          onSelectProduct={handleOpenQuickView}
-          onAddToCart={handleAddToCart}
-          formatPrice={formatPrice}
-          onViewAllFlashSales={() => {
-            setCampaign("flash_sale");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- 6. Marketing & Campaign Banner Grids (Affiliate Attribution) ---------------- */}
-        <CampaignBannerGrid
-          onSelectCampaign={handleSelectCampaign}
-          activeCampaignKey={activeCampaign}
-          onClearCampaign={clearCampaign}
-        />
-
-        {/* ---------------- 7. Collections / Category Spotlight ---------------- */}
-        <section className="section-label">
+        {/* ---------------- 5. Collections / Category Spotlight ---------------- */}
+        <section className="section-label" data-reveal>
           <h2>Shop by Category</h2>
-          <span>Curated Selections</span>
+          <span>Curated Haute Selections</span>
         </section>
 
-        <section className="collection-strip">
+        <section className="collection-strip" data-reveal>
           {[
-            { id: "01", title: "🚗 Vroom Motors (30 Cars)", cat: "Cars" },
-            { id: "02", title: "🧊 Fridges & Freezers (30)", cat: "Fridges" },
-            { id: "03", title: "📻 Smart Microwaves (30)", cat: "Microwaves" },
-            { id: "04", title: "🍳 Kitchen Utensils (30)", cat: "Kitchen Utensils" },
-            { id: "05", title: "🛋️ Designer Furniture (30)", cat: "Furniture" },
-            { id: "06", title: "📺 Cinematic 4K/8K TVs (30)", cat: "TVs" },
-            { id: "07", title: "💻 Laptops & Ultrabooks (30)", cat: "Laptops" },
-            { id: "08", title: "🖥️ Studio Monitors (30)", cat: "Monitors" },
-            { id: "09", title: "👗 Fashion & Atelier", cat: "Fashion & Atelier" },
+            { id: "01", title: "Dresses & Silks", cat: "Women" },
+            { id: "02", title: "Tailored Suiting", cat: "Men" },
+            { id: "03", title: "Atelier Limited Drops", cat: "Atelier" },
+            { id: "04", title: "Cashmere & Merino", cat: "Knitwear" },
+            { id: "05", title: "Wool Trench & Outerwear", cat: "Outerwear" },
+            { id: "06", title: "Italian Calfskin Footwear", cat: "Footwear" },
+            { id: "07", title: "Fine Leather Goods & Totes", cat: "Accessories" },
           ].map((col) => (
             <article
               key={col.id}
@@ -1225,7 +1051,7 @@ function App() {
           ))}
         </section>
 
-        {/* ---------------- 8. Curated Recommendation Rails: Recently Viewed ---------------- */}
+        {/* ---------------- 6. Curated Recommendation Rails: Recently Viewed ---------------- */}
         {recentlyViewed.length > 0 && (
           <RecommendationRail
             title="Recently Viewed Pieces"
@@ -1242,105 +1068,25 @@ function App() {
           />
         )}
 
-        {/* ---------------- 9. Curated Recommendation Rails: Based on Your Search ---------------- */}
-        {searchQuery.trim().length > 0 && searchBasedProducts.length > 0 && (
+        {/* ---------------- 7. Atelier Bestsellers Rail ---------------- */}
+        {topSellingProducts.length > 0 && (
           <RecommendationRail
-            title={`Based on your search for "${searchQuery}"`}
-            subtitle="Pieces that go with what you were just looking at."
-            kicker="Based on what you searched"
-            products={searchBasedProducts}
+            title="Atelier Bestsellers"
+            subtitle="Pieces that defined this season, tailored in limited atelier batches."
+            kicker="Signature capsule"
+            products={topSellingProducts}
             formatPrice={formatPrice}
             wishlist={wishlist}
             onToggleWishlist={handleToggleWishlist}
             onQuickView={handleOpenQuickView}
             onOpenLightbox={handleOpenLightbox}
             onAddToCart={handleAddToCart}
-            onViewAll={() => handleScrollToCatalog()}
+            onViewAll={(cat) => {
+              setSelectedCategory(cat || "All");
+              handleScrollToCatalog();
+            }}
           />
         )}
-
-        {/* ---------------- 10. Curated Recommendation Rails: Top Selling & Customer Faves ---------------- */}
-        <RecommendationRail
-          title="What everyone is buying"
-          subtitle="Ranked by what has actually left the shelf this month."
-          kicker="Bestsellers"
-          
-          products={topSellingProducts}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onViewAll={(cat) => {
-            setSelectedCategory(cat || "All");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- 11. Dedicated Brand Portal Section (Authorized Flagships) ---------------- */}
-        <BrandPortalSection
-          products={products}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onExploreBrandCatalog={(brandName) => {
-            setSearchQuery(brandName);
-            setSelectedCategory("All");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- Dedicated Vroom Motors Showroom Section (30 Cars) ---------------- */}
-        <CarsShowroomSection
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onViewAllCars={() => {
-            setSelectedCategory("Cars");
-            handleScrollToCatalog();
-          }}
-          onOpenPromptStudio={handleOpenPromptStudio}
-        />
-
-        {/* ---------------- Dedicated Home Appliances Section (Fridges, Microwaves, Utensils - 30 each) ---------------- */}
-        <HomeAppliancesSection
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onSelectCategory={(cat) => {
-            setSelectedCategory(cat);
-            handleScrollToCatalog();
-          }}
-          onOpenPromptStudio={handleOpenPromptStudio}
-        />
-
-        {/* ---------------- Dedicated Tech & Living Showcase (TVs, Laptops, Monitors, Furniture - 30 each) ---------------- */}
-        <TechLivingSection
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onSelectCategory={(cat) => {
-            setSelectedCategory(cat);
-            handleScrollToCatalog();
-          }}
-          onOpenPromptStudio={handleOpenPromptStudio}
-        />
-
-        </>
-      )}
 
         {/* ---------------- 12. Main Product Catalog Section ---------------- */}
         <Breadcrumbs
@@ -1406,7 +1152,7 @@ function App() {
                 <div className="catalog-filter-tabs">
                   {(() => {
                     const seen = new Set<string>();
-                    const cats = ["All", ...products.map((p) => p.category).filter(Boolean)];
+                    const cats = ["All", ...DEPARTMENTS, ...products.map((p) => p.category).filter(Boolean)];
                     return cats.filter((cat) => {
                       if (!cat || seen.has(cat)) return false;
                       seen.add(cat);
@@ -1570,59 +1316,36 @@ function App() {
           )}
         </section>
 
-{SHOW_MARKETING_SECTIONS && (
-        <>
-        {/* ---------------- 13. Category Specific Feed: Smart Living & Tech Deals ---------------- */}
-        <RecommendationRail
-          title="For the desk and the wardrobe"
-          subtitle="Steamers, chargers and desk pieces that earn the space they take."
-          kicker="Tech and living"
-          
-          products={techDealsProducts}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          viewAllCategory="Phones & Tablets"
-          onViewAll={(cat) => {
-            setSelectedCategory(cat || "Phones & Tablets");
-            handleScrollToCatalog();
-          }}
-        />
-
-        {/* ---------------- 13b. Conversion Enabler: Payment on Delivery (PoD) Essentials Rail ---------------- */}
-        <RecommendationRail
-          title="Pay when it reaches you"
-          subtitle="Open the box, look it over, then settle by card, POS or cash. Lagos, Abuja and Port Harcourt."
-          kicker="Paid at the door"
-          
-          products={podEligibleProducts}
-          formatPrice={formatPrice}
-          wishlist={wishlist}
-          onToggleWishlist={handleToggleWishlist}
-          onQuickView={handleOpenQuickView}
-          onOpenLightbox={handleOpenLightbox}
-          onAddToCart={handleAddToCart}
-          onViewAll={() => {
-            setIsPodFilterActive(true);
-            handleScrollToCatalog();
-          }}
-        />
+        {/* ---------------- Payment on Delivery (PoD) Essentials Rail ---------------- */}
+        {podEligibleProducts.length > 0 && (
+          <RecommendationRail
+            title="Pay when it reaches you"
+            subtitle="Open the parcel, inspect the craftsmanship, then settle by card, POS or cash. Lagos, Abuja & Port Harcourt."
+            kicker="Doorstep verification"
+            products={podEligibleProducts}
+            formatPrice={formatPrice}
+            wishlist={wishlist}
+            onToggleWishlist={handleToggleWishlist}
+            onQuickView={handleOpenQuickView}
+            onOpenLightbox={handleOpenLightbox}
+            onAddToCart={handleAddToCart}
+            onViewAll={() => {
+              setIsPodFilterActive(true);
+              handleScrollToCatalog();
+            }}
+          />
+        )}
 
         {/* ---------------- Integrated Delivery Services (Vroom Delivery) Showcase Banner ---------------- */}
-        <section className="vroom-delivery-showcase-banner" aria-labelledby="delivery-title">
+        <section className="vroom-delivery-showcase-banner" aria-labelledby="delivery-title" data-reveal>
           <div className="delivery-layout">
             <div className="delivery-copy">
-              <span className="showcase-kicker">Vroom Delivery</span>
+              <span className="showcase-kicker">White-Glove Atelier Logistics</span>
               <h2 className="showcase-title" id="delivery-title">
-                We can move it for you, too
+                Direct Atelier Dispatch & Doorstep Fitting
               </h2>
               <p className="showcase-lede">
-                Same-day dispatch inside Lagos and Abuja, interstate line-haul, and cash
-                or POS collected at the door. Available for our own orders and for other
-                merchants.
+                Same-day concierge delivery across Lagos and Abuja, insured interstate transit, and contactless card or cash collection at your door.
               </p>
               <div className="delivery-actions">
                 <button
@@ -1633,7 +1356,7 @@ function App() {
                     setIsVroomDeliveryOpen(true);
                   }}
                 >
-                  Calculate a rate
+                  Calculate shipping rate
                 </button>
                 <button
                   type="button"
@@ -1643,24 +1366,14 @@ function App() {
                     setIsVroomDeliveryOpen(true);
                   }}
                 >
-                  Track a waybill
-                </button>
-                <button
-                  type="button"
-                  className="showcase-link is-quiet"
-                  onClick={() => {
-                    setVroomDeliveryInitialTab("api");
-                    setIsVroomDeliveryOpen(true);
-                  }}
-                >
-                  Merchant API
+                  Track waybill
                 </button>
               </div>
             </div>
 
             <dl className="delivery-facts">
               <div>
-                <dt>Inside the city</dt>
+                <dt>Citywide express</dt>
                 <dd>3–5 hours</dd>
               </div>
               <div>
@@ -1669,14 +1382,11 @@ function App() {
               </div>
               <div>
                 <dt>In transit</dt>
-                <dd>Insured to full value</dd>
+                <dd>Full value insurance</dd>
               </div>
             </dl>
           </div>
         </section>
-
-        </>
-      )}
 
         {/* ---------------- 7. Quality & Craftsmanship Pillars ---------------- */}
         <section className="feature-band" data-reveal>
@@ -1807,15 +1517,7 @@ function App() {
         formatPrice={formatPrice}
       />
 
-      {/* JForce Affiliate / Reseller Consultant Network Modal */}
-      <JForcePortalModal
-        isOpen={isJForcePortalOpen}
-        onClose={() => setIsJForcePortalOpen(false)}
-        onSuccessToast={showToast}
-        formatPrice={formatPrice}
-      />
-
-      {/* Integrated Delivery Services (Vroom Delivery Micro-Services) Modal */}
+      {/* Integrated Delivery Services Modal */}
       <VroomDeliveryModal
         isOpen={isVroomDeliveryOpen}
         onClose={() => setIsVroomDeliveryOpen(false)}
@@ -1835,17 +1537,6 @@ function App() {
           } else {
             setIsTrackingOpen(true);
           }
-        }}
-      />
-
-      {/* Seasonal Mystery Scavenger Hunt Modal */}
-      <ScavengerHuntModal
-        isOpen={isScavengerModalOpen}
-        onClose={() => setIsScavengerModalOpen(false)}
-        onClaimVoucher={(code) => {
-          showToast(`Voucher ${code} applied! ₦15,000 seasonal savings unlocked.`);
-          setCampaign("scavenger_hunt");
-          handleScrollToCatalog();
         }}
       />
 
@@ -1873,7 +1564,6 @@ function App() {
           setVendorPortalInitialTab("onboarding");
           setIsVendorPortalOpen(true);
         }}
-        onOpenJForce={() => setIsJForcePortalOpen(true)}
         onOpenVroomDelivery={() => {
           setVroomDeliveryInitialTab("calculator");
           setIsVroomDeliveryOpen(true);
@@ -1920,13 +1610,6 @@ function App() {
         onClose={() => setIsComplianceModalOpen(false)}
         initialTab={complianceInitialTab}
         onSuccessToast={showToast}
-      />
-
-      {/* ---------------- AI Image Generation Prompt Studio Modal (240 Prompts across 8 Categories) ---------------- */}
-      <PromptStudioModal
-        isOpen={isPromptStudioOpen}
-        onClose={() => setIsPromptStudioOpen(false)}
-        initialCategory={promptStudioInitialCategory}
       />
 
       {/* ---------------- High-Resolution Multi-Angle Image Lightbox Modal ---------------- */}
