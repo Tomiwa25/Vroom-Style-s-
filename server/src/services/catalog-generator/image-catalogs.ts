@@ -68,7 +68,7 @@ export const CATEGORY_IMAGE_POOLS: Record<string, string[][]> = {
     [
       "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1200&q=85"
     ],
     [
       "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1200&q=85",
@@ -112,14 +112,79 @@ export const CATEGORY_IMAGE_POOLS: Record<string, string[][]> = {
   ],
   "Home and Kitchen": [
     [
-      "https://images.unsplash.com/photo-1584990347449-3993d08a5067?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85"
     ],
     [
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85"
+    ]
+  ],
+  "Kitchen Utensils": [
+    [
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85"
+    ]
+  ],
+  "Fridges": [
+    [
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1643705314142-6f072c3d48fa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "https://plus.unsplash.com/premium_photo-1680382578857-c331ead9ed51?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1748274699808-50964cebce9c?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661342474567-f84bb6959d9f?auto=format&fit=crop&w=1200&q=85"
+    ]
+  ],
+  "Microwaves": [
+    [
+      "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1684397671650-68fd1417fb3d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1612769732688-b7d111799dca?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=1200&q=85"
+    ]
+  ],
+  "TVs": [
+    [
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1586024486164-ce9b3d87e09f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1633604712918-6ab1173d0ecd?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "https://images.unsplash.com/photo-1586024486164-ce9b3d87e09f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1698674913743-88148adc7b26?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85"
+    ]
+  ],
+  "Monitors": [
+    [
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+    ],
+    [
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ]
   ],
   "Furniture": [
@@ -218,18 +283,18 @@ export const CATEGORY_IMAGE_POOLS: Record<string, string[][]> = {
   "Home Appliances": [
     [
       "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1710947949965-8150d227d337?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85"
     ],
     [
       "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1684397671650-68fd1417fb3d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85"
     ],
     [
       "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1586024486164-ce9b3d87e09f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1633604712918-6ab1173d0ecd?auto=format&fit=crop&w=1200&q=85"
     ]
   ],
   "Office Equipment": [
@@ -267,10 +332,14 @@ export function resolveProductImages(category: string, index: number = 0): Multi
   // Normalize alias matches
   let catKey = category;
   if (category === "Cars") catKey = "Automotive";
-  if (category === "Fridges" || category === "Microwaves" || category === "TVs") catKey = "Home Appliances";
-  if (category === "Laptops" || category === "Monitors") catKey = "Computers and Accessories";
-  if (category === "Women" || category === "Men" || category === "Knitwear" || category === "Outerwear") catKey = "Fashion";
-  if (category === "Accessories" || category === "Footwear") catKey = "Shoes and Bags";
+  if (category === "Fridges" && CATEGORY_IMAGE_POOLS["Fridges"]) catKey = "Fridges";
+  else if (category === "Microwaves" && CATEGORY_IMAGE_POOLS["Microwaves"]) catKey = "Microwaves";
+  else if (category === "TVs" && CATEGORY_IMAGE_POOLS["TVs"]) catKey = "TVs";
+  else if (category === "Monitors" && CATEGORY_IMAGE_POOLS["Monitors"]) catKey = "Monitors";
+  else if (category === "Laptops") catKey = "Computers and Accessories";
+  else if ((category === "Kitchen Utensils" || category === "KitchenUtensils") && CATEGORY_IMAGE_POOLS["Kitchen Utensils"]) catKey = "Kitchen Utensils";
+  else if (category === "Women" || category === "Men" || category === "Knitwear" || category === "Outerwear") catKey = "Fashion";
+  else if (category === "Accessories" || category === "Footwear") catKey = "Shoes and Bags";
 
   const pool = CATEGORY_IMAGE_POOLS[catKey] || CATEGORY_IMAGE_POOLS["Electronics"];
   const triplet = pool[index % pool.length];

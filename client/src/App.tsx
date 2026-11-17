@@ -29,11 +29,13 @@ import { CategoryMegaMenu } from "./components/CategoryMegaMenu";
 import { ProductCard } from "./components/ProductCard";
 import { RecommendationRail } from "./components/RecommendationRail";
 import { LookbookModal } from "./components/LookbookModal";
+import { LuxuryMarquee } from "./components/LuxuryMarquee";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { useReveal } from "./hooks/useReveal";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
 import api, { createIdempotencyKey } from "./services/api";
 import "./styles.css";
+import "./3d-components.css";
 
 // Departments that actually hold stock — mirrors Product.category values.
 const DEPARTMENTS = [
@@ -1017,6 +1019,9 @@ function App() {
             </figcaption>
           </figure>
         </section>
+
+        {/* Dynamic Architectural Luxury Marquee */}
+        <LuxuryMarquee />
 
         {/* ---------------- 4. Value Proposition Trust Bar ---------------- */}
         <section className="trust-bar" data-reveal aria-label="Service">

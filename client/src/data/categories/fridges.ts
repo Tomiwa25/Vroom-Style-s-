@@ -15,8 +15,8 @@ export const fridgesProducts: Product[] = [
     "image": "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
     "images": [
       "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Samsung",
@@ -64,8 +64,8 @@ export const fridgesProducts: Product[] = [
     "image": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
     "images": [
       "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1729431432431-fabe5caa7078?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "LG",
@@ -110,11 +110,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 668,
-    "image": "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
     "images": [
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Bosch",
@@ -161,8 +161,8 @@ export const fridgesProducts: Product[] = [
     "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
     "images": [
       "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1758488438758-5e2eedf769ce?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Smeg",
@@ -206,11 +206,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 729,
-    "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1748274699808-50964cebce9c?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Hisense",
@@ -254,11 +254,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 935,
-    "image": "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1643705314142-6f072c3d48fa?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1643705314142-6f072c3d48fa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Haier",
@@ -302,11 +302,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1100,
-    "image": "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Whirlpool",
@@ -349,11 +349,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 818,
-    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://plus.unsplash.com/premium_photo-1680382578857-c331ead9ed51?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1680382578857-c331ead9ed51?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661342474567-f84bb6959d9f?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Miele",
@@ -398,11 +398,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 998,
-    "image": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://plus.unsplash.com/premium_photo-1729431432431-fabe5caa7078?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1729431432431-fabe5caa7078?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1748274699808-50964cebce9c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Panasonic",
@@ -445,11 +445,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 525,
-    "image": "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1748274699808-50964cebce9c?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1748274699808-50964cebce9c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Beko",
@@ -492,11 +492,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 943,
-    "image": "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://plus.unsplash.com/premium_photo-1661342474567-f84bb6959d9f?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1661342474567-f84bb6959d9f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1672322331200-c4ac12a93c15?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Electrolux",
@@ -539,11 +539,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1028,
-    "image": "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1672322331200-c4ac12a93c15?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1672322331200-c4ac12a93c15?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1759691554646-8155da2172ee?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Fisher & Paykel",
@@ -586,11 +586,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 606,
-    "image": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1770063817031-f3b98dff347f?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1770063817031-f3b98dff347f?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1680382578857-c331ead9ed51?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Sub-Zero",
@@ -633,11 +633,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 854,
-    "image": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1759691554646-8155da2172ee?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1759691554646-8155da2172ee?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "KitchenAid",
@@ -680,11 +680,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 901,
-    "image": "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1715985160053-d339e8b6eb94?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1715985160053-d339e8b6eb94?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Liebherr",
@@ -728,11 +728,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 961,
-    "image": "https://images.unsplash.com/photo-1590725140246-20150937c87c?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1590725140246-20150937c87c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Dacor",
@@ -775,11 +775,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 623,
-    "image": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1721563927724-74b1a0ddef33?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Sharp",
@@ -823,11 +823,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 413,
-    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1588621356760-480a27a2d105?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1588621356760-480a27a2d105?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Hitachi",
@@ -870,11 +870,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 210,
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1714228830868-42ee8baa2e74?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1714228830868-42ee8baa2e74?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1680382578857-c331ead9ed51?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Thermador",
@@ -917,11 +917,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 743,
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1770063817031-f3b98dff347f?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Viking",
@@ -964,11 +964,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 811,
-    "image": "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1538609589535-bb35f0c034db?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1707627001522-bba7fb1326f3?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Frigidaire",
@@ -1011,11 +1011,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 301,
-    "image": "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185008-b033106af5c3?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "GE Appliances",
@@ -1058,11 +1058,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 728,
-    "image": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1643705314142-6f072c3d48fa?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1643705314142-6f072c3d48fa?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Cafe",
@@ -1105,11 +1105,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1120,
-    "image": "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1758488438758-5e2eedf769ce?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1758488438758-5e2eedf769ce?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Galanz",
@@ -1153,11 +1153,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 529,
-    "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1682071308396-0e79cbf8ff8a?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1682071308396-0e79cbf8ff8a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1679479437260-430e326ac87a?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Kalamera",
@@ -1200,11 +1200,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 506,
-    "image": "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1679479437260-430e326ac87a?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1679479437260-430e326ac87a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1682071308396-0e79cbf8ff8a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Danby",
@@ -1247,11 +1247,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 1130,
-    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1682071308396-0e79cbf8ff8a?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1682071308396-0e79cbf8ff8a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1679479437260-430e326ac87a?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Summit",
@@ -1294,11 +1294,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 317,
-    "image": "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://plus.unsplash.com/premium_photo-1734538271703-d41292ab8296?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://plus.unsplash.com/premium_photo-1734538271703-d41292ab8296?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1723640586333-f76a3d1072b0?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Polycool",
@@ -1341,11 +1341,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 656,
-    "image": "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1723640586333-f76a3d1072b0?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1618219740975-d40978bb7378?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1723640586333-f76a3d1072b0?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1734538271703-d41292ab8296?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1536854704214-f489b6693769?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Hisense",
@@ -1388,11 +1388,11 @@ export const fridgesProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 907,
-    "image": "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1679479437260-430e326ac87a?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1679479437260-430e326ac87a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1682071308396-0e79cbf8ff8a?auto=format&fit=crop&w=1200&q=85",
+      "https://plus.unsplash.com/premium_photo-1661375373095-e83281f8a851?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Fridges",
     "brand": "Hoshizaki",

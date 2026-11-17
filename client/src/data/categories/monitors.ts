@@ -15,7 +15,7 @@ export const monitorsProducts: Product[] = [
     "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
       "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -60,11 +60,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 644,
-    "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Samsung",
@@ -108,10 +108,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 928,
-    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -156,11 +156,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 643,
-    "image": "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "LG",
@@ -204,10 +204,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 380,
-    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -252,11 +252,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 849,
-    "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Alienware",
@@ -300,10 +300,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 408,
-    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -347,11 +347,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 1017,
-    "image": "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "LG",
@@ -394,10 +394,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 378,
-    "image": "https://images.unsplash.com/photo-1616469829941-c7200edec809?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1616469829941-c7200edec809?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -441,11 +441,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 1116,
-    "image": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Philips Evnia",
@@ -488,10 +488,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 366,
-    "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -536,11 +536,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 635,
-    "image": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "ASUS ROG",
@@ -584,10 +584,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 835,
-    "image": "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -631,11 +631,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 815,
-    "image": "https://images.unsplash.com/photo-1584905066893-7d5c142ba4e1?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1584905066893-7d5c142ba4e1?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Alienware",
@@ -679,10 +679,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 597,
-    "image": "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1585647347483-22b66260dfff?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -726,11 +726,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 881,
-    "image": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "ViewSonic",
@@ -773,10 +773,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 545,
-    "image": "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -820,11 +820,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 998,
-    "image": "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "AOC",
@@ -867,10 +867,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 821,
-    "image": "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -914,11 +914,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 348,
-    "image": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "HP OMEN",
@@ -961,10 +961,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1078,
-    "image": "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -1008,11 +1008,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 929,
-    "image": "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Samsung",
@@ -1055,10 +1055,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 596,
-    "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -1103,11 +1103,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 822,
-    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "ASUS TUF",
@@ -1150,10 +1150,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 455,
-    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -1197,11 +1197,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 818,
-    "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Iiyama",
@@ -1244,10 +1244,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.8,
     "reviewCount": 800,
-    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -1291,11 +1291,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.9,
     "reviewCount": 842,
-    "image": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "KTC",
@@ -1338,10 +1338,10 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.6,
     "reviewCount": 1071,
-    "image": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
@@ -1385,11 +1385,11 @@ export const monitorsProducts: Product[] = [
     "hasVariants": true,
     "rating": 4.7,
     "reviewCount": 584,
-    "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=1200&q=85",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
     "images": [
-      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1585792180666-f7547c6a28c5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85"
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85"
     ],
     "category": "Monitors",
     "brand": "Apple",

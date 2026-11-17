@@ -113,28 +113,51 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       <div className="product-card-body">
+        <div className="product-card-eyebrow">
+          <span className="product-card-category">
+            {product.brand ? `${product.brand} · ${product.category}` : product.category}
+            {sizeCount > 1 ? ` · ${sizeCount} sizes` : ""}
+          </span>
+        </div>
+
         <button type="button" className="product-card-name" onClick={open}>
           {product.name}
         </button>
 
-        <span className="product-card-facts">
-          {product.brand || product.category}
-          {sizeCount > 1 ? ` · ${sizeCount} sizes` : ""}
-        </span>
+        {product.description && (
+          <p className="product-card-desc" title={product.description}>
+            {product.description}
+          </p>
+        )}
 
-        <span className="product-card-price">
-          {saved}
-          {was && <span className="product-card-was">{was}</span>}
-        </span>
+        <div className="product-card-footer">
+          <span className="product-card-price">
+            {saved}
+            {was && <span className="product-card-was">{was}</span>}
+          </span>
+
+          <span
+            className={`product-card-stock ${
+              soldOut ? "out" : product.stock <= 5 ? "low" : "in"
+            }`}
+          >
+            <span className="stock-dot" />
+            {soldOut
+              ? "Out of store"
+              : product.stock <= 5
+              ? `Only ${product.stock} in store`
+              : `${product.stock} in store`}
+          </span>
+        </div>
 
         {onAddToCart && !soldOut && (
           <button
             type="button"
-            className="product-card-add"
+            className="product-card-add-btn pill"
             onClick={add}
             aria-label={`Add ${product.name} to bag`}
           >
-            Add to bag
+            Add to bag +
           </button>
         )}
       </div>
