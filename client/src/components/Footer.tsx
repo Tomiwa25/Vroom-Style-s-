@@ -9,7 +9,6 @@ interface FooterProps {
   onOpenCompliance: (tab?: "dispute" | "returns" | "cookies" | "gateways") => void;
   onOpenVendorHub: () => void;
   onOpenBecomeSeller: () => void;
-  onOpenJForce: () => void;
   onOpenVroomDelivery: () => void;
   onOpenTracking: () => void;
   onOpenPoDFilter: () => void;
@@ -23,7 +22,6 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenCompliance,
   onOpenVendorHub,
   onOpenBecomeSeller,
-  onOpenJForce,
   onOpenVroomDelivery,
   onOpenTracking,
   onOpenPoDFilter,
@@ -86,22 +84,22 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a href="#catalog-section">
-                  Appliances & Steamer Tech
+                  Atelier Limited Drops
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  Phones & Tuscan Leather Folios
+                  Cashmere &amp; Fine Knitwear
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  Official Flagship Stores
+                  Outerwear &amp; Wool Trench
                 </a>
               </li>
               <li>
                 <a href="#catalog-section">
-                  Flash Sale & Scavenger Drops
+                  Italian Calfskin Footwear
                 </a>
               </li>
             </ul>
@@ -122,8 +120,8 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
-                <button type="button" className="footer-action-link" onClick={onOpenJForce}>
-                  JForce Reseller (12% Commission)
+                <button type="button" className="footer-action-link" onClick={() => onOpenCompliance("returns")}>
+                  Bespoke Atelier Inquiries
                 </button>
               </li>
               <li>

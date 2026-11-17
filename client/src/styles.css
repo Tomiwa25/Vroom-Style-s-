@@ -1,50 +1,53 @@
 /* ==========================================================================
-   VROOM STYLE(S) — Warm Minimalist Atelier
-   Warm Oat Ground, Obsidian Ink, Camel Tan & Mineral Riviera Blue.
+   VROOM STYLES — Haute Warmth Fashion Atelier Design System
+   Warm Ecru Ground • Pure Silk Surface • Terracotta Accent • Bodoni & Jakarta Sans
    ========================================================================== */
 
 :root {
-  /* Warm Minimalist Luxury Palette (Alabaster Oat, Desert Camel Tan, Mineral Riviera Blue & Laurel Sage) */
-  --page-bg: #F7F5F0;
-  --paper: #FAF8F4;
+  /* Warm Minimalist Haute Warmth Palette */
+  --page-bg: #faf8f5;
+  --paper: #faf8f5;
   --paper-pure: #ffffff;
-  --paper-warm: #FAF8F4;
-  --wash: #F7F5F0;
-  --wash-deep: #EFEBE2;
+  --paper-warm: #faf8f5;
+  --surface: #ffffff;
+  --wash: #f3efea;
+  --wash-deep: #ebe7e1;
 
-  --ink: #181614;
-  --text: #181614;
-  --text-secondary: #5C554B;
-  --graphite: #5C554B;
-  --graphite-soft: #7E766B;
-  --muted: #7E766B;
-  --muted-light: #ABA294;
+  --ink: #141312;
+  --text: #141312;
+  --text-secondary: #4d4843;
+  --graphite: #4d4843;
+  --graphite-soft: #827b73;
+  --muted: #827b73;
+  --muted-light: #aba294;
 
-  --hairline: #E6DFD5;
-  --hairline-strong: #D5CCC0;
-  --line: #E6DFD5;
-  --line-subtle: #EFEAE1;
-  --soft: #EFEBE2;
-  --soft-hover: #E5DFD4;
+  --hairline: #ebe6df;
+  --hairline-strong: #d9d2c7;
+  --line: #ebe6df;
+  --line-subtle: #efeae1;
+  --soft: #f3efea;
+  --soft-hover: #ebe7e1;
 
-  --accent: #1E3A5F;
-  --accent-hover: #142842;
-  --brand-tan: #C59B6D;
-  --brand-tan-hover: #B38858;
-  --brand-tan-light: #F4ECE1;
-  --brand-blue: #1E3A5F;
-  --brand-green: #4E6554;
+  /* Terracotta & Warmth Accents */
+  --accent: #a84b2c;
+  --accent-hover: #893417;
+  --accent-soft: #ffe0d7;
+  --brand-tan: #c59b6d;
+  --brand-tan-hover: #b38858;
+  --brand-tan-light: #f4ece1;
+  --brand-blue: #1e3a5f;
+  --brand-green: #4e6554;
 
-  --alert: #B84A39;
-  --success: #3E6F58;
-  --danger: #B84A39;
+  --alert: #9b2c1f;
+  --danger: #9b2c1f;
+  --success: #3e6f58;
 
   --shadow-sm: 0 2px 6px rgba(35, 30, 20, 0.05);
   --shadow: 0 8px 24px rgba(35, 30, 20, 0.07);
   --shadow-lg: 0 20px 48px rgba(35, 30, 20, 0.10);
 
   --display: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif;
-  --ui: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
   --t-display: clamp(2.9rem, 6.4vw, 6.2rem);
   --t-h1: clamp(2rem, 4.4vw, 3.4rem);
@@ -359,6 +362,99 @@ select {
 .page-wrap {
   flex: 1;
   width: 100%;
+}
+
+/* ---------- Announcement Strip ------------------------------------------- */
+
+.announcement-strip {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: var(--t-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: calc(var(--z-header) + 1);
+}
+
+.announcement-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 8px var(--gutter);
+  min-height: 36px;
+}
+
+.announcement-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 2px 7px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  border-radius: 2px;
+}
+
+.announcement-text {
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #ded9d1;
+}
+
+.announcement-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.announcement-currency-btn,
+.announcement-link-btn {
+  background: transparent;
+  border: none;
+  color: #ded9d1;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 2px;
+  transition: color var(--d-micro) ease, background-color var(--d-micro) ease;
+}
+
+.announcement-currency-btn:hover,
+.announcement-link-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.announcement-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 860px) {
+  .announcement-content {
+    flex-direction: column;
+    padding: 6px var(--gutter);
+    gap: 4px;
+    text-align: center;
+  }
+  .announcement-text {
+    font-size: 0.625rem;
+    line-height: 1.3;
+  }
+  .announcement-actions {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /* ---------- Header ------------------------------------------------------- */
@@ -7787,3 +7883,1067 @@ input[type="radio"] {
 .wa-icon {
   display: none !important;
 }
+
+/* ==========================================================================
+   LOOKBOOK & ATELIER FITTING DRAWER STYLES
+   Haute Warmth Luxury Fashion Lookbook • Pulse Pins • Slide-In Fitting Drawer
+   ========================================================================== */
+
+.lookbook-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: rgba(20, 19, 18, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: lookbookFadeIn 280ms var(--ease-ui) forwards;
+}
+
+@keyframes lookbookFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lookbook-container {
+  width: 100%;
+  max-width: 1520px;
+  height: 92vh;
+  max-height: 920px;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 32px 80px -20px rgba(15, 14, 13, 0.45);
+}
+
+/* Header */
+.lookbook-header {
+  height: 64px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.75rem;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.lookbook-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.lookbook-capsule-tag {
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.lookbook-title {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.lookbook-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lookbook-tab {
+  background: transparent;
+  border: none;
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  padding: 8px 14px;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--d-micro) ease;
+}
+
+.lookbook-tab:hover {
+  color: var(--ink);
+}
+
+.lookbook-tab.is-active {
+  color: var(--ink);
+}
+
+.lookbook-tab.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: var(--ink);
+}
+
+.lookbook-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lookbook-currency-toggle {
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color var(--d-micro) ease;
+}
+
+.lookbook-currency-toggle:hover {
+  background: var(--wash-deep);
+}
+
+.lookbook-close-btn {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--d-micro) ease;
+}
+
+.lookbook-close-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* Runway Body Layout */
+.lookbook-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(380px, 1fr);
+  min-height: 0;
+  background: var(--paper);
+}
+
+/* Left Stage */
+.lookbook-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #100f0e;
+  border-right: 1px solid var(--hairline);
+  overflow: hidden;
+}
+
+.lookbook-viewport {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lookbook-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hotspot Pulse Pins */
+.lookbook-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.pin-pulse {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  background: rgba(168, 75, 44, 0.25);
+  animation: pinPulseAnim 2s infinite ease-out;
+}
+
+@keyframes pinPulseAnim {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.pin-dot {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: transform var(--d-micro) ease;
+}
+
+.lookbook-pin:hover .pin-dot,
+.lookbook-pin.is-selected .pin-dot {
+  transform: scale(1.3);
+  background: #ffffff;
+  border-color: var(--accent);
+}
+
+.pin-label {
+  display: none;
+}
+
+/* Hover Card */
+.lookbook-hover-card {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  background: rgba(20, 19, 18, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+  animation: hoverCardFade 180ms ease forwards;
+}
+
+@keyframes hoverCardFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -90%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+}
+
+.hover-kicker {
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hover-title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.hover-price {
+  font-size: 0.75rem;
+  color: #ded9d1;
+  font-weight: 600;
+}
+
+.hover-hint {
+  font-size: 0.625rem;
+  color: var(--accent);
+  margin-top: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Controls */
+.lookbook-controls {
+  height: 56px;
+  background: var(--surface);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  flex-shrink: 0;
+}
+
+.lookbook-control-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 6px 10px;
+  transition: color var(--d-micro) ease;
+}
+
+.lookbook-control-btn:hover {
+  color: var(--accent);
+}
+
+.lookbook-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lookbook-dot {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--hairline);
+  background: var(--wash);
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--graphite);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--d-micro) ease;
+}
+
+.lookbook-dot.is-active,
+.lookbook-dot:hover {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+
+/* Right Sidebar: Overview */
+.lookbook-sidebar {
+  overflow-y: auto;
+  padding: 2.25rem;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+
+.look-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.look-meta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.look-meta-index {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.look-meta-location {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.look-meta-title {
+  font-family: var(--display);
+  font-size: 2.125rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.look-meta-subtitle {
+  font-size: 0.875rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+.look-meta-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--graphite);
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+  margin: 0.5rem 0;
+}
+
+/* Macro Texture Study */
+.look-texture-study {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.texture-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.texture-frame {
+  height: 140px;
+  overflow: hidden;
+  background: var(--wash);
+}
+
+.texture-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.texture-frame:hover img {
+  transform: scale(1.05);
+}
+
+.texture-caption {
+  font-size: 0.75rem;
+  color: var(--graphite);
+  line-height: 1.45;
+}
+
+/* Garments Quick List */
+.look-garments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.garments-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.garments-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.garment-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--d-micro) ease;
+}
+
+.garment-row:hover {
+  border-color: var(--ink);
+  background: #ffffff;
+  transform: translateX(4px);
+}
+
+.garment-row-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.garment-row-price {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Slide-out Fitting Drawer */
+.fitting-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: drawerSlide 300ms var(--ease-ui) forwards;
+}
+
+@keyframes drawerSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fitting-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.drawer-kicker {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.drawer-back-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.drawer-back-btn:hover {
+  color: var(--accent);
+}
+
+.drawer-hero-photo {
+  position: relative;
+  height: 240px;
+  background: var(--wash);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+}
+
+.drawer-hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.drawer-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(20, 19, 18, 0.88);
+  color: #ffffff;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.drawer-title {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.drawer-price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.drawer-desc {
+  font-size: 0.8125rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+.drawer-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  padding: 1rem;
+}
+
+.drawer-specs dt {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+  margin-bottom: 2px;
+}
+
+.drawer-specs dd {
+  font-size: 0.75rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.drawer-sizes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.size-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--graphite);
+}
+
+.size-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.size-chip {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 12px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--d-micro) ease;
+}
+
+.size-chip:hover {
+  border-color: var(--ink);
+}
+
+.size-chip.is-selected {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+
+.drawer-stock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--graphite);
+}
+
+.stock-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2d8a4e;
+}
+
+.drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+
+.drawer-add-btn {
+  width: 100%;
+  background: var(--ink);
+  color: #ffffff;
+  border: 1px solid var(--ink);
+  padding: 1rem;
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--d-micro) ease;
+}
+
+.drawer-add-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.drawer-view-cart-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  padding: 0.75rem;
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--d-micro) ease;
+}
+
+.drawer-view-cart-btn:hover {
+  border-color: var(--ink);
+  background: var(--wash);
+}
+
+/* Textile Archive View */
+.archive-view {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2.5rem;
+  background: var(--paper);
+}
+
+.archive-header {
+  max-width: 680px;
+  margin-bottom: 2.5rem;
+}
+
+.archive-kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.archive-title {
+  font-family: var(--display);
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0.5rem 0 0.75rem;
+}
+
+.archive-lede {
+  font-size: 0.9375rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.archive-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.archive-card-image {
+  position: relative;
+  height: 220px;
+  background: var(--wash);
+}
+
+.archive-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.archive-card-gsm {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(20, 19, 18, 0.88);
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  letter-spacing: 0.12em;
+}
+
+.archive-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.archive-card-origin {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.archive-card-title {
+  font-family: var(--display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.archive-card-desc {
+  font-size: 0.8125rem;
+  color: var(--graphite);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.archive-card-cert {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.cert-badge {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+/* Studio View */
+.studio-view {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2.5rem;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.studio-container {
+  width: 100%;
+  max-width: 580px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  padding: 2.5rem;
+}
+
+.studio-header {
+  margin-bottom: 1.75rem;
+}
+
+.studio-kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.studio-title {
+  font-family: var(--display);
+  font-size: 1.875rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0.5rem 0;
+}
+
+.studio-lede {
+  font-size: 0.875rem;
+  color: var(--graphite);
+  line-height: 1.55;
+}
+
+.studio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.studio-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.studio-form label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.studio-form input,
+.studio-form textarea {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  font-family: var(--ui);
+  font-size: 0.875rem;
+  color: var(--ink);
+  border-radius: 0;
+}
+
+.studio-form input:focus,
+.studio-form textarea:focus {
+  outline: none;
+  border-color: var(--ink);
+  background: #ffffff;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.concierge-direct {
+  font-size: 0.75rem;
+  color: var(--graphite-soft);
+  text-align: center;
+}
+
+.concierge-direct strong {
+  color: var(--ink);
+}
+
+.studio-success-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+}
+
+.studio-success-box .success-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.studio-success-box h3 {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--ink);
+}
+
+.studio-success-box p {
+  font-size: 0.875rem;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+/* Mobile & Tablet Responsive */
+@media (max-width: 960px) {
+  .lookbook-container {
+    height: 96vh;
+    max-height: none;
+  }
+  .lookbook-header {
+    padding: 0 1rem;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  .lookbook-brand {
+    order: 1;
+  }
+  .lookbook-header-actions {
+    order: 2;
+  }
+  .lookbook-nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .lookbook-body {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .lookbook-stage {
+    height: 480px;
+    border-right: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+  .studio-container {
+    padding: 1.5rem;
+  }
+}
+

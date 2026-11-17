@@ -14,29 +14,25 @@ interface GlobalSearchPortalProps {
 }
 
 const TAXONOMY_OPTIONS = [
-  { key: "All", label: "All Categories", icon: "✨" },
-  { key: "Cars", label: "Vehicles & Motors", icon: "🚗" },
-  { key: "Fridges", label: "Refrigerators", icon: "🧊" },
-  { key: "Microwaves", label: "Microwaves & Ovens", icon: "📻" },
-  { key: "Kitchen Utensils", label: "Cookware & Utensils", icon: "🍳" },
-  { key: "Furniture", label: "Designer Furniture", icon: "🛋️" },
-  { key: "TVs", label: "Smart TVs & Cinema", icon: "📺" },
-  { key: "Laptops", label: "Laptops & Ultrabooks", icon: "💻" },
-  { key: "Monitors", label: "Studio Monitors", icon: "🖥️" },
-  { key: "Women", label: "Fashion & Atelier", icon: "👗" },
-  { key: "Accessories", label: "Luxury Leather Goods", icon: "👜" },
-  { key: "Health & Beauty", label: "Parfumerie & Skincare", icon: "✨" },
+  { key: "All", label: "All Collections", icon: "✨" },
+  { key: "Women", label: "Women's Collection", icon: "👗" },
+  { key: "Men", label: "Men's Tailoring", icon: "👔" },
+  { key: "Atelier", label: "Atelier Limited Drops", icon: "💎" },
+  { key: "Outerwear", label: "Coats & Trench", icon: "🧥" },
+  { key: "Knitwear", label: "Cashmere & Merino", icon: "🧶" },
+  { key: "Footwear", label: "Artisanal Footwear", icon: "👞" },
+  { key: "Accessories", label: "Leather & Jewelry", icon: "👜" },
 ];
 
 const TRENDING_SEARCHES = [
-  "Porsche 911",
-  "Mercedes-AMG GT",
-  "Samsung Bespoke Refrigerator",
-  "MacBook Pro M3",
-  "Sony BRAVIA OLED",
   "Contour Silk Dress",
   "Arc Cashmere Knit",
-  "Inverter Microwave",
+  "Double-Breasted Wool Trench",
+  "Pleated High-Waisted Trousers",
+  "Atelier Box Calf Loafers",
+  "Signature Structured Tote",
+  "Mulberry Silk Scarf",
+  "Japanese Selvedge Denim",
 ];
 
 const RECENT_SEARCHES_KEY = "vroom_recent_searches";

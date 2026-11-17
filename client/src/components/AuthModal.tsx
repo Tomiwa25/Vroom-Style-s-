@@ -174,11 +174,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       if (backendMessage) {
         setErrorMsg(backendMessage);
       } else if (axiosErr.response) {
+        // The backend answered but gave no reason — tell the visitor plainly
+        // instead of pretending the signup succeeded.
         setErrorMsg(
           "Registration could not be completed. Please try again in a moment, or sign in if your account already exists."
         );
       } else {
-        // Fallback preview mode
+        // Fallback preview mode when server is offline
         const mockUser: User = {
           id: "demo-user-reg",
           email: email || "new.client@vroomstyles.com",
@@ -293,7 +295,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       const backendMessage = axiosErr.response?.data?.message;
       if (backendMessage) {
         setErrorMsg(backendMessage);
+      } else if (axiosErr.response) {
+        // The backend answered with a status but no message — trust it.
+        setErrorMsg("Verification failed. Please check your code and try again.");
       } else {
+        // Fallback preview — only when the server is genuinely unreachable.
         const mockUser: User = {
           id: "demo-user-verified",
           email: email || "atelier.client@vroomstyles.com",

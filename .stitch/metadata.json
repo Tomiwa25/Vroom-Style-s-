@@ -1,0 +1,31 @@
+{
+  "name": "projects/15843749258108224182",
+  "projectId": "15843749258108224182",
+  "title": "Vroom Styles - Modern Fashion Atelier",
+  "visibility": "PRIVATE",
+  "projectType": "PROJECT_DESIGN",
+  "origin": "MCP",
+  "deviceType": "DESKTOP",
+  "designTheme": {
+    "colorMode": "LIGHT",
+    "font": "BODONI_MODA",
+    "headlineFont": "BODONI_MODA",
+    "bodyFont": "PLUS_JAKARTA_SANS",
+    "customColor": "#a84b2c"
+  },
+  "thumbnailScreenshot": {
+    "name": "projects/15843749258108224182/files/a834816421e0496b86ed016ab0aface7",
+    "downloadUrl": "https://lh3.googleusercontent.com/aida/ALJJyrDSXVISO5IL8Wykj_4hktZEy-x4AZHzn88rjIE4ybN6MVjvVahgzDob5eaUEMtfcpppn58csAIjp4QnwRUC0JV4uNU0Sw5_w3AgU23sFrSwdRavAZ-NpdURIrvxwWjoml0FFaCX2mZMMvdGBI5OuyGEVzTqal93Ksai_weh-NN9OXgVC19CYYRiDnUYgPnG7PVgxLgT3wIeMczxnZOsRxNs7nCIxiZg5LXS1EBjR7APp1DUM9F9FwRha7cW"
+  },
+  "screens": {
+    "index": {
+      "id": "a834816421e0496b86ed016ab0aface7",
+      "sourceScreen": "projects/15843749258108224182/screens/index",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "metadata": {
+    "userRole": "OWNER"
+  }
+}
