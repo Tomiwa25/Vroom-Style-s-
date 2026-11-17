@@ -9,26 +9,16 @@ interface AdminModalProps {
 }
 
 const MARKETPLACE_CATEGORIES = [
-  "Electronics",
-  "Phones and Tablets",
-  "Computers and Accessories",
-  "Fashion",
-  "Shoes and Bags",
-  "Beauty and Personal Care",
-  "Home and Kitchen",
-  "Furniture",
-  "Sports and Fitness",
-  "Automotive",
-  "Gaming",
-  "Books and Stationery",
-  "Baby Products",
-  "Toys",
-  "Health and Wellness",
-  "Groceries",
-  "Home Appliances",
-  "Office Equipment",
-  "Jewelry and Watches",
-  "Tools and Home Improvement",
+  "Women",
+  "Men",
+  "Atelier",
+  "Outerwear",
+  "Knitwear",
+  "Footwear",
+  "Accessories",
+  "Tailoring",
+  "Silk & Linen",
+  "Leather Goods",
 ];
 
 const PRESET_COUNTS = [100, 1000, 5000, 10000, 20000, 50000];

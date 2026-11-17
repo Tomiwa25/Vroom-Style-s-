@@ -10,7 +10,6 @@ interface AccountDropdownProps {
   onOpenWishlist: () => void;
   onOpenAdmin: () => void;
   onOpenVendorHub?: () => void;
-  onOpenJForce?: () => void;
   onOpenVroomDelivery?: () => void;
   onSignOut: () => void;
 }
@@ -28,7 +27,6 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
   onOpenWishlist,
   onOpenAdmin,
   onOpenVendorHub,
-  onOpenJForce,
   onOpenVroomDelivery,
   onSignOut,
 }) => {
@@ -173,20 +171,6 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
               </li>
             )}
 
-            {/* JForce Consultant / Reseller Hub Link */}
-            {onOpenJForce && (
-              <li>
-                <button
-                  type="button"
-                  className="account-menu-item"
-                  onClick={() => handleAction(onOpenJForce)}
-                >
-                  <span className="menu-item-icon">💼</span>
-                  <span className="menu-item-label">JForce Reseller Network</span>
-                  <span className="item-pill commission">12% Earn</span>
-                </button>
-              </li>
-            )}
 
             {/* Vroom Delivery Parcel Shipping Link */}
             {onOpenVroomDelivery && (

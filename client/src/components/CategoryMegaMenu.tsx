@@ -72,12 +72,12 @@ const MEGA_DEPARTMENTS: MegaColumn[] = [
   },
   {
     no: "06",
-    title: "Living",
-    categoryKey: "Appliances",
+    title: "Atelier",
+    categoryKey: "Atelier",
     items: [
-      { label: "Kitchen", query: "kitchen" },
-      { label: "Cooling", query: "fridge" },
-      { label: "Textiles", query: "linen" },
+      { label: "Silk Capsules", query: "silk" },
+      { label: "Limited Runs", query: "atelier" },
+      { label: "Bespoke Suiting", query: "tailored" },
     ],
   },
 ];
