@@ -8947,3 +8947,606 @@ input[type="radio"] {
   }
 }
 
+
+/* ==========================================================================
+   ITERATION 3: CURATED CATALOG FILTERS & FACETS SUITE (HAUTE WARMTH)
+   Dual-Currency Price Slider • Size Chips • Material Badges • Active Facet Pills
+   ========================================================================== */
+
+.catalog-header-bar-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 1.5rem;
+}
+
+.catalog-title-block .kicker {
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.catalog-title-block .catalog-title {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.catalog-filters-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+.catalog-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--hairline);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.catalog-counter-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.catalog-count-number {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.catalog-count-label {
+  font-family: var(--ui);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  font-weight: 500;
+}
+
+.catalog-count-category {
+  font-family: var(--ui);
+  font-size: 0.8125rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.catalog-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.catalog-sort-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.catalog-sort-label {
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+  font-weight: 600;
+}
+
+.catalog-sort-select {
+  font-family: var(--ui);
+  font-size: 0.8125rem;
+  padding: 0.5rem 2rem 0.5rem 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23141312' stroke-width='1.2' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+
+.catalog-sort-select:hover,
+.catalog-sort-select:focus {
+  border-color: var(--ink);
+}
+
+.catalog-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.catalog-filter-btn:hover,
+.catalog-filter-btn.is-active {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.catalog-filter-btn.is-active svg path {
+  stroke: var(--surface);
+}
+
+.filter-active-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+/* ---------------- Active Facets Pill Bar ---------------- */
+.active-facets-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--hairline);
+  animation: fadeIn 0.25s ease-out;
+}
+
+.active-facets-heading {
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.facet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 0;
+}
+
+.facet-pill:hover {
+  background: var(--wash-deep);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.facet-remove {
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--graphite);
+}
+
+.facet-clear-all-btn {
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: transparent;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: 0.5rem;
+}
+
+.facet-clear-all-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* ---------------- Refinements Panel (Expandable) ---------------- */
+.catalog-refinements-panel {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  padding: 1.75rem;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-sm);
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.refinements-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.refinement-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.refinement-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.refinement-range-values {
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.refinement-hint {
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Price Slider Track */
+.price-slider-track-wrap {
+  position: relative;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.price-range-input {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  margin: 0;
+}
+
+.price-range-input::-webkit-slider-thumb {
+  pointer-events: auto;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--ink);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+.price-range-input::-webkit-slider-thumb:hover {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+
+.price-range-input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  background: var(--ink);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.price-range-input::-moz-range-thumb:hover {
+  background: var(--accent);
+}
+
+.price-bounds-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  color: var(--graphite-soft);
+}
+
+/* Size Chips Grid */
+.size-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.size-chip-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.15s ease;
+}
+
+.size-chip-btn:hover {
+  border-color: var(--ink);
+}
+
+.size-chip-btn.is-selected {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.footwear-sizing-subgroup {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--hairline);
+}
+
+.subgroup-label {
+  display: block;
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+  margin-bottom: 0.4rem;
+}
+
+.footwear-chips .size-chip-btn {
+  width: 34px;
+  height: 34px;
+  font-size: 0.6875rem;
+}
+
+/* Material Pills */
+.material-pills-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.material-pill-btn {
+  text-align: left;
+  padding: 0.45rem 0.75rem;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.15s ease;
+}
+
+.material-pill-btn:hover {
+  border-color: var(--ink);
+}
+
+.material-pill-btn.is-selected {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+/* Preferences / Provenance Toggles */
+.preference-toggles-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.preference-pill-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.preference-pill-btn:hover {
+  border-color: var(--ink);
+}
+
+.preference-pill-btn.is-selected {
+  background: var(--accent);
+  color: var(--surface);
+  border-color: var(--accent);
+}
+
+.preference-pill-btn.is-selected .pref-mark {
+  color: var(--surface);
+}
+
+.pref-mark {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+/* Refinements Footer */
+.refinements-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+}
+
+.refinements-reset-btn {
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.refinements-reset-btn:hover:not(:disabled) {
+  color: var(--alert);
+}
+
+.refinements-reset-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.refinements-apply-btn {
+  padding: 0.65rem 1.75rem;
+  background: var(--ink);
+  color: var(--surface);
+  border: none;
+  font-family: var(--ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.2s ease;
+}
+
+.refinements-apply-btn:hover {
+  background: var(--accent);
+}
+
+/* ---------------- In-Card Color Swatches & Size Chips ---------------- */
+.product-card-swatches {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0.35rem 0;
+}
+
+.product-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.product-color-dot:hover,
+.product-color-dot.is-selected {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--ink);
+}
+
+.product-color-name {
+  font-family: var(--ui);
+  font-size: 0.6875rem;
+  color: var(--graphite-soft);
+  margin-left: 0.35rem;
+}
+
+.product-card-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.product-size-pill {
+  padding: 0.15rem 0.45rem;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.15s ease;
+}
+
+.product-size-pill:hover {
+  border-color: var(--ink);
+}
+
+.product-size-pill.is-selected {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+/* Responsive Refinements */
+@media (max-width: 1024px) {
+  .refinements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .catalog-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .catalog-header-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .refinements-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

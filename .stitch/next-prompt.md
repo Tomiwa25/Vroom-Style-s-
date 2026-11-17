@@ -1,7 +1,7 @@
 ---
-page: catalog
+page: product-detail
 ---
-A high-end, responsive luxury fashion catalog and filter suite for "Vroom Styles - Curated Apparel & Atelier Drops".
+An immersive, tactile luxury garment detail view and editorial salon modal for "Vroom Styles - Atelier Garment Story & Craftsmanship Guide".
 
 **DESIGN SYSTEM (REQUIRED):**
 - Brand: Vroom Styles — Haute Warmth Fashion Atelier
@@ -22,17 +22,22 @@ A high-end, responsive luxury fashion catalog and filter suite for "Vroom Styles
 - Anti-Clutter Rules: Strictly luxury apparel, tailoring, silks, cashmere, and leathercraft. NO non-fashion goods.
 
 **Page Structure:**
-1. Catalog Breadcrumbs & Department Tabs:
-   - Dynamic department switcher: "All", "Women", "Men", "Atelier", "Outerwear", "Knitwear", "Footwear", "Accessories"
-   - Live piece counter (e.g. "Showing 18 Curated Pieces")
-2. Filter & Refinement Bar:
-   - Dual-currency price slider (dynamic min/max in NGN & USD)
-   - Size chips filter: "XS", "S", "M", "L", "XL" and shoe sizes "40" to "45"
-   - Material filter tags: "100% Mulberry Silk", "Grade-A Cashmere", "Italian Calfskin", "Organic Linen"
-   - Sort dropdown: "Curated Recommendations", "Price: Low to High", "Price: High to Low", "Newest Atelier Drops"
-3. Responsive Garment Grid:
-   - 3-column / 4-column portrait cards (3:4 ratio) with smooth image hover swaps
-   - In-card color swatch indicators and quick-select size chips
-   - Quick View button and instant Add to Bag
-4. Filter Reset & Empty States:
-   - "Clear all filters" CTA with gentle fade transitions
+1. High-Resolution Gallery & 3-Angle Viewport:
+   - Primary editorial portrait with optical magnifying zoom on cursor hover
+   - Secondary silhouette views: Front drape, back pleats, seam/stitch detail
+   - Dual-action save-to-wishlist and full-screen view mode
+2. Garment Story & Atelier Narrative:
+   - Collection kicker, garment title in Bodoni Moda, dual-currency pricing (NGN/USD)
+   - "The Cut & Drapery" editorial essay explaining garment construction and fit intent
+   - In-stock availability meter with low-stock badges
+3. Color & Sizing Matrix:
+   - Architectural color swatches with textile names (Oat Sand, Noir, Terracotta)
+   - Size chips: apparel (`XS`–`XL`) or footwear (`40`–`45`) with fit recommendation ("Runs True to Size")
+   - Interactive Size & Measurement Guide table (Chest, Waist, Hips, Inseam in inches and cm)
+4. Materiality & Craftsmanship Accordion:
+   - Yarn composition, fabric weight (GSM), and provenance
+   - Garment care recommendations (dry clean, steam temperature)
+   - Artisan workshop stamp and authenticity certificate
+5. Action Footer:
+   - Instant "Add to Atelier Bag" CTA with quantity selector
+   - White-glove concierge delivery note (24-hour dispatch, doorstep inspection)
