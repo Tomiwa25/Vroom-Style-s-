@@ -1160,13 +1160,55 @@ function App() {
 
         <section className="collection-strip" data-reveal>
           {[
-            { id: "01", title: "Dresses & Silks", cat: "Women" },
-            { id: "02", title: "Tailored Suiting", cat: "Men" },
-            { id: "03", title: "Atelier Limited Drops", cat: "Atelier" },
-            { id: "04", title: "Cashmere & Merino", cat: "Knitwear" },
-            { id: "05", title: "Wool Trench & Outerwear", cat: "Outerwear" },
-            { id: "06", title: "Italian Calfskin Footwear", cat: "Footwear" },
-            { id: "07", title: "Fine Leather Goods & Totes", cat: "Accessories" },
+            {
+              id: "01",
+              title: "Dresses & Silks",
+              cat: "Women",
+              image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "42 Silhouettes",
+            },
+            {
+              id: "02",
+              title: "Tailored Suiting",
+              cat: "Men",
+              image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "28 Suits & Blazers",
+            },
+            {
+              id: "03",
+              title: "Atelier Limited Drops",
+              cat: "Atelier",
+              image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "14 Numbered Editions",
+            },
+            {
+              id: "04",
+              title: "Cashmere & Merino",
+              cat: "Knitwear",
+              image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "35 Gauge-Knits",
+            },
+            {
+              id: "05",
+              title: "Wool Trench & Outerwear",
+              cat: "Outerwear",
+              image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "19 Heavyweight Cuts",
+            },
+            {
+              id: "06",
+              title: "Italian Calfskin Footwear",
+              cat: "Footwear",
+              image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "24 Artisan Pairs",
+            },
+            {
+              id: "07",
+              title: "Fine Leather Goods & Totes",
+              cat: "Accessories",
+              image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85",
+              itemCount: "31 Handcrafted Pieces",
+            },
           ].map((col) => (
             <article
               key={col.id}
@@ -1177,9 +1219,28 @@ function App() {
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              <span className="collection-index">{col.id}</span>
-              <span className="collection-title">{col.title}</span>
-              <span className="collection-arrow">→</span>
+              <img
+                src={col.image}
+                alt={col.title}
+                className="collection-card-img"
+                loading="lazy"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1200&q=85";
+                }}
+              />
+              <div className="collection-scrim" />
+              <div className="collection-top-meta">
+                <span className="collection-index">{col.id}</span>
+                <span className="collection-count-pill">{col.itemCount}</span>
+              </div>
+              <div className="collection-card-body">
+                <span className="collection-kicker">Curated Capsule</span>
+                <h3 className="collection-title">{col.title}</h3>
+                <span className="collection-explore">
+                  Explore Collection <span className="collection-arrow">→</span>
+                </span>
+              </div>
             </article>
           ))}
         </section>
