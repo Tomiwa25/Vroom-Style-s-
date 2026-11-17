@@ -10400,3 +10400,1031 @@ input[type="radio"] {
     padding: 1.5rem;
   }
 }
+
+/* ==========================================================================
+   Iteration 5: Haute Warmth Atelier Shopping Bag & White-Glove Checkout
+   ========================================================================== */
+
+.atelier-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(17, 17, 17, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: flex-end;
+  animation: atelierOverlayFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes atelierOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.atelier-drawer-panel {
+  width: min(520px, 100vw);
+  height: 100%;
+  background: #FAF8F5;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -12px 0 40px rgba(17, 17, 17, 0.12);
+  border-left: 1px solid #EBE6DF;
+  animation: atelierPanelSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+@keyframes atelierPanelSlideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Header */
+.atelier-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.75rem 1.25rem;
+  background: #FFFFFF;
+  border-bottom: 1px solid #EBE6DF;
+  flex-shrink: 0;
+}
+
+.atelier-drawer-kicker {
+  display: block;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #A84B2C;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.atelier-drawer-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.atelier-drawer-title {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin: 0;
+}
+
+.atelier-drawer-badge {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4D4843;
+  background: #F3EFEA;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #EBE6DF;
+}
+
+.atelier-drawer-close-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid #EBE6DF;
+  padding: 0.45rem 0.75rem;
+  color: #4D4843;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.atelier-drawer-close-btn:hover {
+  background: #111111;
+  color: #FAF8F5;
+  border-color: #111111;
+}
+
+.atelier-drawer-close-btn .close-icon {
+  font-size: 0.8125rem;
+  line-height: 1;
+}
+
+/* Free Shipping Milestone Tier */
+.atelier-shipping-tier {
+  background: #F3EFEA;
+  padding: 0.85rem 1.75rem;
+  border-bottom: 1px solid #EBE6DF;
+  flex-shrink: 0;
+}
+
+.atelier-shipping-tier-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.atelier-shipping-tier-header .tier-icon {
+  color: #A84B2C;
+  font-size: 0.875rem;
+}
+
+.atelier-shipping-tier-header .tier-text {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  color: #111111;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.atelier-shipping-tier-header .tier-text strong {
+  font-weight: 600;
+  color: #111111;
+}
+
+.atelier-progress-track {
+  width: 100%;
+  height: 3px;
+  background: #EBE6DF;
+  overflow: hidden;
+  position: relative;
+}
+
+.atelier-progress-fill {
+  height: 100%;
+  background: #A84B2C;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.atelier-progress-fill.unlocked {
+  background: #111111;
+}
+
+/* Line Items List */
+.atelier-drawer-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 1.75rem;
+  overscroll-behavior: contain;
+}
+
+/* Empty State */
+.atelier-drawer-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  height: 100%;
+}
+
+.empty-silhouette-icon {
+  color: #A84B2C;
+  margin-bottom: 1.25rem;
+  opacity: 0.85;
+}
+
+.empty-headline {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 0 0.75rem;
+  color: #111111;
+}
+
+.empty-subtext {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: #4D4843;
+  max-width: 32ch;
+  margin: 0 0 1.75rem;
+}
+
+.atelier-browse-btn {
+  background: #111111;
+  color: #FAF8F5;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.atelier-browse-btn:hover {
+  background: #A84B2C;
+}
+
+/* Line Items Stack */
+.atelier-line-items-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.atelier-line-item {
+  display: flex;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #EBE6DF;
+}
+
+.atelier-line-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.atelier-item-media {
+  flex-shrink: 0;
+  width: 82px;
+  height: 108px;
+  background: #F3EFEA;
+  border: 1px solid #EBE6DF;
+  overflow: hidden;
+}
+
+.atelier-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.atelier-item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.atelier-item-headline-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.atelier-item-category {
+  display: block;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A84B2C;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.atelier-item-name {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #111111;
+  margin: 0;
+}
+
+.atelier-item-remove {
+  background: transparent;
+  border: none;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8C847A;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.atelier-item-remove:hover {
+  color: #A84B2C;
+}
+
+.atelier-item-facets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.facet-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  color: #4D4843;
+  background: #FFFFFF;
+  border: 1px solid #EBE6DF;
+  padding: 0.15rem 0.5rem;
+}
+
+.facet-chip strong {
+  color: #111111;
+}
+
+.facet-chip.color-chip .color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  display: inline-block;
+}
+
+.atelier-item-pod-tag {
+  margin-bottom: 0.75rem;
+}
+
+.pod-tag-eligible {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2F6F4E;
+  font-weight: 600;
+}
+
+.pod-tag-eligible .tag-dot {
+  color: #2F6F4E;
+}
+
+.pod-tag-prepay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8C847A;
+}
+
+.atelier-item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.atelier-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #EBE6DF;
+}
+
+.atelier-qty-stepper .qty-btn {
+  background: transparent;
+  border: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+  color: #111111;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.atelier-qty-stepper .qty-btn:hover:not(:disabled) {
+  background: #F3EFEA;
+}
+
+.atelier-qty-stepper .qty-btn:disabled {
+  color: #CFC7BD;
+  cursor: not-allowed;
+}
+
+.atelier-qty-stepper .qty-value {
+  width: 24px;
+  text-align: center;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+.atelier-item-price-col {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.atelier-item-price-col .unit-price {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  color: #8C847A;
+}
+
+.atelier-item-price-col .line-total {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* Footer Section */
+.atelier-drawer-footer {
+  background: #FFFFFF;
+  border-top: 1px solid #EBE6DF;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+  max-height: 55vh;
+}
+
+/* Gifting Section */
+.atelier-gifting-container {
+  background: #FAF8F5;
+  border: 1px solid #EBE6DF;
+  padding: 1rem;
+}
+
+.atelier-gifting-toggle {
+  display: flex;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.atelier-checkbox {
+  margin-top: 0.2rem;
+  width: 16px;
+  height: 16px;
+  accent-color: #A84B2C;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.gifting-text-block {
+  flex: 1;
+}
+
+.gifting-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.gifting-title {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+.gifting-complimentary-pill {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #A84B2C;
+  background: rgba(168, 75, 44, 0.08);
+  padding: 0.15rem 0.45rem;
+  font-weight: 600;
+}
+
+.gifting-subtitle {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #4D4843;
+  margin: 0;
+}
+
+.atelier-calligraphy-field {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed #EBE6DF;
+}
+
+.calligraphy-label {
+  display: block;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4D4843;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.calligraphy-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 1px solid #EBE6DF;
+  padding: 0.65rem 0.75rem;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-size: 0.8125rem;
+  color: #111111;
+  resize: vertical;
+}
+
+.calligraphy-input:focus {
+  outline: none;
+  border-color: #111111;
+}
+
+.calligraphy-counter {
+  text-align: right;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  color: #8C847A;
+  margin-top: 0.25rem;
+}
+
+/* Promo Box */
+.atelier-promo-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.promo-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.atelier-promo-input {
+  flex: 1;
+  background: #FAF8F5;
+  border: 1px solid #EBE6DF;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  color: #111111;
+  letter-spacing: 0.05em;
+}
+
+.atelier-promo-input:focus {
+  outline: none;
+  background: #FFFFFF;
+  border-color: #111111;
+}
+
+.atelier-promo-btn {
+  background: #111111;
+  color: #FAF8F5;
+  border: none;
+  padding: 0 1.25rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.atelier-promo-btn:hover {
+  background: #A84B2C;
+}
+
+.atelier-promo-notice {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  margin: 0;
+}
+
+.atelier-promo-notice.status-success {
+  color: #2F6F4E;
+}
+
+.atelier-promo-notice.status-error {
+  color: #A84B2C;
+}
+
+/* Valuation Card */
+.atelier-valuation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem 0;
+  border-top: 1px solid #EBE6DF;
+  border-bottom: 1px solid #EBE6DF;
+}
+
+.valuation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.8125rem;
+}
+
+.valuation-label {
+  color: #4D4843;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tag-free {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2F6F4E;
+  background: rgba(47, 111, 78, 0.08);
+  padding: 0.1rem 0.35rem;
+}
+
+.valuation-value {
+  color: #111111;
+  font-weight: 500;
+}
+
+.valuation-value.discount-text {
+  color: #A84B2C;
+}
+
+.valuation-value.complimentary-text {
+  color: #2F6F4E;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.valuation-row.valuation-total {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #EBE6DF;
+  align-items: flex-end;
+}
+
+.total-label-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.total-title {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111111;
+}
+
+.total-currency-note {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8C847A;
+}
+
+.total-amount {
+  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* Settlement Suite */
+.atelier-settlement-suite {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.settlement-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.settlement-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem 0.85rem;
+  background: #FAF8F5;
+  border: 1px solid #EBE6DF;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settlement-option:hover {
+  border-color: #111111;
+}
+
+.settlement-option.selected {
+  background: #FFFFFF;
+  border-color: #111111;
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.06);
+}
+
+.option-radio {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #8C847A;
+  display: grid;
+  place-items: center;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.settlement-option.selected .option-radio {
+  border-color: #A84B2C;
+}
+
+.option-radio .radio-inner {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.settlement-option.selected .option-radio .radio-inner {
+  background: #A84B2C;
+}
+
+.option-text strong {
+  display: block;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 0.15rem;
+}
+
+.option-text span {
+  display: block;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  color: #4D4843;
+  line-height: 1.3;
+}
+
+/* CTAs */
+.atelier-primary-cta {
+  width: 100%;
+  background: #111111;
+  color: #FAF8F5;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.atelier-primary-cta:hover:not(:disabled) {
+  background: #A84B2C;
+}
+
+.atelier-primary-cta:disabled {
+  background: #8C847A;
+  cursor: wait;
+}
+
+.atelier-secondary-link {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  margin-top: 0.65rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4D4843;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-align: center;
+  transition: color 0.15s ease;
+}
+
+.atelier-secondary-link:hover {
+  color: #111111;
+}
+
+.btn-loading-flex {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.atelier-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: atelierSpin 0.7s linear infinite;
+}
+
+@keyframes atelierSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* PoD Form */
+.settlement-body-pod {
+  background: #FAF8F5;
+  border: 1px solid #EBE6DF;
+  padding: 1rem;
+}
+
+.pod-advisory-box {
+  background: #FFF9F5;
+  border: 1px solid #F0D5C9;
+  padding: 0.85rem;
+}
+
+.advisory-title {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #A84B2C;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.advisory-text {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  color: #4D4843;
+  margin: 0 0 0.5rem;
+}
+
+.advisory-list {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  color: #111111;
+}
+
+.advisory-switch-btn {
+  background: #A84B2C;
+  color: #FAF8F5;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pod-concierge-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pod-banner-note {
+  background: #FFFFFF;
+  border: 1px solid #EBE6DF;
+  padding: 0.75rem;
+}
+
+.badge-doorstep {
+  display: inline-block;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2F6F4E;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.pod-banner-note p {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: #4D4843;
+  margin: 0;
+}
+
+.pod-error-alert {
+  background: #FFF1EE;
+  border: 1px solid #F3C3B9;
+  color: #A84B2C;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.6875rem;
+}
+
+.pod-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pod-label {
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4D4843;
+  font-weight: 600;
+}
+
+.pod-select-input,
+.pod-text-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 1px solid #EBE6DF;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.75rem;
+  color: #111111;
+}
+
+.pod-select-input:focus,
+.pod-text-input:focus {
+  outline: none;
+  border-color: #111111;
+}
+
+.pod-cta {
+  margin-top: 0.5rem;
+}
+
+/* White-Glove Trust Strip */
+.atelier-trust-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #EBE6DF;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.625rem;
+  color: #4D4843;
+}
+
+.trust-icon {
+  font-size: 0.75rem;
+  color: #A84B2C;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .atelier-drawer-panel {
+    width: 100vw;
+  }
+  .atelier-drawer-header,
+  .atelier-shipping-tier,
+  .atelier-drawer-items,
+  .atelier-drawer-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .settlement-selector {
+    grid-template-columns: 1fr;
+  }
+  .atelier-trust-strip {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+}

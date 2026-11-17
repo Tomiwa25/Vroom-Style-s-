@@ -1,7 +1,7 @@
 ---
-page: cart-checkout
+page: order-tracking
 ---
-A luxury sliding atelier shopping bag drawer and streamlined checkout experience for "Vroom Styles - Atelier Bag & White-Glove Checkout".
+A high-couture atelier waybill and real-time delivery concierge experience for "Vroom Styles - Atelier Waybill & Parcel Concierge".
 
 **DESIGN SYSTEM (REQUIRED):**
 - Brand: Vroom Styles — Haute Warmth Fashion Atelier
@@ -22,19 +22,22 @@ A luxury sliding atelier shopping bag drawer and streamlined checkout experience
 - Anti-Clutter Rules: Strictly luxury apparel, tailoring, silks, cashmere, and leathercraft. NO non-fashion goods.
 
 **Page Structure:**
-1. Sliding Bag Drawer Header:
-   - "Your Atelier Bag" title with active piece count
-   - Free shipping progress threshold bar ("Add ₦35,000 more for complimentary express delivery")
-2. Curated Garment Line Items:
-   - 3:4 portrait thumbnail, garment name, selected size chip, color dot
-   - Unit price in active currency (NGN/USD)
-   - Architectural quantity counter (- / +) and discrete "Remove" action
-3. Atelier Gifting & Personalization:
-   - Checkbox for "Complimentary Hand-tied Signature Gift Ribbon & Cotton Dustbag"
-   - Optional handwritten calligraphy message field
-4. Summary & Multi-Gateway Checkout:
-   - Subtotal, complimentary express transit indicator, estimated doorstep taxes
-   - Dual-action settlement buttons:
-     * Primary: Paystack Encrypted Checkout (Cards, Apple Pay, Bank Transfer)
-     * Secondary: Payment on Delivery (PoD) Doorstep Inspection in Lagos, Abuja & PH
-   - 256-bit SSL encryption badge & 7-day complimentary return guarantee
+1. Waybill & Order Identifier Header:
+   - Order lookup search bar accepting waybill numbers (e.g. `VRM-8921-ATELIER`, `POD-LAG-3049`)
+   - Order date, item count, and active fulfillment status pill (e.g. "In Transit · Out for Doorstep Inspection")
+2. Five-Stage Atelier Delivery Timeline:
+   - Stage 1: "Atelier Garment Hand-Finished & Inspected"
+   - Stage 2: "Archival Keepsake Box Sealed & Dispatched"
+   - Stage 3: "In Transit with White-Glove Courier"
+   - Stage 4: "Out for Doorstep Fitting & Inspection"
+   - Stage 5: "Delivered & Doorstep POS Settle"
+3. White-Glove Courier Concierge Card:
+   - Assigned dedicated concierge courier name & photo
+   - Live transit ETA window (e.g. "Estimated Arrival: Today, 3:30 PM - 5:00 PM")
+   - Direct WhatsApp / telephone button for concierge gate clearance
+4. Garment Manifest Summary:
+   - 3:4 portrait thumbnails of dispatched garments, sizes, colors, and line values
+   - Downloadable Archival Provenance Certificate & VAT invoice
+5. Post-Delivery Atelier Care:
+   - Request complimentary exchange or return within 7 days
+   - Connect with an atelier stylist
