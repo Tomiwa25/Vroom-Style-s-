@@ -41,8 +41,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     : gallery[1] || gallery[0] || product.image || FALLBACK_IMAGE;
   const hasSecondLook = secondary !== primary;
 
-  const selectedSize = product.sizes?.[0] ?? "Standard";
-  const selectedColor = product.colors?.[0]?.name ?? "Default";
+  const [selectedSize, setSelectedSize] = useState<string>(
+    product.sizes && product.sizes.length > 0 ? product.sizes[0] : "Standard"
+  );
+  const [selectedColor, setSelectedColor] = useState<string>(
+    product.colors && product.colors.length > 0 ? product.colors[0].name : "Default"
+  );
   const sizeCount = product.sizes?.length ?? 0;
 
   const saved = formatPrice(product.price);
@@ -128,6 +132,41 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <p className="product-card-desc" title={product.description}>
             {product.description}
           </p>
+        )}
+
+        {/* In-Card Color Swatches */}
+        {product.colors && product.colors.length > 1 && (
+          <div className="product-card-swatches" onClick={(e) => e.stopPropagation()}>
+            {product.colors.map((c) => (
+              <button
+                key={c.name}
+                type="button"
+                className={`product-color-dot ${selectedColor === c.name ? "is-selected" : ""}`}
+                style={{ backgroundColor: c.hex }}
+                onClick={() => setSelectedColor(c.name)}
+                title={c.name}
+                aria-label={`Select color ${c.name}`}
+              />
+            ))}
+            <span className="product-color-name">{selectedColor}</span>
+          </div>
+        )}
+
+        {/* In-Card Quick Size Chips */}
+        {product.sizes && product.sizes.length > 1 && (
+          <div className="product-card-sizes" onClick={(e) => e.stopPropagation()}>
+            {product.sizes.map((s) => (
+              <button
+                key={s}
+                type="button"
+                className={`product-size-pill ${selectedSize === s ? "is-selected" : ""}`}
+                onClick={() => setSelectedSize(s)}
+                aria-label={`Select size ${s}`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
         )}
 
         <div className="product-card-footer">

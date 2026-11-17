@@ -30,6 +30,7 @@ import { ProductCard } from "./components/ProductCard";
 import { RecommendationRail } from "./components/RecommendationRail";
 import { LookbookModal } from "./components/LookbookModal";
 import { LuxuryMarquee } from "./components/LuxuryMarquee";
+import { CatalogFilters } from "./components/CatalogFilters";
 import { useRecentlyViewed } from "./hooks/useRecentlyViewed";
 import { useReveal } from "./hooks/useReveal";
 import { openPaystackPopup, redirectToPaystackCheckout } from "./services/paystack";
@@ -55,6 +56,12 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
+
+  // Iteration 3: Curated Catalog Facets & Filtering State
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<"curated" | "price-asc" | "price-desc" | "newest" | "rating">("curated");
 
   // Modals & Drawers
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -581,6 +588,54 @@ function App() {
     return vendorDrops.length > 0 ? [...vendorDrops, ...base] : base;
   }, [products, vendorDrops, isError]);
 
+  // Dynamic min and max price bounds across active catalog
+  const { minPriceBound, maxPriceBound } = useMemo(() => {
+    if (!allProducts.length) return { minPriceBound: 20000, maxPriceBound: 250000 };
+    let min = Infinity;
+    let max = -Infinity;
+    for (const p of allProducts) {
+      if (typeof p.price === "number") {
+        if (p.price < min) min = p.price;
+        if (p.price > max) max = p.price;
+      }
+    }
+    return {
+      minPriceBound: min === Infinity ? 20000 : Math.floor(min / 1000) * 1000,
+      maxPriceBound: max === -Infinity ? 250000 : Math.ceil(max / 1000) * 1000,
+    };
+  }, [allProducts]);
+
+  const activePriceRange = useMemo<[number, number]>(
+    () => priceRange ?? [minPriceBound, maxPriceBound],
+    [priceRange, minPriceBound, maxPriceBound]
+  );
+
+  const handleToggleSize = (size: string) => {
+    setSelectedSizes((prev) =>
+      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+    );
+    setCatalogCurrentPage(1);
+  };
+
+  const handleToggleMaterial = (mat: string) => {
+    setSelectedMaterials((prev) =>
+      prev.includes(mat) ? prev.filter((m) => m !== mat) : [...prev, mat]
+    );
+    setCatalogCurrentPage(1);
+  };
+
+  const handleResetFilters = () => {
+    setPriceRange(null);
+    setSelectedSizes([]);
+    setSelectedMaterials([]);
+    setSelectedCategory("All");
+    setSellerTypeFilter("ALL");
+    setIsPodFilterActive(false);
+    setSearchQuery("");
+    setSortBy("curated");
+    setCatalogCurrentPage(1);
+  };
+
   // Filtered & Deduplicated Products (filters duplicate images so each product card on UI is distinct)
   const filteredProducts = useMemo(() => {
     // 1. Deduplicate by primary image so duplicate sweatshirts/cards don't appear
@@ -596,10 +651,33 @@ function App() {
     });
 
     // 2. Apply campaign, multi-taxonomy, search, and multi-tenant seller model filters
-    return uniqueProducts.filter((prod) => {
+    const filtered = uniqueProducts.filter((prod) => {
       // Multi-tenant Seller Model Separation (1P Retail vs 3P Marketplace)
       if (sellerTypeFilter === "1P" && prod.sellerType !== "1P") return false;
       if (sellerTypeFilter === "3P" && prod.sellerType !== "3P") return false;
+
+      // Dynamic Price Range Filter
+      const [minP, maxP] = activePriceRange;
+      if (prod.price < minP || prod.price > maxP) return false;
+
+      // Sizing Filter
+      if (selectedSizes.length > 0) {
+        const prodSizes = prod.sizes || [];
+        const matchesAnySize = selectedSizes.some((s) => prodSizes.includes(s));
+        if (!matchesAnySize) return false;
+      }
+
+      // Materiality Filter
+      if (selectedMaterials.length > 0) {
+        const pMat = (prod.material || "").toLowerCase();
+        const pDesc = (prod.description || "").toLowerCase();
+        const pName = (prod.name || "").toLowerCase();
+        const matchesAnyMaterial = selectedMaterials.some((mat) => {
+          const m = mat.toLowerCase();
+          return pMat.includes(m) || pDesc.includes(m) || pName.includes(m);
+        });
+        if (!matchesAnyMaterial) return false;
+      }
 
       const pCat = (prod.category || "").toLowerCase();
       const sCat = selectedCategory.toLowerCase();
@@ -710,7 +788,38 @@ function App() {
 
       return matchesTaxonomy && matchesSearch;
     });
-  }, [allProducts, selectedCategory, searchQuery, activeCampaign, sellerTypeFilter, isPodFilterActive]);
+
+    // 3. Client-Side Sorting Engine
+    const sorted = [...filtered];
+    if (sortBy === "price-asc") {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "price-desc") {
+      sorted.sort((a, b) => b.price - a.price);
+    } else if (sortBy === "newest") {
+      sorted.sort((a, b) => (b.externalId || 0) - (a.externalId || 0));
+    } else if (sortBy === "rating") {
+      sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else {
+      // "curated" (default: rating * reviewCount)
+      sorted.sort(
+        (a, b) =>
+          (b.rating || 4.5) * (b.reviewCount || 10) -
+          (a.rating || 4.5) * (a.reviewCount || 10)
+      );
+    }
+    return sorted;
+  }, [
+    allProducts,
+    selectedCategory,
+    searchQuery,
+    activeCampaign,
+    sellerTypeFilter,
+    isPodFilterActive,
+    activePriceRange,
+    selectedSizes,
+    selectedMaterials,
+    sortBy,
+  ]);
 
   // Main Catalog Pagination Slicing
   const totalCatalogPages = Math.ceil(filteredProducts.length / catalogPageSize);
@@ -1126,7 +1235,7 @@ function App() {
         />
 
         <section id="catalog-section" className="catalog-container" data-reveal>
-          <div className="catalog-header-bar">
+          <div className="catalog-header-bar-main">
             <div className="catalog-title-block">
               <span className="kicker">
                 {selectedCategory === "All" ? "The collection" : selectedCategory}
@@ -1135,138 +1244,76 @@ function App() {
                 {searchQuery.trim()
                   ? `“${searchQuery.trim()}”`
                   : selectedCategory === "All"
-                    ? "Autumn 2026"
+                    ? "Autumn 2026 Collection"
                     : selectedCategory}
               </h2>
             </div>
-            <div className="catalog-meta">
-              {isError ? (
-                <button
-                  onClick={() => refetch()}
-                  className="catalog-retry-btn"
-                  title={`The catalogue did not load: ${error?.message || "the server could not be reached"}. Click to try again.`}
-                >
-                  Try again
-                </button>
-              ) : (
-                <span className="catalog-count">
-                  {filteredProducts.length} {filteredProducts.length === 1 ? "piece" : "pieces"}
-                </span>
-              )}
+            {isError && (
               <button
-                type="button"
-                className={`catalog-filter-toggle ${isFilterPanelOpen ? "is-open" : ""}`}
-                onClick={() => setIsFilterPanelOpen((v) => !v)}
-                aria-expanded={isFilterPanelOpen}
-                aria-controls="catalog-filters"
+                onClick={() => refetch()}
+                className="catalog-retry-btn"
+                title={`The catalogue did not load: ${error?.message || "the server could not be reached"}. Click to try again.`}
               >
-                <span className="catalog-filter-toggle-rule" aria-hidden="true" />
-                <span>Filter</span>
-                {(sellerTypeFilter !== "ALL" || isPodFilterActive) && (
-                  <span className="catalog-filter-dot" aria-hidden="true" />
-                )}
+                Try again
               </button>
-            </div>
+            )}
           </div>
 
-          {isFilterPanelOpen && (
-            <div className="catalog-filter-panel" id="catalog-filters">
-              <div className="catalog-filter-group">
-                <span className="catalog-filter-label">Category</span>
-                <div className="catalog-filter-tabs">
-                  {(() => {
-                    const seen = new Set<string>();
-                    const cats = ["All", ...DEPARTMENTS, ...products.map((p) => p.category).filter(Boolean)];
-                    return cats.filter((cat) => {
-                      if (!cat || seen.has(cat)) return false;
-                      seen.add(cat);
-                      return true;
-                    });
-                  })().map((cat) => (
-                    <button
-                      key={cat}
-                      className={`filter-pill ${selectedCategory === cat ? "active" : ""}`}
-                      onClick={() => setSelectedCategory(cat)}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="catalog-filter-group">
-                <span className="catalog-filter-label">Source</span>
-                <div className="catalog-filter-tabs">
-                  <button
-                    type="button"
-                    className={`filter-pill ${sellerTypeFilter === "ALL" ? "active" : ""}`}
-                    onClick={() => setSellerTypeFilter("ALL")}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    className={`filter-pill ${sellerTypeFilter === "1P" ? "active" : ""}`}
-                    onClick={() => setSellerTypeFilter("1P")}
-                    title="First-party, made in the Vroom atelier"
-                  >
-                    Atelier
-                  </button>
-                  <button
-                    type="button"
-                    className={`filter-pill ${sellerTypeFilter === "3P" ? "active" : ""}`}
-                    onClick={() => setSellerTypeFilter("3P")}
-                    title="Verified third-party partners"
-                  >
-                    Partners
-                  </button>
-                </div>
-              </div>
-
-              <div className="catalog-filter-group">
-                <span className="catalog-filter-label">Settlement</span>
-                <div className="catalog-filter-tabs">
-                  <button
-                    type="button"
-                    className={`filter-pill ${isPodFilterActive ? "active" : ""}`}
-                    onClick={() => setIsPodFilterActive((prev) => !prev)}
-                    title="Inspect on arrival, then settle by POS or cash"
-                  >
-                    Pay on delivery
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="catalog-filter-reset"
-                onClick={() => {
-                  setSellerTypeFilter("ALL");
-                  setIsPodFilterActive(false);
-                  setSelectedCategory("All");
-                  setSearchQuery("");
-                }}
-              >
-                Reset
-              </button>
-            </div>
-          )}
+          {/* Iteration 3: Advanced Curated Catalog Filters & Facets Suite */}
+          <CatalogFilters
+            currency={currency}
+            priceRange={activePriceRange}
+            minPriceBound={minPriceBound}
+            maxPriceBound={maxPriceBound}
+            onPriceRangeChange={(range) => {
+              setPriceRange(range);
+              setCatalogCurrentPage(1);
+            }}
+            selectedSizes={selectedSizes}
+            onToggleSize={handleToggleSize}
+            selectedMaterials={selectedMaterials}
+            onToggleMaterial={handleToggleMaterial}
+            selectedCategory={selectedCategory}
+            onSelectCategory={(cat) => {
+              setSelectedCategory(cat);
+              setCatalogCurrentPage(1);
+            }}
+            sellerTypeFilter={sellerTypeFilter}
+            onSelectSellerType={(st) => {
+              setSellerTypeFilter(st);
+              setCatalogCurrentPage(1);
+            }}
+            isPodFilterActive={isPodFilterActive}
+            onTogglePodFilter={() => {
+              setIsPodFilterActive((prev) => !prev);
+              setCatalogCurrentPage(1);
+            }}
+            sortBy={sortBy}
+            onSortChange={(sort) => {
+              setSortBy(sort);
+              setCatalogCurrentPage(1);
+            }}
+            totalResults={filteredProducts.length}
+            onResetAll={handleResetFilters}
+            formatPrice={formatPrice}
+            availableCategories={["All", ...DEPARTMENTS]}
+            isOpen={isFilterPanelOpen}
+            onToggleOpen={() => setIsFilterPanelOpen((v) => !v)}
+          />
 
           {filteredProducts.length === 0 ? (
             <div className="catalog-empty-notice">
               <p>
                 {searchQuery.trim()
                   ? `Nothing in ${selectedCategory === "All" ? "the collection" : selectedCategory} matches “${searchQuery.trim()}”.`
-                  : `Nothing in ${selectedCategory === "All" ? "the collection" : selectedCategory} right now.`}
+                  : `No pieces currently match your selected filters.`}
               </p>
               <button
+                type="button"
                 className="secondary-button"
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedCategory("All");
-                }}
+                onClick={handleResetFilters}
               >
-                Clear filters
+                Clear all filters
               </button>
             </div>
           ) : (
