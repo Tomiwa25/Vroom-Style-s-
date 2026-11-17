@@ -68,3 +68,4 @@ BEGIN
         ALTER TABLE "products" ADD CONSTRAINT "products_jobId_fkey" FOREIGN KEY ("jobId") REFERENCES "product_generation_jobs"("id") ON DELETE SET NULL ON UPDATE CASCADE;
     END IF;
 END $$;
+

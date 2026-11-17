@@ -270,7 +270,7 @@ export function resolveProductImages(category: string, index: number = 0): Multi
   if (category === "Fridges" || category === "Microwaves" || category === "TVs") catKey = "Home Appliances";
   if (category === "Laptops" || category === "Monitors") catKey = "Computers and Accessories";
   if (category === "Women" || category === "Men" || category === "Knitwear" || category === "Outerwear") catKey = "Fashion";
-  if (category === "Accessories") catKey = "Shoes and Bags";
+  if (category === "Accessories" || category === "Footwear") catKey = "Shoes and Bags";
 
   const pool = CATEGORY_IMAGE_POOLS[catKey] || CATEGORY_IMAGE_POOLS["Electronics"];
   const triplet = pool[index % pool.length];
