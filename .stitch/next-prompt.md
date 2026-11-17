@@ -1,7 +1,7 @@
 ---
-page: product-detail
+page: order-tracking
 ---
-An immersive, tactile luxury garment detail view and editorial salon modal for "Vroom Styles - Atelier Garment Story & Craftsmanship Guide".
+A high-couture atelier waybill and real-time delivery concierge experience for "Vroom Styles - Atelier Waybill & Parcel Concierge".
 
 **DESIGN SYSTEM (REQUIRED):**
 - Brand: Vroom Styles — Haute Warmth Fashion Atelier
@@ -22,22 +22,22 @@ An immersive, tactile luxury garment detail view and editorial salon modal for "
 - Anti-Clutter Rules: Strictly luxury apparel, tailoring, silks, cashmere, and leathercraft. NO non-fashion goods.
 
 **Page Structure:**
-1. High-Resolution Gallery & 3-Angle Viewport:
-   - Primary editorial portrait with optical magnifying zoom on cursor hover
-   - Secondary silhouette views: Front drape, back pleats, seam/stitch detail
-   - Dual-action save-to-wishlist and full-screen view mode
-2. Garment Story & Atelier Narrative:
-   - Collection kicker, garment title in Bodoni Moda, dual-currency pricing (NGN/USD)
-   - "The Cut & Drapery" editorial essay explaining garment construction and fit intent
-   - In-stock availability meter with low-stock badges
-3. Color & Sizing Matrix:
-   - Architectural color swatches with textile names (Oat Sand, Noir, Terracotta)
-   - Size chips: apparel (`XS`–`XL`) or footwear (`40`–`45`) with fit recommendation ("Runs True to Size")
-   - Interactive Size & Measurement Guide table (Chest, Waist, Hips, Inseam in inches and cm)
-4. Materiality & Craftsmanship Accordion:
-   - Yarn composition, fabric weight (GSM), and provenance
-   - Garment care recommendations (dry clean, steam temperature)
-   - Artisan workshop stamp and authenticity certificate
-5. Action Footer:
-   - Instant "Add to Atelier Bag" CTA with quantity selector
-   - White-glove concierge delivery note (24-hour dispatch, doorstep inspection)
+1. Waybill & Order Identifier Header:
+   - Order lookup search bar accepting waybill numbers (e.g. `VRM-8921-ATELIER`, `POD-LAG-3049`)
+   - Order date, item count, and active fulfillment status pill (e.g. "In Transit · Out for Doorstep Inspection")
+2. Five-Stage Atelier Delivery Timeline:
+   - Stage 1: "Atelier Garment Hand-Finished & Inspected"
+   - Stage 2: "Archival Keepsake Box Sealed & Dispatched"
+   - Stage 3: "In Transit with White-Glove Courier"
+   - Stage 4: "Out for Doorstep Fitting & Inspection"
+   - Stage 5: "Delivered & Doorstep POS Settle"
+3. White-Glove Courier Concierge Card:
+   - Assigned dedicated concierge courier name & photo
+   - Live transit ETA window (e.g. "Estimated Arrival: Today, 3:30 PM - 5:00 PM")
+   - Direct WhatsApp / telephone button for concierge gate clearance
+4. Garment Manifest Summary:
+   - 3:4 portrait thumbnails of dispatched garments, sizes, colors, and line values
+   - Downloadable Archival Provenance Certificate & VAT invoice
+5. Post-Delivery Atelier Care:
+   - Request complimentary exchange or return within 7 days
+   - Connect with an atelier stylist
