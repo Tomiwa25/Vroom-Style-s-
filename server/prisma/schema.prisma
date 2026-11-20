@@ -141,6 +141,7 @@ model CartItem {
     product     Product    @relation(fields: [productId], references: [id])
     
     @@unique([cartId, productId])
+    @@index([productId])
     @@map("cart_items")
 }
 
@@ -208,6 +209,8 @@ model OrderItem {
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])
 
+  @@index([orderId])
+  @@index([productId])
   @@map("order_items")
 }
 
