@@ -194,6 +194,16 @@ function App() {
     setTimeout(() => setToastMessage(null), 3500);
   }, []);
 
+  // Listen for automatic session expiry from API response interceptor
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setCurrentUser(null);
+      showToast("Your session has expired. Please sign in again.");
+    };
+    window.addEventListener("vroom:session-expired", handleSessionExpired);
+    return () => window.removeEventListener("vroom:session-expired", handleSessionExpired);
+  }, []);
+
   // Persist cart
   useEffect(() => {
     try {
