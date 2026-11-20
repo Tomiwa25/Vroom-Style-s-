@@ -284,6 +284,42 @@ describe("Authentication & Email Verification", () => {
         expect(response.status).toBe(401);
     });
 
+    it("should return identical generic 401 error message for non-existent and wrong-password logins to prevent user enumeration", async () => {
+        // Register known user
+        await request(app)
+            .post("/api/auth/register")
+            .send({
+                email: "enumcheck@example.com",
+                password: "CorrectPassword123!",
+                firstName: "Enum",
+                lastName: "Check",
+            });
+
+        // 1. Non-existent user
+        const resNonExistent = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "doesnotexist@example.com",
+                password: "SomePassword123!",
+            });
+
+        expect(resNonExistent.status).toBe(401);
+        expect(resNonExistent.body.success).toBe(false);
+        expect(resNonExistent.body.message).toBe("Invalid email or password");
+
+        // 2. Existing user with wrong password
+        const resWrongPassword = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "enumcheck@example.com",
+                password: "WrongPassword123!",
+            });
+
+        expect(resWrongPassword.status).toBe(401);
+        expect(resWrongPassword.body.success).toBe(false);
+        expect(resWrongPassword.body.message).toBe("Invalid email or password");
+    });
+
     it("should sanitize HTML injection in email templates", () => {
         const maliciousName = "<script>alert('xss')</script>";
         const escaped = escapeHtml(maliciousName);

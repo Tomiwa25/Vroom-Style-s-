@@ -298,17 +298,21 @@ export const resendVerificationOtp = async (email: string) => {
   };
 };
 
+// Precomputed dummy bcrypt hash to guarantee constant-time verification on non-existent users
+const DUMMY_BCRYPT_HASH =
+  "$2b$10$wT8hJj5M5uY8Z6eT1V4rXeYh3c5b8b9k0l1m2n3o4p5q6r7s8t9u.";
+
 export const loginUser = async (email: string, password: string) => {
   const normalizedEmail = email.toLowerCase().trim();
   const user = await findUserByEmail(normalizedEmail);
 
-  if (!user) {
-    throw new UnauthorizedError("Invalid Credentials");
-  }
+  // Constant-time execution to prevent timing-based user enumeration.
+  // Compare against actual hash if user exists, otherwise against a dummy hash.
+  const passwordToCompare = user ? user.password : DUMMY_BCRYPT_HASH;
+  const passwordMatches = await bcrypt.compare(password, passwordToCompare);
 
-  const passwordMatches = await bcrypt.compare(password, user.password);
-  if (!passwordMatches) {
-    throw new UnauthorizedError("Either Username or password is incorrect");
+  if (!user || !passwordMatches) {
+    throw new UnauthorizedError("Invalid email or password");
   }
 
   const token = jwt.sign(
