@@ -6,6 +6,7 @@ import {
   apiLimiter,
   authLimiter,
   otpResendLimiter,
+  searchLimiter,
   createTestableLimiter,
 } from "../src/middleware/rate-limit.middleware.js";
 
@@ -14,6 +15,7 @@ describe("API Rate Limiting Middleware", () => {
     expect(typeof apiLimiter).toBe("function");
     expect(typeof authLimiter).toBe("function");
     expect(typeof otpResendLimiter).toBe("function");
+    expect(typeof searchLimiter).toBe("function");
     expect(typeof createTestableLimiter).toBe("function");
   });
 

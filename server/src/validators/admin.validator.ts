@@ -36,11 +36,11 @@ export const updateOrderStatusSchema = z.object({
 });
 
 export const adminEntityIdParamSchema = z.object({
-    id: z.string().min(1, "ID is required"),
+    id: z.string().uuid("Entity ID must be a valid UUID"),
 });
 
 export const adminJobIdParamSchema = z.object({
-    jobId: z.string().min(1, "jobId is required"),
+    jobId: z.string().uuid("Job ID must be a valid UUID"),
 });
 
 export const adminOrdersQuerySchema = z.object({

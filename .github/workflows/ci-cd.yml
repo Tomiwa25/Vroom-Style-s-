@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Audit Client Dependencies
-        run: npm audit --audit-level=high --omit=dev || echo "::warning::Client dependencies have security advisories"
+        run: npm audit --audit-level=high --omit=dev
 
       - name: Lint Client Source
         run: npm run lint
@@ -109,7 +109,7 @@ jobs:
         run: npm ci
 
       - name: Audit Server Dependencies
-        run: npm audit --audit-level=high --omit=dev || echo "::warning::Server dependencies have security advisories"
+        run: npm audit --audit-level=critical --omit=dev
 
       - name: Validate Prisma Schema
         run: npx prisma validate

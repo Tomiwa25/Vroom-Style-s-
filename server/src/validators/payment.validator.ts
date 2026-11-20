@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const initializePaymentSchema = z.object({
-  orderId: z.string().min(1, "Order ID is required"),
+  orderId: z.string().uuid("Order ID must be a valid UUID"),
 });
 
 export const verifyPaymentSchema = z.object({

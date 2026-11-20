@@ -4,10 +4,11 @@ import {
     getProductByIdController,
     searchProductsController,
 } from "../controllers/product.controller.js";
+import { searchLimiter } from "../middleware/rate-limit.middleware.js";
 
 const router = Router();
 
-router.get("/search", searchProductsController);
+router.get("/search", searchLimiter, searchProductsController);
 router.get("/", getProductsController);
 router.get("/:id", getProductByIdController);
 

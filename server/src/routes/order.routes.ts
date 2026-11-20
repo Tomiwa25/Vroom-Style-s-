@@ -21,7 +21,7 @@ router.use(authenticate);
 router.post(
   "/",
   requireVerified,
-  idempotencyMiddleware(),
+  idempotencyMiddleware({ required: true }),
   validateRequest({ body: checkoutSchema }),
   checkoutController
 );

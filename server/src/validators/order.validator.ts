@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const checkoutItemSchema = z
   .object({
-    productId: z.string().min(1).optional(),
+    productId: z.string().uuid("Product ID must be a valid UUID").optional(),
     externalId: z.number().int().optional(),
     quantity: z.number().int().min(1, "Quantity must be at least 1").max(999),
   })
@@ -64,5 +64,5 @@ export const checkoutSchema = baseCheckoutSchema
   });
 
 export const trackOrderParamsSchema = z.object({
-  orderId: z.string().min(1, "Order ID is required"),
+  orderId: z.string().uuid("Order ID must be a valid UUID"),
 });
