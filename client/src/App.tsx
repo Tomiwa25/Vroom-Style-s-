@@ -397,10 +397,10 @@ function App() {
 
     try {
       // 1. Lock in order items on the backend with a client-side idempotency key.
-      //    `source: "cart"` tells the server to build from the user's cart and
-      //    clear it on success; the client-sent `items` are a fallback only.
+      //    Explicitly pass source: "items" so the server builds directly from the user's
+      //    curated items, validating catalog IDs, active status, and live inventory prices.
       const orderPayload: Record<string, unknown> = {
-        source: "cart",
+        source: "items",
         items: cartItems.map((item) => ({
           productId: item.product.id,
           externalId: item.product.externalId,

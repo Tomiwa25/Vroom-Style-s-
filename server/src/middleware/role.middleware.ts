@@ -36,7 +36,13 @@ export const requireVerified = (
     return;
   }
 
-  if (req.user.isVerified === false) {
+  // Admins are exempt from customer email verification gates
+  if (req.user.role === Role.ADMIN) {
+    next();
+    return;
+  }
+
+  if (req.user.isVerified !== true) {
     res.status(403).json({
       success: false,
       message: "Email verification required. Please verify your account with the 6-digit OTP code.",
