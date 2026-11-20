@@ -38,6 +38,10 @@ RUN npm ci --omit=dev && npx prisma generate
 # Copy compiled output from builder
 COPY --from=builder /app/dist ./dist
 
+# Enforce least privilege by running container as non-root user
+RUN chown -R node:node /app
+USER node
+
 EXPOSE 5000
 
 # Run database migrations and start server
