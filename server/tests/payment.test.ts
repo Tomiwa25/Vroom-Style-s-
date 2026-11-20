@@ -73,7 +73,8 @@ describe("Payment API", () => {
 
         const checkout = await request(app)
             .post("/api/orders")
-            .set("Authorization", `Bearer ${token}`);
+            .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "payment-test-checkout-1");
 
         expect(checkout.status).toBe(201);
         expect(checkout.body.success).toBe(true);
@@ -95,6 +96,7 @@ describe("Payment API", () => {
         const initResponse = await request(app)
             .post("/api/payments/initialize")
             .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "payment-test-init-1")
             .send({ orderId });
 
         expect(initResponse.status).toBe(200);
@@ -194,5 +196,46 @@ describe("Payment API", () => {
         expect(res.body.success).toBe(false);
         expect(res.body.requiresVerification).toBe(true);
         expect(res.body.message).toContain("Email verification required");
+    });
+
+    it("should reject payment initialization without an Idempotency-Key header with 400 IDEMPOTENCY_KEY_REQUIRED", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+        const user = await prisma.user.create({
+            data: {
+                email: "verified_no_idem@example.com",
+                password: passwordHash,
+                firstName: "NoIdem",
+                lastName: "User",
+                role: "CUSTOMER",
+                isVerified: true,
+            },
+        });
+
+        const order = await prisma.order.create({
+            data: {
+                userId: user.id,
+                total: "100.00",
+                status: "PENDING",
+                paymentStatus: "PENDING",
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "verified_no_idem@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const res = await request(app)
+            .post("/api/payments/initialize")
+            .set("Authorization", `Bearer ${token}`)
+            .send({ orderId: order.id });
+
+        expect(res.status).toBe(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.code).toBe("IDEMPOTENCY_KEY_REQUIRED");
     });
 });

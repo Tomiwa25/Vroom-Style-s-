@@ -66,7 +66,8 @@ describe("Order API", () => {
 
         const response = await request(app)
             .post("/api/orders")
-            .set("Authorization", `Bearer ${token}`);
+            .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "order-test-create-cart-1");
 
         expect(response.status).toBe(201);
         expect(response.body.success).toBe(true);
@@ -246,6 +247,7 @@ describe("Order API", () => {
         const res = await request(app)
             .post("/api/orders")
             .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "order-test-direct-checkout-1")
             .send({
                 items: [
                     {
@@ -304,6 +306,7 @@ describe("Order API", () => {
         const res = await request(app)
             .post("/api/orders")
             .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "order-test-unverified-checkout-1")
             .send({
                 items: [{ productId: product.id, quantity: 1 }],
             });
@@ -352,6 +355,7 @@ describe("Order API", () => {
         const res = await request(app)
             .post("/api/orders")
             .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "order-test-fallback-cart-1")
             .send({
                 source: "cart",
                 items: [{ productId: product.id, quantity: 2 }],
@@ -404,6 +408,7 @@ describe("Order API", () => {
         const orderRes = await request(app)
             .post("/api/orders")
             .set("Authorization", `Bearer ${token}`)
+            .set("Idempotency-Key", "order-test-pod-order-1")
             .send({
                 source: "items",
                 deliveryMethod: "POD",
@@ -467,6 +472,41 @@ describe("Order API", () => {
 
         expect(response.status).toBe(400);
         expect(response.body.success).toBe(false);
+    });
+
+    it("should reject order checkout without an Idempotency-Key header with 400 IDEMPOTENCY_KEY_REQUIRED", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+        await prisma.user.create({
+            data: {
+                email: "missing_idem@example.com",
+                password: passwordHash,
+                firstName: "Idem",
+                lastName: "Check",
+                role: "CUSTOMER",
+                isVerified: true,
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "missing_idem@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const response = await request(app)
+            .post("/api/orders")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                source: "items",
+                items: [{ productId: "11111111-1111-1111-1111-111111111111", quantity: 1 }],
+            });
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+        expect(response.body.code).toBe("IDEMPOTENCY_KEY_REQUIRED");
     });
 });
 

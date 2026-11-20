@@ -23,7 +23,7 @@ router.use(authenticate);
 router.post(
 	"/initialize",
 	requireVerified,
-	idempotencyMiddleware(),
+	idempotencyMiddleware({ required: true }),
 	validateRequest({ body: initializePaymentSchema }),
 	initializePaymentController
 );
