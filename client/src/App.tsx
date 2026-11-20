@@ -128,7 +128,9 @@ function App() {
     try {
       const saved = localStorage.getItem("vroom_theme");
       if (saved === "dark" || saved === "light") return saved;
-    } catch {}
+    } catch {
+      void 0; // Ignore localStorage access failures in private/sandboxed contexts
+    }
     if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
@@ -139,7 +141,9 @@ function App() {
     document.documentElement.setAttribute("data-theme", theme);
     try {
       localStorage.setItem("vroom_theme", theme);
-    } catch {}
+    } catch {
+      void 0; // Ignore localStorage write failures in private/sandboxed contexts
+    }
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
@@ -225,7 +229,7 @@ function App() {
     };
     window.addEventListener("vroom:session-expired", handleSessionExpired);
     return () => window.removeEventListener("vroom:session-expired", handleSessionExpired);
-  }, []);
+  }, [showToast]);
 
   // Persist cart
   useEffect(() => {
