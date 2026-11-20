@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import bcrypt from "bcrypt";
 import request from "supertest";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
@@ -237,5 +238,48 @@ describe("Payment API", () => {
         expect(res.status).toBe(400);
         expect(res.body.success).toBe(false);
         expect(res.body.code).toBe("IDEMPOTENCY_KEY_REQUIRED");
+    });
+
+    it("should reject webhook requests without a signature header with 401", async () => {
+        const res = await request(app)
+            .post("/api/payments/webhook")
+            .send({ event: "charge.success" });
+
+        expect(res.status).toBe(401);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe("Missing webhook signature header");
+    });
+
+    it("should reject webhook requests with an invalid signature with 401", async () => {
+        const payload = JSON.stringify({ event: "charge.success" });
+        const invalidSignature = "a".repeat(128);
+
+        const res = await request(app)
+            .post("/api/payments/webhook")
+            .set("x-paystack-signature", invalidSignature)
+            .set("Content-Type", "application/json")
+            .send(payload);
+
+        expect(res.status).toBe(401);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe("Invalid webhook signature");
+    });
+
+    it("should process webhook with valid HMAC signature", async () => {
+        const secretKey = process.env.PAYSTACK_SECRET_KEY || "sk_test_mock_paystack_secret_key";
+        const payload = JSON.stringify({ event: "other.event", data: {} });
+        const validSignature = crypto
+            .createHmac("sha512", secretKey)
+            .update(Buffer.from(payload))
+            .digest("hex");
+
+        const res = await request(app)
+            .post("/api/payments/webhook")
+            .set("x-paystack-signature", validSignature)
+            .set("Content-Type", "application/json")
+            .send(payload);
+
+        expect(res.status).toBe(200);
+        expect(res.body.success).toBe(true);
     });
 });

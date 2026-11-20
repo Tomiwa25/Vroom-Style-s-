@@ -2,8 +2,6 @@ import crypto from "crypto";
 import { Request, Response } from "express";
 import { processPaystackWebhookEvent } from "../services/payment.service.js";
 
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
-
 /**
  * Gateway Webhook Controller for Paystack.
  * Intercepts HMAC signature at perimeter, verifies authenticity,
@@ -14,7 +12,8 @@ export const paystackWebhookController = async (
 	res: Response,
 ) => {
 	try {
-		if (!PAYSTACK_SECRET_KEY) {
+		const secretKey = process.env.PAYSTACK_SECRET_KEY;
+		if (!secretKey) {
 			res.status(500).json({
 				success: false,
 				message: "Paystack secret key is not configured",
@@ -24,16 +23,24 @@ export const paystackWebhookController = async (
 
 		const signature = req.headers["x-paystack-signature"];
 		const signatureValue = Array.isArray(signature) ? signature[0] : signature;
+
+		if (!signatureValue || typeof signatureValue !== "string") {
+			res.status(401).json({
+				success: false,
+				message: "Missing webhook signature header",
+			});
+			return;
+		}
+
 		const rawBody = Buffer.isBuffer(req.body)
 			? req.body
-			: Buffer.from(JSON.stringify(req.body));
+			: Buffer.from(typeof req.body === "string" ? req.body : JSON.stringify(req.body));
 		const expectedSignature = crypto
-			.createHmac("sha512", PAYSTACK_SECRET_KEY)
+			.createHmac("sha512", secretKey)
 			.update(rawBody)
 			.digest("hex");
 
 		if (
-			typeof signatureValue !== "string" ||
 			signatureValue.length !== expectedSignature.length ||
 			!crypto.timingSafeEqual(
 				Buffer.from(signatureValue),
@@ -55,7 +62,9 @@ export const paystackWebhookController = async (
 
 		res.status(200).json({ success: true });
 	} catch (error) {
-		console.error("Paystack webhook error:", error);
+		if (process.env.NODE_ENV !== "test") {
+			console.error("Paystack webhook error:", error);
+		}
 		res.status(400).json({
 			success: false,
 			message: error instanceof Error ? error.message : "Unable to process webhook",
