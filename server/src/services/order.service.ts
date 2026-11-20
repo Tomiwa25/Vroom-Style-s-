@@ -242,6 +242,7 @@ export const expireStaleUnpaidOrders = async (): Promise<number> => {
         where: {
             status: "PENDING",
             paymentStatus: "PENDING",
+            deliveryMethod: "PAYSTACK",
             stockReleasedAt: null,
             createdAt: { lt: cutoff },
         },
@@ -279,6 +280,7 @@ const expireUserOrders = async (userId: string): Promise<void> => {
             userId,
             status: "PENDING",
             paymentStatus: "PENDING",
+            deliveryMethod: "PAYSTACK",
             stockReleasedAt: null,
             createdAt: { lt: cutoff },
         },

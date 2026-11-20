@@ -4,6 +4,7 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import app from "../src/app.js";
 import prisma from "../src/config/database.js";
 import { cleanDatabase } from "./helper/test-db.js";
+import { expireStaleUnpaidOrders } from "../src/services/order.service.js";
 
 describe("Order API", () => {
     beforeEach(async () => {
@@ -363,6 +364,80 @@ describe("Order API", () => {
 
         const updated = await prisma.product.findUnique({ where: { id: product.id } });
         expect(updated?.stock).toBe(6);
+    });
+
+    it("should protect Payment-on-Delivery (POD) orders from stale unpaid order expiration sweep", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const user = await prisma.user.create({
+            data: {
+                email: "pod_test@example.com",
+                password: passwordHash,
+                firstName: "Pod",
+                lastName: "Customer",
+                role: "CUSTOMER",
+                isVerified: true,
+            },
+        });
+
+        const product = await prisma.product.create({
+            data: {
+                name: "POD Leather Trench",
+                description: "Order reserved with POD",
+                price: "95000.00",
+                image: "https://example.com/trench.jpg",
+                category: "Outerwear",
+                stock: 5,
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "pod_test@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        // Place a real POD order
+        const orderRes = await request(app)
+            .post("/api/orders")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                source: "items",
+                deliveryMethod: "POD",
+                shipping: {
+                    name: "Pod Customer",
+                    phone: "+2348012345678",
+                    address: "15 Victoria Island Road",
+                    city: "Lagos",
+                },
+                items: [{ productId: product.id, quantity: 1 }],
+            });
+
+        expect(orderRes.status).toBe(201);
+        const orderId = orderRes.body.data.id;
+
+        // Age the order artificially to simulate passing the 30-minute expiration window (45 mins ago)
+        const fortyFiveMinutesAgo = new Date(Date.now() - 45 * 60 * 1000);
+        await prisma.order.update({
+            where: { id: orderId },
+            data: { createdAt: fortyFiveMinutesAgo },
+        });
+
+        // Run the background order expiry sweep
+        const cancelledCount = await expireStaleUnpaidOrders();
+        expect(cancelledCount).toBe(0);
+
+        // Verify the POD order remains PENDING and was NOT cancelled
+        const freshOrder = await prisma.order.findUnique({ where: { id: orderId } });
+        expect(freshOrder?.status).toBe("PENDING");
+        expect(freshOrder?.stockReleasedAt).toBeNull();
+
+        // Verify stock is still reserved (was 5, now 4)
+        const productAfterSweep = await prisma.product.findUnique({ where: { id: product.id } });
+        expect(productAfterSweep?.stock).toBe(4);
     });
 });
 
