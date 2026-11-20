@@ -1,62 +1,78 @@
 /* ==========================================================================
-   VROOM STYLES — Haute Warmth Fashion Atelier Design System
-   Warm Ecru Ground • Pure Silk Surface • Terracotta Accent • Bodoni & Jakarta Sans
+   VROOM STYLES — Minimalism & Swiss Style Design System
+   International Typographic Style • High Contrast • Disciplined Grid • Precision Neo-Grotesque
    ========================================================================== */
 
 :root {
-  /* Warm Minimalist Haute Warmth Palette */
-  --page-bg: #faf8f5;
-  --paper: #faf8f5;
+  /* Swiss Minimalist Neutral Core (Light Mode Default) */
+  --page-bg: #fbfbfb;
+  --paper: #ffffff;
   --paper-pure: #ffffff;
-  --paper-warm: #faf8f5;
+  --paper-warm: #f5f5f7;
   --surface: #ffffff;
-  --wash: #f3efea;
-  --wash-deep: #ebe7e1;
+  --wash: #f0f2f5;
+  --wash-deep: #e5e7eb;
 
-  --ink: #141312;
-  --text: #141312;
-  --text-secondary: #4d4843;
-  --graphite: #4d4843;
-  --graphite-soft: #827b73;
-  --muted: #827b73;
-  --muted-light: #aba294;
+  --ink: #0d0e11;
+  --text: #0d0e11;
+  --text-secondary: #475569;
+  --graphite: #334155;
+  --graphite-soft: #64748b;
+  --muted: #64748b;
+  --muted-light: #94a3b8;
 
-  --hairline: #ebe6df;
-  --hairline-strong: #d9d2c7;
-  --line: #ebe6df;
-  --line-subtle: #efeae1;
-  --soft: #f3efea;
-  --soft-hover: #ebe7e1;
+  --hairline: #e2e8f0;
+  --hairline-strong: #cbd5e1;
+  --line: #e2e8f0;
+  --line-subtle: #f1f5f9;
+  --soft: #f8fafc;
+  --soft-hover: #f1f5f9;
 
-  /* Terracotta & Warmth Accents */
-  --accent: #a84b2c;
-  --accent-hover: #893417;
-  --accent-soft: #ffe0d7;
-  --brand-tan: #c59b6d;
-  --brand-tan-hover: #b38858;
-  --brand-tan-light: #f4ece1;
-  --brand-blue: #1e3a5f;
-  --brand-green: #4e6554;
+  /* Swiss Signal Accent (International Vermillion Red) */
+  --accent: #e63946;
+  --accent-hover: #c5221f;
+  --accent-soft: #fee2e2;
+  --brand-tan: #1e293b;
+  --brand-tan-hover: #0f172a;
+  --brand-tan-light: #f1f5f9;
+  --brand-blue: #0284c7;
+  --brand-green: #059669;
 
-  --alert: #9b2c1f;
-  --danger: #9b2c1f;
-  --success: #3e6f58;
+  --alert: #dc2626;
+  --danger: #dc2626;
+  --success: #059669;
 
-  --shadow-sm: 0 2px 6px rgba(35, 30, 20, 0.05);
-  --shadow: 0 8px 24px rgba(35, 30, 20, 0.07);
-  --shadow-lg: 0 20px 48px rgba(35, 30, 20, 0.10);
+  /* Swiss Elevation & Planar Hairlines (Flat, Minimal Shadows) */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --lift: 0 6px 20px rgba(0, 0, 0, 0.09);
 
-  --display: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif;
-  --ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  /* Swiss Geometric Sans Typography */
+  --display: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --ui: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  --t-display: clamp(2.9rem, 6.4vw, 6.2rem);
-  --t-h1: clamp(2rem, 4.4vw, 3.4rem);
-  --t-h2: clamp(1.45rem, 2.4vw, 2rem);
+  /* Scale */
+  --t-display: clamp(2.6rem, 5.8vw, 5.6rem);
+  --t-h1: clamp(1.9rem, 4vw, 3.2rem);
+  --t-h2: clamp(1.35rem, 2.2vw, 1.85rem);
   --t-h3: 1.0625rem;
   --t-body: 0.9375rem;
   --t-small: 0.8125rem;
   --t-label: 0.6875rem;
 
+  /* Swiss Geometry & Radii (Sharp 0px with subtle micro-radii) */
+  --radius-none: 0px;
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 9999px;
+  --radius: 0px;
+
+  /* Spacing Grid (8pt Grid Rhythm) */
   --s1: 4px;
   --s2: 8px;
   --s3: 12px;
@@ -72,20 +88,153 @@
   --max: 1560px;
   --header-h: 68px;
 
+  /* Typographic Letter Spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.12em;
+  --tracking-widest: 0.18em;
+
+  /* Motion: Crisp, Linear / High-Tension Cubic Bézier */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-wipe: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-ui: cubic-bezier(0.32, 0.72, 0, 1);
-  --d-micro: 140ms;
-  --d-ui: 240ms;
-  --d-reveal: 900ms;
-  --d-wipe: 560ms;
-
-  --lift: 0 24px 64px -24px rgba(11, 11, 11, 0.22);
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --d-micro: 120ms;
+  --d-ui: 200ms;
+  --d-reveal: 600ms;
+  --d-wipe: 400ms;
 
   --z-header: 100;
   --z-drawer: 400;
   --z-modal: 500;
   --z-toast: 600;
+}
+
+/* Explicit Light Theme */
+[data-theme="light"] {
+  --page-bg: #fbfbfb;
+  --paper: #ffffff;
+  --paper-pure: #ffffff;
+  --paper-warm: #f5f5f7;
+  --surface: #ffffff;
+  --wash: #f0f2f5;
+  --wash-deep: #e5e7eb;
+
+  --ink: #0d0e11;
+  --text: #0d0e11;
+  --text-secondary: #475569;
+  --graphite: #334155;
+  --graphite-soft: #64748b;
+  --muted: #64748b;
+  --muted-light: #94a3b8;
+
+  --hairline: #e2e8f0;
+  --hairline-strong: #cbd5e1;
+  --line: #e2e8f0;
+  --line-subtle: #f1f5f9;
+  --soft: #f8fafc;
+  --soft-hover: #f1f5f9;
+
+  --accent: #e63946;
+  --accent-hover: #c5221f;
+  --accent-soft: #fee2e2;
+  --brand-tan: #1e293b;
+  --brand-tan-hover: #0f172a;
+  --brand-tan-light: #f1f5f9;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --lift: 0 6px 20px rgba(0, 0, 0, 0.09);
+}
+
+/* Dark Mode Tokens (System & Explicit data-theme="dark") */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page-bg: #090a0c;
+    --paper: #121316;
+    --paper-pure: #16171b;
+    --paper-warm: #181a1f;
+    --surface: #141519;
+    --wash: #1e2026;
+    --wash-deep: #282a32;
+
+    --ink: #f8fafc;
+    --text: #f8fafc;
+    --text-secondary: #94a3b8;
+    --graphite: #cbd5e1;
+    --graphite-soft: #64748b;
+    --muted: #94a3b8;
+    --muted-light: #475569;
+
+    --hairline: #262931;
+    --hairline-strong: #3d424f;
+    --line: #262931;
+    --line-subtle: #1a1c22;
+    --soft: #141519;
+    --soft-hover: #20222a;
+
+    --accent: #ff4d4d;
+    --accent-hover: #ff6b6b;
+    --accent-soft: rgba(255, 77, 77, 0.16);
+    --brand-tan: #94a3b8;
+    --brand-tan-hover: #cbd5e1;
+    --brand-tan-light: #1e293b;
+    --brand-blue: #38bdf8;
+    --brand-green: #34d399;
+
+    --alert: #f87171;
+    --danger: #f87171;
+    --success: #34d399;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 6px 24px rgba(0, 0, 0, 0.65);
+    --lift: 0 8px 28px rgba(0, 0, 0, 0.7);
+  }
+}
+
+[data-theme="dark"] {
+  --page-bg: #090a0c;
+  --paper: #121316;
+  --paper-pure: #16171b;
+  --paper-warm: #181a1f;
+  --surface: #141519;
+  --wash: #1e2026;
+  --wash-deep: #282a32;
+
+  --ink: #f8fafc;
+  --text: #f8fafc;
+  --text-secondary: #94a3b8;
+  --graphite: #cbd5e1;
+  --graphite-soft: #64748b;
+  --muted: #94a3b8;
+  --muted-light: #475569;
+
+  --hairline: #262931;
+  --hairline-strong: #3d424f;
+  --line: #262931;
+  --line-subtle: #1a1c22;
+  --soft: #141519;
+  --soft-hover: #20222a;
+
+  --accent: #ff4d4d;
+  --accent-hover: #ff6b6b;
+  --accent-soft: rgba(255, 77, 77, 0.16);
+  --brand-tan: #94a3b8;
+  --brand-tan-hover: #cbd5e1;
+  --brand-tan-light: #1e293b;
+  --brand-blue: #38bdf8;
+  --brand-green: #34d399;
+
+  --alert: #f87171;
+  --danger: #f87171;
+  --success: #34d399;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 6px 24px rgba(0, 0, 0, 0.65);
+  --lift: 0 8px 28px rgba(0, 0, 0, 0.7);
 }
 
 /* Gallery-white standard: tabular figures only inside the product grid —
@@ -152,8 +301,8 @@ input, select, textarea {
 }
 
 :focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 3px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ---------- Type primitives ---------------------------------------------- */
@@ -405,7 +554,7 @@ select {
   text-align: center;
   font-weight: 500;
   letter-spacing: 0.08em;
-  color: #ded9d1;
+  color: var(--muted-light);
 }
 
 .announcement-actions {
@@ -418,21 +567,21 @@ select {
 .announcement-link-btn {
   background: transparent;
   border: none;
-  color: #ded9d1;
+  color: var(--muted-light);
   font-family: inherit;
   font-size: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
   cursor: pointer;
   padding: 3px 6px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
   transition: color var(--d-micro) ease, background-color var(--d-micro) ease;
 }
 
 .announcement-currency-btn:hover,
 .announcement-link-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .announcement-divider {
@@ -1792,34 +1941,32 @@ select::-ms-expand {
   justify-content: center;
   min-height: 36px;
   padding: 0 16px;
-  border: 1px dashed #000;
-  border-radius: 999px;
-  background: #fff;
-  color: #000;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
   font-family: inherit;
   font-size: 12px;
   line-height: 16px;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  word-spacing: 0.12em;
+  letter-spacing: 0.08em;
   cursor: pointer;
-  transition: background-color 0.25s, color 0.25s, border-style 0.25s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   text-decoration: none;
 }
 
 .pill:hover:not(:disabled),
 .pill[aria-current] {
-  background: #000;
-  color: #fff;
-  border-style: solid;
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
 }
 
 .pill:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
-  border-style: solid;
-  border-color: #ccc;
-  color: #888;
+  border-color: var(--hairline);
+  color: var(--muted-light);
 }
 
 .product-card.is-sold-out .product-card-photo {
@@ -2209,8 +2356,8 @@ select::-ms-expand {
 }
 
 .collection-card.active {
-  border: 2px solid #A84B2C;
-  box-shadow: 0 8px 24px rgba(168, 75, 44, 0.25);
+  border: 2px solid var(--accent);
+  box-shadow: 0 8px 24px rgba(230, 57, 70, 0.25);
 }
 
 .collection-card-img,
@@ -2265,12 +2412,12 @@ select::-ms-expand {
 
 .collection-index {
   position: static;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   font-weight: 600;
-  color: #FAF8F5;
-  background: rgba(17, 17, 17, 0.65);
+  color: var(--paper);
+  background: rgba(17, 17, 17, 0.75);
   backdrop-filter: blur(4px);
   padding: 0.2rem 0.55rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -2278,12 +2425,12 @@ select::-ms-expand {
 }
 
 .collection-count-pill {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #FAF8F5;
-  background: rgba(17, 17, 17, 0.65);
+  color: var(--paper);
+  background: rgba(17, 17, 17, 0.75);
   backdrop-filter: blur(4px);
   padding: 0.2rem 0.55rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -2301,20 +2448,20 @@ select::-ms-expand {
 }
 
 .collection-kicker {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #E89A7F;
+  color: var(--accent);
   font-weight: 600;
 }
 
 .collection-title {
   position: static;
-  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-family: var(--display);
   font-size: 1.625rem;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 1.15;
   color: #FFFFFF !important;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
@@ -2325,11 +2472,11 @@ select::-ms-expand {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #FAF8F5;
+  color: var(--paper);
   margin-top: 0.35rem;
   opacity: 0.85;
   transition: all 0.2s ease;
@@ -2337,7 +2484,7 @@ select::-ms-expand {
 
 .collection-card:hover .collection-explore {
   opacity: 1;
-  color: #E89A7F;
+  color: var(--accent);
   transform: translateX(4px);
 }
 
@@ -10534,12 +10681,12 @@ input[type="radio"] {
 .atelier-drawer-panel {
   width: min(520px, 100vw);
   height: 100%;
-  background: #FAF8F5;
-  color: #111111;
+  background: var(--page-bg);
+  color: var(--ink);
   display: flex;
   flex-direction: column;
-  box-shadow: -12px 0 40px rgba(17, 17, 17, 0.12);
-  border-left: 1px solid #EBE6DF;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
+  border-left: 1px solid var(--hairline);
   animation: atelierPanelSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   overflow: hidden;
 }
@@ -10559,18 +10706,18 @@ input[type="radio"] {
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 1.75rem 1.25rem;
-  background: #FFFFFF;
-  border-bottom: 1px solid #EBE6DF;
+  background: var(--paper);
+  border-bottom: 1px solid var(--hairline);
   flex-shrink: 0;
 }
 
 .atelier-drawer-kicker {
   display: block;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #A84B2C;
+  color: var(--accent);
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
@@ -10582,23 +10729,23 @@ input[type="radio"] {
 }
 
 .atelier-drawer-title {
-  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-family: var(--display);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
-  color: #111111;
+  color: var(--ink);
   margin: 0;
 }
 
 .atelier-drawer-badge {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #4D4843;
-  background: #F3EFEA;
+  color: var(--text-secondary);
+  background: var(--wash);
   padding: 0.2rem 0.55rem;
-  border: 1px solid #EBE6DF;
+  border: 1px solid var(--hairline);
 }
 
 .atelier-drawer-close-btn {
@@ -10606,10 +10753,10 @@ input[type="radio"] {
   align-items: center;
   gap: 0.4rem;
   background: transparent;
-  border: 1px solid #EBE6DF;
+  border: 1px solid var(--hairline);
   padding: 0.45rem 0.75rem;
-  color: #4D4843;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  color: var(--text-secondary);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -10618,9 +10765,9 @@ input[type="radio"] {
 }
 
 .atelier-drawer-close-btn:hover {
-  background: #111111;
-  color: #FAF8F5;
-  border-color: #111111;
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
 }
 
 .atelier-drawer-close-btn .close-icon {
@@ -10630,9 +10777,9 @@ input[type="radio"] {
 
 /* Free Shipping Milestone Tier */
 .atelier-shipping-tier {
-  background: #F3EFEA;
+  background: var(--wash);
   padding: 0.85rem 1.75rem;
-  border-bottom: 1px solid #EBE6DF;
+  border-bottom: 1px solid var(--hairline);
   flex-shrink: 0;
 }
 
@@ -10644,39 +10791,39 @@ input[type="radio"] {
 }
 
 .atelier-shipping-tier-header .tier-icon {
-  color: #A84B2C;
+  color: var(--accent);
   font-size: 0.875rem;
 }
 
 .atelier-shipping-tier-header .tier-text {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
-  color: #111111;
+  color: var(--ink);
   letter-spacing: 0.02em;
   line-height: 1.4;
 }
 
 .atelier-shipping-tier-header .tier-text strong {
   font-weight: 600;
-  color: #111111;
+  color: var(--ink);
 }
 
 .atelier-progress-track {
   width: 100%;
   height: 3px;
-  background: #EBE6DF;
+  background: var(--hairline);
   overflow: hidden;
   position: relative;
 }
 
 .atelier-progress-fill {
   height: 100%;
-  background: #A84B2C;
+  background: var(--accent);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .atelier-progress-fill.unlocked {
-  background: #111111;
+  background: var(--ink);
 }
 
 /* Line Items List */
@@ -10699,34 +10846,34 @@ input[type="radio"] {
 }
 
 .empty-silhouette-icon {
-  color: #A84B2C;
+  color: var(--accent);
   margin-bottom: 1.25rem;
   opacity: 0.85;
 }
 
 .empty-headline {
-  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-family: var(--display);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 600;
   margin: 0 0 0.75rem;
-  color: #111111;
+  color: var(--ink);
 }
 
 .empty-subtext {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.8125rem;
   line-height: 1.6;
-  color: #4D4843;
+  color: var(--text-secondary);
   max-width: 32ch;
   margin: 0 0 1.75rem;
 }
 
 .atelier-browse-btn {
-  background: #111111;
-  color: #FAF8F5;
+  background: var(--ink);
+  color: var(--paper);
   border: none;
   padding: 0.85rem 1.75rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -10736,7 +10883,7 @@ input[type="radio"] {
 }
 
 .atelier-browse-btn:hover {
-  background: #A84B2C;
+  background: var(--accent);
 }
 
 /* Line Items Stack */
@@ -10750,7 +10897,7 @@ input[type="radio"] {
   display: flex;
   gap: 1.25rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #EBE6DF;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .atelier-line-item:last-child {
@@ -10762,8 +10909,8 @@ input[type="radio"] {
   flex-shrink: 0;
   width: 82px;
   height: 108px;
-  background: #F3EFEA;
-  border: 1px solid #EBE6DF;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
   overflow: hidden;
 }
 
@@ -10791,32 +10938,32 @@ input[type="radio"] {
 
 .atelier-item-category {
   display: block;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #A84B2C;
+  color: var(--accent);
   font-weight: 600;
   margin-bottom: 0.2rem;
 }
 
 .atelier-item-name {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.3;
-  color: #111111;
+  color: var(--ink);
   margin: 0;
 }
 
 .atelier-item-remove {
   background: transparent;
   border: none;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #8C847A;
+  color: var(--muted);
   cursor: pointer;
   padding: 0;
   transition: color 0.15s ease;
@@ -10824,7 +10971,7 @@ input[type="radio"] {
 }
 
 .atelier-item-remove:hover {
-  color: #A84B2C;
+  color: var(--accent);
 }
 
 .atelier-item-facets {
@@ -10838,22 +10985,22 @@ input[type="radio"] {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
-  color: #4D4843;
-  background: #FFFFFF;
-  border: 1px solid #EBE6DF;
+  color: var(--text-secondary);
+  background: var(--paper);
+  border: 1px solid var(--hairline);
   padding: 0.15rem 0.5rem;
 }
 
 .facet-chip strong {
-  color: #111111;
+  color: var(--ink);
 }
 
 .facet-chip.color-chip .color-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(0, 0, 0, 0.15);
   display: inline-block;
 }
@@ -10866,27 +11013,27 @@ input[type="radio"] {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #2F6F4E;
+  color: var(--success);
   font-weight: 600;
 }
 
 .pod-tag-eligible .tag-dot {
-  color: #2F6F4E;
+  color: var(--success);
 }
 
 .pod-tag-prepay {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8C847A;
+  color: var(--muted);
 }
 
 .atelier-item-footer {
@@ -10900,8 +11047,8 @@ input[type="radio"] {
 .atelier-qty-stepper {
   display: inline-flex;
   align-items: center;
-  background: #FFFFFF;
-  border: 1px solid #EBE6DF;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
 }
 
 .atelier-qty-stepper .qty-btn {
@@ -10912,27 +11059,27 @@ input[type="radio"] {
   display: grid;
   place-items: center;
   font-size: 0.875rem;
-  color: #111111;
+  color: var(--ink);
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
 .atelier-qty-stepper .qty-btn:hover:not(:disabled) {
-  background: #F3EFEA;
+  background: var(--wash);
 }
 
 .atelier-qty-stepper .qty-btn:disabled {
-  color: #CFC7BD;
+  color: var(--muted-light);
   cursor: not-allowed;
 }
 
 .atelier-qty-stepper .qty-value {
   width: 24px;
   text-align: center;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
   font-weight: 600;
-  color: #111111;
+  color: var(--ink);
 }
 
 .atelier-item-price-col {
@@ -10943,22 +11090,22 @@ input[type="radio"] {
 }
 
 .atelier-item-price-col .unit-price {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
-  color: #8C847A;
+  color: var(--muted);
 }
 
 .atelier-item-price-col .line-total {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #111111;
+  color: var(--ink);
 }
 
 /* Footer Section */
 .atelier-drawer-footer {
-  background: #FFFFFF;
-  border-top: 1px solid #EBE6DF;
+  background: var(--paper);
+  border-top: 1px solid var(--hairline);
   padding: 1.5rem 1.75rem;
   display: flex;
   flex-direction: column;
@@ -10970,8 +11117,8 @@ input[type="radio"] {
 
 /* Gifting Section */
 .atelier-gifting-container {
-  background: #FAF8F5;
-  border: 1px solid #EBE6DF;
+  background: var(--page-bg);
+  border: 1px solid var(--hairline);
   padding: 1rem;
 }
 
@@ -10985,7 +11132,7 @@ input[type="radio"] {
   margin-top: 0.2rem;
   width: 16px;
   height: 16px;
-  accent-color: #A84B2C;
+  accent-color: var(--accent);
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -11003,44 +11150,44 @@ input[type="radio"] {
 }
 
 .gifting-title {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #111111;
+  color: var(--ink);
 }
 
 .gifting-complimentary-pill {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #A84B2C;
-  background: rgba(168, 75, 44, 0.08);
+  color: var(--accent);
+  background: var(--accent-soft);
   padding: 0.15rem 0.45rem;
   font-weight: 600;
 }
 
 .gifting-subtitle {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
   line-height: 1.4;
-  color: #4D4843;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .atelier-calligraphy-field {
   margin-top: 0.85rem;
   padding-top: 0.85rem;
-  border-top: 1px dashed #EBE6DF;
+  border-top: 1px dashed var(--hairline);
 }
 
 .calligraphy-label {
   display: block;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #4D4843;
+  color: var(--text-secondary);
   font-weight: 600;
   margin-bottom: 0.35rem;
 }
@@ -11048,26 +11195,25 @@ input[type="radio"] {
 .calligraphy-input {
   width: 100%;
   box-sizing: border-box;
-  background: #FFFFFF;
-  border: 1px solid #EBE6DF;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
   padding: 0.65rem 0.75rem;
-  font-family: "Georgia", serif;
-  font-style: italic;
+  font-family: var(--ui);
   font-size: 0.8125rem;
-  color: #111111;
+  color: var(--ink);
   resize: vertical;
 }
 
 .calligraphy-input:focus {
   outline: none;
-  border-color: #111111;
+  border-color: var(--ink);
 }
 
 .calligraphy-counter {
   text-align: right;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
-  color: #8C847A;
+  color: var(--muted);
   margin-top: 0.25rem;
 }
 
@@ -11085,27 +11231,27 @@ input[type="radio"] {
 
 .atelier-promo-input {
   flex: 1;
-  background: #FAF8F5;
-  border: 1px solid #EBE6DF;
+  background: var(--page-bg);
+  border: 1px solid var(--hairline);
   padding: 0.65rem 0.85rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
-  color: #111111;
+  color: var(--ink);
   letter-spacing: 0.05em;
 }
 
 .atelier-promo-input:focus {
   outline: none;
-  background: #FFFFFF;
-  border-color: #111111;
+  background: var(--paper);
+  border-color: var(--ink);
 }
 
 .atelier-promo-btn {
-  background: #111111;
-  color: #FAF8F5;
+  background: var(--ink);
+  color: var(--paper);
   border: none;
   padding: 0 1.25rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -11115,21 +11261,21 @@ input[type="radio"] {
 }
 
 .atelier-promo-btn:hover {
-  background: #A84B2C;
+  background: var(--accent);
 }
 
 .atelier-promo-notice {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   margin: 0;
 }
 
 .atelier-promo-notice.status-success {
-  color: #2F6F4E;
+  color: var(--success);
 }
 
 .atelier-promo-notice.status-error {
-  color: #A84B2C;
+  color: var(--alert);
 }
 
 /* Valuation Card */
@@ -11138,20 +11284,20 @@ input[type="radio"] {
   flex-direction: column;
   gap: 0.55rem;
   padding: 1rem 0;
-  border-top: 1px solid #EBE6DF;
-  border-bottom: 1px solid #EBE6DF;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
 }
 
 .valuation-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.8125rem;
 }
 
 .valuation-label {
-  color: #4D4843;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -11161,22 +11307,22 @@ input[type="radio"] {
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #2F6F4E;
-  background: rgba(47, 111, 78, 0.08);
+  color: var(--success);
+  background: rgba(5, 150, 105, 0.08);
   padding: 0.1rem 0.35rem;
 }
 
 .valuation-value {
-  color: #111111;
+  color: var(--ink);
   font-weight: 500;
 }
 
 .valuation-value.discount-text {
-  color: #A84B2C;
+  color: var(--accent);
 }
 
 .valuation-value.complimentary-text {
-  color: #2F6F4E;
+  color: var(--success);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -11186,7 +11332,7 @@ input[type="radio"] {
 .valuation-row.valuation-total {
   margin-top: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid #EBE6DF;
+  border-top: 1px solid var(--hairline);
   align-items: flex-end;
 }
 
@@ -11197,25 +11343,25 @@ input[type="radio"] {
 }
 
 .total-title {
-  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-family: var(--display);
   font-size: 1.125rem;
-  font-weight: 500;
-  color: #111111;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .total-currency-note {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8C847A;
+  color: var(--muted);
 }
 
 .total-amount {
-  font-family: var(--font-display, "Bodoni Moda", serif);
+  font-family: var(--display);
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #111111;
+  font-weight: 700;
+  color: var(--ink);
 }
 
 /* Settlement Suite */
@@ -11236,28 +11382,28 @@ input[type="radio"] {
   align-items: flex-start;
   gap: 0.6rem;
   padding: 0.75rem 0.85rem;
-  background: #FAF8F5;
-  border: 1px solid #EBE6DF;
+  background: var(--page-bg);
+  border: 1px solid var(--hairline);
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .settlement-option:hover {
-  border-color: #111111;
+  border-color: var(--ink);
 }
 
 .settlement-option.selected {
-  background: #FFFFFF;
-  border-color: #111111;
-  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.06);
+  background: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .option-radio {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  border: 1px solid #8C847A;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--muted);
   display: grid;
   place-items: center;
   margin-top: 0.15rem;
@@ -11265,45 +11411,45 @@ input[type="radio"] {
 }
 
 .settlement-option.selected .option-radio {
-  border-color: #A84B2C;
+  border-color: var(--accent);
 }
 
 .option-radio .radio-inner {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
   background: transparent;
 }
 
 .settlement-option.selected .option-radio .radio-inner {
-  background: #A84B2C;
+  background: var(--accent);
 }
 
 .option-text strong {
   display: block;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
   font-weight: 600;
-  color: #111111;
+  color: var(--ink);
   margin-bottom: 0.15rem;
 }
 
 .option-text span {
   display: block;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
-  color: #4D4843;
+  color: var(--text-secondary);
   line-height: 1.3;
 }
 
 /* CTAs */
 .atelier-primary-cta {
   width: 100%;
-  background: #111111;
-  color: #FAF8F5;
+  background: var(--ink);
+  color: var(--paper);
   border: none;
   padding: 1rem 1.5rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.8125rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -11316,11 +11462,11 @@ input[type="radio"] {
 }
 
 .atelier-primary-cta:hover:not(:disabled) {
-  background: #A84B2C;
+  background: var(--accent);
 }
 
 .atelier-primary-cta:disabled {
-  background: #8C847A;
+  background: var(--muted-light);
   cursor: wait;
 }
 
@@ -11367,22 +11513,22 @@ input[type="radio"] {
 
 /* PoD Form */
 .settlement-body-pod {
-  background: #FAF8F5;
-  border: 1px solid #EBE6DF;
+  background: var(--page-bg);
+  border: 1px solid var(--hairline);
   padding: 1rem;
 }
 
 .pod-advisory-box {
-  background: #FFF9F5;
-  border: 1px solid #F0D5C9;
+  background: var(--wash);
+  border: 1px solid var(--hairline);
   padding: 0.85rem;
 }
 
 .advisory-title {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
   font-weight: 600;
-  color: #A84B2C;
+  color: var(--accent);
   margin-bottom: 0.35rem;
   display: flex;
   align-items: center;
@@ -11390,26 +11536,26 @@ input[type="radio"] {
 }
 
 .advisory-text {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
-  color: #4D4843;
+  color: var(--text-secondary);
   margin: 0 0 0.5rem;
 }
 
 .advisory-list {
   margin: 0 0 0.75rem;
   padding-left: 1.25rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
-  color: #111111;
+  color: var(--ink);
 }
 
 .advisory-switch-btn {
-  background: #A84B2C;
-  color: #FAF8F5;
+  background: var(--accent);
+  color: var(--paper);
   border: none;
   padding: 0.5rem 1rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -11424,36 +11570,36 @@ input[type="radio"] {
 }
 
 .pod-banner-note {
-  background: #FFFFFF;
-  border: 1px solid #EBE6DF;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
   padding: 0.75rem;
 }
 
 .badge-doorstep {
   display: inline-block;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #2F6F4E;
+  color: var(--success);
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
 .pod-banner-note p {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
   line-height: 1.4;
-  color: #4D4843;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .pod-error-alert {
-  background: #FFF1EE;
-  border: 1px solid #F3C3B9;
-  color: #A84B2C;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  color: var(--alert);
   padding: 0.5rem 0.75rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.6875rem;
 }
 
@@ -11464,11 +11610,11 @@ input[type="radio"] {
 }
 
 .pod-label {
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #4D4843;
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
@@ -11476,18 +11622,18 @@ input[type="radio"] {
 .pod-text-input {
   width: 100%;
   box-sizing: border-box;
-  background: #FFFFFF;
-  border: 1px solid #EBE6DF;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
   padding: 0.6rem 0.75rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.75rem;
-  color: #111111;
+  color: var(--ink);
 }
 
 .pod-select-input:focus,
 .pod-text-input:focus {
   outline: none;
-  border-color: #111111;
+  border-color: var(--ink);
 }
 
 .pod-cta {
@@ -11500,21 +11646,21 @@ input[type="radio"] {
   justify-content: space-between;
   gap: 0.5rem;
   padding-top: 0.85rem;
-  border-top: 1px solid #EBE6DF;
+  border-top: 1px solid var(--hairline);
 }
 
 .trust-item {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-ui, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--ui);
   font-size: 0.625rem;
-  color: #4D4843;
+  color: var(--text-secondary);
 }
 
 .trust-icon {
   font-size: 0.75rem;
-  color: #A84B2C;
+  color: var(--accent);
 }
 
 /* Mobile responsiveness */

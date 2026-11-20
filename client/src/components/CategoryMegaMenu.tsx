@@ -200,11 +200,11 @@ export const CategoryMegaMenu: React.FC<CategoryMegaMenuProps> = ({
           </div>
 
           {onOpenBecomeSeller && (
-            <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid var(--line, #E6DFD5)", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px" }}>
+            <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px" }}>
               <span style={{ color: "var(--text-secondary)" }}>Independent designer or bespoke Nigerian atelier?</span>
               <button
                 type="button"
-                style={{ background: "none", border: "none", color: "var(--brand-tan, #C59B6D)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}
+                style={{ background: "none", border: "none", color: "var(--accent)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}
                 onClick={() => {
                   setMegaOpen(false);
                   onOpenBecomeSeller();
