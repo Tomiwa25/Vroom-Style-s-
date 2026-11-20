@@ -277,23 +277,30 @@ export const sendOtpVerificationEmail = async ({
         text,
         html,
       });
-      console.log(`[EmailService] Verification email sent to ${to}`);
       return true;
     } catch (err) {
-      console.error(`[EmailService] Failed to send email via SMTP to ${to}:`, err);
-      // Fall through to console log fallback so testing/dev is never blocked
+      if (process.env.NODE_ENV !== "test") {
+        console.error(`[EmailService] Failed to send email via SMTP to ${to}:`, err);
+      }
+      // Fall through to development log driver fallback
     }
   }
 
-  // Log driver output for instant local debugging and MAIL=log
-  const mailDriver = (process.env.MAIL || process.env.MAIL_DRIVER || "log").toUpperCase();
-  console.log("==================================================================");
-  console.log(`[VROOM STYLE(S) ATELIER MAIL DISPATCH - DRIVER: ${mailDriver}]`);
-  console.log(`To: ${to} (${firstName})`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Verification Code: [ ${code} ]`);
-  console.log(`Expires in: 10 minutes`);
-  console.log("==================================================================");
+  // Log driver output for local development only. Strictly redact OTP credentials in production.
+  if (process.env.NODE_ENV !== "production") {
+    const mailDriver = (process.env.MAIL || process.env.MAIL_DRIVER || "log").toUpperCase();
+    const safeOutput = [
+      "==================================================================",
+      `[VROOM STYLE(S) ATELIER MAIL DISPATCH - DRIVER: ${mailDriver}]`,
+      `To: ${to} (${firstName})`,
+      `Subject: ${subject}`,
+      `Verification Code: [ ${code} ]`,
+      `Expires in: 10 minutes`,
+      "==================================================================",
+      "",
+    ].join("\n");
+    process.stdout.write(safeOutput);
+  }
 
   return true;
 };
@@ -430,23 +437,30 @@ export const sendOrderOutForDeliveryEmail = async (
         text,
         html,
       });
-      console.log(`[EmailService] Out-for-delivery email dispatched to ${to}`);
       return true;
     } catch (err) {
-      console.error(`[EmailService] Failed to send delivery email via SMTP to ${to}:`, err);
+      if (process.env.NODE_ENV !== "test") {
+        console.error(`[EmailService] Failed to send delivery email via SMTP to ${to}:`, err);
+      }
     }
   }
 
-  // Console log driver output for local development & test runs
-  const mailDriver = (process.env.MAIL || process.env.MAIL_DRIVER || "log").toUpperCase();
-  console.log("==================================================================");
-  console.log(`[VROOM STYLE(S) DELIVERY DISPATCH NOTIFICATION - DRIVER: ${mailDriver}]`);
-  console.log(`To: ${to} (${firstName})`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Order ID: #${orderId}`);
-  console.log(`Courier: ${carrier || "Vroom Express"}`);
-  console.log(`Delivery Window: ${deliveryDate || "Today"}`);
-  console.log("==================================================================");
+  // Log driver output for local development only.
+  if (process.env.NODE_ENV !== "production") {
+    const mailDriver = (process.env.MAIL || process.env.MAIL_DRIVER || "log").toUpperCase();
+    const safeOutput = [
+      "==================================================================",
+      `[VROOM STYLE(S) DELIVERY DISPATCH NOTIFICATION - DRIVER: ${mailDriver}]`,
+      `To: ${to} (${firstName})`,
+      `Subject: ${subject}`,
+      `Order ID: #${orderId}`,
+      `Courier: ${carrier || "Vroom Express"}`,
+      `Delivery Window: ${deliveryDate || "Today"}`,
+      "==================================================================",
+      "",
+    ].join("\n");
+    process.stdout.write(safeOutput);
+  }
 
   return true;
 };
