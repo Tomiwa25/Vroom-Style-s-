@@ -224,16 +224,16 @@ export const AdminModal: React.FC<AdminModalProps> = ({
               fontSize: "0.85rem",
               background:
                 actionNotice.type === "success"
-                  ? "#ecfdf5"
+                  ? "rgba(5, 150, 105, 0.08)"
                   : actionNotice.type === "error"
-                  ? "#fef2f2"
-                  : "#eff6ff",
+                  ? "var(--accent-soft)"
+                  : "var(--wash)",
               color:
                 actionNotice.type === "success"
-                  ? "#065f46"
+                  ? "var(--success)"
                   : actionNotice.type === "error"
-                  ? "#991b1b"
-                  : "#1e40af",
+                  ? "var(--alert)"
+                  : "var(--ink)",
               borderBottom: "1px solid var(--hairline)",
             }}
           >
@@ -509,7 +509,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                 className="secondary-button"
                 disabled={isCleaningDemo || isGenerating}
                 onClick={handleCleanAllDemo}
-                style={{ color: "#991b1b", borderColor: "#fca5a5" }}
+                style={{ color: "var(--alert)", borderColor: "var(--alert)" }}
                 title="Cleans up all demonstration products while safeguarding legitimate seller items and customer orders"
               >
                 {isCleaningDemo ? "Cleaning Demo Items..." : "🧹 Clean All Demo Products"}

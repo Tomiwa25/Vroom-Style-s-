@@ -123,6 +123,33 @@ function App() {
   const [lightboxProduct, setLightboxProduct] = useState<Product | null>(null);
   const [lightboxInitialIndex, setLightboxInitialIndex] = useState<number>(0);
 
+  // Theme Management (Minimalism & Swiss Style Light / Dark mode)
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    try {
+      const saved = localStorage.getItem("vroom_theme");
+      if (saved === "dark" || saved === "light") return saved;
+    } catch {
+      void 0; // Ignore localStorage access failures in private/sandboxed contexts
+    }
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("vroom_theme", theme);
+    } catch {
+      void 0; // Ignore localStorage write failures in private/sandboxed contexts
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  }, []);
+
   const handleOpenLightbox = useCallback(
     (product: Product, initialIndex = 0) => {
       recordView(product);
@@ -202,7 +229,7 @@ function App() {
     };
     window.addEventListener("vroom:session-expired", handleSessionExpired);
     return () => window.removeEventListener("vroom:session-expired", handleSessionExpired);
-  }, []);
+  }, [showToast]);
 
   // Persist cart
   useEffect(() => {
@@ -873,6 +900,16 @@ function App() {
             Complimentary worldwide express shipping on orders over ₦150,000 / $120 • Autumn / Winter Atelier Capsule
           </span>
           <div className="announcement-actions">
+            <button
+              type="button"
+              className="announcement-currency-btn"
+              onClick={toggleTheme}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              aria-label="Toggle visual theme"
+            >
+              <span>{theme === "dark" ? "☀ LIGHT" : "☾ DARK"}</span>
+            </button>
+            <span className="announcement-divider">•</span>
             <button
               type="button"
               className="announcement-currency-btn"

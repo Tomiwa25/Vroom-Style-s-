@@ -518,7 +518,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
             onClick={() => setActiveTab("inventory")}
           >
             <span>📦 Inventory & 3-Angle Drops</span>
-            <span style={{ fontSize: "11px", background: "var(--brand-tan)", color: "#fff", padding: "1px 6px", borderRadius: "10px", marginLeft: "6px" }}>
+            <span style={{ fontSize: "11px", background: "var(--brand-tan)", color: "#fff", padding: "1px 6px", borderRadius: "var(--radius-sm)", marginLeft: "6px" }}>
               {listings.length}
             </span>
           </button>
@@ -528,7 +528,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
             onClick={() => setActiveTab("orders")}
           >
             <span>🚚 Orders & Dispatch</span>
-            <span style={{ fontSize: "11px", background: "var(--brand-blue)", color: "#fff", padding: "1px 6px", borderRadius: "10px", marginLeft: "6px" }}>
+            <span style={{ fontSize: "11px", background: "var(--brand-blue)", color: "#fff", padding: "1px 6px", borderRadius: "var(--radius-sm)", marginLeft: "6px" }}>
               {vendorOrders.filter((o) => o.fulfillmentStatus === "PENDING_DISPATCH").length} New
             </span>
           </button>
@@ -552,16 +552,16 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
         {activeTab === "overview" && (
           <div className="vendor-tab-content" style={{ padding: "24px" }}>
             {newMerchantId && (
-              <div style={{ background: "rgba(30, 58, 95, 0.08)", border: "1px solid var(--accent, #1E3A5F)", padding: "14px 18px", borderRadius: "8px", marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ background: "rgba(30, 58, 95, 0.08)", border: "1px solid var(--accent)", padding: "14px 18px", borderRadius: "var(--radius-sm)", marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div>
-                  <strong style={{ color: "var(--accent, #1E3A5F)", fontSize: "14px" }}>🎉 Congratulations! Store onboarded with Merchant ID: {newMerchantId}</strong>
+                  <strong style={{ color: "var(--accent)", fontSize: "14px" }}>🎉 Congratulations! Store onboarded with Merchant ID: {newMerchantId}</strong>
                   <p style={{ margin: "2px 0 0", fontSize: "12px", color: "var(--text-secondary)" }}>
                     Your store is verified on the VroomStyle network. You can now publish 3-angle drops and receive Paystack payouts.
                   </p>
                 </div>
                 <button
                   type="button"
-                  style={{ background: "var(--accent, #1E3A5F)", color: "#fff", border: "none", padding: "6px 12px", borderRadius: "6px", fontSize: "11px", fontWeight: 700, cursor: "pointer" }}
+                  style={{ background: "var(--accent)", color: "#fff", border: "none", padding: "6px 12px", borderRadius: "var(--radius-sm)", fontSize: "11px", fontWeight: 700, cursor: "pointer" }}
                   onClick={() => setNewMerchantId(null)}
                 >
                   Dismiss
@@ -570,16 +570,16 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
             )}
 
             {/* Store Identification Bar */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "var(--paper-warm, #FAF8F4)", border: "1px solid var(--line, #E6DFD5)", padding: "16px 20px", borderRadius: "10px", marginBottom: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "var(--paper-warm)", border: "1px solid var(--line)", padding: "16px 20px", borderRadius: "var(--radius-sm)", marginBottom: "20px" }}>
               <div>
                 <div style={{ display: "flex", gap: "8px", alignItems: "center", marginBottom: "4px" }}>
-                  <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", background: "var(--accent, #1E3A5F)", color: "#fff", padding: "2px 8px", borderRadius: "4px" }}>
+                  <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", background: "var(--accent)", color: "#fff", padding: "2px 8px", borderRadius: "var(--radius-sm)" }}>
                     3P VERIFIED MERCHANT
                   </span>
                   <span style={{ fontSize: "11px", color: "var(--text-secondary)", fontWeight: 600 }}>
                     ID: {vendorProfile.merchantId}
                   </span>
-                  <span style={{ fontSize: "11px", color: "var(--success, #3E6F58)", fontWeight: 700 }}>
+                  <span style={{ fontSize: "11px", color: "var(--success)", fontWeight: 700 }}>
                     ● 99.4% Fulfillment SLA
                   </span>
                 </div>
@@ -602,44 +602,44 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
 
             {/* Performance KPI Cards */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "24px" }}>
-              <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", padding: "18px", borderRadius: "10px" }}>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px", borderRadius: "var(--radius-sm)" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--text-secondary)", fontWeight: 700, letterSpacing: "0.06em" }}>Gross GMV Sales</span>
                 <h3 style={{ margin: "8px 0 2px", fontSize: "24px", fontWeight: 800 }}>{formatPrice(vendorProfile.totalSalesNGN)}</h3>
-                <span style={{ fontSize: "11px", color: "var(--success, #3E6F58)" }}>+14.2% vs last month</span>
+                <span style={{ fontSize: "11px", color: "var(--success)" }}>+14.2% vs last month</span>
               </div>
 
-              <div style={{ background: "var(--paper, #fff)", border: "2px solid var(--brand-tan, #C59B6D)", padding: "18px", borderRadius: "10px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--brand-tan, #C59B6D)", fontWeight: 700, letterSpacing: "0.06em" }}>Available Payout</span>
-                <h3 style={{ margin: "8px 0 2px", fontSize: "24px", fontWeight: 800, color: "var(--brand-tan, #C59B6D)" }}>{formatPrice(vendorProfile.availablePayoutNGN)}</h3>
+              <div style={{ background: "var(--paper)", border: "2px solid var(--brand-tan)", padding: "18px", borderRadius: "var(--radius-sm)" }}>
+                <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--brand-tan)", fontWeight: 700, letterSpacing: "0.06em" }}>Available Payout</span>
+                <h3 style={{ margin: "8px 0 2px", fontSize: "24px", fontWeight: 800, color: "var(--brand-tan)" }}>{formatPrice(vendorProfile.availablePayoutNGN)}</h3>
                 <button
                   type="button"
-                  style={{ background: "none", border: "none", padding: 0, color: "var(--accent, #1E3A5F)", fontSize: "11px", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}
+                  style={{ background: "none", border: "none", padding: 0, color: "var(--accent)", fontSize: "11px", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}
                   onClick={handleRequestPayout}
                 >
                   Request Paystack Transfer →
                 </button>
               </div>
 
-              <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", padding: "18px", borderRadius: "10px" }}>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px", borderRadius: "var(--radius-sm)" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--text-secondary)", fontWeight: 700, letterSpacing: "0.06em" }}>Orders Settled</span>
                 <h3 style={{ margin: "8px 0 2px", fontSize: "24px", fontWeight: 800 }}>{vendorProfile.totalOrders}</h3>
                 <span style={{ fontSize: "11px", color: "var(--text-secondary)" }}>100% Doorstep SLA</span>
               </div>
 
-              <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", padding: "18px", borderRadius: "10px" }}>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px", borderRadius: "var(--radius-sm)" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", color: "var(--text-secondary)", fontWeight: 700, letterSpacing: "0.06em" }}>360° Live Drops</span>
                 <h3 style={{ margin: "8px 0 2px", fontSize: "24px", fontWeight: 800 }}>{listings.length}</h3>
-                <span style={{ fontSize: "11px", color: "var(--success, #3E6F58)" }}>● All Synchronized</span>
+                <span style={{ fontSize: "11px", color: "var(--success)" }}>● All Synchronized</span>
               </div>
             </div>
 
             {/* Sales Breakdown & Revenue Split Diagram */}
             <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "20px" }}>
-              <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", padding: "20px" }}>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "20px" }}>
                 <h4 style={{ margin: "0 0 14px", fontSize: "14px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   7-Day Sales Volume Velocity
                 </h4>
-                <div style={{ display: "flex", alignItems: "flex-end", gap: "14px", height: "140px", paddingBottom: "10px", borderBottom: "1px solid var(--line, #E6DFD5)" }}>
+                <div style={{ display: "flex", alignItems: "flex-end", gap: "14px", height: "140px", paddingBottom: "10px", borderBottom: "1px solid var(--line)" }}>
                   {[
                     { day: "Mon", val: 320000, h: "45%" },
                     { day: "Tue", val: 450000, h: "60%" },
@@ -651,14 +651,14 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                   ].map((d) => (
                     <div key={d.day} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
                       <span style={{ fontSize: "10px", color: "var(--text-secondary)" }}>{d.val / 1000}k</span>
-                      <div style={{ width: "100%", background: "var(--accent, #1E3A5F)", borderRadius: "4px 4px 0 0", height: d.h }} />
+                      <div style={{ width: "100%", background: "var(--accent)", borderRadius: "4px 4px 0 0", height: d.h }} />
                       <span style={{ fontSize: "11px", fontWeight: 700 }}>{d.day}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", padding: "20px" }}>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "20px" }}>
                 <h4 style={{ margin: "0 0 14px", fontSize: "14px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   Marketplace Settlement Split
                 </h4>
@@ -667,16 +667,16 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <span>Vendor Payout (90%)</span>
                     <strong>{formatPrice(Math.round(vendorProfile.totalSalesNGN * 0.9))}</strong>
                   </div>
-                  <div style={{ width: "100%", height: "8px", background: "var(--soft, #EFEBE2)", borderRadius: "4px", overflow: "hidden" }}>
-                    <div style={{ width: "90%", height: "100%", background: "var(--brand-tan, #C59B6D)" }} />
+                  <div style={{ width: "100%", height: "8px", background: "var(--soft)", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
+                    <div style={{ width: "90%", height: "100%", background: "var(--brand-tan)" }} />
                   </div>
 
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span>Vroom Infrastructure & Logistics (10%)</span>
                     <strong>{formatPrice(Math.round(vendorProfile.totalSalesNGN * 0.1))}</strong>
                   </div>
-                  <div style={{ width: "100%", height: "8px", background: "var(--soft, #EFEBE2)", borderRadius: "4px", overflow: "hidden" }}>
-                    <div style={{ width: "10%", height: "100%", background: "var(--accent, #1E3A5F)" }} />
+                  <div style={{ width: "100%", height: "8px", background: "var(--soft)", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
+                    <div style={{ width: "10%", height: "100%", background: "var(--accent)" }} />
                   </div>
                   <small style={{ fontSize: "11px", color: "var(--muted)", marginTop: "6px" }}>
                     Covers door-to-door express dispatch, Paystack security, and customer returns insurance.
@@ -708,17 +708,17 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
 
             {/* SEPARATE INVENTORY UPLOAD FORM WITH REQUIRED 3-ANGLE PHOTO SLOTS */}
             {isAddingDrop && (
-              <div style={{ background: "var(--paper-warm, #FAF8F4)", border: "2px solid var(--brand-tan, #C59B6D)", borderRadius: "12px", padding: "24px", marginBottom: "28px" }}>
+              <div style={{ background: "var(--paper-warm)", border: "2px solid var(--brand-tan)", borderRadius: "var(--radius-md)", padding: "24px", marginBottom: "28px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
                   <div>
-                    <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-tan, #C59B6D)" }}>
+                    <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-tan)" }}>
                       REQUIRED 360° DIGITAL FITTING PIPELINE
                     </span>
                     <h3 style={{ margin: "2px 0 0", fontSize: "18px", fontWeight: 800 }}>Publish New Marketplace Product</h3>
                   </div>
                   <button
                     type="button"
-                    style={{ background: "none", border: "1px solid var(--line, #E6DFD5)", padding: "4px 10px", borderRadius: "6px", fontSize: "11px", cursor: "pointer", fontWeight: 600 }}
+                    style={{ background: "none", border: "1px solid var(--line)", padding: "4px 10px", borderRadius: "var(--radius-sm)", fontSize: "11px", cursor: "pointer", fontWeight: 600 }}
                     onClick={() => handleCategoryChange(dropCategory)}
                   >
                     ↺ Load Category Triad Presets
@@ -732,7 +732,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Product Title *</label>
                       <input
                         required
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="e.g. Sculpted Mulberry Silk Midi Slip"
                         value={dropTitle}
                         onChange={(e) => setDropTitle(e.target.value)}
@@ -741,7 +741,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <div>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Department Category *</label>
                       <select
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         value={dropCategory}
                         onChange={(e) => handleCategoryChange(e.target.value)}
                       >
@@ -761,7 +761,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <input
                         type="number"
                         required
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="58000"
                         value={dropPrice}
                         onChange={(e) => setDropPrice(e.target.value)}
@@ -771,7 +771,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Original Strikethrough Price (₦)</label>
                       <input
                         type="number"
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="85000"
                         value={dropOriginalPrice}
                         onChange={(e) => setDropOriginalPrice(e.target.value)}
@@ -782,7 +782,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <input
                         type="number"
                         required
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="15"
                         value={dropStock}
                         onChange={(e) => setDropStock(e.target.value)}
@@ -791,9 +791,9 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                   </div>
 
                   {/* THE REQUIRED 3-ANGLE FASHION TRIAD SLOTS SECTION */}
-                  <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", padding: "18px", marginBottom: "18px" }}>
+                  <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "18px", marginBottom: "18px" }}>
                     <div style={{ marginBottom: "14px" }}>
-                      <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", color: "var(--brand-tan, #C59B6D)", letterSpacing: "0.08em" }}>
+                      <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", color: "var(--brand-tan)", letterSpacing: "0.08em" }}>
                         THE FASHION TRIAD (ALL 3 SLOTS REQUIRED)
                       </span>
                       <p style={{ margin: "2px 0 0", fontSize: "12px", color: "var(--text-secondary)" }}>
@@ -803,22 +803,22 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }}>
                       {/* Slot 1: Editorial Lookbook */}
-                      <div style={{ border: "1.5px solid var(--line, #E6DFD5)", borderRadius: "8px", padding: "12px", background: "var(--paper-warm, #FAF8F4)" }}>
+                      <div style={{ border: "1.5px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "12px", background: "var(--paper-warm)" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
                           <strong style={{ fontSize: "12px" }}>📸 Angle 1: Editorial</strong>
-                          <span style={{ fontSize: "10px", background: "var(--brand-tan, #C59B6D)", color: "#fff", padding: "1px 6px", borderRadius: "4px", fontWeight: 700 }}>
+                          <span style={{ fontSize: "10px", background: "var(--brand-tan)", color: "#fff", padding: "1px 6px", borderRadius: "var(--radius-sm)", fontWeight: 700 }}>
                             REQUIRED
                           </span>
                         </div>
                         <span style={{ display: "block", fontSize: "10.5px", color: "var(--muted)", marginBottom: "8px" }}>
                           On-model styling showing fit, drape & motion.
                         </span>
-                        <div style={{ width: "100%", height: "130px", borderRadius: "6px", overflow: "hidden", marginBottom: "8px", background: "#eee" }}>
+                        <div style={{ width: "100%", height: "130px", borderRadius: "var(--radius-sm)", overflow: "hidden", marginBottom: "8px", background: "var(--wash)" }}>
                           <img src={slot1Editorial} alt="Angle 1" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         </div>
                         <input
                           required
-                          style={{ width: "100%", padding: "7px 10px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "11.5px" }}
+                          style={{ width: "100%", padding: "7px 10px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "11.5px" }}
                           placeholder="Editorial image URL"
                           value={slot1Editorial}
                           onChange={(e) => setSlot1Editorial(e.target.value)}
@@ -826,22 +826,22 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       </div>
 
                       {/* Slot 2: Studio Silhouette */}
-                      <div style={{ border: "1.5px solid var(--line, #E6DFD5)", borderRadius: "8px", padding: "12px", background: "var(--paper-warm, #FAF8F4)" }}>
+                      <div style={{ border: "1.5px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "12px", background: "var(--paper-warm)" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
                           <strong style={{ fontSize: "12px" }}>📐 Angle 2: Studio</strong>
-                          <span style={{ fontSize: "10px", background: "var(--brand-tan, #C59B6D)", color: "#fff", padding: "1px 6px", borderRadius: "4px", fontWeight: 700 }}>
+                          <span style={{ fontSize: "10px", background: "var(--brand-tan)", color: "#fff", padding: "1px 6px", borderRadius: "var(--radius-sm)", fontWeight: 700 }}>
                             REQUIRED
                           </span>
                         </div>
                         <span style={{ display: "block", fontSize: "10.5px", color: "var(--muted)", marginBottom: "8px" }}>
                           Clean front or 3/4 studio angle on light ground.
                         </span>
-                        <div style={{ width: "100%", height: "130px", borderRadius: "6px", overflow: "hidden", marginBottom: "8px", background: "#eee" }}>
+                        <div style={{ width: "100%", height: "130px", borderRadius: "var(--radius-sm)", overflow: "hidden", marginBottom: "8px", background: "var(--wash)" }}>
                           <img src={slot2Studio} alt="Angle 2" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         </div>
                         <input
                           required
-                          style={{ width: "100%", padding: "7px 10px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "11.5px" }}
+                          style={{ width: "100%", padding: "7px 10px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "11.5px" }}
                           placeholder="Studio silhouette URL"
                           value={slot2Studio}
                           onChange={(e) => setSlot2Studio(e.target.value)}
@@ -849,22 +849,22 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       </div>
 
                       {/* Slot 3: Macro Craftsmanship Detail */}
-                      <div style={{ border: "1.5px solid var(--line, #E6DFD5)", borderRadius: "8px", padding: "12px", background: "var(--paper-warm, #FAF8F4)" }}>
+                      <div style={{ border: "1.5px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "12px", background: "var(--paper-warm)" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
                           <strong style={{ fontSize: "12px" }}>🔍 Angle 3: Detail</strong>
-                          <span style={{ fontSize: "10px", background: "var(--brand-tan, #C59B6D)", color: "#fff", padding: "1px 6px", borderRadius: "4px", fontWeight: 700 }}>
+                          <span style={{ fontSize: "10px", background: "var(--brand-tan)", color: "#fff", padding: "1px 6px", borderRadius: "var(--radius-sm)", fontWeight: 700 }}>
                             REQUIRED
                           </span>
                         </div>
                         <span style={{ display: "block", fontSize: "10.5px", color: "var(--muted)", marginBottom: "8px" }}>
                           Macro close-up of weave, seam, or hardware.
                         </span>
-                        <div style={{ width: "100%", height: "130px", borderRadius: "6px", overflow: "hidden", marginBottom: "8px", background: "#eee" }}>
+                        <div style={{ width: "100%", height: "130px", borderRadius: "var(--radius-sm)", overflow: "hidden", marginBottom: "8px", background: "var(--wash)" }}>
                           <img src={slot3Detail} alt="Angle 3" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         </div>
                         <input
                           required
-                          style={{ width: "100%", padding: "7px 10px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "11.5px" }}
+                          style={{ width: "100%", padding: "7px 10px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "11.5px" }}
                           placeholder="Craftsmanship macro detail URL"
                           value={slot3Detail}
                           onChange={(e) => setSlot3Detail(e.target.value)}
@@ -873,7 +873,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     </div>
 
                     {/* Live Triad Simulator Bar */}
-                    <div style={{ marginTop: "14px", padding: "10px 14px", background: "var(--soft, #EFEBE2)", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ marginTop: "14px", padding: "10px 14px", background: "var(--soft)", borderRadius: "var(--radius-sm)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <span style={{ fontSize: "11.5px", fontWeight: 700, color: "var(--text)" }}>
                         ⇄ Live 360° Triad Simulator Test:
                       </span>
@@ -883,11 +883,11 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                             key={idx}
                             type="button"
                             style={{
-                              background: previewAngleIndex === idx ? "var(--accent, #1E3A5F)" : "var(--paper, #fff)",
+                              background: previewAngleIndex === idx ? "var(--accent)" : "var(--paper)",
                               color: previewAngleIndex === idx ? "#fff" : "var(--text)",
-                              border: "1px solid var(--line, #E6DFD5)",
+                              border: "1px solid var(--line)",
                               padding: "4px 10px",
-                              borderRadius: "4px",
+                              borderRadius: "var(--radius-sm)",
                               fontSize: "11px",
                               fontWeight: 600,
                               cursor: "pointer",
@@ -906,7 +906,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <div>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Material Composition *</label>
                       <input
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="e.g. 100% Organic Mulberry Silk & Linen"
                         value={dropMaterial}
                         onChange={(e) => setDropMaterial(e.target.value)}
@@ -915,7 +915,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <div>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Fit Guide *</label>
                       <select
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         value={dropFitGuide}
                         onChange={(e) => setDropFitGuide(e.target.value as "True to Size" | "Runs Small" | "Runs Large")}
                       >
@@ -930,7 +930,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <div>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Warranty & Guarantee *</label>
                       <select
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         value={dropWarranty}
                         onChange={(e) => setDropWarranty(e.target.value)}
                       >
@@ -943,7 +943,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <div>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Bundled Incentive / Gift (Optional)</label>
                       <input
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="e.g. + FREE SILK CARE KIT or + DUST BAG"
                         value={dropBundledIncentive}
                         onChange={(e) => setDropBundledIncentive(e.target.value)}
@@ -968,10 +968,10 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
             )}
 
             {/* Active Inventory Listings Table with Live Stock Steppers */}
-            <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", overflow: "hidden" }}>
+            <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
                 <thead>
-                  <tr style={{ background: "var(--soft, #EFEBE2)", borderBottom: "1px solid var(--line, #E6DFD5)" }}>
+                  <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--line)" }}>
                     <th style={{ padding: "12px 16px" }}>Item & Triad Angles</th>
                     <th style={{ padding: "12px 16px" }}>Category</th>
                     <th style={{ padding: "12px 16px" }}>Selling Price</th>
@@ -982,7 +982,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                 </thead>
                 <tbody>
                   {listings.map((item) => (
-                    <tr key={item.id} style={{ borderBottom: "1px solid var(--line, #E6DFD5)" }}>
+                    <tr key={item.id} style={{ borderBottom: "1px solid var(--line)" }}>
                       <td style={{ padding: "12px 16px", display: "flex", alignItems: "center", gap: "12px" }}>
                         <div style={{ display: "flex", gap: "2px" }}>
                           {(item.images && item.images.length >= 3 ? item.images : [item.image, item.image, item.image]).slice(0, 3).map((img, i) => (
@@ -990,7 +990,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                               key={i}
                               src={img}
                               alt=""
-                              style={{ width: "32px", height: "42px", objectFit: "cover", borderRadius: "3px", border: "1px solid var(--line, #E6DFD5)" }}
+                              style={{ width: "32px", height: "42px", objectFit: "cover", borderRadius: "3px", border: "1px solid var(--line)" }}
                               title={`Angle ${i + 1}`}
                             />
                           ))}
@@ -1012,7 +1012,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         )}
                       </td>
                       <td style={{ padding: "12px 16px" }}>
-                        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid var(--line, #E6DFD5)", borderRadius: "6px", padding: "2px 8px" }}>
+                        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "2px 8px" }}>
                           <button
                             type="button"
                             style={{ background: "none", border: "none", cursor: "pointer", fontWeight: 800, fontSize: "14px", padding: "0 4px" }}
@@ -1034,7 +1034,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <strong>{item.salesCount || 0} sold</strong>
                       </td>
                       <td style={{ padding: "12px 16px" }}>
-                        <span style={{ fontSize: "11px", fontWeight: 700, color: item.stock > 0 ? "var(--success, #3E6F58)" : "var(--danger, #B84A39)" }}>
+                        <span style={{ fontSize: "11px", fontWeight: 700, color: item.stock > 0 ? "var(--success)" : "var(--danger)" }}>
                           {item.stock > 0 ? "● Live on Catalog" : "● Sold Out"}
                         </span>
                       </td>
@@ -1056,15 +1056,15 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                   Orders are picked and fulfilled by Vroom Express Courier Network with real-time status updates.
                 </span>
               </div>
-              <span style={{ fontSize: "12px", background: "var(--soft, #EFEBE2)", padding: "4px 10px", borderRadius: "6px", fontWeight: 600 }}>
+              <span style={{ fontSize: "12px", background: "var(--soft)", padding: "4px 10px", borderRadius: "var(--radius-sm)", fontWeight: 600 }}>
                 Fulfillment SLA: <strong>24h Doorstep Guarantee</strong>
               </span>
             </div>
 
-            <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", overflow: "hidden" }}>
+            <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", overflow: "hidden" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
                 <thead>
-                  <tr style={{ background: "var(--soft, #EFEBE2)", borderBottom: "1px solid var(--line, #E6DFD5)" }}>
+                  <tr style={{ background: "var(--soft)", borderBottom: "1px solid var(--line)" }}>
                     <th style={{ padding: "12px 16px" }}>Order ID & Customer</th>
                     <th style={{ padding: "12px 16px" }}>Item Ordered</th>
                     <th style={{ padding: "12px 16px" }}>Gross Value</th>
@@ -1075,7 +1075,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                 </thead>
                 <tbody>
                   {vendorOrders.map((ord) => (
-                    <tr key={ord.orderId} style={{ borderBottom: "1px solid var(--line, #E6DFD5)" }}>
+                    <tr key={ord.orderId} style={{ borderBottom: "1px solid var(--line)" }}>
                       <td style={{ padding: "12px 16px" }}>
                         <strong>{ord.orderId}</strong>
                         <div style={{ fontSize: "11px", color: "var(--text-secondary)" }}>
@@ -1094,7 +1094,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <strong>{formatPrice(ord.grossTotalNGN)}</strong>
                       </td>
                       <td style={{ padding: "12px 16px" }}>
-                        <strong style={{ color: "var(--brand-tan, #C59B6D)" }}>{formatPrice(ord.netPayoutNGN)}</strong>
+                        <strong style={{ color: "var(--brand-tan)" }}>{formatPrice(ord.netPayoutNGN)}</strong>
                       </td>
                       <td style={{ padding: "12px 16px" }}>
                         <span
@@ -1102,7 +1102,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                             fontSize: "11px",
                             fontWeight: 700,
                             padding: "3px 8px",
-                            borderRadius: "4px",
+                            borderRadius: "var(--radius-sm)",
                             background:
                               ord.fulfillmentStatus === "DELIVERED"
                                 ? "rgba(62, 111, 88, 0.15)"
@@ -1111,10 +1111,10 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                                 : "rgba(197, 155, 109, 0.2)",
                             color:
                               ord.fulfillmentStatus === "DELIVERED"
-                                ? "var(--success, #3E6F58)"
+                                ? "var(--success)"
                                 : ord.fulfillmentStatus === "IN_TRANSIT"
-                                ? "var(--accent, #1E3A5F)"
-                                : "var(--brand-tan, #C59B6D)",
+                                ? "var(--accent)"
+                                : "var(--brand-tan)",
                           }}
                         >
                           {ord.fulfillmentStatus.replace(/_/g, " ")}
@@ -1152,7 +1152,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                           </button>
                         )}
                         {ord.fulfillmentStatus === "DELIVERED" && (
-                          <span style={{ fontSize: "11px", color: "var(--success, #3E6F58)", fontWeight: 700 }}>
+                          <span style={{ fontSize: "11px", color: "var(--success)", fontWeight: 700 }}>
                             Settled ✓
                           </span>
                         )}
@@ -1169,14 +1169,14 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
         {activeTab === "payouts" && (
           <div className="vendor-tab-content" style={{ padding: "24px" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: "20px", marginBottom: "24px" }}>
-              <div style={{ background: "var(--paper-warm, #FAF8F4)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", padding: "20px" }}>
-                <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "var(--brand-tan, #C59B6D)" }}>
+              <div style={{ background: "var(--paper-warm)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "20px" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "var(--brand-tan)" }}>
                   PAYSTACK NIGERIAN BANK SETTLEMENT
                 </span>
                 <h3 style={{ margin: "6px 0 16px", fontSize: "22px", fontWeight: 800 }}>
                   Available Balance: {formatPrice(vendorProfile.availablePayoutNGN)}
                 </h3>
-                <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", padding: "14px", borderRadius: "8px", marginBottom: "16px" }}>
+                <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "14px", borderRadius: "var(--radius-sm)", marginBottom: "16px" }}>
                   <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginBottom: "4px" }}>Designated Payout Account:</div>
                   <strong style={{ fontSize: "14px" }}>{vendorProfile.bankName}</strong>
                   <div style={{ fontSize: "13px", fontWeight: 600 }}>{vendorProfile.accountNumber} ({vendorProfile.accountName})</div>
@@ -1192,7 +1192,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                 </button>
               </div>
 
-              <div style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "10px", padding: "20px" }}>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "20px" }}>
                 <h4 style={{ margin: "0 0 12px", fontSize: "14px", fontWeight: 700, textTransform: "uppercase" }}>Settlement Policies</h4>
                 <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "12px", color: "var(--text-secondary)", lineHeight: 1.8 }}>
                   <li>90% Net payout on all successful order deliveries.</li>
@@ -1210,7 +1210,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
           <div className="vendor-tab-content" style={{ padding: "24px" }}>
             <div style={{ maxWidth: "680px", margin: "0 auto" }}>
               <div style={{ textAlign: "center", marginBottom: "24px" }}>
-                <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-tan, #C59B6D)" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-tan)" }}>
                   STEP {obStep} OF 3
                 </span>
                 <h3 style={{ margin: "4px 0 6px", fontSize: "22px", fontWeight: 800 }}>Register Store on Vroom Marketplace</h3>
@@ -1219,7 +1219,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                 </p>
               </div>
 
-              <form onSubmit={handleCompleteOnboarding} style={{ background: "var(--paper, #fff)", border: "1px solid var(--line, #E6DFD5)", borderRadius: "12px", padding: "24px" }}>
+              <form onSubmit={handleCompleteOnboarding} style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "var(--radius-md)", padding: "24px" }}>
                 {obStep === 1 && (
                   <div>
                     <h4 style={{ margin: "0 0 14px", fontSize: "14px", fontWeight: 700 }}>Step 1: Store & Brand Profile</h4>
@@ -1228,7 +1228,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Store Name *</label>
                         <input
                           required
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           placeholder="e.g. Atelier Noir Lagos"
                           value={obStoreName}
                           onChange={(e) => setObStoreName(e.target.value)}
@@ -1238,7 +1238,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Contact Person / Brand Lead *</label>
                         <input
                           required
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           placeholder="e.g. Amara Okafor"
                           value={obContact}
                           onChange={(e) => setObContact(e.target.value)}
@@ -1249,7 +1249,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <div>
                         <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Category *</label>
                         <select
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           value={obCategory}
                           onChange={(e) => setObCategory(e.target.value)}
                         >
@@ -1263,7 +1263,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <div>
                         <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Dispatch Hub *</label>
                         <select
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           value={obCity}
                           onChange={(e) => setObCity(e.target.value)}
                         >
@@ -1300,7 +1300,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <input
                           type="email"
                           required
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           placeholder="partner@yourbrand.com"
                           value={obEmail}
                           onChange={(e) => setObEmail(e.target.value)}
@@ -1310,7 +1310,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>WhatsApp Contact Phone *</label>
                         <input
                           required
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           placeholder="+234 800 000 0000"
                           value={obPhone}
                           onChange={(e) => setObPhone(e.target.value)}
@@ -1320,7 +1320,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                     <div style={{ marginBottom: "18px" }}>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>CAC / Registration Number</label>
                       <input
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="RC-1849204 or BN-391024"
                         value={obCacNumber}
                         onChange={(e) => setObCacNumber(e.target.value)}
@@ -1344,7 +1344,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <div>
                         <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Bank Name *</label>
                         <select
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           value={obBank}
                           onChange={(e) => setObBank(e.target.value)}
                         >
@@ -1361,7 +1361,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                         <input
                           required
                           maxLength={10}
-                          style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                          style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                           placeholder="0123456789"
                           value={obAccountNumber}
                           onChange={(e) => setObAccountNumber(e.target.value)}
@@ -1372,7 +1372,7 @@ export const VendorPortalModal: React.FC<VendorPortalModalProps> = ({
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 700, marginBottom: "4px" }}>Account Name (as with bank) *</label>
                       <input
                         required
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: "6px", border: "1px solid var(--line, #E6DFD5)", fontSize: "13px" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: "var(--radius-sm)", border: "1px solid var(--line)", fontSize: "13px" }}
                         placeholder="Atelier Noir Studio Ltd"
                         value={obAccountName}
                         onChange={(e) => setObAccountName(e.target.value)}
