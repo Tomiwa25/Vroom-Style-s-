@@ -4,6 +4,7 @@ import app from "../src/app.js";
 import prisma from "../src/config/database.js";
 import { cleanDatabase } from "./helper/test-db.js";
 import { hashOtp, verifyOtpHash } from "../src/services/auth.service.js";
+import { escapeHtml, generateVroomOtpEmailHtml } from "../src/services/email.service.js";
 
 // Capture dispatch instead of mocking sendOtpVerificationEmail outright, so the
 // rest of the email module (subject/body builders) stays real.
@@ -281,5 +282,29 @@ describe("Authentication & Email Verification", () => {
             });
 
         expect(response.status).toBe(401);
+    });
+
+    it("should sanitize HTML injection in email templates", () => {
+        const maliciousName = "<script>alert('xss')</script>";
+        const escaped = escapeHtml(maliciousName);
+        expect(escaped).toBe("&lt;script&gt;alert(&#039;xss&#039;)&lt;/script&gt;");
+
+        const html = generateVroomOtpEmailHtml(maliciousName, "123456");
+        expect(html).not.toContain("<script>");
+        expect(html).toContain("&lt;script&gt;");
+    });
+
+    it("should reject registration with oversized name or password", async () => {
+        const response = await request(app)
+            .post("/api/auth/register")
+            .send({
+                email: "huge@example.com",
+                password: "a".repeat(101),
+                firstName: "b".repeat(51),
+                lastName: "User",
+            });
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
     });
 });

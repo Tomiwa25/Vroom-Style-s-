@@ -36,9 +36,23 @@ const getTransporter = () => {
 };
 
 /**
+ * Safely escapes HTML entities to prevent HTML injection and XSS in transactional emails.
+ */
+export const escapeHtml = (unsafe: string): string => {
+  return String(unsafe)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
+
+/**
  * Generates an email template styled with Vroom Style(s) luxury atelier aesthetics.
  */
 export const generateVroomOtpEmailHtml = (firstName: string, code: string): string => {
+  const safeName = escapeHtml(firstName || "Valued Member");
+  const safeCode = escapeHtml(code);
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -203,7 +217,7 @@ export const generateVroomOtpEmailHtml = (firstName: string, code: string): stri
       </div>
 
       <div class="content">
-        <div class="greeting">Hello ${firstName || "Valued Member"},</div>
+        <div class="greeting">Hello ${safeName},</div>
         
         <p class="message">
           Welcome to <strong>Vroom Style(s)</strong>. To verify your email address and activate full access to your Atelier membership, please enter the six-digit verification code below:
@@ -211,7 +225,7 @@ export const generateVroomOtpEmailHtml = (firstName: string, code: string): stri
 
         <div class="code-container">
           <div class="code-label">Verification Code</div>
-          <div class="otp-code">${code}</div>
+          <div class="otp-code">${safeCode}</div>
           <div class="code-expires">Valid for 10 minutes</div>
         </div>
 
@@ -303,6 +317,12 @@ export const generateOrderDeliveryEmailHtml = ({
   trackingNumber,
   deliveryDate = "Today between 2:00 PM - 6:00 PM",
 }: Omit<SendDeliveryEmailOptions, "to">): string => {
+  const safeName = escapeHtml(firstName || "Valued Patron");
+  const safeOrderId = escapeHtml(orderId);
+  const safeCarrier = escapeHtml(carrier);
+  const safeTracking = trackingNumber ? escapeHtml(trackingNumber) : "";
+  const safeDate = escapeHtml(deliveryDate);
+
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -338,7 +358,7 @@ export const generateOrderDeliveryEmailHtml = ({
         <div class="brand-title">Vroom Style(s) Atelier</div>
       </div>
       <div class="content">
-        <div class="greeting">Dear ${firstName || "Valued Patron"},</div>
+        <div class="greeting">Dear ${safeName},</div>
         <p class="lead">
           Your bespoke order has been released from our atelier distribution hub and is <strong>out for delivery</strong> today.
         </p>
@@ -346,7 +366,7 @@ export const generateOrderDeliveryEmailHtml = ({
         <div class="delivery-card">
           <div class="detail-row">
             <span class="detail-label">Order Reference:</span>
-            <span class="detail-val">#${orderId}</span>
+            <span class="detail-val">#${safeOrderId}</span>
           </div>
           <div class="detail-row">
             <span class="detail-label">Fulfillment Status:</span>
@@ -354,16 +374,16 @@ export const generateOrderDeliveryEmailHtml = ({
           </div>
           <div class="detail-row">
             <span class="detail-label">Courier Service:</span>
-            <span class="detail-val">${carrier}</span>
+            <span class="detail-val">${safeCarrier}</span>
           </div>
-          ${trackingNumber ? `
+          ${safeTracking ? `
           <div class="detail-row">
             <span class="detail-label">Tracking Number:</span>
-            <span class="detail-val" style="color: #d4af37;">${trackingNumber}</span>
+            <span class="detail-val" style="color: #d4af37;">${safeTracking}</span>
           </div>` : ""}
           <div class="detail-row" style="margin-bottom: 0;">
             <span class="detail-label">Estimated Delivery:</span>
-            <span class="detail-val" style="color: #2ecc71;">${deliveryDate}</span>
+            <span class="detail-val" style="color: #2ecc71;">${safeDate}</span>
           </div>
         </div>
 
