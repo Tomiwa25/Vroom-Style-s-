@@ -28,6 +28,32 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Automatically evict expired JWT tokens upon 401 Unauthorized responses
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      const url = String(error.config?.url || "");
+      const isAuthEndpoint =
+        url.includes("/auth/login") ||
+        url.includes("/auth/register") ||
+        url.includes("/auth/verify-otp");
+
+      // Don't auto-evict on credential errors during sign-in attempts
+      if (!isAuthEndpoint) {
+        try {
+          localStorage.removeItem("vroom_token");
+          localStorage.removeItem("vroom_user");
+        } catch {
+          // Ignore localStorage access errors in private browsing modes
+        }
+        window.dispatchEvent(new CustomEvent("vroom:session-expired"));
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 /**
  * Generate a cryptographically secure client idempotency key for mutating requests (orders, payments).
  */

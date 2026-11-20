@@ -21,7 +21,9 @@ const runSafely = async (name: string, fn: () => Promise<unknown>) => {
   try {
     await fn();
   } catch (err) {
-    console.error(`[Jobs] ${name} failed:`, err);
+    if (process.env.NODE_ENV !== "test") {
+      console.error(`[Jobs] ${name} failed:`, err);
+    }
   }
 };
 
@@ -35,8 +37,8 @@ const startOrderExpiryJob = (): JobHandle => {
   const interval = setInterval(() => {
     void runSafely("order expiry sweep", async () => {
       const cancelled = await expireStaleUnpaidOrders();
-      if (cancelled > 0) {
-        console.log(`[Jobs] Expired ${cancelled} stale unpaid order(s)`);
+      if (cancelled > 0 && process.env.NODE_ENV !== "test") {
+        process.stdout.write(`[Jobs] Expired ${cancelled} stale unpaid order(s)\n`);
       }
     });
   }, ONE_MINUTE);
@@ -51,8 +53,8 @@ const startOrderExpiryJob = (): JobHandle => {
 const startIdempotencyPruneJob = (): JobHandle => {
   const prune = async () => {
     const result = await idempotencyService.pruneExpired();
-    if (result.count > 0) {
-      console.log(`[Jobs] Pruned ${result.count} expired idempotency key(s)`);
+    if (result.count > 0 && process.env.NODE_ENV !== "test") {
+      process.stdout.write(`[Jobs] Pruned ${result.count} expired idempotency key(s)\n`);
     }
   };
 
