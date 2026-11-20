@@ -84,6 +84,23 @@ export const otpVerifyLimiter = rateLimit({
 });
 
 /**
+ * Dedicated search query limiter to mitigate complex query string search DoS.
+ * Defaults to 30 requests per minute per IP.
+ */
+export const searchLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: process.env.RATE_LIMIT_SEARCH_MAX
+    ? parseInt(process.env.RATE_LIMIT_SEARCH_MAX, 10)
+    : 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: () => process.env.NODE_ENV === "test",
+  handler: createRateLimitHandler(
+    "Too many search requests. Please slow down and try again shortly."
+  ),
+});
+
+/**
  * Factory helper for testing rate limiting in integration tests
  */
 export const createTestableLimiter = (options: {

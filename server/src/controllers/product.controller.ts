@@ -39,6 +39,14 @@ export const getProductsController = asyncHandler(async (req: Request, res: Resp
         readString(req.query.search) ??
         readString(req.query.query);
 
+    if (query && query.length > 100) {
+        res.status(400).json({
+            success: false,
+            message: "Search query cannot exceed 100 characters",
+        });
+        return;
+    }
+
     const result = query
         ? await searchProductsService(query, limit, skip, { category })
         : await getProducts(limit, skip, { category });
@@ -89,6 +97,14 @@ export const searchProductsController = asyncHandler(async (req: Request, res: R
         res.status(400).json({
             success: false,
             message: "Search query is required",
+        });
+        return;
+    }
+
+    if (query.length > 100) {
+        res.status(400).json({
+            success: false,
+            message: "Search query cannot exceed 100 characters",
         });
         return;
     }

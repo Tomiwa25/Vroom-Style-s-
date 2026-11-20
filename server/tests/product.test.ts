@@ -19,4 +19,24 @@ describe("Product API", () => {
 
         expect(response.status).toBe(200);
     });
+
+    it("should reject search queries exceeding 100 characters on /search with 400 Bad Request", async () => {
+        const oversizedQuery = "a".repeat(101);
+        const response = await request(app)
+            .get(`/api/products/search?q=${oversizedQuery}`);
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe("Search query cannot exceed 100 characters");
+    });
+
+    it("should reject search queries exceeding 100 characters on / with 400 Bad Request", async () => {
+        const oversizedQuery = "a".repeat(101);
+        const response = await request(app)
+            .get(`/api/products?q=${oversizedQuery}`);
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe("Search query cannot exceed 100 characters");
+    });
 });
