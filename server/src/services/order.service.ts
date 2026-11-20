@@ -37,7 +37,17 @@ interface CheckoutRequest {
 }
 
 export const checkout = async (userId: string, request: CheckoutRequest) => {
-    const { source, deliveryMethod, shipping } = request;
+    const { deliveryMethod, shipping } = request;
+    let source = request.source;
+
+    // Defense-in-depth: If source is "cart" but the client supplied items and has
+    // an empty or uncreated database cart, fulfill directly from the provided items.
+    if (source === "cart" && request.items && request.items.length > 0) {
+        const cart = await findCartForCheckout(userId);
+        if (!cart || cart.items.length === 0) {
+            source = "items";
+        }
+    }
 
     let orderItems: { productId: string; quantity: number; price: number }[];
     let clearCart = false;
@@ -214,9 +224,6 @@ export const cancelOrderAndReleaseStock = async (
             });
         }
 
-        if (reason) {
-            console.log(`[Orders] Released stock for ${orderId}: ${reason}`);
-        }
         return true;
     });
 };

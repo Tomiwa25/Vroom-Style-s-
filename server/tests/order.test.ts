@@ -312,6 +312,58 @@ describe("Order API", () => {
         expect(res.body.requiresVerification).toBe(true);
         expect(res.body.message).toContain("Email verification required");
     });
+
+    it("should gracefully fulfill order from items when client sends source: cart but has no server cart", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const user = await prisma.user.create({
+            data: {
+                email: "fallback_client@example.com",
+                password: passwordHash,
+                firstName: "Fallback",
+                lastName: "Shopper",
+                role: "CUSTOMER",
+                isVerified: true,
+            },
+        });
+
+        const product = await prisma.product.create({
+            data: {
+                name: "Atelier Cashmere Scarf",
+                description: "Client side cart item fallback",
+                price: "45000.00",
+                image: "https://example.com/scarf.jpg",
+                category: "Knitwear",
+                stock: 8,
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "fallback_client@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        // Simulate what the client web app sends: source: "cart" with items, but no DB cart exists
+        const res = await request(app)
+            .post("/api/orders")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                source: "cart",
+                items: [{ productId: product.id, quantity: 2 }],
+            });
+
+        expect(res.status).toBe(201);
+        expect(res.body.success).toBe(true);
+        expect(Number(res.body.data.total)).toBe(90000);
+        expect(res.body.data.items).toHaveLength(1);
+
+        const updated = await prisma.product.findUnique({ where: { id: product.id } });
+        expect(updated?.stock).toBe(6);
+    });
 });
 
 
