@@ -439,6 +439,35 @@ describe("Order API", () => {
         const productAfterSweep = await prisma.product.findUnique({ where: { id: product.id } });
         expect(productAfterSweep?.stock).toBe(4);
     });
+
+    it("should reject tracking request with malformed non-UUID order ID with 400 Bad Request", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+        await prisma.user.create({
+            data: {
+                email: "uuidorder@example.com",
+                password: passwordHash,
+                firstName: "Order",
+                lastName: "Track",
+                role: "CUSTOMER",
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "uuidorder@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const response = await request(app)
+            .get("/api/orders/not-a-valid-uuid/track")
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+    });
 });
 
 

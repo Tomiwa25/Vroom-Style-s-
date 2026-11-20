@@ -70,4 +70,69 @@ describe("Cart API", () => {
         expect(response.body.data.product.id).toBe(product.id);
         expect(response.body.data.quantity).toBe(1);
     });
+
+    it("should reject adding item with a malformed non-UUID productId with 400 Bad Request", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+        await prisma.user.create({
+            data: {
+                email: "uuidcheck@example.com",
+                password: passwordHash,
+                firstName: "UUID",
+                lastName: "Check",
+                role: "CUSTOMER",
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "uuidcheck@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const response = await request(app)
+            .post("/api/cart/items")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                productId: "not-a-valid-uuid",
+                quantity: 1,
+            });
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+    });
+
+    it("should reject cart item updates with a non-UUID parameter with 400 Bad Request", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+        await prisma.user.create({
+            data: {
+                email: "uuidparam@example.com",
+                password: passwordHash,
+                firstName: "Param",
+                lastName: "Check",
+                role: "CUSTOMER",
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "uuidparam@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const response = await request(app)
+            .patch("/api/cart/items/invalid-cart-id")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                quantity: 2,
+            });
+
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+    });
 });

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const addCartItemSchema = z.object({
-  productId: z.string().min(1, "Product ID is required"),
+  productId: z.string().uuid("Product ID must be a valid UUID"),
   quantity: z
     .number({ message: "Quantity must be a valid number" })
     .int("Quantity must be an integer")
@@ -18,5 +18,5 @@ export const updateCartQuantitySchema = z.object({
 });
 
 export const cartItemIdParamSchema = z.object({
-  id: z.string().min(1, "Cart item ID is required"),
+  id: z.string().uuid("Cart item ID must be a valid UUID"),
 });
