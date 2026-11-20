@@ -24,6 +24,7 @@ describe("Order API", () => {
                 firstName: "Customer",
                 lastName: "User",
                 role: "CUSTOMER",
+                isVerified: true,
             },
         });
 
@@ -217,6 +218,7 @@ describe("Order API", () => {
                 firstName: "Direct",
                 lastName: "Shopper",
                 role: "CUSTOMER",
+                isVerified: true,
             },
         });
 
@@ -262,6 +264,53 @@ describe("Order API", () => {
             where: { id: product.id },
         });
         expect(updatedProduct?.stock).toBe(3);
+    });
+
+    it("should reject order checkout if customer email is not verified", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const unverifiedUser = await prisma.user.create({
+            data: {
+                email: "unverified_checkout@example.com",
+                password: passwordHash,
+                firstName: "Unverified",
+                lastName: "User",
+                role: "CUSTOMER",
+                isVerified: false,
+            },
+        });
+
+        const product = await prisma.product.create({
+            data: {
+                name: "Gatekeep Item",
+                description: "Cannot buy without verified email",
+                price: "50.00",
+                image: "https://example.com/gatekeep.jpg",
+                category: "Accessories",
+                stock: 10,
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "unverified_checkout@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const res = await request(app)
+            .post("/api/orders")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                items: [{ productId: product.id, quantity: 1 }],
+            });
+
+        expect(res.status).toBe(403);
+        expect(res.body.success).toBe(false);
+        expect(res.body.requiresVerification).toBe(true);
+        expect(res.body.message).toContain("Email verification required");
     });
 });
 

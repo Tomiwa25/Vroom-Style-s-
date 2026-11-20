@@ -5,6 +5,7 @@ import {
 } from "../controllers/payment.controller.js";
 import { paystackWebhookController } from "../controllers/payment.webhook.controller.js";
 import { authenticate } from "../middleware/auth.middleware.js";
+import { requireVerified } from "../middleware/role.middleware.js";
 import { idempotencyMiddleware } from "../middleware/idempotency.middleware.js";
 import { validateRequest } from "../middleware/validate.middleware.js";
 import {
@@ -21,6 +22,7 @@ router.post("/webhook", paystackWebhookController);
 router.use(authenticate);
 router.post(
 	"/initialize",
+	requireVerified,
 	idempotencyMiddleware(),
 	validateRequest({ body: initializePaymentSchema }),
 	initializePaymentController

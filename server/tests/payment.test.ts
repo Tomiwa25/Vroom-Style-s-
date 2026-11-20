@@ -32,6 +32,7 @@ describe("Payment API", () => {
                 firstName: "Customer",
                 lastName: "User",
                 role: "CUSTOMER",
+                isVerified: true,
             },
         });
 
@@ -150,5 +151,48 @@ describe("Payment API", () => {
 
         paystackPostSpy.mockRestore();
         paystackGetSpy.mockRestore();
+    });
+
+    it("should reject payment initialization if customer email is not verified", async () => {
+        const passwordHash = await bcrypt.hash("secret123", 10);
+
+        const unverifiedUser = await prisma.user.create({
+            data: {
+                email: "unverified_pay@example.com",
+                password: passwordHash,
+                firstName: "Unverified",
+                lastName: "User",
+                role: "CUSTOMER",
+                isVerified: false,
+            },
+        });
+
+        const order = await prisma.order.create({
+            data: {
+                userId: unverifiedUser.id,
+                total: "50.00",
+                status: "PENDING",
+                paymentStatus: "PENDING",
+            },
+        });
+
+        const login = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "unverified_pay@example.com",
+                password: "secret123",
+            });
+
+        const token = login.body.data.token;
+
+        const res = await request(app)
+            .post("/api/payments/initialize")
+            .set("Authorization", `Bearer ${token}`)
+            .send({ orderId: order.id });
+
+        expect(res.status).toBe(403);
+        expect(res.body.success).toBe(false);
+        expect(res.body.requiresVerification).toBe(true);
+        expect(res.body.message).toContain("Email verification required");
     });
 });

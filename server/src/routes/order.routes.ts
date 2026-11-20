@@ -5,6 +5,7 @@ import {
   trackOrderController,
 } from "../controllers/order.controller.js";
 import { authenticate } from "../middleware/auth.middleware.js";
+import { requireVerified } from "../middleware/role.middleware.js";
 import { idempotencyMiddleware } from "../middleware/idempotency.middleware.js";
 import { validateRequest } from "../middleware/validate.middleware.js";
 import {
@@ -19,6 +20,7 @@ router.use(authenticate);
 
 router.post(
   "/",
+  requireVerified,
   idempotencyMiddleware(),
   validateRequest({ body: checkoutSchema }),
   checkoutController
